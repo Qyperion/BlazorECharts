@@ -1,0 +1,123 @@
+@using System.Text.Json
+@using BlazorECharts
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Values
+
+<h1>Chart updates and recreation</h1>
+<p data-testid="ready">@_ready</p>
+<p data-testid="status">@_status</p>
+<p data-testid="error-count">@_errors</p>
+<button @onclick="Patch">Patch</button>
+<button @onclick="ParentRender">Parent render</button>
+<button @onclick="Mutate">Mutate only</button>
+<button @onclick="Apply">Apply mutation</button>
+<button @onclick="NewReference">New reference</button>
+<button @onclick="Add">Add series</button>
+<button @onclick="DefaultRemove">Default remove</button>
+<button @onclick="ReplaceRemove">Replace remove</button>
+<button @onclick="NotMergeRemove">NotMerge remove</button>
+<button @onclick="Dark">Dark theme</button>
+<button @onclick="Toggle">Toggle renderer</button>
+<button @onclick="ThemeAndRenderer">Theme and renderer</button>
+<button @onclick="ExplicitColors">Explicit colors</button>
+<button @onclick="PatchAfter">Patch after recreate</button>
+<button @onclick="() => _hidden = true">Hide</button>
+<button @onclick="() => _hidden = false">Show</button>
+<div class="update-host" style="@(_hidden ? "display:none" : null)">
+<EChart @ref="_chart" Class="update-chart" Style="width:600px;height:300px" Options="_options" InitOptions="_init"
+    Theme="@_theme" OnReady="Ready" OnError="Error" />
+</div>
+
+@code {
+    private EChart? _chart;
+    private ChartOptions _options = Create("[4,8,3]");
+    private ChartInitOptions _init = new();
+    private string? _theme;
+    private string _status = "initial";
+    private int _ready;
+    private int _errors;
+    private bool _svg;
+    private bool _hidden;
+
+    private static ChartOptions Create(string data)
+    {
+        var options = new ChartOptions { Animation = false };
+        using var document = JsonDocument.Parse(
+            "{\"xAxis\":{\"type\":\"category\",\"data\":[\"A\",\"B\",\"C\"]},\"yAxis\":{},\"series\":[{\"id\":\"a\",\"type\":\"bar\",\"data\":"
+                + data
+                + "}]}");
+        foreach (var property in document.RootElement.EnumerateObject())
+            options.AdditionalProperties[property.Name] = EChartsValue.FromJson(property.Value);
+
+        return options;
+    }
+
+    private void Ready(EChartInstance instance) => _ready++;
+
+    private void ParentRender() => _status = "parent render";
+
+    private void Dark() => _theme = "dark";
+
+    private void Error(EChartsError error)
+    {
+        _errors++;
+        _status = error.Message;
+    }
+
+    private async Task Set(string json, string status, SetOptionOptions? settings = null)
+    {
+        using var document = JsonDocument.Parse(json);
+        await _chart!.Instance!.SetOptionAsync(document.RootElement, settings);
+        _status = status;
+    }
+
+    private Task Patch() => Set("""{"customUnknown":{"zero":0,"flag":false,"empty":[]}}""", "patched");
+
+    private Task PatchAfter() => Set("""{"series":[{"id":"a","data":[6,6,6]}]}""", "patched after");
+
+    private void Mutate()
+    {
+        _options.AdditionalProperties["series"] = Create("[9,2,7]").AdditionalProperties["series"];
+        _status = "mutated";
+    }
+
+    private async Task Apply()
+    {
+        await _chart!.UpdateAsync();
+        _status = "applied";
+    }
+
+    private void NewReference()
+    {
+        _options = Create("[1,5,2]");
+        _status = "new reference";
+    }
+
+    private Task Add() => Set("""{"series":[{"id":"b","type":"bar","data":[1,1,1]}]}""", "added");
+
+    private Task DefaultRemove() => Set("""{"series":[{"id":"a","type":"bar","data":[4,8,3]}]}""", "default merge");
+
+    private Task ReplaceRemove() =>
+        Set("""{"series":[{"id":"a","type":"bar","data":[4,8,3]}]}""", "replaced", new() { ReplaceMerge = OneOrMany<string>.One("series") });
+
+    private async Task NotMergeRemove()
+    {
+        await _chart!.Instance!.SetOptionAsync(Create("[4,8,3]"), new() { NotMerge = true });
+        _status = "not merged";
+    }
+
+    private void Toggle()
+    {
+        _svg = !_svg;
+        _init = new() { Renderer = _svg ? "svg" : "canvas" };
+    }
+
+    private void ThemeAndRenderer()
+    {
+        _theme = _theme == "dark" ? null : "dark";
+        Toggle();
+    }
+
+    private Task ExplicitColors() => Set("""{"backgroundColor":"#123456","color":["#abcdef","#fedcba"]}""", "explicit colors");
+}

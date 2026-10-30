@@ -1,0 +1,13 @@
+<section aria-label="Interactive hosting probe">
+    <p>Renderer: <output data-testid="renderer">@RendererInfo.Name</output></p>
+    <p>Interactive: <output data-testid="interactive">@RendererInfo.IsInteractive.ToString().ToLowerInvariant()</output></p>
+    <p>Execution location: <output data-testid="execution-location">@(OperatingSystem.IsBrowser() ? "browser" : "server")</output></p>
+    <p>Count: <output data-testid="count">@count</output></p>
+    <button type="button" data-testid="increment" disabled="@(!RendererInfo.IsInteractive)" @onclick="Increment">Increment</button>
+</section>
+
+@code {
+    private int count;
+
+    private void Increment() => count++;
+}

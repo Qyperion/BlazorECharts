@@ -1,0 +1,282 @@
+@using System.Text.Json
+@using BlazorECharts.Runtime
+@using BlazorECharts.Options
+@using BlazorECharts.Values
+@using BlazorECharts.Events
+@using BlazorECharts.Values.Signatures
+@using Microsoft.JSInterop
+@using Microsoft.Extensions.DependencyInjection
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+<h1>Global API and consumer extension</h1>
+<p data-testid="status">@_status</p><p data-testid="deliveries">@_deliveries</p>
+<button @onclick="() => Run(Initialize)">Retry</button>
+<button @onclick="() => Run(Maps)">Maps</button>
+<button @onclick="() => Run(Connect)">Connect</button>
+<button @onclick="() => Run(Disconnect)">Disconnect</button>
+<button @onclick="() => Run(Highlight)">Highlight</button>
+<button @onclick="() => Run(Helpers)">Helpers</button>
+<button @onclick="() => Run(HelperRegressions)">Helper regressions</button>
+<button @onclick="() => Run(DisposeFirst)">Dispose first</button>
+<button @onclick="() => Run(Conflict)">Conflict</button>
+<button @onclick="() => Run(CustomSeries)">Custom series</button>
+<button @onclick="() => Run(TypedLocale)">Typed locale</button>
+<button @onclick="() => Run(LookupDispose)">Lookup and dispose</button>
+<button @onclick="() => Run(StringMap)">String map</button>
+<div class="global-chart" style="width:500px;height:270px" @ref="_first"></div>
+<div class="global-chart" style="width:500px;height:270px" @ref="_second"></div>
+<div class="locale-chart" style="width:500px;height:120px" @ref="_locale"></div>
+<div class="lookup-chart" style="width:200px;height:100px" @ref="_lookupFirst"></div>
+<div class="lookup-chart" style="width:200px;height:100px" @ref="_lookupSecond"></div>
+@code {
+    private ElementReference _first;
+    private ElementReference _second;
+    private ElementReference _locale;
+    private ElementReference _lookupFirst;
+    private ElementReference _lookupSecond;
+    private EChartsRuntime? _a;
+    private EChartsRuntime? _b;
+    private EChartInstance? _one;
+    private EChartInstance? _two;
+    private EChartInstance? _localeChart;
+    private ChartSubscription? _subscription;
+    private string _status = "waiting";
+    private string _group = "";
+    private int _deliveries;
+    private int _highlights;
+
+    private static JsonElement Parse(string value)
+    {
+        using var d = JsonDocument.Parse(value);
+        return d.RootElement.Clone();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Run(Initialize);
+            StateHasChanged();
+        }
+    }
+
+    private async Task Run(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception e)
+        {
+            _status = "error:" + e.Message;
+        }
+    }
+
+    private EChartsRuntime NewRuntime()
+    {
+        var builder = new ServiceCollection().AddECharts(o => o.MaximumServerResultSize = 4 * 1024 * 1024).AddExtension(new ConsumerExtension());
+        return new(JS, Navigation, builder.Options);
+    }
+
+    private async Task Initialize()
+    {
+        _a ??= NewRuntime();
+        _b ??= NewRuntime();
+        await _a.InitializeAsync();
+        await _b.InitializeAsync();
+        await _a.RegisterThemeAsync("synthetic-theme", new ChartOptions { BackgroundColor = "#f0f4fa" });
+        await _a.RegisterLocaleAsync("SYNTHETIC", Parse("""{"legend":{"selector":{"all":"All synthetic"}}}"""));
+        _one ??= await _a.CreateInstanceAsync(_first, new ChartInitOptions { Locale = "SYNTHETIC" }, "synthetic-theme");
+        _two ??= await _b.CreateInstanceAsync(_second);
+        await _one.SetOptionAsync(new ChartOptions { Animation = false, Series = OneOrMany<SeriesOption>.One(new ConsumerSeries { Data = [3, 7] }) });
+        await _two.SetOptionAsync(new ChartOptions { Animation = false, Series = OneOrMany<SeriesOption>.One(new ConsumerSeries { Data = [3, 7] }) });
+        _subscription ??= await _two.SubscribeAsync(ChartEvents.Highlight, _ => InvokeAsync(() =>
+        {
+            _deliveries++;
+            StateHasChanged();
+        }));
+        _status = "ready";
+    }
+
+    private async Task Maps()
+    {
+        await _a!.RegisterMapAsync(
+            "test-geo",
+            Parse("""{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"name":"A","zero":0,"flag":false},"geometry":{"type":"Polygon","coordinates":[[[0,0],[10,0],[10,10],[0,10],[0,0]]]}}]}"""),
+            Parse("""{"A":{"left":0,"top":0,"width":10}}"""));
+        await _a.RegisterSvgMapAsync(
+            "test-svg",
+            "<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect name='A' x='10' y='10' width='70' height='70'/></svg>");
+        var geo = await _b!.GetMapAsync("test-geo");
+        var svg = await _b.GetMapAsync("test-svg");
+        var missing = await _b.GetMapAsync("missing");
+        await _one!.SetOptionAsync(
+            Parse("""{"animation":false,"series":[{"type":"map","map":"test-geo","data":[{"name":"A","value":3}]}]}"""),
+            true,
+            false);
+        await _two!.SetOptionAsync(
+            Parse("""{"animation":false,"series":[{"type":"map","map":"test-svg","data":[{"name":"A","value":3}]}]}"""),
+            true,
+            false);
+        _status = $"maps:{geo!.IsGeoJson}:{svg!.IsGeoJson}:{missing is null}";
+    }
+
+    private async Task Connect()
+    {
+        _group = await _a!.ConnectAsync([_one!, _two!]);
+        _status = "connected:" + (await _two!.GetGroupAsync() == _group);
+    }
+
+    private async Task Disconnect()
+    {
+        await _a!.DisconnectAsync(_group);
+        _status = "disconnected";
+    }
+
+    private async Task Highlight()
+    {
+        await _one!.DispatchActionAsync(new HighlightAction { SeriesIndex = 0, DataIndex = 0 });
+        _status = "highlighted:" + ++_highlights;
+    }
+
+    // Undocumented helpers are not managed API; they run through the native bridge with upstream-order arguments.
+    private async Task Helpers()
+    {
+        await using var n = await _b!.InvokeNativeAsync("number.round", [EChartsValue.From(1.234), EChartsValue.From(2)]);
+        await using var text = await _b.InvokeNativeAsync("number.round", [EChartsValue.From(1.2), EChartsValue.From(2), EChartsValue.From(true)]);
+        await using var vector = await _b.InvokeNativeAsync(
+            "vector.add",
+            [
+                EChartsValue.Array(EChartsValue.From(0), EChartsValue.From(0)),
+                EChartsValue.Array(EChartsValue.From(1), EChartsValue.From(2)),
+                EChartsValue.Array(EChartsValue.From(3), EChartsValue.From(4)),
+            ]);
+        await using var color = await _b.InvokeNativeAsync(
+            "color.lerp",
+            [EChartsValue.From(.5), EChartsValue.Array(EChartsValue.From("#000"), EChartsValue.From("#fff"))]);
+        _status = $"helpers:{n.Json.GetDouble().ToString(System.Globalization.CultureInfo.InvariantCulture)}:{text.Json.GetString()}:{string.Join(',', vector.Json.EnumerateArray().Select(v => v.GetDouble()))}:{color.Json.GetString()}";
+    }
+
+    private async Task DisposeFirst()
+    {
+        await _a!.DisposeAsync();
+        await using var snapshot = await _two!.GetOptionAsync();
+        _status = "survived:"
+            + BlazorECharts.Serialization.OptionSerializer.Serialize(snapshot.Options, _b!.Serialization).Json
+                .GetProperty("series")[0]
+                .GetProperty("data")[1]
+                .GetDouble();
+    }
+
+    private async Task HelperRegressions()
+    {
+        _b!.Serialization.Register(ConsumerHelperJsonContext.Default.ConsumerHelperData);
+        var data = EChartsValue.From(new ConsumerHelperData("registered", 0, false, []));
+        await using var merged = await _b.InvokeNativeAsync(
+            "zrUtil.mergeAll",
+            [EChartsValue.Array(data, EChartsValue.Object(new Dictionary<string, EChartsValue> { ["extra"] = EChartsValue.From(1) }))]);
+        await using var tail = await _b.InvokeNativeAsync(
+            "zrUtil.slice",
+            [EChartsValue.Array(EChartsValue.From(1), EChartsValue.From(2), EChartsValue.From(3)), EChartsValue.From(1)]);
+        _status = $"regressions:{merged.Json.GetProperty("label").GetString()}:{merged.Json.GetProperty("extra").GetInt32()}:{tail.Json.GetArrayLength()}";
+    }
+
+    private string Registration => new Uri(new Uri(Navigation.BaseUri), "modules/custom-registration.js").AbsoluteUri;
+
+    private async Task CustomSeries()
+    {
+        await _a!.RegisterCustomSeriesAsync("probe-registered", JsFunction.Module<CustomRenderItemSignature>(Registration, "registeredRender"));
+        await _one!.SetOptionAsync(new ChartOptions
+        {
+            Animation = false,
+            Series = OneOrMany<SeriesOption>.Many(
+                new CustomSeriesOption
+                {
+                    CoordinateSystem = "none",
+                    RenderItem = "probe-registered",
+                    Data = BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadCustomSeriesOption(Parse("""{"data":[[0],[1],[2]]}""")).Data,
+                }),
+            Graphic = OneOrMany<GraphicOption?>.Many(
+            [
+                new GraphicRectOption
+                {
+                    Id = "hover",
+                    X = 300,
+                    Y = 150,
+                    Shape = new() { X = 0, Y = 0, Width = 80, Height = 60 },
+                    Style = new() { Fill = "#cc2244" },
+                    OnMouseOver = JsFunction.Module<GraphicOnClickSignature>(Registration, "over"),
+                },
+                new GraphicTextOption { Id = "label", X = 20, Y = 200, Style = new() { Text = "outer" },
+                    TextConfig = new() { Position = "right" } },
+            ]),
+        }, new SetOptionOptions { NotMerge = true });
+        _status = "custom-series";
+    }
+
+    private async Task TypedLocale()
+    {
+        await _a!.RegisterLocaleAsync(
+            "TYPED",
+            new ChartLocaleOption { Legend = new() { Selector = new() { All = "All typed", Inverse = "Inverse typed" } } });
+        _localeChart ??= await _a.CreateInstanceAsync(_locale, new ChartInitOptions { Locale = "TYPED" });
+        await _localeChart.SetOptionAsync(
+            Parse("""{"animation":false,"legend":{"data":["p"],"selector":["all","inverse"]},"series":[{"type":"pie","name":"p","data":[{"name":"p","value":1}]}]}"""),
+            true,
+            false);
+        _status = "locale";
+    }
+
+    private async Task LookupDispose()
+    {
+        var a = await _a!.CreateInstanceAsync(_lookupFirst);
+        var b = await _a.CreateInstanceAsync(_lookupSecond);
+        var option = Parse("""{"animation":false,"series":[{"type":"pie","data":[1,2]}]}""");
+        await a.SetOptionAsync(option, true, false);
+        await b.SetOptionAsync(option, true, false);
+        var byDom = await _a.GetInstanceByDomAsync(_lookupFirst);
+        var foreign = await _b!.GetInstanceByDomAsync(_lookupFirst);
+        var nativeId = await b.GetIdAsync();
+        await using var byId = await _a.InvokeNativeAsync("getInstanceById", [EChartsValue.From(nativeId)]);
+        await _b.DisposeChartAsync(_lookupFirst);
+        await _a.DisposeChartAsync("missing-native-id");
+        var untouched = !a.IsDisposed && !b.IsDisposed;
+        await _a.DisposeChartAsync(nativeId);
+        await using var afterId = await _a.InvokeNativeAsync("getInstanceById", [EChartsValue.From(nativeId)]);
+        await _a.DisposeChartAsync(_lookupFirst);
+        var afterDom = await _a.GetInstanceByDomAsync(_lookupFirst);
+        _status = $"lookup:{ReferenceEquals(byDom, a)}:{foreign is null}:{byId.Bindings.Count == 1}:{untouched}:{b.IsDisposed && afterId.Bindings.Count == 0}:{a.IsDisposed && afterDom is null}";
+    }
+
+    private async Task StringMap()
+    {
+        const string regions = """{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"name":"A"},"geometry":{"type":"Polygon","coordinates":[[[0,0],[10,0],[10,10],[0,10],[0,0]]]}},{"type":"Feature","properties":{"name":"B"},"geometry":{"type":"Polygon","coordinates":[[[20,0],[30,0],[30,10],[20,10],[20,0]]]}}]}""";
+        await _a!.RegisterMapAsync("string-geo", regions, new Dictionary<string, GeoSpecialArea> { ["B"] = new(100, 50, 20, null) });
+        var map = await _b!.GetMapAsync("string-geo");
+        var area = map!.GetSpecialAreas()!["B"];
+        await _one!.SetOptionAsync(
+            Parse("""{"animation":false,"series":[{"type":"map","map":"string-geo","data":[{"name":"A","value":1},{"name":"B","value":2}]}]}"""),
+            true,
+            false);
+        _status = $"string-map:{map.GeoJson!.Value.GetProperty("features").GetArrayLength()}:{area.Left}:{area.Top}:{area.Width}:{area.Height is null}";
+    }
+
+    private async Task Conflict()
+    {
+        await using var runtime = new EChartsRuntime(JS, Navigation, new() { Version = "6.0.0" });
+        await runtime.InitializeAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_subscription is not null)
+            await _subscription.DisposeAsync();
+
+        if (_a is not null)
+            await _a.DisposeAsync();
+
+        if (_b is not null)
+            await _b.DisposeAsync();
+    }
+}

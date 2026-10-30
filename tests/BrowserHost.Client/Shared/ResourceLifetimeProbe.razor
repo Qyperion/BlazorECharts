@@ -1,0 +1,278 @@
+@using System.Text.Json
+@using System.Text.RegularExpressions
+@using BlazorECharts
+@using BlazorECharts.Events
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Values
+@using BlazorECharts.WordCloud
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<h1>Chart resource lifetime</h1>
+<p data-testid="interactive">@RendererInfo.IsInteractive</p>
+<p data-testid="status">@_status</p>
+<p data-testid="ready-count">@_ready</p>
+<p data-testid="cycles">@_cycles</p>
+<p data-testid="finished-count">@_finished</p>
+<p data-testid="error-count">@_errors.Count</p>
+<pre data-testid="errors">@string.Join("\n", _errors)</pre>
+<pre data-testid="result">@_result</pre>
+<nav><a href="@($"harness/resources/{Mode}/away")">Away</a></nav>
+<button @onclick="() => Mount(1)">Mount chart</button>
+<button @onclick="() => Mount(4)">Mount four charts</button>
+<button @onclick="Unmount">Unmount charts</button>
+<button @onclick="RunChurn">Run churn</button>
+<button @onclick="SubscribeFinished">Subscribe finished</button>
+<button @onclick="Burst">Burst updates</button>
+<button @onclick="UpdateDuringStable">Update during stable</button>
+<button @onclick="DisposeDuringExport">Dispose during export</button>
+<button @onclick="DisposeDuringLayout">Dispose during layout</button>
+<div class="resource-host" style="width:@(_width)px">
+    @for (var i = 0; i < _count; i++)
+    {
+        var index = i;
+        <EChart @key="@($"{_mounts}-{index}")" @ref="_charts[index]" Class="resource-chart" Style="height:220px"
+            Options="_options[index]" InitOptions="_init" OnReady="Ready" OnError="Error" />
+    }
+</div>
+<div class="resource-wordcloud" style="width:640px;height:360px" @ref="_cloud"></div>
+
+@code {
+    private const int Seed = SyntheticWorkloads.DefaultSeed;
+    private static readonly TimeSpan Timeout = TimeSpan.FromSeconds(30);
+
+    [Parameter, EditorRequired] public string Mode { get; set; } = "";
+    [Parameter] public bool AutoMount { get; set; }
+    [Parameter] public string? Renderer { get; set; }
+    [Parameter] public int Cycles { get; set; } = 100;
+
+    private readonly EChart?[] _charts = new EChart?[4];
+    private readonly ChartOptions?[] _options = new ChartOptions?[4];
+    private readonly List<string> _errors = [];
+    private ChartInitOptions _init = new();
+    private ElementReference _cloud;
+    private int _count;
+    private int _mounts;
+    private int _ready;
+    private int _cycles;
+    private int _finished;
+    private int _width = 640;
+    private string _status = "idle";
+    private string _result = "";
+    private TaskCompletionSource? _rendered;
+    private TaskCompletionSource? _allReady;
+    private int _expectedReady;
+
+    protected override void OnInitialized()
+    {
+        _init = new() { Renderer = Renderer ?? "canvas" };
+        if (AutoMount)
+            Show(1, cycle => SyntheticWorkloads.Line(Seed + cycle, 2_000, $"visit-{cycle}"));
+    }
+
+    protected override void OnAfterRender(bool firstRender) => _rendered?.TrySetResult();
+
+    private Task RenderAsync()
+    {
+        _rendered = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        StateHasChanged();
+        return _rendered.Task;
+    }
+
+    private void Show(int count, Func<int, ChartOptions> create)
+    {
+        _ready = 0;
+        _expectedReady = count;
+        _allReady = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        _mounts++;
+        _count = count;
+        for (var i = 0; i < count; i++)
+            _options[i] = create(i);
+    }
+
+    private void Ready(EChartInstance instance)
+    {
+        if (++_ready >= _expectedReady)
+            _allReady?.TrySetResult();
+    }
+
+    private void Error(EChartsError error) => _errors.Add($"{error.Code}: {error.Message}");
+
+    private async Task Run(string name, Func<Task> action)
+    {
+        _status = $"{name}: running";
+        try
+        {
+            await action();
+            _status = $"{name}: done";
+        }
+        catch (Exception error)
+        {
+            _status = $"{name}: failed {error.GetType().Name}: {error.Message}";
+        }
+    }
+
+    private async Task Mount(int count)
+    {
+        Show(count, i => SyntheticWorkloads.Line(Seed + i, 10_000, $"chart-{i}"));
+        await RenderAsync();
+        _status = "mounted";
+    }
+
+    private async Task Unmount()
+    {
+        var charts = _charts.Take(_count).OfType<EChart>().ToArray();
+        _count = 0;
+        Array.Clear(_options);
+        Array.Clear(_charts);
+        await RenderAsync();
+        foreach (var chart in charts)
+            await chart.DisposeAsync();
+
+        _status = "unmounted";
+    }
+
+    private Task RunChurn() => Run("churn", async () =>
+    {
+        _cycles = 0;
+        for (var cycle = 0; cycle < Cycles; cycle++)
+        {
+            Show(1, _ => SyntheticWorkloads.Line(Seed + cycle, 2_000, $"cycle-{cycle}"));
+            await RenderAsync();
+            await _allReady!.Task.WaitAsync(Timeout);
+            var chart = _charts[0]!;
+            var instance = chart.Instance!;
+            var subscription = await instance.SubscribeAsync(ChartEvents.Finished, _ => Task.CompletedTask);
+            _options[0] = SyntheticWorkloads.Line(Seed + cycle + 1, 2_000, $"cycle-{cycle}-update");
+            _width = _width == 640 ? 480 : 640;
+            await RenderAsync();
+            await instance.AwaitStableAsync();
+            if (cycle % 10 == 9)
+                _ = await instance.GetDataUrlAsync();
+
+            if (cycle % 2 == 0)
+                await subscription.DisposeAsync();
+
+            await Unmount();
+            _cycles++;
+        }
+    });
+
+    private Task SubscribeFinished() => Run("subscribe", async () =>
+        await _charts[0]!.Instance!.SubscribeAsync(ChartEvents.Finished, _ => InvokeAsync(() =>
+        {
+            _finished++;
+            StateHasChanged();
+        })));
+
+    // Accepted command order decides the final state; an export started during the burst captures the latest revision.
+    // The burst stays below the 64-command queue limit, which is the documented backpressure.
+    private Task Burst() => Run("burst", async () =>
+    {
+        var instance = _charts[0]!.Instance!;
+        var patches = new List<Task>();
+        for (var i = 1; i <= 15; i++)
+        {
+            _options[0] = SyntheticWorkloads.Line(Seed + i, 10_000, $"declarative-{i}");
+            await RenderAsync();
+            patches.Add(instance.SetOptionAsync(Title($"patch-{i}")).AsTask());
+        }
+
+        _options[0] = SyntheticWorkloads.Line(Seed + 999, 10_000, "final");
+        await RenderAsync();
+        var export = instance.RenderToSvgStringAsync().AsTask();
+        for (var i = 1; i <= 20; i++)
+            patches.Add(instance.SetOptionAsync(Title($"export-{i}")).AsTask());
+
+        var svg = await export;
+        await Task.WhenAll(patches);
+        await instance.AwaitStableAsync();
+        _result = JsonSerializer.Serialize(new { exportTitles = Titles(svg), expectedFirst = FirstValue(Seed + 999), patches = patches.Count });
+    });
+
+    // The animated revision keeps the chart unstable while a new reference is accepted.
+    private Task UpdateDuringStable() => Run("update during stable", async () =>
+    {
+        var instance = _charts[0]!.Instance!;
+        _options[0] = Animated(Seed + 1, "before");
+        await RenderAsync();
+        var stable = instance.AwaitStableAsync().AsTask();
+        var export = instance.RenderToSvgStringAsync().AsTask();
+        _options[0] = Animated(Seed + 2, "after");
+        await RenderAsync();
+        await stable;
+        var rendered = await JS.InvokeAsync<string>(
+            "eval",
+            "[...document.querySelectorAll('.resource-chart svg text')].map(t => t.textContent).join('|')");
+        var svg = await export;
+        _result = JsonSerializer.Serialize(
+            new { stableTitles = rendered.Split('|').Where(IsMarker).ToArray(), exportTitles = Titles(svg), expectedFirst = FirstValue(Seed + 2) });
+    });
+
+    private Task DisposeDuringExport() => Run("dispose during export", async () =>
+    {
+        var instance = _charts[0]!.Instance!;
+        _options[0] = Animated(Seed + 3, "exporting");
+        await RenderAsync();
+        var export = instance.GetDataUrlAsync().AsTask();
+        await Unmount();
+        string outcome;
+        try
+        {
+            await export;
+            outcome = "success";
+        }
+        catch (Exception error)
+        {
+            outcome = error.GetType().Name;
+        }
+
+        _result = JsonSerializer.Serialize(new { outcome });
+    });
+
+    private Task DisposeDuringLayout() => Run("dispose during layout", async () =>
+    {
+        await using var runtime = new EChartsRuntime(
+            JS,
+            Navigation,
+            new ServiceCollection().AddECharts(o => o.MaximumServerResultSize = 4 * 1024 * 1024).AddWordCloud().Options);
+        var instance = await runtime.CreateInstanceAsync(_cloud);
+        await instance.SetOptionAsync(SyntheticWorkloads.WordCloud(Seed, 2_000, "layout"));
+        bool running;
+        try
+        {
+            await instance.AwaitStableAsync(new() { Timeout = TimeSpan.FromMilliseconds(1) });
+            running = false;
+        }
+        catch (TimeoutException)
+        {
+            running = true;
+        }
+
+        await instance.DisposeAsync();
+        await Task.Delay(1_000);
+        _result = JsonSerializer.Serialize(new { layoutWasRunning = running });
+    });
+
+    private static ChartOptions Title(string text) => new() { Title = OneOrMany<TitleOption>.One(new() { Text = text }) };
+
+    private static ChartOptions Animated(int seed, string title)
+    {
+        var options = SyntheticWorkloads.Line(seed, 1_000, title);
+        options.Animation = true;
+        options.AnimationDuration = 2_000;
+        options.AnimationDurationUpdate = 2_000;
+        return options;
+    }
+
+    // Mirrors the first point of SyntheticWorkloads.Line for the same seed.
+    private static double FirstValue(int seed) => Math.Round(100 + new Random(seed).NextDouble() - 0.5, 2);
+
+    private static bool IsMarker(string text) => Regex.IsMatch(text, "^(declarative-\\d+|patch-\\d+|export-\\d+|final|before|after|exporting)$");
+
+    private static string[] Titles(string svg) =>
+        Regex.Matches(svg, ">([^<>]+)</text>").Select(match => match.Groups[1].Value).Where(IsMarker).Distinct().ToArray();
+}

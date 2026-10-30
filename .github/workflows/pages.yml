@@ -1,0 +1,73 @@
+# Deploys the standalone WebAssembly demo (samples/BlazorECharts.Standalone) to GitHub Pages.
+#
+# A tag v<version> deploys the demo of that release, as release.yml publishes its packages; a manual run
+# deploys the chosen branch or tag. Pages must build from GitHub Actions, and the github-pages environment
+# must allow the v* tags. The build job only reads; the deploy job alone may write to Pages and request the
+# OIDC token that proves where the site comes from, and it runs no repository code. Actions are pinned to
+# full commit SHAs; the comment names the release.
+name: pages
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deployment at a time; a newer run waits instead of cancelling a deployment in progress.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+
+jobs:
+  build:
+    name: Build the demo site
+    runs-on: windows-2025
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          global-json-file: global.json
+      - name: Install the WebAssembly build tools of the pinned workload set
+        # The workload set pins the WebAssembly pack version of the lock files, as in verify.yml.
+        run: dotnet workload install wasm-tools --version 10.0.403
+      - name: Read the Pages base path
+        id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Publish the demo
+        shell: powershell
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          ./tools/Release/publish-demo.ps1 -SourceRoot $PWD.Path -OutputPath (Join-Path $PWD 'artifacts/pages') -BasePath $env:PAGES_BASE_PATH
+          exit $LASTEXITCODE
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: artifacts/pages/wwwroot
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

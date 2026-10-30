@@ -1,0 +1,10 @@
+@page "/harness/performance/server"
+@rendermode InteractiveServer
+<PageTitle>Server chart performance</PageTitle>
+<PerformanceProbe Workload="@(Workload ?? "line-10k")" Renderer="@Renderer" Seed="@(Seed ?? SyntheticWorkloads.DefaultSeed)" />
+
+@code {
+    [SupplyParameterFromQuery(Name = "workload")] public string? Workload { get; set; }
+    [SupplyParameterFromQuery(Name = "renderer")] public string? Renderer { get; set; }
+    [SupplyParameterFromQuery(Name = "seed")] public int? Seed { get; set; }
+}

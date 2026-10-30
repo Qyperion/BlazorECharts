@@ -1,0 +1,242 @@
+@page "/"
+@using System.Diagnostics
+@using System.Globalization
+@using System.Text.Json
+@using BlazorECharts.Serialization
+@using BlazorECharts.Values.Signatures
+@implements IAsyncDisposable
+@inject EChartsRuntime Runtime
+<h1>Published WebAssembly consumer</h1>
+<p data-testid="status">@_status</p>
+<p data-testid="series">@_series</p>
+<p data-testid="png-length">@_pngLength</p>
+<pre data-testid="png-export" hidden>@_png</pre>
+<pre data-testid="svg-export" hidden>@_svg</pre>
+<p data-testid="clicks">@_clicks</p>
+<p data-testid="last-click">@_lastClick</p>
+<p data-testid="legend">@_legend</p>
+<p data-testid="references">@_references</p>
+<p data-testid="serialization">@_serialization</p>
+<p data-testid="unions">@_unions</p>
+<button @onclick="ToggleLegendAsync">Toggle legend</button>
+<button @onclick="UnsubscribeAsync">Unsubscribe</button>
+<button @onclick="SnapshotReferencesAsync">Snapshot references</button>
+<button @onclick="MeasureSerializationAsync">Measure serialization</button>
+<button @onclick="ReadUnionsAsync">Read unions</button>
+<EChart Class="mixed-chart" Style="width:720px;height:360px" Options="_mixed" InitOptions="_svgRenderer" OnReady="MixedReadyAsync" OnError="Failed" />
+<EChart Class="cloud-chart" Style="width:640px;height:320px" Options="_cloud" OnReady="CloudReadyAsync" OnError="Failed" />
+<div class="lease-chart" style="width:480px;height:240px" @ref="_leaseElement"></div>
+
+@code {
+    private readonly ChartOptions _mixed = ConsumerCharts.Mixed();
+    private readonly ChartOptions _cloud = ConsumerCharts.Cloud();
+    private readonly ChartInitOptions _svgRenderer = new() { Renderer = "svg" };
+    private EChartInstance? _mixedChart;
+    private EChartInstance? _cloudChart;
+    private ElementReference _leaseElement;
+    private ChartSubscription? _click;
+    private ChartSubscription? _legendChanged;
+    private string _status = "loading";
+    private string _series = "";
+    private string _svg = "";
+    private string _png = "";
+    private string _lastClick = "";
+    private string _legend = "";
+    private string _references = "";
+    private string _serialization = "";
+    private string _unions = "";
+    private int _pngLength;
+    private int _clicks;
+    private bool _completing;
+
+    private Task MixedReadyAsync(EChartInstance instance)
+    {
+        _mixedChart = instance;
+        return CompleteAsync();
+    }
+
+    private Task CloudReadyAsync(EChartInstance instance)
+    {
+        _cloudChart = instance;
+        return CompleteAsync();
+    }
+
+    private void Failed(EChartsError error) => _status = $"failed: {error.Code}: {error.Message}";
+
+    private async Task CompleteAsync()
+    {
+        if (_mixedChart is null || _cloudChart is null || _completing)
+            return;
+
+        _completing = true;
+        await RunAsync(async () =>
+        {
+            _click = await _mixedChart.SubscribeAsync(ChartEvents.Click, e => InvokeAsync(() =>
+            {
+                _clicks++;
+                _lastClick = $"{e.SeriesType}|{e.SeriesName}|{e.Name}|{e.DataIndex}|{e.Value?.Json.GetRawText()}";
+                StateHasChanged();
+            }));
+            _legendChanged = await _mixedChart.SubscribeAsync(ChartEvents.LegendSelectChanged, e => InvokeAsync(() =>
+            {
+                _legend = $"{e.Type}|{e.Name}|{string.Join(",", e.Selected!.OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => $"{p.Key}={p.Value}"))}";
+                StateHasChanged();
+            }));
+
+            // Exports run after stable rendering: for the word cloud that is the end of its layout.
+            await _mixedChart.AwaitStableAsync();
+            _svg = await _mixedChart.RenderToSvgStringAsync();
+            await _cloudChart.AwaitStableAsync();
+            _png = await _cloudChart.GetDataUrlAsync();
+            _pngLength = _png.Length;
+            _series = string.Join(";", [.. await ReadSeriesAsync(_mixedChart), .. await ReadSeriesAsync(_cloudChart)]);
+            _status = "ready";
+        });
+    }
+
+    // Reads getOption back through the registered typed readers, including the WordCloud extension.
+    private async Task<string[]> ReadSeriesAsync(EChartInstance chart)
+    {
+        await using var snapshot = await chart.GetOptionAsync();
+        var json = OptionSerializer.Serialize(snapshot.Options, Runtime.Serialization).Json;
+        return [.. json.GetProperty("series").EnumerateArray().Select(item => Describe(Runtime.Serialization.ReadSeries(item)))];
+    }
+
+    private string Describe(SeriesOption series)
+    {
+        var (typed, fields) = series switch
+        {
+            LineSeriesOption s => (s.Smooth is not null && s.Symbol is not null, new[] { "smooth", "symbol" }),
+            BarSeriesOption s => (s.BarWidth is not null && s.Label is not null, new[] { "barWidth" }),
+            ScatterSeriesOption s => (s.DatasetIndex is not null, new[] { "datasetIndex" }),
+            PieSeriesOption s => (s.Radius is not null && s.Center is not null, new[] { "radius", "center" }),
+            WordCloudSeriesOption s => (s.GridSize is not null && s.Shape is not null, new[] { "gridSize", "shape" }),
+            _ => (false, Array.Empty<string>()),
+        };
+        var json = OptionSerializer.Serialize(series, Runtime.Serialization).Json;
+        return series.GetType().Name
+            + (typed ? "" : " untyped")
+            + string.Concat(fields.Select(field => $" {field}={(json.TryGetProperty(field, out var value) ? value.GetRawText() : "missing")}"));
+    }
+
+    private Task ToggleLegendAsync() => RunAsync(async () => await _mixedChart!.DispatchActionAsync(new LegendToggleSelectAction { Name = "line" }));
+
+    private Task UnsubscribeAsync() => RunAsync(async () =>
+    {
+        await _click!.DisposeAsync();
+        await _legendChanged!.DisposeAsync();
+        _status = "unsubscribed";
+    });
+
+    // A native gradient goes through setOption, getOption, a retained lease and a snapshot reapply on an owned chart.
+    // Disposing the gradient result and the chart releases every browser reference they hold.
+    private Task SnapshotReferencesAsync() => RunAsync(async () =>
+    {
+        using var stops = JsonDocument.Parse("""[{"offset":0,"color":"#dbe9f6"},{"offset":1,"color":"#ffffff"}]""");
+        await using (var chart = await Runtime.CreateInstanceAsync(_leaseElement, new ChartInitOptions { Renderer = "svg" }))
+        await using (var gradient = await Runtime.InvokeNativeAsync(
+            "graphic.LinearGradient",
+            [EChartsValue.From(0), EChartsValue.From(0), EChartsValue.From(0), EChartsValue.From(1), EChartsValue.FromJson(stops.RootElement)],
+            construct: true))
+        {
+            var options = ConsumerCharts.Mixed();
+            options.AdditionalProperties["backgroundColor"] = EChartsValue.From(gradient.Reference);
+            await chart.SetOptionAsync(options);
+            await using var snapshot = await chart.GetOptionAsync();
+            var references = snapshot.References.Count;
+            var bindings = snapshot.Bindings.Count;
+            await using (await snapshot.References[0].AcquireLeaseAsync(Runtime.RuntimeId!))
+                await chart.SetOptionAsync(snapshot, new SetOptionOptions { NotMerge = true });
+
+            await chart.AwaitStableAsync();
+            var svg = await chart.RenderToSvgStringAsync();
+            _references = $"references={references} bindings={bindings} labels={svg.Contains("v=18", StringComparison.Ordinal)} gradient={svg.Contains("linearGradient", StringComparison.Ordinal)}";
+        }
+
+        _status = "references-released";
+    });
+
+    // The getOption snapshot read through the generated readers; each union value decodes through its TryGet, without reflection.
+    private Task ReadUnionsAsync() => RunAsync(async () =>
+    {
+        await using var snapshot = await _mixedChart!.GetOptionAsync();
+        var options = snapshot.Options;
+
+        static string Number(double value) => value.ToString(CultureInfo.InvariantCulture);
+
+        var series = options.Series!.Value.Items;
+        var line = (LineSeriesOption)series[0];
+        var bar = (BarSeriesOption)series[1];
+        var pie = (PieSeriesOption)series[3];
+
+        string LineItem(LineSeriesOptionDataItem? item) => item is not { } value ? "null"
+            : value.TryGet(out double number) ? Number(number)
+            : value.TryGet(out LineDataItemOption? model) && model.Value is { } inner && inner.TryGet(out double modelValue)
+                ? $"item:{Number(modelValue)}"
+                : "?";
+
+        string BarItem(BarSeriesOptionDataItem? item) => item is { } value && value.TryGet(out double number) ? Number(number) : "?";
+
+        string PieItem(PieSeriesOptionDataItem? item) => item is { } value && value.TryGet(out double number) ? Number(number) : "?";
+
+        string Text(NumberOrString? item) =>
+            item is not { } value ? "?" : value.TryGet(out string? text) ? text : value.TryGet(out double number) ? Number(number) : "?";
+
+        string Dimension(DimensionDefinitionLoose? item) => item is { } value && value.TryGet(out string? text) ? text : "?";
+
+        var symbol = line.Symbol is { } s && s.TryGet(out string? name) ? name : "?";
+        var size = line.SymbolSize is { } z && z.TryGet(out double pixels) ? Number(pixels) : "?";
+        var smooth = line.Smooth is { } m && m.TryGet(out bool smoothed) ? smoothed.ToString() : "?";
+        var legend = options.Legend!.Value.Items[0] is { } l && l.TryGet(out LegendOption? plain) ? plain : null;
+        var selected = string.Join(
+            ",",
+            (legend?.Selected ?? new OptionDictionary<bool?>()).OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => $"{p.Key}={p.Value}"));
+        _unions = $"line={string.Join(",", line.Data!.Select(LineItem))} symbol={symbol} size={size} smooth={smooth} barWidth={Text(bar.BarWidth)} "
+            + $"bar={string.Join(",", bar.Data!.Select(BarItem))} center={string.Join(",", pie.Center!.Value.Items.Select(Text))} "
+            + $"radius={string.Join(",", pie.Radius!.Value.Items.Select(Text))} pie={string.Join(",", pie.Data!.Select(PieItem))} "
+            + $"dimensions={string.Join(",", options.Dataset!.Value.Items[0].Dimensions!.Select(Dimension))} selected={selected}";
+        _status = "unions";
+    });
+
+    private Task MeasureSerializationAsync() => RunAsync(() =>
+    {
+        var options = ConsumerCharts.LargeLine(100_000);
+        var samples = new List<double>();
+        var points = 0;
+        for (var i = 0; i < 4; i++)
+        {
+            var watch = Stopwatch.StartNew();
+            var prepared = OptionSerializer.Serialize(options, Runtime.Serialization);
+            watch.Stop();
+            points = prepared.Json.GetProperty("series").GetProperty("data").GetArrayLength();
+            if (i > 0)
+                samples.Add(watch.Elapsed.TotalMilliseconds);
+        }
+
+        samples.Sort();
+        _serialization = $"points={points} medianMs={samples[samples.Count / 2]:F1}";
+        _status = "measured";
+        return Task.CompletedTask;
+    });
+
+    private async Task RunAsync(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception error)
+        {
+            _status = $"failed: {error.GetType().Name}: {error.Message}";
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_click is not null)
+            await _click.DisposeAsync();
+
+        if (_legendChanged is not null)
+            await _legendChanged.DisposeAsync();
+    }
+}

@@ -1,0 +1,109 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Values
+@inherits ExampleBase
+@inject EChartsRuntime Runtime
+
+<div class="example-controls" role="group" aria-label="Export">
+    <button type="button" disabled="@(!_connected || IsSvg)" @onclick="ExportPngAsync">PNG of the first chart</button>
+    <button type="button" disabled="@(!_connected || !IsSvg)" @onclick="ExportSvgAsync">SVG of the first chart</button>
+    <button type="button" disabled="@(!_connected || IsSvg)" @onclick="ExportConnectedAsync">Connected PNG of both charts</button>
+</div>
+<p class="example-note">@(IsSvg
+    ? "The SVG renderer exports markup; PNG and connected exports need the Canvas renderer."
+    : "The Canvas renderer exports PNG; switch to SVG to export markup. Connected SVG export fails in ECharts 6.1.0 itself.")</p>
+<div class="example-grid">
+    <EChart Class="example-chart small" Options="_first" InitOptions="InitOptions" OnReady="FirstReadyAsync" OnError="FailAsync" />
+    <EChart Class="example-chart small" Options="_second" InitOptions="InitOptions" OnReady="SecondReadyAsync" OnError="FailAsync" />
+</div>
+@if (_result is not null)
+{
+    <div class="example-output" data-testid="export-result" data-format="@_format" data-length="@_result.Length">
+        <p>@_description</p>
+        <img src="@_imageSource" alt="Exported @_format image of the chart" />
+    </div>
+}
+
+@code {
+    private ChartOptions? _first;
+    private ChartOptions? _second;
+    private EChartInstance? _firstChart;
+    private EChartInstance? _secondChart;
+    private bool _connected;
+    private string? _result;
+    private string? _format;
+    private string? _description;
+    private string? _imageSource;
+
+    private bool IsSvg => Renderer == "svg";
+
+    public static ChartOptions CreateOptions() =>
+        Chart("Sent per weekday", new BarSeriesOption { Name = "Sent", Data = [12, 19, 15, 22, 30, 41, 28] });
+
+    private static ChartOptions SecondOptions() =>
+        Chart("Received per weekday", new LineSeriesOption { Name = "Received", Data = [18, 21, 17, 25, 35, 52, 33] });
+
+    private static ChartOptions Chart(string title, SeriesOption series) => new()
+    {
+        Title = new TitleOption { Text = title, Left = "center" },
+        Tooltip = new TooltipOption { Trigger = "axis" },
+        XAxis = new XAxisCategoryOption { Data = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] },
+        YAxis = new YAxisValueOption(),
+        Series = series,
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _first = Accessible(CreateOptions());
+        _second = Accessible(SecondOptions());
+    }
+
+    private Task FirstReadyAsync(EChartInstance chart)
+    {
+        _firstChart = chart;
+        return ConnectAsync();
+    }
+
+    private Task SecondReadyAsync(EChartInstance chart)
+    {
+        _secondChart = chart;
+        return ConnectAsync();
+    }
+
+    private async Task ConnectAsync()
+    {
+        if (_firstChart is null || _secondChart is null)
+            return;
+
+        // Connected charts share tooltips and actions, and can be exported as one image.
+        await RunAsync(async () =>
+        {
+            await Runtime.ConnectAsync([_firstChart, _secondChart]);
+            _connected = true;
+        });
+        await ReadyAsync([_firstChart, _secondChart]);
+    }
+
+    // Every export waits for a stable layout of the latest accepted options before capturing.
+    private Task ExportPngAsync() => RunAsync(async () =>
+        Show("PNG", await _firstChart!.GetDataUrlAsync(new() { Type = ChartImageFormat.Png, PixelRatio = 2, BackgroundColor = "#ffffff" })));
+
+    private Task ExportSvgAsync() => RunAsync(async () =>
+    {
+        var svg = await _firstChart!.RenderToSvgStringAsync(new() { UseViewBox = true });
+        Show("SVG", svg, "data:image/svg+xml;charset=utf-8," + Uri.EscapeDataString(svg));
+    });
+
+    private Task ExportConnectedAsync() => RunAsync(async () =>
+        Show(
+            "connected PNG",
+            await _firstChart!.GetConnectedDataUrlAsync(new() { Type = ChartImageFormat.Png, ConnectedBackgroundColor = "#ffffff" })));
+
+    private void Show(string format, string result, string? imageSource = null)
+    {
+        _format = format;
+        _result = result;
+        _imageSource = imageSource ?? result;
+        _description = $"Exported {format}: {result.Length.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)} characters.";
+    }
+}

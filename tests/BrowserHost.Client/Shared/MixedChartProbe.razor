@@ -1,0 +1,38 @@
+@using BlazorECharts
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+
+<section>
+    <p data-testid="@($"{Name}-renderer")">@(RendererInfo.IsInteractive ? RendererInfo.Name : "")</p>
+    <p data-testid="@($"{Name}-ready")">@_ready</p>
+    <p data-testid="@($"{Name}-errors")">@_errors</p>
+    <button @onclick="Update">Update @Name</button>
+    <button @onclick="() => _mounted = false">Remove @Name</button>
+    <div style="width:400px;height:240px">
+        @if (_mounted)
+        {
+            <EChart Class="@($"mixed-{Name}")" Style="width:100%;height:100%" Options="_options" OnReady="_ => _ready++" OnError="_ => _errors++" />
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter] public string Name { get; set; } = "";
+
+    private ChartOptions _options = Revision(1);
+    private bool _mounted = true;
+    private int _ready;
+    private int _errors;
+    private int _revision = 1;
+
+    private void Update() => _options = Revision(++_revision);
+
+    private static ChartOptions Revision(int revision) => new()
+    {
+        Animation = false,
+        Title = new TitleOption { Text = revision.ToString(System.Globalization.CultureInfo.InvariantCulture) },
+        XAxis = new XAxisCategoryOption { Data = ["A", "B", "C"] },
+        YAxis = new YAxisValueOption(),
+        Series = new LineSeriesOption { Data = [revision, 2 * revision, 3] },
+    };
+}

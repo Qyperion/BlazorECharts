@@ -1,0 +1,178 @@
+{
+  "formatVersion": 1,
+  "generatedBy": "npm run test:browser -- browser-matrix.spec.ts",
+  "verifiedOn": "2026-10-30",
+  "platform": "win32 x64",
+  "upstream": {
+    "echarts": "6.1.0",
+    "wordcloud": "3.0.0"
+  },
+  "host": "samples/BlazorECharts.Demo, Interactive Server; WebAssembly for the *Wasm scenarios",
+  "statuses": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "NOT_VERIFIED"
+  ],
+  "scenarios": [
+    "CanvasAndSvgRender",
+    "WordCloudCallbacks",
+    "BrushSelectsRange",
+    "PngAndSvgExport",
+    "ViewportAndDevicePixelRatio",
+    "CanvasAndSvgRenderWasm",
+    "PngAndSvgExportWasm"
+  ],
+  "browsers": [
+    {
+      "id": "chrome",
+      "engine": "chromium",
+      "channel": "chrome",
+      "version": "chromium 156.0.8078.74",
+      "status": "PASS",
+      "scenarios": {
+        "CanvasAndSvgRender": {
+          "status": "PASS"
+        },
+        "WordCloudCallbacks": {
+          "status": "PASS"
+        },
+        "BrushSelectsRange": {
+          "status": "PASS"
+        },
+        "PngAndSvgExport": {
+          "status": "PASS"
+        },
+        "ViewportAndDevicePixelRatio": {
+          "status": "PASS"
+        },
+        "CanvasAndSvgRenderWasm": {
+          "status": "PASS"
+        },
+        "PngAndSvgExportWasm": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "msedge",
+      "engine": "chromium",
+      "channel": "msedge",
+      "version": "chromium 156.0.4314.50",
+      "status": "PASS",
+      "scenarios": {
+        "CanvasAndSvgRender": {
+          "status": "PASS"
+        },
+        "WordCloudCallbacks": {
+          "status": "PASS"
+        },
+        "BrushSelectsRange": {
+          "status": "PASS"
+        },
+        "PngAndSvgExport": {
+          "status": "PASS"
+        },
+        "ViewportAndDevicePixelRatio": {
+          "status": "PASS"
+        },
+        "CanvasAndSvgRenderWasm": {
+          "status": "PASS"
+        },
+        "PngAndSvgExportWasm": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "chromium",
+      "engine": "chromium",
+      "channel": null,
+      "version": "chromium 156.0.8078.4",
+      "status": "PASS",
+      "scenarios": {
+        "CanvasAndSvgRender": {
+          "status": "PASS"
+        },
+        "WordCloudCallbacks": {
+          "status": "PASS"
+        },
+        "BrushSelectsRange": {
+          "status": "PASS"
+        },
+        "PngAndSvgExport": {
+          "status": "PASS"
+        },
+        "ViewportAndDevicePixelRatio": {
+          "status": "PASS"
+        },
+        "CanvasAndSvgRenderWasm": {
+          "status": "PASS"
+        },
+        "PngAndSvgExportWasm": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "firefox",
+      "engine": "firefox",
+      "channel": null,
+      "version": "firefox 157.0",
+      "status": "PASS",
+      "scenarios": {
+        "CanvasAndSvgRender": {
+          "status": "PASS"
+        },
+        "WordCloudCallbacks": {
+          "status": "PASS"
+        },
+        "BrushSelectsRange": {
+          "status": "PASS"
+        },
+        "PngAndSvgExport": {
+          "status": "PASS"
+        },
+        "ViewportAndDevicePixelRatio": {
+          "status": "PASS"
+        },
+        "CanvasAndSvgRenderWasm": {
+          "status": "PASS"
+        },
+        "PngAndSvgExportWasm": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "webkit",
+      "engine": "webkit",
+      "channel": null,
+      "version": "webkit 27.2",
+      "status": "PASS",
+      "scenarios": {
+        "CanvasAndSvgRender": {
+          "status": "PASS"
+        },
+        "WordCloudCallbacks": {
+          "status": "PASS"
+        },
+        "BrushSelectsRange": {
+          "status": "PASS"
+        },
+        "PngAndSvgExport": {
+          "status": "PASS"
+        },
+        "ViewportAndDevicePixelRatio": {
+          "status": "PASS"
+        },
+        "CanvasAndSvgRenderWasm": {
+          "status": "PASS"
+        },
+        "PngAndSvgExportWasm": {
+          "status": "PASS"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <Deterministic>true</Deterministic>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <!-- With a workload installed the SDK also restores from its library-packs folder, whose copies differ from nuget.org's:
+         the locked hashes must be the same on every machine. -->
+    <DisableImplicitLibraryPacksFolder>true</DisableImplicitLibraryPacksFolder>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+</Project>

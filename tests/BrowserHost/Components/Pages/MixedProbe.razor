@@ -1,0 +1,5 @@
+@page "/harness/mixed"
+<PageTitle>Server and WebAssembly charts</PageTitle>
+@* One page runtime serves the facades of both render modes. *@
+<MixedChartProbe @rendermode="InteractiveServer" Name="server" />
+<MixedChartProbe @rendermode="InteractiveWebAssembly" Name="wasm" />

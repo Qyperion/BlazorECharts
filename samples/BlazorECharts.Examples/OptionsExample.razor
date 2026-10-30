@@ -1,0 +1,13 @@
+@inherits ExampleBase
+
+<EChart Class="example-chart" Style="@Descriptor.ChartStyle" Options="_options" Theme="@Theme" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+
+@code {
+    private ChartOptions? _options;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(Descriptor.CreateOptions());
+    }
+}

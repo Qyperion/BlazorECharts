@@ -1,0 +1,117 @@
+# Releases Qyperion.BlazorECharts and Qyperion.BlazorECharts.WordCloud to nuget.org.
+#
+# A tag v<version> runs the release gate of verify.yml for the tagged commit, which packs that version
+# with the repository URL and the commit, and then waits in the protected nuget environment for a
+# reviewer. The publish job confirms that the gate report passed for this version and commit, and pushes
+# exactly the packages and symbol packages whose SHA-256 the gate recorded: pack is not reproducible to
+# the byte, so nothing is packed again. nuget.org Trusted Publishing exchanges the job's OIDC token for an
+# API key that lives for one hour; no secret is stored. Only the publish job may request the token.
+#
+# A manual run is a dry run: the same gate with the given version, packages as the verification artifact,
+# no publish. A manual run on a release tag with publish set pushes like the tag push.
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to pack, such as 1.0.0. A tag v<version> gives it; this value must then match.
+        type: string
+        required: false
+      publish:
+        description: Publish to nuget.org. Only a run on a release tag publishes.
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    name: Release version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - id: version
+        shell: bash
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+          PUBLISH: ${{ inputs.publish }}
+        run: |
+          if [ "$REF_TYPE" = tag ]; then
+            version="${REF_NAME#v}"
+            if [ "$REF_NAME" = "$version" ]; then echo "::error::The tag $REF_NAME does not start with v."; exit 1; fi
+            if [ -n "$INPUT_VERSION" ] && [ "$INPUT_VERSION" != "$version" ]; then echo "::error::The version $INPUT_VERSION differs from the tag $REF_NAME."; exit 1; fi
+          else
+            version="$INPUT_VERSION"
+            if [ "$PUBLISH" = true ]; then echo "::error::Only a run on a release tag publishes; $REF_NAME is not a tag."; exit 1; fi
+          fi
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then echo "::error::'$version' is not a SemVer 2.0 version."; exit 1; fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+  verify:
+    name: Release gate
+    needs: version
+    uses: ./.github/workflows/verify.yml
+    with:
+      version: ${{ needs.version.outputs.version }}
+
+  publish:
+    name: Publish to nuget.org
+    needs: [version, verify]
+    if: ${{ github.ref_type == 'tag' && (github.event_name == 'push' || inputs.publish) }}
+    runs-on: windows-2025
+    timeout-minutes: 30
+    # Protected: a required reviewer approves the release, and the nuget.org policy names this environment.
+    environment: nuget
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          global-json-file: global.json
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: verification
+          path: artifacts/verification
+      - name: Confirm the verified packages
+        shell: powershell
+        env:
+          RELEASE_VERSION: ${{ needs.version.outputs.version }}
+          RELEASE_REPOSITORY: ${{ github.server_url }}/${{ github.repository }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          ./tools/Release/confirm-release.ps1 -VerificationPath (Join-Path $PWD 'artifacts/verification') -Version $env:RELEASE_VERSION -RepositoryUrl $env:RELEASE_REPOSITORY -RepositoryCommit $env:RELEASE_COMMIT
+          exit $LASTEXITCODE
+      - name: Exchange the OIDC token for a short-lived API key
+        id: login
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+        with:
+          user: ${{ vars.NUGET_USER }}
+      - name: Push the verified packages
+        shell: powershell
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+          RELEASE_VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          Import-Module ./tools/Release/ReleaseTools.psm1
+          # The core first: the WordCloud package depends on exactly this core version. Each push also sends the .snupkg next to it.
+          foreach ($id in (Get-PackageIds)) {
+            dotnet nuget push (Join-Path $PWD "artifacts/verification/packages/feed/$id.$env:RELEASE_VERSION.nupkg") --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }

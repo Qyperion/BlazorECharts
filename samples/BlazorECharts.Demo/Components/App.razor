@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="@($"{HttpContext.Request.PathBase}/")" />
+    <link rel="icon" type="image/svg+xml" href="@Assets["_content/BlazorECharts.Examples/favicon.svg"]" />
+    <link rel="stylesheet" href="@Assets["_content/BlazorECharts.Examples/demo.css"]" />
+    <ImportMap />
+    <link rel="modulepreload" href="@Assets["_content/BlazorECharts/js/runtime-loader.js"]" />
+    <link rel="modulepreload" href="@Assets["_content/BlazorECharts/js/echarts-6.1.0.js"]" />
+    <HeadOutlet @rendermode="PageRenderMode" />
+</head>
+<body>
+    <Routes @rendermode="PageRenderMode" />
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
+</body>
+</html>
+
+@code {
+    [CascadingParameter] private HttpContext HttpContext { get; set; } = default!;
+
+    // ?hosting=wasm or ?hosting=auto selects the render mode of the whole page; the default is Interactive Server.
+    private IComponentRenderMode PageRenderMode => HttpContext.Request.Query["hosting"].ToString() switch
+    {
+        "wasm" => InteractiveWebAssembly,
+        "auto" => InteractiveAuto,
+        _ => InteractiveServer,
+    };
+}

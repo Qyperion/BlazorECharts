@@ -1,0 +1,26 @@
+# Local verification output, logs, pinned upstream archives and tool caches.
+/artifacts/
+**/node_modules/
+**/bin/
+**/obj/
+TestResults/
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+# IDE-created launch profiles; scripts and tests run the hosts with --no-launch-profile and explicit --urls.
+**/Properties/launchSettings.json
+
+# Internal plans, research and agent setup stay local and never reach the repository.
+/.plans/
+/CLAUDE.md
+/CLAUDE.local.md
+/.claude/
+/.mcp.json
+/.codegraph/
+
+# Operating system files.
+.DS_Store
+Thumbs.db
+Desktop.ini

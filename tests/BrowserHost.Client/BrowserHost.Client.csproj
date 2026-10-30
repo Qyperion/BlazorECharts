@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+
+    <!-- A Release build keeps the Mono interpreter optimizations, as a published app does; debugLevel -1 disables them. -->
+    <WasmDebugLevel Condition="'$(Configuration)' == 'Release'">0</WasmDebugLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../Shared/ComponentOptionFixtures.cs" Link="Shared/ComponentOptionFixtures.cs" />
+    <Compile Include="../Shared/StandardSeriesCatalog.cs" Link="Shared/StandardSeriesCatalog.cs" />
+    <Compile Include="../Shared/AdvancedSeriesCatalog.cs" Link="Shared/AdvancedSeriesCatalog.cs" />
+    <Compile Include="../Shared/CompleteSeriesCatalog.cs" Link="Shared/CompleteSeriesCatalog.cs" />
+    <Compile Include="../Shared/GraphicGeometryFixtures.cs" Link="Shared/GraphicGeometryFixtures.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/BlazorECharts/BlazorECharts.csproj" />
+    <ProjectReference Include="../../src/BlazorECharts.WordCloud/BlazorECharts.WordCloud.csproj" />
+  </ItemGroup>
+
+</Project>

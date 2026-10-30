@@ -1,0 +1,101 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Values
+@inherits ExampleBase
+
+<div class="example-controls" role="group" aria-label="Update the chart">
+    <button type="button" @onclick="Replace">Replace options</button>
+    <button type="button" @onclick="AppendAsync">Append a month (mutate + UpdateAsync)</button>
+    <button type="button" @onclick="AddForecastAsync">Add forecast (partial SetOptionAsync)</button>
+    <button type="button" @onclick="RemoveForecastAsync">Remove forecast (replaceMerge)</button>
+</div>
+<EChart @ref="_chart" Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+<p class="example-output" data-testid="update-log" aria-live="polite">@_log</p>
+
+@code {
+    private static readonly string[] MonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    private EChart? _chart;
+    private ChartOptions? _options;
+    private XAxisCategoryOption _months = default!;
+    private LineSeriesOption _members = default!;
+    private int _count = 6;
+    private string _log = "The chart starts with six months.";
+
+    public static ChartOptions CreateOptions() => Build(6, out _, out _);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(Build(_count, out _months, out _members));
+    }
+
+    private static ChartOptions Build(int count, out XAxisCategoryOption months, out LineSeriesOption members)
+    {
+        months = new XAxisCategoryOption { Data = [.. MonthNames.Take(count).Select(month => (CategoryAxisDataItemOption?)month)] };
+        members = new LineSeriesOption
+        {
+            Id = "members",
+            Name = "Members",
+            Data = [.. Enumerable.Range(0, count).Select(month => Point(Members(month)))],
+        };
+        return new ChartOptions
+        {
+            Title = new TitleOption { Text = "Members per month", Left = "center" },
+            Tooltip = new TooltipOption { Trigger = "axis" },
+            Legend = new LegendOption { Bottom = 0 },
+            XAxis = months,
+            YAxis = new YAxisValueOption(),
+            Series = members,
+        };
+    }
+
+    private static double Members(int month) => 20 + month * 4 + (month % 3) * 3;
+
+    private static LineSeriesOptionDataItem? Point(double value) => value;
+
+    private void Replace()
+    {
+        // A new reference is applied automatically; the same reference never re-serializes on re-render.
+        _count = 6;
+        _options = Accessible(Build(_count, out _months, out _members));
+        _log = "Assigned a new ChartOptions instance; EChart applied it.";
+    }
+
+    private Task AppendAsync() => RunAsync(async () =>
+    {
+        if (_count == MonthNames.Length)
+        {
+            _log = "All twelve months are shown.";
+            return;
+        }
+
+        // Mutating the current object needs an explicit UpdateAsync.
+        _months.Data = [.. _months.Data!, MonthNames[_count]];
+        _members.Data = [.. _members.Data!, Point(Members(_count))];
+        _count++;
+        await _chart!.UpdateAsync();
+        _log = $"Mutated the series and axis, then called UpdateAsync: {_count} months.";
+    });
+
+    private Task AddForecastAsync() => RunAsync(async () =>
+    {
+        // A partial option merges by id with the current chart state.
+        var forecast = new LineSeriesOption
+        {
+            Id = "forecast",
+            Name = "Forecast",
+            LineStyle = new() { Type = "dashed" },
+            Data = [.. Enumerable.Range(0, _count).Select(month => Point(Members(month) + 6))],
+        };
+        await _chart!.Instance!.SetOptionAsync(new ChartOptions { Series = [forecast] });
+        _log = "Merged a partial option that adds the forecast series.";
+    });
+
+    private Task RemoveForecastAsync() => RunAsync(async () =>
+    {
+        // The default merge keeps series that are missing from a partial option; replaceMerge removes them.
+        await _chart!.Instance!.SetOptionAsync(
+            new ChartOptions { Series = new LineSeriesOption { Id = "members" } },
+            new SetOptionOptions { ReplaceMerge = "series" });
+        _log = "Replaced the series array with replaceMerge: only Members remains.";
+    });
+}

@@ -1,0 +1,29 @@
+@* snippet: Guides.Updates.Component *@
+<EChart @ref="_chart" Options="_options" Style="height:360px" />
+<button @onclick="Replace">Replace</button>
+<button @onclick="AppendAsync">Append</button>
+
+@code {
+    private EChart? _chart;
+    private ChartOptions _options = Build([5, 8, 3]);
+
+    private LineSeriesOption Series => (LineSeriesOption)_options.Series!.Value.Items[0];
+
+    private static ChartOptions Build(double[] values) => new()
+    {
+        XAxis = new XAxisCategoryOption(),
+        YAxis = new YAxisValueOption(),
+        Series = new LineSeriesOption { Data = [.. values.Select(v => (LineSeriesOptionDataItem?)v)] },
+    };
+
+    // A new reference is applied on the next render.
+    private void Replace() => _options = Build([1, 2, 3]);
+
+    // Mutating the current object needs an explicit update.
+    private async Task AppendAsync()
+    {
+        Series.Data = [.. Series.Data!, 4];
+        await _chart!.UpdateAsync();
+    }
+}
+@* endsnippet *@

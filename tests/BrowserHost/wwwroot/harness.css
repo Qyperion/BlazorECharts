@@ -1,0 +1,20 @@
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 48rem;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+output {
+    font-family: monospace;
+}
+
+button {
+    padding: 0.5rem 1rem;
+}
+
+/* The CSP fixture: a strict style-src blocks inline style attributes. */
+.csp-chart {
+    width: 640px;
+    height: 360px;
+}

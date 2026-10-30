@@ -1,0 +1,50 @@
+<Project>
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <!-- Package metadata for the two shipped libraries. The release version and repository are set by tools/Release. -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Version Condition="'$(Version)' == ''">0.1.0-local</Version>
+    <Authors>BlazorECharts contributors</Authors>
+    <Copyright>Copyright (c) 2026 BlazorECharts contributors</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/Qyperion/BlazorECharts</PackageProjectUrl>
+    <PackageTags>blazor;echarts;charts;charting;visualization;webassembly</PackageTags>
+    <!-- A release names its tag; the changelog there stays with the immutable package. -->
+    <PackageReleaseNotes Condition="'$(RepositoryUrl)' != ''">See $(RepositoryUrl)/blob/v$(Version)/CHANGELOG.md</PackageReleaseNotes>
+
+    <!-- Symbols go to a .snupkg. tools/Release passes the SourceLink map of a release and PathMap for all packs. -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <!-- PackageValidationBaselineVersion follows once a release is published, see docs/maintaining/release.md. -->
+    <EnablePackageValidation>true</EnablePackageValidation>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Marks both assemblies trimmable for consumer trimming and runs the trim, AOT and single-file analyzers on every build. -->
+    <IsAotCompatible>true</IsAotCompatible>
+
+    <!-- Local history is private: repository metadata is published only when tools/Release passes it explicitly. -->
+    <EnableSourceControlManagerQueries Condition="'$(EnableSourceControlManagerQueries)' == ''">false</EnableSourceControlManagerQueries>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildThisFileDirectory)../LICENSE" Pack="true" PackagePath="" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)../THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="" Visible="false" />
+  </ItemGroup>
+
+  <!-- SourceLink reaches only the repository files; the generated sources of the build output travel inside the PDB. -->
+  <Target Name="EmbedIntermediateSources" BeforeTargets="CoreCompile">
+    <PropertyGroup>
+      <_IntermediateSourceRoot>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)'))</_IntermediateSourceRoot>
+    </PropertyGroup>
+    <ItemGroup>
+      <EmbeddedFiles Include="@(Compile)" Condition="$([System.String]::Copy('%(Compile.FullPath)').StartsWith('$(_IntermediateSourceRoot)', StringComparison.OrdinalIgnoreCase))" />
+    </ItemGroup>
+  </Target>
+
+</Project>

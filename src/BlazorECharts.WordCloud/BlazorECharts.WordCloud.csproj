@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <PackageId>Qyperion.BlazorECharts.WordCloud</PackageId>
+    <StaticWebAssetBasePath>_content/BlazorECharts.WordCloud</StaticWebAssetBasePath>
+
+    <Description>WordCloud series for BlazorECharts on Apache ECharts 6.1.0, built on @qyperion/echarts-wordcloud 3.0.0.</Description>
+    <!-- The installer bundles echarts-wordcloud (ISC) with its wordcloud2.js layout (MIT). -->
+    <PackageLicenseExpression>MIT AND ISC</PackageLicenseExpression>
+    <PackageTags>$(PackageTags);wordcloud;word-cloud</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BlazorECharts.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../BlazorECharts/BlazorECharts.csproj" />
+  </ItemGroup>
+
+  <Target Name="RequireBuiltWordCloudAssets" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('wwwroot/js/assets-manifest.json')" Text="Pinned WordCloud assets are missing. Developers must run npm run assets:build." />
+  </Target>
+
+  <!-- The installer runs only on the ECharts runtime of the same core release, so the core dependency is exact, not ">= version". -->
+  <Target Name="UseExactCoreDependency" AfterTargets="_GetProjectReferenceVersions">
+    <ItemGroup>
+      <_ProjectReferencesWithVersions>
+        <ProjectVersion>[%(ProjectVersion)]</ProjectVersion>
+      </_ProjectReferencesWithVersions>
+    </ItemGroup>
+  </Target>
+
+</Project>

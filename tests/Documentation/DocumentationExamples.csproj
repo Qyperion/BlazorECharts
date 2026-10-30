@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <!-- Compiles every C# and Razor snippet of the public documentation; `npm run docs:check` keeps the Markdown copies in sync. -->
+  <PropertyGroup>
+    <RootNamespace>DocumentationExamples</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Implicit usings of Microsoft.NET.Sdk.Web, which Program.cs snippets assume. -->
+    <Using Include="Microsoft.AspNetCore.Builder" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/BlazorECharts/BlazorECharts.csproj" />
+    <ProjectReference Include="../../src/BlazorECharts.WordCloud/BlazorECharts.WordCloud.csproj" />
+  </ItemGroup>
+
+</Project>

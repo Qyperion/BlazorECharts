@@ -1,0 +1,245 @@
+@using System.Diagnostics
+@using System.Text.Json
+@using BlazorECharts.Events
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Serialization
+@using BlazorECharts.WordCloud
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<h1>Chart performance workload</h1>
+<p data-testid="interactive">@RendererInfo.IsInteractive</p>
+<p data-testid="renderer-info">@RendererInfo.Name</p>
+<p data-testid="phase">@_phase</p>
+<pre data-testid="metrics">@_metrics</pre>
+<button @onclick="Serialize">Serialize</button>
+<button @onclick="Mount">Mount</button>
+<button @onclick="Update">Update</button>
+<button @onclick="Export">Export</button>
+<button @onclick="Stream">Stream</button>
+<button @onclick="Report">Report</button>
+<button @onclick="Unmount">Unmount</button>
+<div class="perf-grid" style="display:grid;grid-template-columns:repeat(@Columns, @(Width)px);gap:8px">
+    @for (var i = 0; i < _elements.Length; i++)
+    {
+        var index = i;
+        <div class="perf-chart" style="width:@(Width)px;height:@(Height)px" @ref="_elements[index]"></div>
+    }
+</div>
+
+@code {
+    // Stability covers WordCloud layout; the large clouds need more than the default 30 seconds on slow hosts.
+    private static readonly ChartStabilityOptions Stability = new() { Timeout = TimeSpan.FromSeconds(50) };
+
+    [Parameter, EditorRequired] public string Workload { get; set; } = "";
+    [Parameter] public string? Renderer { get; set; }
+    [Parameter] public int Seed { get; set; } = SyntheticWorkloads.DefaultSeed;
+
+    private ElementReference[] _elements = [];
+    private SyntheticWorkloads.Workload _workload = SyntheticWorkloads.All[0];
+    private EChartsRuntime? _runtime;
+    private EChartInstance[] _instances = [];
+    private int _sample;
+    private int _events;
+    private string _phase = "idle";
+    private string _metrics = "{}";
+
+    // Layouts must match tools/Performance/workloads.json and the native baseline page.
+    private int Columns => _workload.Charts switch
+    {
+        1 => 1,
+        <= 4 => 2,
+        _ => 5,
+    };
+
+    private int Width => _workload.Charts switch
+    {
+        1 => 960,
+        <= 4 => 480,
+        _ => 240,
+    };
+
+    private int Height => _workload.Charts switch
+    {
+        1 => 480,
+        <= 4 => 300,
+        _ => 160,
+    };
+
+    protected override void OnParametersSet()
+    {
+        _workload = SyntheticWorkloads.Find(Workload);
+        if (_elements.Length != _workload.Charts)
+            _elements = new ElementReference[_workload.Charts];
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || !RendererInfo.IsInteractive)
+            return;
+
+        _runtime = new(JS, Navigation, new ServiceCollection().AddECharts(o => o.MaximumServerResultSize = 4 * 1024 * 1024).AddWordCloud().Options);
+        await _runtime.InitializeAsync();
+        _phase = "ready";
+        StateHasChanged();
+    }
+
+    // A phase reports its own timings; allocations, server CPU and the managed heap after a full collection are added here.
+    private async Task Measure(string phase, Func<PhaseMeter, Task<object>> action)
+    {
+        _phase = $"{phase}: running";
+        try
+        {
+            var meter = new PhaseMeter();
+            var result = await action(meter);
+            meter.Stop();
+            var metrics = JsonSerializer.SerializeToNode(result)!.AsObject();
+            metrics["allocatedBytes"] = meter.AllocatedBytes;
+            metrics["serverCpuMs"] = meter.ProcessorMs;
+            metrics["managedHeapBytes"] = GC.GetTotalMemory(forceFullCollection: true);
+            _metrics = metrics.ToJsonString();
+            _phase = $"{phase}: done";
+        }
+        catch (Exception error)
+        {
+            _metrics = "{}";
+            _phase = $"{phase}: failed {error.GetType().Name}: {error.Message}";
+        }
+    }
+
+    private ChartOptions Options(int chart, string stage) => SyntheticWorkloads.Create(_workload, Seed, chart, stage);
+
+    private Task Serialize() => Measure("serialize", meter =>
+    {
+        var options = Options(0, "mount");
+        meter.Start();
+        var prepared = OptionSerializer.Serialize(options, _runtime!.Serialization);
+        return Task.FromResult<object>(new { serializeMs = meter.ElapsedMs, bytes = prepared.Utf8.Length, charts = _workload.Charts });
+    });
+
+    // The hover workload counts the deliveries of one mousemove subscription; it is part of the mount.
+    private Task Mount() => Measure("mount", async meter =>
+    {
+        _sample++;
+        _events = 0;
+        var options = Enumerable.Range(0, _workload.Charts).Select(i => Options(i, "mount")).ToArray();
+        meter.Start();
+        var instances = new EChartInstance[options.Length];
+        for (var i = 0; i < options.Length; i++)
+            instances[i] = await _runtime!.CreateInstanceAsync(_elements[i], new() { Renderer = Renderer ?? "canvas" });
+
+        _instances = instances;
+        var created = meter.ElapsedMs;
+        await Task.WhenAll(instances.Select((instance, i) => instance.SetOptionAsync(options[i]).AsTask()));
+        var applied = meter.ElapsedMs;
+        await Task.WhenAll(instances.Select(instance => instance.AwaitStableAsync(Stability).AsTask()));
+        if (_workload.Kind == "hover")
+        {
+            await instances[0].SubscribeAsync(ChartEvents.MouseMove, _ =>
+            {
+                Interlocked.Increment(ref _events);
+                return Task.CompletedTask;
+            });
+        }
+
+        return new { createMs = created, applyMs = applied, stableMs = meter.ElapsedMs, sample = _sample };
+    });
+
+    private Task Update() => Measure("update", async meter =>
+    {
+        var options = _instances.Select((_, i) => Options(i, "update")).ToArray();
+        meter.Start();
+        await Task.WhenAll(_instances.Select((instance, i) => instance.SetOptionAsync(options[i]).AsTask()));
+        var applied = meter.ElapsedMs;
+        await Task.WhenAll(_instances.Select(instance => instance.AwaitStableAsync(Stability).AsTask()));
+        return new { applyMs = applied, stableMs = meter.ElapsedMs };
+    });
+
+    private Task Export() => Measure("export", async meter =>
+    {
+        meter.Start();
+        var image = await _instances[0].GetDataUrlAsync(stability: Stability);
+        return new { exportMs = meter.ElapsedMs, exportLength = image.Length };
+    });
+
+    // Sequential full replacements, as a component does for a new Options reference; the options exist before the clock starts.
+    private Task Stream() => Measure("stream", async meter =>
+    {
+        var instance = _instances[0];
+        var updates = Enumerable.Range(0, SyntheticWorkloads.StreamUpdates).Select(step => SyntheticWorkloads.Stream(_workload, Seed, step)).ToArray();
+        meter.Start();
+        foreach (var options in updates)
+            await instance.SetOptionAsync(options);
+
+        var applied = meter.ElapsedMs;
+        await instance.AwaitStableAsync(Stability);
+        return new { updates = updates.Length, applyMs = applied, stableMs = meter.ElapsedMs };
+    });
+
+    private Task Report() => Measure("report", meter =>
+    {
+        meter.Start();
+        return Task.FromResult<object>(new { events = Volatile.Read(ref _events) });
+    });
+
+    private Task Unmount() => Measure("unmount", async meter =>
+    {
+        meter.Start();
+        foreach (var instance in _instances)
+            await instance.DisposeAsync();
+
+        _instances = [];
+        return new { disposeMs = meter.ElapsedMs };
+    });
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var instance in _instances)
+            await instance.DisposeAsync();
+
+        if (_runtime is not null)
+            await _runtime.DisposeAsync();
+    }
+
+    // Allocations count every thread: on the server they include SignalR and Kestrel work for the phase, which is part of its cost.
+    private sealed class PhaseMeter
+    {
+        private readonly Stopwatch _clock = new();
+        private long _allocated;
+        private TimeSpan _processor;
+
+        public double ElapsedMs => _clock.Elapsed.TotalMilliseconds;
+
+        public long AllocatedBytes { get; private set; }
+
+        public double? ProcessorMs { get; private set; }
+
+        public void Start()
+        {
+            _allocated = GC.GetTotalAllocatedBytes(precise: true);
+            _processor = ProcessorTime() ?? TimeSpan.Zero;
+            _clock.Restart();
+        }
+
+        public void Stop()
+        {
+            _clock.Stop();
+            AllocatedBytes = GC.GetTotalAllocatedBytes(precise: true) - _allocated;
+            ProcessorMs = (ProcessorTime() - _processor)?.TotalMilliseconds;
+        }
+
+        // The browser has no process CPU time; WebAssembly CPU is measured in the browser.
+        private static TimeSpan? ProcessorTime()
+        {
+            if (OperatingSystem.IsBrowser())
+                return null;
+
+            using var process = Process.GetCurrentProcess();
+            return process.TotalProcessorTime;
+        }
+    }
+}

@@ -1,0 +1,104 @@
+@page "/"
+@page "/examples"
+@implements IAsyncDisposable
+@using Microsoft.JSInterop
+
+<PageTitle>Examples · BlazorECharts</PageTitle>
+
+<h1>Examples</h1>
+<p class="lead">Every example is typed C# rendered by the real ECharts @EChartsVersion runtime. Open one to read its source.</p>
+
+<search class="catalog-search">
+    <label for="example-search">Search by title or tag</label>
+    <input id="example-search" type="search" placeholder="for example: series, events, export" autocomplete="off"
+           @bind="Query" @bind:event="oninput" aria-controls="example-list" />
+</search>
+<div class="tag-filter" role="group" aria-label="Filter by tag">
+    @foreach (var tag in Tags)
+    {
+        <button type="button" class="tag" aria-pressed="@(string.Equals(Query, tag, StringComparison.OrdinalIgnoreCase) ? "true" : "false")"
+                @onclick="() => Query = string.Equals(Query, tag, StringComparison.OrdinalIgnoreCase) ? null : tag">@tag</button>
+    }
+</div>
+
+<p class="result-count" role="status" aria-live="polite" data-testid="result-count" data-total="@ExampleRegistry.All.Count">
+    @Results.Count of @ExampleRegistry.All.Count examples
+</p>
+<ul id="example-list" class="example-list" data-testid="example-list" @ref="_list">
+    @foreach (var example in Results)
+    {
+        <li @key="example.Slug" class="example-card" data-slug="@example.Slug">
+            <a class="example-card-link" href="@($"examples/{example.Slug}")">
+                <ExampleThumbnail Descriptor="example" Visible="_shown.Contains(example.Slug)" />
+                <span class="example-card-title">@example.Title</span>
+            </a>
+            <span class="example-card-summary">@example.Summary</span>
+            <span class="example-card-tags">@string.Join(" · ", example.Tags)</span>
+        </li>
+    }
+</ul>
+
+@code {
+    private static readonly string[] Tags = ["series", "component", "scenario", "events", "updates", "functions", "export", "extensions", "graphic"];
+
+    private const string ThumbnailsModule = "_content/BlazorECharts.Examples/catalog/thumbnails.js";
+
+    private readonly HashSet<string> _shown = [];
+    private ElementReference _list;
+    private DotNetObjectReference<CatalogPage>? _self;
+    private IJSObjectReference? _observer;
+    private bool _disposed;
+
+    [Inject] private EChartsRuntimeOptions RuntimeOptions { get; set; } = default!;
+
+    [Inject] private IJSRuntime Scripts { get; set; } = default!;
+
+    [SupplyParameterFromQuery(Name = "q")] private string? Query { get; set; }
+
+    private string EChartsVersion => RuntimeOptions.Version;
+
+    private IReadOnlyList<ExampleDescriptor> Results => ExampleRegistry.Search(Query);
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        _self = DotNetObjectReference.Create(this);
+        await using var module = await Scripts.InvokeAsync<IJSObjectReference>("import", $"./{Assets[ThumbnailsModule]}");
+        _observer = await module.InvokeAsync<IJSObjectReference>("observeCards", _list, _self);
+        if (_disposed)
+            await StopObservingAsync();
+    }
+
+    /// <summary>Creates the thumbnails of the cards that came near the viewport.</summary>
+    [JSInvokable]
+    public Task ShowThumbnails(string[] slugs)
+    {
+        _shown.UnionWith(slugs);
+        return InvokeAsync(StateHasChanged);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _disposed = true;
+        await StopObservingAsync();
+        _self?.Dispose();
+    }
+
+    private async Task StopObservingAsync()
+    {
+        if (_observer is not { } observer)
+            return;
+
+        _observer = null;
+        try
+        {
+            await observer.InvokeVoidAsync("dispose");
+            await observer.DisposeAsync();
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+    }
+}

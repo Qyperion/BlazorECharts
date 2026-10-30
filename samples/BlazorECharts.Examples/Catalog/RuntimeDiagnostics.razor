@@ -1,0 +1,59 @@
+@* Reports where the ECharts runtime came from and how this page is rendered. *@
+<section class="diagnostics" aria-labelledby="diagnostics-heading" data-testid="diagnostics">
+    <h2 id="diagnostics-heading">Runtime diagnostics</h2>
+    <dl>
+        <dt>Host</dt>
+        <dd data-testid="diagnostics-host">@Host.Name</dd>
+        <dt>Render mode</dt>
+        <dd data-testid="diagnostics-render-mode">@(RendererInfo.IsInteractive ? $"Interactive {RendererInfo.Name}" : $"Prerendered ({RendererInfo.Name})")</dd>
+        <dt>ECharts version</dt>
+        <dd data-testid="diagnostics-version">@RuntimeOptions.Version @(_verified ? "(verified by the page runtime)" : "(configured)")</dd>
+        <dt>Assets</dt>
+        <dd data-testid="diagnostics-assets">@AssetSource</dd>
+        <dt>Extensions</dt>
+        <dd data-testid="diagnostics-extensions">@(RuntimeOptions.Extensions.Count == 0 ? "None" : string.Join(", ", RuntimeOptions.Extensions.Select(e => $"{e.Id} {e.Version}")))</dd>
+        <dt>Example modules</dt>
+        <dd data-testid="diagnostics-modules">@(Example.Modules.Count == 0 ? "None" : string.Join(", ", Example.Modules))</dd>
+        <dt>Inline JavaScript</dt>
+        <dd>@(RuntimeOptions.AllowInlineJavaScript ? "Allowed (opt-in for the inline function example)" : "Disabled")</dd>
+    </dl>
+    @if (_error is not null)
+    {
+        <p class="diagnostics-error" role="alert">Runtime initialization failed: @_error</p>
+    }
+</section>
+
+@code {
+    private bool _verified;
+    private string? _error;
+
+    [Inject] private EChartsRuntime Runtime { get; set; } = default!;
+    [Inject] private EChartsRuntimeOptions RuntimeOptions { get; set; } = default!;
+    [Inject] private DemoHostInfo Host { get; set; } = default!;
+
+    /// <summary>Gets or sets the example whose module dependencies are listed.</summary>
+    [Parameter, EditorRequired] public ExampleDescriptor Example { get; set; } = default!;
+
+    private string AssetSource => RuntimeOptions.Provider == EChartsRuntimeProvider.Local
+        ? $"Local package assets: _content/BlazorECharts/js/echarts-{RuntimeOptions.Version}.js"
+        : $"{RuntimeOptions.Provider.ToString().ToLowerInvariant()} provider: {RuntimeOptions.ModuleUrl}";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || !RendererInfo.IsInteractive)
+            return;
+
+        try
+        {
+            // Initialization rejects a runtime whose version differs from the configured one.
+            await Runtime.InitializeAsync();
+            _verified = true;
+        }
+        catch (Exception error)
+        {
+            _error = error.Message;
+        }
+
+        StateHasChanged();
+    }
+}

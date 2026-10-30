@@ -1,0 +1,3594 @@
+{
+ "axisareaselected": [
+  {
+   "json": {
+    "type": "axisareaselected",
+    "parallelAxisId": "p0",
+    "intervals": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "axisareaselected",
+    "batch": [
+     {
+      "parallelAxisId": "p0",
+      "intervals": [
+       [
+        1,
+        2
+       ]
+      ],
+      "__ec_inner_16": {},
+      "type": "axisareaselected",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "axisbreakchanged": [
+  {
+   "json": {
+    "type": "axisbreakchanged",
+    "breaks": [
+     {
+      "xAxisIndex": 0,
+      "start": 10,
+      "end": 90,
+      "isExpanded": true,
+      "old": {
+       "isExpanded": false
+      }
+     }
+    ],
+    "fromAction": "expandAxisBreak",
+    "fromActionPayload": {
+     "type": "expandAxisBreak",
+     "xAxisIndex": 0,
+     "breaks": [
+      {
+       "start": 10,
+       "end": 90
+      }
+     ],
+     "__ec_inner_16": {}
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "axisbreakchanged",
+    "breaks": [
+     {
+      "xAxisIndex": 0,
+      "start": 10,
+      "end": 90,
+      "isExpanded": false,
+      "old": {
+       "isExpanded": true
+      }
+     }
+    ],
+    "fromAction": "collapseAxisBreak",
+    "fromActionPayload": {
+     "type": "collapseAxisBreak",
+     "xAxisIndex": 0,
+     "breaks": [
+      {
+       "start": 10,
+       "end": 90
+      }
+     ],
+     "__ec_inner_16": {}
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "axisbreakchanged",
+    "breaks": [
+     {
+      "xAxisIndex": 0,
+      "start": 10,
+      "end": 90,
+      "isExpanded": true,
+      "old": {
+       "isExpanded": false
+      }
+     }
+    ],
+    "fromAction": "toggleAxisBreak",
+    "fromActionPayload": {
+     "type": "toggleAxisBreak",
+     "xAxisIndex": 0,
+     "breaks": [
+      {
+       "start": 10,
+       "end": 90
+      }
+     ],
+     "__ec_inner_16": {}
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "axisbreakchanged",
+    "breaks": [
+     {
+      "xAxisIndex": 0,
+      "start": 10,
+      "end": 90,
+      "isExpanded": true,
+      "old": {
+       "isExpanded": true
+      }
+     }
+    ],
+    "fromAction": "expandAxisBreak",
+    "fromActionPayload": {
+     "type": "expandAxisBreak",
+     "batch": [
+      {
+       "xAxisIndex": 0,
+       "breaks": [
+        {
+         "start": 10,
+         "end": 90
+        }
+       ],
+       "__ec_inner_16": {}
+      }
+     ],
+     "__ec_inner_16": {}
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "axisbreakchanged",
+    "breaks": [
+     {
+      "xAxisIndex": 0,
+      "start": 10,
+      "end": 90,
+      "isExpanded": false,
+      "old": {
+       "isExpanded": true
+      }
+     }
+    ],
+    "fromAction": "collapseAxisBreak",
+    "fromActionPayload": {
+     "type": "collapseAxisBreak",
+     "batch": [
+      {
+       "xAxisIndex": 0,
+       "breaks": [
+        {
+         "start": 10,
+         "end": 90
+        }
+       ],
+       "__ec_inner_16": {}
+      }
+     ],
+     "__ec_inner_16": {}
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "axisbreakchanged",
+    "breaks": [
+     {
+      "xAxisIndex": 0,
+      "start": 10,
+      "end": 90,
+      "isExpanded": true,
+      "old": {
+       "isExpanded": false
+      }
+     }
+    ],
+    "fromAction": "toggleAxisBreak",
+    "fromActionPayload": {
+     "type": "toggleAxisBreak",
+     "batch": [
+      {
+       "xAxisIndex": 0,
+       "breaks": [
+        {
+         "start": 10,
+         "end": 90
+        }
+       ],
+       "__ec_inner_16": {}
+      }
+     ],
+     "__ec_inner_16": {}
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  }
+ ],
+ "brush": [
+  {
+   "json": {
+    "type": "brush",
+    "areas": [
+     {
+      "brushType": "lineX",
+      "xAxisIndex": 0,
+      "coordRange": [
+       "x",
+       "y"
+      ]
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "brush",
+    "batch": [
+     {
+      "areas": [
+       {
+        "brushType": "lineX",
+        "xAxisIndex": 0,
+        "coordRange": [
+         "y",
+         "z"
+        ]
+       }
+      ],
+      "type": "brush",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "brush",
+    "batch": [
+     {
+      "areas": [
+       {
+        "brushType": "lineX",
+        "xAxisIndex": 0,
+        "coordRange": [
+         "x",
+         "y"
+        ]
+       }
+      ],
+      "__ec_inner_16": {
+       "updateMethod": "updateVisual"
+      },
+      "type": "brush",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "brushend": [
+  {
+   "json": {
+    "type": "brushend",
+    "areas": [
+     {
+      "brushType": "lineX",
+      "xAxisIndex": 0,
+      "coordRange": [
+       "x",
+       "y"
+      ]
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "brushend",
+    "batch": [
+     {
+      "areas": [
+       {
+        "brushType": "lineX",
+        "xAxisIndex": 0,
+        "coordRange": [
+         "x",
+         "y"
+        ]
+       }
+      ],
+      "type": "brushend",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "brushselected": [
+  {
+   "json": {
+    "type": "brushselected",
+    "batch": [
+     {
+      "brushId": "\u0000series\u00000\u00000",
+      "brushIndex": 0,
+      "brushName": "series\u00000",
+      "areas": [],
+      "selected": [
+       {
+        "seriesId": "a",
+        "seriesIndex": 0,
+        "seriesName": "A",
+        "dataIndex": []
+       },
+       {
+        "seriesId": "b",
+        "seriesIndex": 1,
+        "seriesName": "B",
+        "dataIndex": []
+       }
+      ],
+      "type": "brushselected",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "brushselected",
+    "batch": [
+     {
+      "brushId": "\u0000series\u00000\u00000",
+      "brushIndex": 0,
+      "brushName": "series\u00000",
+      "areas": [
+       {
+        "brushType": "lineX",
+        "brushMode": "single",
+        "transformable": true,
+        "brushStyle": {
+         "fill": "rgba(234,237,245,0.5)",
+         "stroke": "#cfd2d7",
+         "lineWidth": 1
+        },
+        "removeOnClick": true,
+        "z": 10000,
+        "xAxisIndex": 0,
+        "coordRange": [
+         "x",
+         "y"
+        ],
+        "range": [
+         165,
+         315
+        ],
+        "panelId": "grid--\u0000series\u00000\u00000"
+       }
+      ],
+      "selected": [
+       {
+        "seriesId": "a",
+        "seriesIndex": 0,
+        "seriesName": "A",
+        "dataIndex": [
+         1
+        ]
+       },
+       {
+        "seriesId": "b",
+        "seriesIndex": 1,
+        "seriesName": "B",
+        "dataIndex": [
+         0
+        ]
+       }
+      ],
+      "type": "brushselected",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "brushselected",
+    "batch": [
+     {
+      "brushId": "\u0000series\u00000\u00000",
+      "brushIndex": 0,
+      "brushName": "series\u00000",
+      "areas": [
+       {
+        "brushType": "lineX",
+        "brushMode": "single",
+        "transformable": true,
+        "brushStyle": {
+         "fill": "rgba(234,237,245,0.5)",
+         "stroke": "#cfd2d7",
+         "lineWidth": 1
+        },
+        "removeOnClick": true,
+        "z": 10000,
+        "xAxisIndex": 0,
+        "coordRange": [
+         "y",
+         "z"
+        ],
+        "range": [
+         315,
+         465
+        ],
+        "panelId": "grid--\u0000series\u00000\u00000"
+       }
+      ],
+      "selected": [
+       {
+        "seriesId": "a",
+        "seriesIndex": 0,
+        "seriesName": "A",
+        "dataIndex": [
+         2
+        ]
+       },
+       {
+        "seriesId": "b",
+        "seriesIndex": 1,
+        "seriesName": "B",
+        "dataIndex": [
+         1
+        ]
+       }
+      ],
+      "type": "brushselected",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "brushselected",
+    "batch": [
+     {
+      "brushId": "\u0000series\u00000\u00000",
+      "brushIndex": 0,
+      "brushName": "series\u00000",
+      "areas": [
+       {
+        "brushType": "lineX",
+        "brushMode": "single",
+        "transformable": true,
+        "brushStyle": {
+         "fill": "rgba(234,237,245,0.5)",
+         "stroke": "#cfd2d7",
+         "lineWidth": 1
+        },
+        "removeOnClick": true,
+        "z": 10000,
+        "xAxisIndex": 0,
+        "coordRange": [
+         "y",
+         "z"
+        ],
+        "range": [
+         315,
+         465
+        ],
+        "panelId": "grid--\u0000series\u00000\u00000"
+       }
+      ],
+      "selected": [
+       {
+        "seriesId": "a",
+        "seriesIndex": 0,
+        "seriesName": "A",
+        "dataIndex": [
+         2
+        ]
+       },
+       {
+        "seriesId": "b",
+        "seriesIndex": 1,
+        "seriesName": "B",
+        "dataIndex": [
+         1
+        ]
+       }
+      ],
+      "type": "brushselected",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "brushselected",
+    "batch": [
+     {
+      "brushId": "\u0000series\u00000\u00000",
+      "brushIndex": 0,
+      "brushName": "series\u00000",
+      "areas": [
+       {
+        "brushType": "lineX",
+        "brushMode": "single",
+        "transformable": true,
+        "brushStyle": {
+         "fill": "rgba(234,237,245,0.5)",
+         "stroke": "#cfd2d7",
+         "lineWidth": 1
+        },
+        "removeOnClick": true,
+        "z": 10000,
+        "xAxisIndex": 0,
+        "coordRange": [
+         "x",
+         "y"
+        ],
+        "range": [
+         165,
+         315
+        ],
+        "panelId": "grid--\u0000series\u00000\u00000"
+       }
+      ],
+      "selected": [
+       {
+        "seriesId": "a",
+        "seriesIndex": 0,
+        "seriesName": "A",
+        "dataIndex": [
+         1
+        ]
+       },
+       {
+        "seriesId": "b",
+        "seriesIndex": 1,
+        "seriesName": "B",
+        "dataIndex": [
+         0
+        ]
+       }
+      ],
+      "type": "brushselected",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "changeaxisorder": [
+  {
+   "json": {
+    "type": "changeaxisorder",
+    "componentType": "xAxis",
+    "axisId": 0,
+    "sortInfo": {
+     "ordinalNumbers": [
+      2,
+      0,
+      1
+     ]
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "changeaxisorder",
+    "batch": [
+     {
+      "componentType": "xAxis",
+      "axisId": 0,
+      "sortInfo": {
+       "ordinalNumbers": [
+        2,
+        0,
+        1
+       ]
+      },
+      "__ec_inner_16": {},
+      "type": "changeaxisorder",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "changeaxisorder",
+    "componentType": "xAxis",
+    "axisId": 0,
+    "sortInfo": {
+     "ordinalNumbers": [
+      1,
+      2,
+      0
+     ]
+    }
+   },
+   "references": []
+  }
+ ],
+ "click": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "click"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:7"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "click"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:11"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "click"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:14"
+     }
+    }
+   ]
+  }
+ ],
+ "contextmenu": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "contextmenu"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:19"
+     }
+    }
+   ]
+  }
+ ],
+ "datarangeselected": [
+  {
+   "json": {
+    "type": "datarangeselected",
+    "visualMapId": "continuous",
+    "selected": [
+     1,
+     2
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "datarangeselected",
+    "visualMapId": "piecewise",
+    "selected": {
+     "0": false,
+     "1": true
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "datarangeselected",
+    "batch": [
+     {
+      "visualMapId": "continuous",
+      "selected": [
+       1,
+       2
+      ],
+      "__ec_inner_16": {},
+      "type": "datarangeselected",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "dataviewchanged": [
+  {
+   "json": {
+    "type": "dataviewchanged",
+    "newOption": {
+     "series": [
+      {
+       "id": "a",
+       "data": [
+        7,
+        3,
+        4
+       ]
+      }
+     ]
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "dataviewchanged",
+    "batch": [
+     {
+      "newOption": {
+       "series": [
+        {
+         "id": "a",
+         "data": [
+          7,
+          3,
+          4
+         ]
+        }
+       ]
+      },
+      "__ec_inner_16": {},
+      "type": "dataviewchanged",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "datazoom": [
+  {
+   "json": {
+    "type": "datazoom",
+    "start": 10,
+    "end": 60
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "datazoom",
+    "batch": [
+     {
+      "dataZoomId": "inside",
+      "start": 0,
+      "end": 50,
+      "type": "datazoom",
+      "batch": null
+     },
+     {
+      "dataZoomId": "slider",
+      "startValue": 0,
+      "endValue": 1,
+      "type": "datazoom",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "datazoom",
+    "batch": [
+     {
+      "start": 10,
+      "end": 60,
+      "__ec_inner_16": {},
+      "type": "datazoom",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "datazoom",
+    "dataZoomId": 7,
+    "start": 0,
+    "end": 50
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "datazoom",
+    "dataZoomId": [
+     7
+    ],
+    "start": 10,
+    "end": 60
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "datazoom",
+    "batch": [
+     {
+      "dataZoomId": 7,
+      "start": 0,
+      "end": 50,
+      "__ec_inner_16": {},
+      "type": "datazoom",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "dblclick": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "dblclick"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:15"
+     }
+    }
+   ]
+  }
+ ],
+ "downplay": [
+  {
+   "json": {
+    "type": "downplay",
+    "seriesIndex": 0,
+    "dataIndex": 1
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "downplay",
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 0,
+      "type": "downplay",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "downplay",
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 1,
+      "type": "downplay",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "downplay",
+    "seriesId": [
+     "b",
+     1
+    ],
+    "seriesName": [
+     2026,
+     "B"
+    ],
+    "dataIndex": 0
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "downplay",
+    "batch": [
+     {
+      "seriesId": [
+       "b",
+       1
+      ],
+      "seriesName": [
+       2026,
+       "B"
+      ],
+      "dataIndex": 0,
+      "type": "downplay",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "downplay",
+    "escapeConnect": true,
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 1,
+      "type": "downplay",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     },
+     {
+      "seriesIndex": 1,
+      "dataIndex": 1,
+      "type": "downplay",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "downplay",
+    "escapeConnect": true,
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 2,
+      "type": "downplay",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     },
+     {
+      "seriesIndex": 1,
+      "dataIndex": 2,
+      "type": "downplay",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "dragnode": [
+  {
+   "json": {
+    "type": "dragnode",
+    "seriesId": "s",
+    "dataIndex": 0,
+    "localX": 0.1,
+    "localY": 0.25
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "dragnode",
+    "batch": [
+     {
+      "dataIndex": 0,
+      "localX": 0,
+      "localY": 0.5,
+      "type": "dragnode",
+      "seriesId": "s",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "dragnode",
+    "batch": [
+     {
+      "seriesId": "s",
+      "dataIndex": 0,
+      "localX": 0.1,
+      "localY": 0.25,
+      "__ec_inner_16": {},
+      "type": "dragnode",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "finished": [
+  {
+   "json": {},
+   "references": []
+  }
+ ],
+ "focusnodeadjacency": [
+  {
+   "json": {
+    "type": "focusnodeadjacency",
+    "seriesId": "g",
+    "dataIndex": 0
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "focusnodeadjacency",
+    "batch": [
+     {
+      "seriesId": "g",
+      "dataIndex": 0,
+      "type": "focusnodeadjacency",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "georoam": [
+  {
+   "json": {
+    "type": "georoam",
+    "geoId": "geo",
+    "dx": 10,
+    "dy": 0,
+    "animation": {
+     "duration": 0
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "georoam",
+    "geoId": "geo",
+    "zoom": 2,
+    "originX": 0,
+    "originY": 0,
+    "animation": {
+     "duration": 0
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "georoam",
+    "batch": [
+     {
+      "geoId": "geo",
+      "dx": 10,
+      "dy": 0,
+      "animation": {
+       "duration": 0
+      },
+      "type": "georoam",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "geoselectchanged": [
+  {
+   "json": {
+    "selected": {
+     "West": true,
+     "East": false
+    },
+    "allSelected": [
+     {
+      "geoIndex": 0,
+      "name": [
+       "West"
+      ]
+     }
+    ],
+    "name": "West",
+    "type": "geoselectchanged"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "geoselectchanged",
+    "batch": [
+     {
+      "selected": {
+       "West": false,
+       "East": false
+      },
+      "allSelected": [
+       {
+        "geoIndex": 0,
+        "name": []
+       }
+      ],
+      "name": "West",
+      "type": "geoselectchanged"
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "geoselectchanged",
+    "batch": [
+     {
+      "selected": {
+       "West": true,
+       "East": false
+      },
+      "allSelected": [
+       {
+        "geoIndex": 0,
+        "name": [
+         "West"
+        ]
+       }
+      ],
+      "name": "West",
+      "type": "geoselectchanged"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "geoselected": [
+  {
+   "json": {
+    "selected": {
+     "West": true,
+     "East": true
+    },
+    "allSelected": [
+     {
+      "geoIndex": 0,
+      "name": [
+       "West",
+       "East"
+      ]
+     }
+    ],
+    "name": "East",
+    "type": "geoselected"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "geoselected",
+    "batch": [
+     {
+      "selected": {
+       "West": true,
+       "East": true
+      },
+      "allSelected": [
+       {
+        "geoIndex": 0,
+        "name": [
+         "West",
+         "East"
+        ]
+       }
+      ],
+      "name": "East",
+      "type": "geoselected"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "geounselected": [
+  {
+   "json": {
+    "selected": {
+     "West": true,
+     "East": false
+    },
+    "allSelected": [
+     {
+      "geoIndex": 0,
+      "name": [
+       "West"
+      ]
+     }
+    ],
+    "name": "East",
+    "type": "geounselected"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "geounselected",
+    "batch": [
+     {
+      "selected": {
+       "West": true,
+       "East": false
+      },
+      "allSelected": [
+       {
+        "geoIndex": 0,
+        "name": [
+         "West"
+        ]
+       }
+      ],
+      "name": "East",
+      "type": "geounselected"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "globalcursortaken": [
+  {
+   "json": {
+    "type": "globalcursortaken",
+    "key": "brush",
+    "brushOption": {
+     "brushType": "lineX"
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "globalcursortaken",
+    "batch": [
+     {
+      "key": "brush",
+      "brushOption": {
+       "brushType": "lineX"
+      },
+      "__ec_inner_16": {},
+      "type": "globalcursortaken",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "globalout": [
+  {
+   "json": {
+    "event": null,
+    "type": "globalout"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:21"
+     }
+    }
+   ]
+  }
+ ],
+ "graphroam": [
+  {
+   "json": {
+    "type": "graphroam",
+    "seriesId": "g",
+    "dx": 5,
+    "dy": 5,
+    "animation": {
+     "duration": 0
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "graphroam",
+    "seriesId": "g",
+    "zoom": 2,
+    "originX": 10,
+    "originY": 10,
+    "animation": {
+     "duration": 0
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "graphroam",
+    "batch": [
+     {
+      "seriesId": "g",
+      "dx": 5,
+      "dy": 5,
+      "animation": {
+       "duration": 0
+      },
+      "type": "graphroam",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "hidetip": [
+  {
+   "json": {
+    "type": "hidetip"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "hidetip",
+    "from": "viewComponent_168"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "hidetip",
+    "from": "viewComponent_168"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "hidetip"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "hidetip",
+    "from": "viewComponent_168"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "hidetip",
+    "batch": [
+     {
+      "type": "hidetip",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "hidetip",
+    "from": "viewComponent_168"
+   },
+   "references": []
+  }
+ ],
+ "highlight": [
+  {
+   "json": {
+    "type": "highlight",
+    "seriesIndex": 0,
+    "dataIndex": 1
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 0,
+      "type": "highlight",
+      "batch": null
+     },
+     {
+      "seriesIndex": 1,
+      "dataIndex": 2,
+      "type": "highlight",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 1,
+      "type": "highlight",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "seriesId": 1,
+    "dataIndex": 0
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "geoId": 3,
+    "geoName": [
+     3
+    ],
+    "name": "West"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "batch": [
+     {
+      "seriesId": 1,
+      "dataIndex": 0,
+      "type": "highlight",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "escapeConnect": true,
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 1,
+      "type": "highlight",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     },
+     {
+      "seriesIndex": 1,
+      "dataIndex": 1,
+      "type": "highlight",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "escapeConnect": true,
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 2,
+      "type": "highlight",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     },
+     {
+      "seriesIndex": 1,
+      "dataIndex": 2,
+      "type": "highlight",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "highlight",
+    "escapeConnect": true,
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 1,
+      "type": "highlight",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     },
+     {
+      "seriesIndex": 1,
+      "dataIndex": 1,
+      "type": "highlight",
+      "escapeConnect": true,
+      "notBlur": true,
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "legendinverseselect": [
+  {
+   "json": {
+    "selected": {
+     "A": false,
+     "B": false
+    },
+    "legendIndex": [
+     0
+    ],
+    "type": "legendinverseselect"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendinverseselect",
+    "batch": [
+     {
+      "selected": {
+       "A": false,
+       "B": false
+      },
+      "legendIndex": [
+       0
+      ],
+      "type": "legendinverseselect"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "legendscroll": [
+  {
+   "json": {
+    "type": "legendscroll",
+    "scrollDataIndex": 6,
+    "legendId": "l"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendscroll",
+    "batch": [
+     {
+      "scrollDataIndex": 3,
+      "legendId": "l",
+      "type": "legendscroll",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendscroll",
+    "batch": [
+     {
+      "scrollDataIndex": 6,
+      "legendId": "l",
+      "__ec_inner_16": {},
+      "type": "legendscroll",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "legendselectall": [
+  {
+   "json": {
+    "selected": {
+     "A": true,
+     "B": true
+    },
+    "legendIndex": [
+     0
+    ],
+    "type": "legendselectall"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendselectall",
+    "batch": [
+     {
+      "selected": {
+       "A": true,
+       "B": true
+      },
+      "legendIndex": [
+       0
+      ],
+      "type": "legendselectall"
+     },
+     {
+      "selected": {
+       "A": true,
+       "B": true
+      },
+      "legendIndex": [
+       0
+      ],
+      "type": "legendselectall"
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendselectall",
+    "batch": [
+     {
+      "selected": {
+       "A": true,
+       "B": true
+      },
+      "legendIndex": [
+       0
+      ],
+      "type": "legendselectall"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "legendselectchanged": [
+  {
+   "json": {
+    "name": "A",
+    "selected": {
+     "A": false,
+     "B": true
+    },
+    "type": "legendselectchanged"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendselectchanged",
+    "batch": [
+     {
+      "name": "A",
+      "selected": {
+       "A": true,
+       "B": false
+      },
+      "type": "legendselectchanged"
+     },
+     {
+      "name": "B",
+      "selected": {
+       "A": true,
+       "B": true
+      },
+      "type": "legendselectchanged"
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendselectchanged",
+    "batch": [
+     {
+      "name": "A",
+      "selected": {
+       "A": false,
+       "B": true
+      },
+      "type": "legendselectchanged"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "legendselected": [
+  {
+   "json": {
+    "name": "A",
+    "selected": {
+     "A": true,
+     "B": true
+    },
+    "type": "legendselected"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendselected",
+    "batch": [
+     {
+      "name": "A",
+      "selected": {
+       "A": true,
+       "B": true
+      },
+      "type": "legendselected"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "legendunselected": [
+  {
+   "json": {
+    "name": "A",
+    "selected": {
+     "A": false,
+     "B": true
+    },
+    "type": "legendunselected"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "legendunselected",
+    "batch": [
+     {
+      "name": "A",
+      "selected": {
+       "A": false,
+       "B": true
+      },
+      "type": "legendunselected"
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "magictypechanged": [
+  {
+   "json": {
+    "type": "magictypechanged",
+    "currentType": "line",
+    "newOption": {
+     "series": [
+      {
+       "id": "a",
+       "type": "line",
+       "z": 3,
+       "coordinateSystem": "cartesian2d",
+       "legendHoverLink": true,
+       "clip": true,
+       "label": {
+        "position": "top"
+       },
+       "endLabel": {
+        "show": false,
+        "valueAnimation": true,
+        "distance": 8
+       },
+       "lineStyle": {
+        "width": 2,
+        "type": "solid"
+       },
+       "emphasis": {
+        "scale": true,
+        "label": {}
+       },
+       "step": false,
+       "smooth": false,
+       "smoothMonotone": null,
+       "symbol": "emptyCircle",
+       "symbolSize": 6,
+       "symbolRotate": null,
+       "showSymbol": true,
+       "showAllSymbol": "auto",
+       "connectNulls": false,
+       "sampling": "none",
+       "animationEasing": "linear",
+       "progressive": 0,
+       "hoverLayerThreshold": null,
+       "universalTransition": {
+        "divideShape": "clone"
+       },
+       "triggerLineEvent": false,
+       "triggerEvent": false
+      }
+     ]
+    },
+    "featureName": "magicType"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "magictypechanged",
+    "batch": [
+     {
+      "currentType": "line",
+      "newOption": {
+       "series": [
+        {
+         "id": "a",
+         "type": "line",
+         "z": 3,
+         "coordinateSystem": "cartesian2d",
+         "legendHoverLink": true,
+         "clip": true,
+         "label": {
+          "position": "top"
+         },
+         "endLabel": {
+          "show": false,
+          "valueAnimation": true,
+          "distance": 8
+         },
+         "lineStyle": {
+          "width": 2,
+          "type": "solid"
+         },
+         "emphasis": {
+          "scale": true,
+          "label": {}
+         },
+         "step": false,
+         "smooth": false,
+         "smoothMonotone": null,
+         "symbol": "emptyCircle",
+         "symbolSize": 6,
+         "symbolRotate": null,
+         "showSymbol": true,
+         "showAllSymbol": "auto",
+         "connectNulls": false,
+         "sampling": "none",
+         "animationEasing": "linear",
+         "progressive": 0,
+         "hoverLayerThreshold": null,
+         "universalTransition": {
+          "divideShape": "clone"
+         },
+         "triggerLineEvent": false,
+         "triggerEvent": false
+        }
+       ]
+      },
+      "featureName": "magicType",
+      "__ec_inner_16": {},
+      "type": "magictypechanged",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "mousedown": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousedown"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:5"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousedown"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:9"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousedown"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:12"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousedown"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:17"
+     }
+    }
+   ]
+  }
+ ],
+ "mousemove": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousemove"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:1"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousemove"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:3"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousemove"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:4"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousemove"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:8"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mousemove"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:16"
+     }
+    }
+   ]
+  }
+ ],
+ "mouseout": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mouseout"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:20"
+     }
+    }
+   ]
+  }
+ ],
+ "mouseover": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mouseover"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:2"
+     }
+    }
+   ]
+  }
+ ],
+ "mouseup": [
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mouseup"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:6"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mouseup"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:10"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mouseup"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:13"
+     }
+    }
+   ]
+  },
+  {
+   "json": {
+    "componentType": "series",
+    "componentSubType": "bar",
+    "componentIndex": 0,
+    "seriesType": "bar",
+    "seriesIndex": 0,
+    "seriesId": "a",
+    "seriesName": "A",
+    "name": "y",
+    "dataIndex": 1,
+    "data": 2,
+    "value": 2,
+    "color": "#5070dd",
+    "dimensionNames": [
+     "x",
+     "y"
+    ],
+    "encode": {
+     "x": [
+      0
+     ],
+     "y": [
+      1
+     ]
+    },
+    "$vars": [
+     "seriesName",
+     "name",
+     "value"
+    ],
+    "event": null,
+    "type": "mouseup"
+   },
+   "references": [
+    {
+     "path": [
+      "event"
+     ],
+     "reference": {
+      "runtimeId": "conformance",
+      "ownerId": "pointer",
+      "token": "object:18"
+     }
+    }
+   ]
+  }
+ ],
+ "parallelaxisexpand": [
+  {
+   "json": {
+    "type": "parallelaxisexpand",
+    "parallelId": "p",
+    "axisExpandWindow": [
+     0,
+     100
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "parallelaxisexpand",
+    "batch": [
+     {
+      "parallelId": "p",
+      "axisExpandWindow": [
+       0,
+       100
+      ],
+      "__ec_inner_16": {},
+      "type": "parallelaxisexpand",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "rendered": [
+  {
+   "json": {
+    "elapsedTime": 0
+   },
+   "references": []
+  }
+ ],
+ "restore": [
+  {
+   "json": {
+    "type": "restore"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "restore",
+    "batch": [
+     {
+      "__ec_inner_16": {},
+      "type": "restore",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "selectchanged": [
+  {
+   "json": {
+    "type": "selectchanged",
+    "selected": [
+     {
+      "dataIndex": [
+       1
+      ],
+      "seriesIndex": 0
+     }
+    ],
+    "isFromClick": false,
+    "fromAction": "select",
+    "fromActionPayload": {
+     "type": "select",
+     "seriesIndex": 0,
+     "dataIndex": 1
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "selectchanged",
+    "selected": [
+     {
+      "dataIndex": [
+       1,
+       0,
+       2
+      ],
+      "seriesIndex": 0
+     }
+    ],
+    "isFromClick": false,
+    "fromAction": "toggleSelect",
+    "fromActionPayload": {
+     "type": "toggleSelect",
+     "seriesIndex": 0,
+     "dataIndex": [
+      0,
+      2
+     ]
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "selectchanged",
+    "selected": [
+     {
+      "dataIndex": [
+       0,
+       2
+      ],
+      "seriesIndex": 0
+     }
+    ],
+    "isFromClick": false,
+    "fromAction": "unselect",
+    "fromActionPayload": {
+     "type": "unselect",
+     "seriesIndex": 0,
+     "dataIndex": 1
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "selectchanged",
+    "selected": [
+     {
+      "dataIndex": [
+       1,
+       0,
+       2
+      ],
+      "seriesIndex": 0
+     }
+    ],
+    "isFromClick": false,
+    "fromAction": "select",
+    "fromActionPayload": {
+     "type": "select",
+     "batch": [
+      {
+       "seriesIndex": 0,
+       "dataIndex": 1
+      }
+     ]
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "selectchanged",
+    "selected": [
+     {
+      "dataIndex": [
+       1
+      ],
+      "seriesIndex": 0
+     }
+    ],
+    "isFromClick": false,
+    "fromAction": "toggleSelect",
+    "fromActionPayload": {
+     "type": "toggleSelect",
+     "batch": [
+      {
+       "seriesIndex": 0,
+       "dataIndex": [
+        0,
+        2
+       ]
+      }
+     ]
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "selectchanged",
+    "selected": [],
+    "isFromClick": false,
+    "fromAction": "unselect",
+    "fromActionPayload": {
+     "type": "unselect",
+     "batch": [
+      {
+       "seriesIndex": 0,
+       "dataIndex": 1
+      }
+     ]
+    },
+    "escapeConnect": true
+   },
+   "references": []
+  }
+ ],
+ "showtip": [
+  {
+   "json": {
+    "type": "showtip",
+    "seriesIndex": 0,
+    "dataIndex": 1
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "showtip",
+    "dataIndexInside": 1,
+    "dataIndex": 1,
+    "seriesIndex": 0,
+    "from": "viewComponent_168"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "showtip",
+    "x": 315,
+    "y": 235
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "showtip",
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndex": 1,
+      "type": "showtip",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "showtip",
+    "dataIndexInside": 1,
+    "dataIndex": 1,
+    "seriesIndex": 0,
+    "from": "viewComponent_168"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "showtip",
+    "escapeConnect": true,
+    "x": 315,
+    "y": 235,
+    "dataIndexInside": 1,
+    "dataIndex": 1,
+    "seriesIndex": 0,
+    "dataByCoordSys": [
+     {
+      "coordSysId": "\u0000series\u00000\u00000",
+      "coordSysIndex": 0,
+      "coordSysType": "grid",
+      "coordSysMainType": "grid",
+      "dataByAxis": [
+       {
+        "axisDim": "x",
+        "axisIndex": 0,
+        "axisType": "xAxis.category",
+        "axisId": "\u0000series\u00000\u00000",
+        "value": 1,
+        "valueLabelOpt": {
+         "precision": "auto"
+        },
+        "seriesDataIndices": [
+         {
+          "seriesIndex": 0,
+          "dataIndexInside": 1,
+          "dataIndex": 1
+         },
+         {
+          "seriesIndex": 1,
+          "dataIndexInside": 1,
+          "dataIndex": 1
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "showtip",
+    "escapeConnect": true,
+    "x": 465,
+    "y": 235,
+    "dataIndexInside": 2,
+    "dataIndex": 2,
+    "seriesIndex": 0,
+    "dataByCoordSys": [
+     {
+      "coordSysId": "\u0000series\u00000\u00000",
+      "coordSysIndex": 0,
+      "coordSysType": "grid",
+      "coordSysMainType": "grid",
+      "dataByAxis": [
+       {
+        "axisDim": "x",
+        "axisIndex": 0,
+        "axisType": "xAxis.category",
+        "axisId": "\u0000series\u00000\u00000",
+        "value": 2,
+        "valueLabelOpt": {
+         "precision": "auto"
+        },
+        "seriesDataIndices": [
+         {
+          "seriesIndex": 0,
+          "dataIndexInside": 2,
+          "dataIndex": 2
+         },
+         {
+          "seriesIndex": 1,
+          "dataIndexInside": 2,
+          "dataIndex": 2
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "showtip",
+    "escapeConnect": true,
+    "x": 315,
+    "y": 235,
+    "dataIndexInside": 1,
+    "dataIndex": 1,
+    "seriesIndex": 0,
+    "dataByCoordSys": [
+     {
+      "coordSysId": "\u0000series\u00000\u00000",
+      "coordSysIndex": 0,
+      "coordSysType": "grid",
+      "coordSysMainType": "grid",
+      "dataByAxis": [
+       {
+        "axisDim": "x",
+        "axisIndex": 0,
+        "axisType": "xAxis.category",
+        "axisId": "\u0000series\u00000\u00000",
+        "value": 1,
+        "valueLabelOpt": {
+         "precision": "auto"
+        },
+        "seriesDataIndices": [
+         {
+          "seriesIndex": 0,
+          "dataIndexInside": 1,
+          "dataIndex": 1
+         },
+         {
+          "seriesIndex": 1,
+          "dataIndexInside": 1,
+          "dataIndex": 1
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "sunbursthighlight": [
+  {
+   "json": {
+    "type": "sunbursthighlight",
+    "seriesId": "sun",
+    "targetNodeId": "leaf"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "sunbursthighlight",
+    "batch": [
+     {
+      "seriesId": "sun",
+      "targetNodeId": "leaf",
+      "type": "sunbursthighlight",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "sunburstroottonode": [
+  {
+   "json": {
+    "type": "sunburstroottonode",
+    "seriesId": "sun",
+    "targetNodeId": "branch",
+    "direction": "drillDown"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "sunburstroottonode",
+    "batch": [
+     {
+      "targetNodeId": "leaf",
+      "type": "sunburstroottonode",
+      "seriesId": "sun",
+      "batch": null,
+      "direction": "drillDown"
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "sunburstroottonode",
+    "batch": [
+     {
+      "seriesId": "sun",
+      "targetNodeId": "branch",
+      "direction": "rollUp",
+      "__ec_inner_16": {
+       "updateMethod": "updateView"
+      },
+      "type": "sunburstroottonode",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "sunburstunhighlight": [
+  {
+   "json": {
+    "type": "sunburstunhighlight",
+    "seriesId": "sun"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "sunburstunhighlight",
+    "batch": [
+     {
+      "seriesId": "sun",
+      "__ec_inner_16": {
+       "updateMethod": "updateView"
+      },
+      "type": "sunburstunhighlight",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "timelinechanged": [
+  {
+   "json": {
+    "currentIndex": 1,
+    "type": "timelinechanged"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "timelinechanged",
+    "batch": [
+     {
+      "currentIndex": 0,
+      "type": "timelinechanged",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "timelinechanged",
+    "batch": [
+     {
+      "currentIndex": 1,
+      "__ec_inner_16": {},
+      "type": "timelinechanged",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "timelineplaychanged": [
+  {
+   "json": {
+    "type": "timelineplaychanged",
+    "playState": false
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "timelineplaychanged",
+    "batch": [
+     {
+      "playState": false,
+      "__ec_inner_16": {},
+      "type": "timelineplaychanged",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "treeexpandandcollapse": [
+  {
+   "json": {
+    "type": "treeexpandandcollapse",
+    "seriesId": "tree",
+    "dataIndex": 1
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "treeexpandandcollapse",
+    "batch": [
+     {
+      "dataIndex": 1,
+      "type": "treeexpandandcollapse",
+      "seriesId": "tree",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "treeexpandandcollapse",
+    "batch": [
+     {
+      "seriesId": "tree",
+      "dataIndex": 1,
+      "__ec_inner_16": {},
+      "type": "treeexpandandcollapse",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "treemaproottonode": [
+  {
+   "json": {
+    "type": "treemaproottonode",
+    "seriesId": "map",
+    "targetNodeId": "branch",
+    "direction": "drillDown"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "treemaproottonode",
+    "batch": [
+     {
+      "targetNodeId": "leaf",
+      "type": "treemaproottonode",
+      "seriesId": "map",
+      "batch": null,
+      "direction": "drillDown"
+     }
+    ]
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "treemaproottonode",
+    "batch": [
+     {
+      "seriesId": "map",
+      "targetNodeId": "branch",
+      "direction": "rollUp",
+      "__ec_inner_16": {
+       "updateMethod": "updateView"
+      },
+      "type": "treemaproottonode",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "treeroam": [
+  {
+   "json": {
+    "type": "treeroam",
+    "seriesId": "tree",
+    "dx": 5,
+    "dy": 5,
+    "animation": {
+     "duration": 0
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "treeroam",
+    "seriesId": "tree",
+    "zoom": 2,
+    "originX": 10,
+    "originY": 10,
+    "animation": {
+     "duration": 0
+    }
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "treeroam",
+    "batch": [
+     {
+      "seriesId": "tree",
+      "dx": 5,
+      "dy": 5,
+      "animation": {
+       "duration": 0
+      },
+      "type": "treeroam",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "unfocusnodeadjacency": [
+  {
+   "json": {
+    "type": "unfocusnodeadjacency",
+    "seriesId": "g"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "unfocusnodeadjacency",
+    "batch": [
+     {
+      "seriesId": "g",
+      "type": "unfocusnodeadjacency",
+      "batch": null
+     }
+    ]
+   },
+   "references": []
+  }
+ ],
+ "updateaxispointer": [
+  {
+   "json": {
+    "seriesIndex": 0,
+    "dataIndexInside": 1,
+    "dataIndex": 1,
+    "axesInfo": [
+     {
+      "axisDim": "x",
+      "axisIndex": 0,
+      "value": 1
+     }
+    ],
+    "type": "updateaxispointer"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "seriesIndex": 0,
+    "dataIndexInside": 2,
+    "dataIndex": 2,
+    "axesInfo": [
+     {
+      "axisDim": "x",
+      "axisIndex": 0,
+      "value": 2
+     }
+    ],
+    "type": "updateaxispointer"
+   },
+   "references": []
+  },
+  {
+   "json": {
+    "type": "updateaxispointer",
+    "batch": [
+     {
+      "seriesIndex": 0,
+      "dataIndexInside": 1,
+      "dataIndex": 1,
+      "axesInfo": [
+       {
+        "axisDim": "x",
+        "axisIndex": 0,
+        "value": 1
+       }
+      ],
+      "type": "updateaxispointer"
+     }
+    ]
+   },
+   "references": []
+  }
+ ]
+}

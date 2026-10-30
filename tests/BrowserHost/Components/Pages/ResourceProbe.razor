@@ -1,0 +1,10 @@
+@page "/harness/resources/server"
+@rendermode InteractiveServer
+<PageTitle>Server chart resources</PageTitle>
+<ResourceLifetimeProbe Mode="server" AutoMount="Mount" Renderer="@Renderer" Cycles="@(Cycles ?? 100)" />
+
+@code {
+    [SupplyParameterFromQuery(Name = "mount")] public bool Mount { get; set; }
+    [SupplyParameterFromQuery(Name = "renderer")] public string? Renderer { get; set; }
+    [SupplyParameterFromQuery(Name = "cycles")] public int? Cycles { get; set; }
+}

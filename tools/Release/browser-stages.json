@@ -1,0 +1,22 @@
+{
+  "formatVersion": 1,
+  "description": "The release gate runs each Playwright spec under tests/browser in exactly one browser stage of verify-local.ps1; paths are relative to tests/browser. The generator accepts browser evidence only from these specs.",
+  "stages": {
+    "browser-catalog": [
+      "series-catalog.spec.ts", "standard-series.spec.ts", "advanced-series.spec.ts", "components.spec.ts", "coordinates.spec.ts",
+      "dates.spec.ts", "graphics.spec.ts", "demo/demo.spec.ts", "demo/app-scenarios.spec.ts", "demo/accessibility.spec.ts",
+      "demo/components.spec.ts"
+    ],
+    "browser-interop": [
+      "functions.spec.ts", "events.spec.ts", "event-conformance.spec.ts", "methods.spec.ts", "globals.spec.ts", "runtime.spec.ts", "extensions.spec.ts",
+      "updates.spec.ts", "interaction-events.spec.ts"
+    ],
+    "browser-lifecycle": [
+      "lifecycle.spec.ts", "recreate.spec.ts", "harness/hosting-smoke.spec.ts", "demo/hosting.spec.ts", "wordcloud.spec.ts", "wordcloud-registration.spec.ts",
+      "exports.spec.ts", "server-reliability.spec.ts", "runtime-versioning.spec.ts"
+    ],
+    "wordcloud-compatibility": ["compatibility/wordcloud.spec.ts"],
+    "browser-matrix": ["matrix/browser-matrix.spec.ts"],
+    "browser-resources": ["resource-lifetime.spec.ts"]
+  }
+}

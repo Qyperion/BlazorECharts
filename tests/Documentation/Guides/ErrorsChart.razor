@@ -1,0 +1,18 @@
+@* snippet: Guides.Errors.OnError *@
+<EChart Options="_options" Style="height:300px" OnError="OnErrorAsync" />
+@if (_error is not null)
+{
+    <p role="alert">@_error.Operation failed (@_error.Code): @_error.Message</p>
+}
+
+@code {
+    private readonly ChartOptions _options = new();
+    private EChartsError? _error;
+
+    private Task OnErrorAsync(EChartsError error)
+    {
+        _error = error;   // Code, Message, Operation, ChartId, UpstreamVersion, Exception
+        return Task.CompletedTask;
+    }
+}
+@* endsnippet *@

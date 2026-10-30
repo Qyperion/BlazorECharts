@@ -1,0 +1,40 @@
+# Text files are stored and checked out with LF on every platform, whatever core.autocrlf or core.eol say,
+# so a checkout, git archive and the export are the committed bytes. -text files keep their exact bytes.
+* text=auto eol=lf
+# Keep the deterministic schema's committed bytes identical on Windows checkouts.
+/schemas/upstream/*.api.json text eol=lf
+/schemas/upstream/*.api/** text eol=lf
+# Generator hashes and check mode use exact LF bytes, including on Windows checkouts.
+/src/BlazorECharts/Options/Generated/** text eol=lf
+/src/BlazorECharts/Serialization/Generated/** text eol=lf
+/src/BlazorECharts/Values/Generated/** text eol=lf
+/src/BlazorECharts/Events/Generated/** text eol=lf
+/src/BlazorECharts/Runtime/Generated/** text eol=lf
+/src/BlazorECharts/JavaScript/global-helpers.generated.ts text eol=lf
+/src/BlazorECharts/JavaScript/native-graphics.generated.ts text eol=lf
+/docs/api-coverage/global-methods-6.1.0.md text eol=lf
+/schemas/generated/** text eol=lf
+# Coverage reports and compiled conformance corpora are exact generator outputs too.
+/docs/api-coverage/*.json text eol=lf
+/docs/api-coverage/instance-methods-6.1.0.md text eol=lf
+/tests/BlazorECharts.Tests/GeneratedContracts/*.g.cs text eol=lf
+/tests/BlazorECharts.Tests/GeneratedContracts/*.g.json text eol=lf
+/tests/BlazorECharts.Tests/WordCloud/wordcloud-models.json text eol=lf
+/src/BlazorECharts/Runtime/EChartInstance.Groups.cs text eol=lf
+/docs/api-coverage/events-actions-6.1.0.md text eol=lf
+# Distributable asset hashes cover the original bytes, including upstream notices.
+/src/BlazorECharts/wwwroot/js/** -text
+/src/BlazorECharts/wwwroot/js/echarts-6.1.0.js -whitespace
+/src/BlazorECharts/wwwroot/notices/** -text -whitespace
+/src/BlazorECharts.WordCloud/Options/Generated/** text eol=lf
+/src/BlazorECharts.WordCloud/Serialization/Generated/** text eol=lf
+/src/BlazorECharts.WordCloud/wwwroot/** -text -whitespace
+/docs/api-coverage/wordcloud-3.0.0.md text eol=lf
+# Packaged documents are compared byte for byte by tools/Release.
+/LICENSE text eol=lf
+/THIRD-PARTY-NOTICES.md text eol=lf
+/src/BlazorECharts/README.md text eol=lf
+/src/BlazorECharts.WordCloud/README.md text eol=lf
+# The public API baseline is compared as LF text by PublicApiBaselineTests.
+/tests/BlazorECharts.Tests/Api/PublicApi/*.txt text eol=lf
+/tests/BlazorECharts.Tests/Fixtures/echarts-6.1.0-snapshots/*.json text eol=lf

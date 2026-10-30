@@ -1,0 +1,9 @@
+@page "/harness/lifecycle/wasm"
+@rendermode InteractiveWebAssembly
+
+<PageTitle>WebAssembly chart lifecycle</PageTitle>
+<ChartLifecycleProbe Hidden="Hidden" />
+
+@code {
+    [SupplyParameterFromQuery(Name = "hidden")] public bool Hidden { get; set; }
+}

@@ -1,0 +1,17 @@
+{
+  "seed": 20261023,
+  "hoverMoves": 400,
+  "scaling": ["line-1k", "line-10k", "line-100k", "line-1m"],
+  "workloads": [
+    { "name": "line-1k", "kind": "line", "size": 1000, "charts": 1, "renderers": ["canvas", "svg"], "title": "Line, 1 chart × 1,000 points" },
+    { "name": "line-10k", "kind": "line", "size": 10000, "charts": 1, "renderers": ["canvas", "svg"], "title": "Line, 1 chart × 10,000 points" },
+    { "name": "line-100k", "kind": "line", "size": 100000, "charts": 1, "renderers": ["canvas", "svg"], "title": "Line, 1 chart × 100,000 points" },
+    { "name": "line-1m", "kind": "line", "size": 1000000, "charts": 1, "renderers": ["canvas"], "title": "Line, 1 chart × 1,000,000 points" },
+    { "name": "line-4x10k", "kind": "line", "size": 10000, "charts": 4, "renderers": ["canvas", "svg"], "title": "Line, 4 concurrent charts × 10,000 points" },
+    { "name": "line-20x1k", "kind": "line", "size": 1000, "charts": 20, "renderers": ["canvas", "svg"], "title": "Dashboard, 20 concurrent charts × 1,000 points" },
+    { "name": "wordcloud-200", "kind": "wordcloud", "size": 200, "charts": 1, "renderers": ["canvas", "svg"], "title": "WordCloud, 200 words" },
+    { "name": "wordcloud-2000", "kind": "wordcloud", "size": 2000, "charts": 1, "renderers": ["canvas", "svg"], "title": "WordCloud, 2,000 words" },
+    { "name": "stream-1k", "kind": "stream", "size": 1000, "charts": 1, "renderers": ["canvas"], "title": "Stream, 1,000 sequential full updates of 1 chart × 1,000 points" },
+    { "name": "hover-100", "kind": "hover", "size": 100, "charts": 1, "renderers": ["canvas"], "title": "Hover, 400 mouse moves over 100 bars with one mousemove subscription" }
+  ]
+}

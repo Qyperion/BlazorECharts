@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsTestProject>true</IsTestProject>
+
+    <!-- The tests call the default-token overloads of the public API on purpose; a test token would change the path under test. -->
+    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
+
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../Shared/ComponentOptionFixtures.cs" Link="Fixtures/ComponentOptionFixtures.cs" />
+    <Compile Include="../Shared/StandardSeriesCatalog.cs" Link="Fixtures/StandardSeriesCatalog.cs" />
+    <Compile Include="../Shared/AdvancedSeriesCatalog.cs" Link="Fixtures/AdvancedSeriesCatalog.cs" />
+    <Compile Include="../Shared/CompleteSeriesCatalog.cs" Link="Fixtures/CompleteSeriesCatalog.cs" />
+    <Compile Include="../Shared/GraphicGeometryFixtures.cs" Link="Fixtures/GraphicGeometryFixtures.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="GeneratedContracts/ManifestSymbols.g.json" Link="Fixtures/ManifestSymbols.g.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../schemas/overrides/echarts-6.1.0.json" Link="Fixtures/coverage-overrides.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../javascript/interop/fixtures/prepared-option.json" Link="Fixtures/prepared-option.json" CopyToOutputDirectory="PreserveNewest" />
+
+    <None Update="WordCloud/wordcloud-models.json" Link="Fixtures/wordcloud-models.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/echarts-6.1.0-snapshots/*.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/echarts-6.1.0-events.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/BlazorECharts/BlazorECharts.csproj" />
+    <ProjectReference Include="../../src/BlazorECharts.WordCloud/BlazorECharts.WordCloud.csproj" />
+    <ProjectReference Include="../../samples/BlazorECharts.Examples/BlazorECharts.Examples.csproj" />
+  </ItemGroup>
+
+</Project>

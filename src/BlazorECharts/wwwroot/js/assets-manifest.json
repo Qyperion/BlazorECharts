@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "buildTool": "esbuild@0.28.2",
+  "runtime": {
+    "version": "6.1.0",
+    "sourceSha256": "28515f26aa57f87eb1e4ed4eb446927eaf329b5f5e02b4bfd4b0264fea40d1da",
+    "archiveSha256": "681aff88cc1038c3fa941a3a53d1b177a52250b05335efc607d6105ae13be481"
+  },
+  "files": [
+    {
+      "path": "js/blazor-echarts.js",
+      "bytes": 1051,
+      "sha256": "d814c430ad57d8c8699027eda0ef68e50c0b543deb49fa50f12d1dc5492afd64"
+    },
+    {
+      "path": "js/echarts-6.1.0.js",
+      "bytes": 1121654,
+      "sha256": "28515f26aa57f87eb1e4ed4eb446927eaf329b5f5e02b4bfd4b0264fea40d1da"
+    },
+    {
+      "path": "js/runtime-loader.js",
+      "bytes": 91808,
+      "sha256": "77f61b15f5ae2db1da3ccc4abd36d3dcb891a084cbaf850fa2ba48860c4788cb"
+    },
+    {
+      "path": "notices/echarts/LICENSE",
+      "bytes": 11990,
+      "sha256": "634293835b43a6dd2094fa39182a3d9a6b9ca43b7fdb9ac354e8037af2a3093a"
+    },
+    {
+      "path": "notices/echarts/NOTICE",
+      "bytes": 168,
+      "sha256": "d491d358344f842685c1b1585970999db65fe30ecf7ef3867af8814f4016c016"
+    },
+    {
+      "path": "notices/tslib/CopyrightNotice.txt",
+      "bytes": 824,
+      "sha256": "dd835e67a9a297da32f9467d7677a5d02c8e50e10f15da43b810147c79c04b9b"
+    },
+    {
+      "path": "notices/tslib/LICENSE.txt",
+      "bytes": 655,
+      "sha256": "210b19e543130388c68654b7497e967119ce17145f66ab7d85688fbd70f08751"
+    },
+    {
+      "path": "notices/zrender/LICENSE",
+      "bytes": 1509,
+      "sha256": "a681e9d183c72b4af4856935893805eb48c08f0f5a3f260203db7444c20fb98a"
+    }
+  ]
+}

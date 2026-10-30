@@ -1,0 +1,41 @@
+{
+  "name": "blazor-echarts-workspace",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.18.0",
+    "npm": "12.2.0"
+  },
+  "packageManager": "npm@12.2.0",
+  "scripts": {
+    "test:browser": "playwright test --config tests/browser/playwright.config.ts",
+    "test:performance": "node tools/Performance/run.mjs",
+    "test:js": "vitest run --config vitest.config.ts",
+    "test:generator": "vitest run --config vitest.config.ts --project generator --project generator-parallel",
+    "api:extract": "node tools/BindingGenerator/src/cli.ts",
+    "api:check": "node tools/BindingGenerator/src/cli.ts check",
+    "api:diff": "node tools/BindingGenerator/src/cli.ts diff",
+    "generate": "node tools/BindingGenerator/src/cli.ts generate",
+    "generate:check": "node tools/BindingGenerator/src/cli.ts generate-check",
+    "snapshots": "node tools/Snapshots/echarts-snapshots.mjs",
+    "snapshots:check": "node tools/Snapshots/echarts-snapshots.mjs --check",
+    "docs:acquire": "node tools/BindingGenerator/src/docs-snapshot.ts",
+    "docs:check": "node tools/Docs/check.ts",
+    "typecheck:generator": "tsc --project tools/BindingGenerator/tsconfig.json && tsc --project tools/Docs/tsconfig.json",
+    "assets:acquire": "node tools/Assets/acquire-upstream.mjs",
+    "assets:build": "node tools/Assets/build.mjs",
+    "assets:check": "node tools/Assets/build.mjs --check",
+    "typecheck:runtime": "tsc --project src/BlazorECharts/JavaScript/tsconfig.json",
+    "test:compatibility": "node tools/Assets/build-probe.mjs && node --test tools/Assets/acquire-upstream.test.mjs && playwright test --config tests/browser/playwright.config.ts compatibility/wordcloud.spec.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.13.6",
+    "esbuild": "0.28.2",
+    "globby": "11.1.0",
+    "htmlparser2": "4.1.0",
+    "marked": "0.3.19",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  }
+}

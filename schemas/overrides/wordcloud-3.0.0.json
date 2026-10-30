@@ -1,0 +1,125 @@
+{
+  "formatVersion": 1,
+  "version": "3.0.0",
+  "reason": "The declarations of @qyperion/echarts-wordcloud 3.0.0 cover the series, its text style, states and data items; the series and data-item tooltip read by the core TooltipView cascade, the select state and the item fields of the core data item are added from the core sources. Common SeriesModel fields use the core 6.1.0 types (id, name, randomSeed, box layout, color, colorLayer, stateAnimation, selectedMap, selectedMode, text font size and weight). Inherited members that the series never reads are omitted with a reason; members without effect carry remarks. Only series.textStyle evaluates a color callback; data items, states and rich tokens take WordCloudItemTextStyle with a color string. The C# types of 1.0.0 stay where 3.0.0 declares a wider or narrower TypeScript type: color keeps the string and callback alternatives (Color also admits gradients), shape stays a string (3.0.0 lists the presets), and sizeRange and rotationRange stay number arrays (3.0.0 declares pairs). Models are emitted into the optional RCL only.",
+  "models": {
+    "WordCloudSeriesOption": {
+      "declaration": "WordCloudSeriesOption",
+      "properties": {
+        "mainType": "omit:ECharts reads mainType from the SeriesModel class, not from options.", "type": "literal:wordCloud",
+        "silent": "bool", "blendMode": "string", "cursor": "string",
+        "width": "core:NumberOrString", "height": "core:NumberOrString",
+        "top": "core:NumberOrString", "right": "core:NumberOrString",
+        "bottom": "core:NumberOrString", "left": "core:NumberOrString",
+        "textStyle": "WordCloudTextStyle", "emphasis": "WordCloudState",
+        "shape": "WordCloudShape", "maskImage": "native",
+        "sizeRange": "double[]", "rotationRange": "double[]", "rotationStep": "double",
+        "gridSize": "double", "drawOutOfBound": "bool", "layoutAnimation": "bool", "data": "WordCloudDataItem[]",
+        "keepAspect": "bool",
+        "shrinkToFit": "bool",
+        "randomSeed": "core:NumberOrString",
+        "blur": "WordCloudState",
+        "select": "omit:WordCloudView creates only the emphasis and blur states; ECharts applies select styles only to elements that have a select state.",
+        "id": "core:NumberOrString", "name": "core:NumberOrString",
+        "z": "double",
+        "zlevel": "double",
+        "animation": "bool",
+        "animationThreshold": "omit:WordCloudView reads animation directly for word state transitions; the data count threshold never applies.",
+        "animationDuration": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+        "animationDurationUpdate": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+        "animationDelay": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+        "animationDelayUpdate": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+        "animationEasing": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+        "animationEasingUpdate": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+        "stateAnimation": "core:AnimationOption",
+        "color": "core-many:ZRColor", "colorLayer": "core:ZRColor?[]?[]", "colorBy": "literal:series,data",
+        "dataGroupId": "omit:Read only by universal transition, which pairs elements before the words are drawn.",
+        "legendHoverLink": "bool",
+        "progressive": "omit:WordCloudView has no incremental rendering (incrementalPrepareRender).",
+        "progressiveThreshold": "omit:WordCloudView has no incremental rendering (incrementalPrepareRender).",
+        "progressiveChunkMode": "omit:WordCloudView has no incremental rendering (incrementalPrepareRender).",
+        "hoverLayerThreshold": "omit:ECharts reads hoverLayerThreshold from the root option, not from a series.",
+        "seriesLayoutBy": "omit:The series reads only option.data, never a dataset.",
+        "labelLine": "omit:Words are plain Text elements without label content, which the label layout stage never sees.",
+        "labelLayout": "omit:Words are plain Text elements without label content, which the label layout stage never sees.",
+        "universalTransition": "omit:Universal transition pairs elements in the update lifecycle; the words are drawn after it.",
+        "selectedMap": "core:SelectedMap", "selectedMode": "core:SeriesSelectedMode",
+        "coordinateSystem": "omit:The layout always uses the box layout of the chart, never a coordinate system.",
+        "coordinateSystemUsage": "omit:The layout always uses the box layout of the chart, never a coordinate system.",
+        "coord": "omit:The layout always uses the box layout of the chart, never a coordinate system.",
+        "tooltip": "core:SeriesTooltipOption"
+      }
+    },
+    "WordCloudTextStyle": {
+      "declaration": "WordCloudTextStyle",
+      "coreDeclarations": ["LabelCommonOption"],
+      "properties": {
+        "color": "WordCloudColor", "fontStyle": "string", "fontWeight": "core:NumberOrString",
+        "fontFamily": "string", "fontSize": "core:NumberOrString", "align": "string", "verticalAlign": "string", "baseline": "string",
+        "opacity": "double", "lineHeight": "double", "backgroundColor": "WordCloudBackground", "borderColor": "string", "borderWidth": "double",
+        "borderType": "WordCloudLineType", "borderDashOffset": "double", "borderRadius": "WordCloudNumberOrNumbers", "padding": "WordCloudNumberOrNumbers",
+        "width": "core:NumberOrString", "height": "double", "textBorderColor": "string", "textBorderWidth": "double",
+        "textBorderType": "WordCloudLineType", "textBorderDashOffset": "double", "textShadowBlur": "double", "textShadowColor": "string",
+        "textShadowOffsetX": "double", "textShadowOffsetY": "double", "tag": "string",
+        "shadowBlur": "double", "shadowColor": "string", "shadowOffsetX": "double", "shadowOffsetY": "double",
+        "rich":"WordCloudRichText", "richInheritPlainLabel":"bool", "overflow":"literal:break,breakAll,truncate,none",
+        "lineOverflow":"literal:truncate", "ellipsis":"string", "minMargin":"double", "textMargin":"WordCloudNumberOrNumbers"
+      }
+    },
+    "WordCloudItemTextStyle": {
+      "declaration": "WordCloudTextStyle",
+      "coreDeclarations": ["LabelCommonOption"],
+      "properties": {
+        "color": "string", "fontStyle": "string", "fontWeight": "core:NumberOrString",
+        "fontFamily": "string", "fontSize": "core:NumberOrString", "align": "string", "verticalAlign": "string", "baseline": "string",
+        "opacity": "double", "lineHeight": "double", "backgroundColor": "WordCloudBackground", "borderColor": "string", "borderWidth": "double",
+        "borderType": "WordCloudLineType", "borderDashOffset": "double", "borderRadius": "WordCloudNumberOrNumbers", "padding": "WordCloudNumberOrNumbers",
+        "width": "core:NumberOrString", "height": "double", "textBorderColor": "string", "textBorderWidth": "double",
+        "textBorderType": "WordCloudLineType", "textBorderDashOffset": "double", "textShadowBlur": "double", "textShadowColor": "string",
+        "textShadowOffsetX": "double", "textShadowOffsetY": "double", "tag": "string",
+        "shadowBlur": "double", "shadowColor": "string", "shadowOffsetX": "double", "shadowOffsetY": "double",
+        "rich":"WordCloudRichText", "richInheritPlainLabel":"bool", "overflow":"literal:break,breakAll,truncate,none",
+        "lineOverflow":"literal:truncate", "ellipsis":"string", "minMargin":"double", "textMargin":"WordCloudNumberOrNumbers"
+      }
+    },
+    "WordCloudDataItem": {
+      "declaration": "WordCloudDataItem",
+      "properties": {
+        "name": "string", "value": "WordCloudNumberOrNumbers", "textStyle": "WordCloudItemTextStyle", "emphasis": "WordCloudState",
+        "blur": "WordCloudState", "id": "core:NumberOrString", "selected": "bool", "tooltip": "WordCloudDataTooltip",
+        "select": "omit:WordCloudView creates only the emphasis and blur states; ECharts applies select styles only to elements that have a select state.",
+        "groupId": "omit:Read only by universal transition, which pairs elements before the words are drawn.",
+        "childGroupId": "omit:Read only by universal transition, which pairs elements before the words are drawn."
+      }
+    },
+    "WordCloudState": {
+      "declaration": "WordCloudEmphasisOption",
+      "properties": { "focus": "literal:self,series,none", "blurScope": "literal:coordinateSystem,global,series", "textStyle": "WordCloudItemTextStyle",
+      "disabled": "omit:WordCloudView enables hover emphasis without reading emphasis.disabled." }
+    },
+    "WordCloudImageBackground": { "properties": { "image": "WordCloudImage" } }
+  },
+  "noEffect": {
+    "WordCloudSeriesOption.cursor": "WordCloudView never sets the cursor of a word; ZRender shows its default pointer.",
+    "WordCloudSeriesOption.blendMode": "ECharts applies blendMode to the elements present at render; words are drawn after the series render."
+  },
+  "unions": {
+    "WordCloudNumberOrNumbers": ["double", "double[]"],
+    "WordCloudShape": ["string", "function:WordCloudShapeSignature"],
+    "WordCloudColor": ["string", "function:WordCloudColorSignature"],
+    "WordCloudImage": ["string", "native"],
+    "WordCloudBackground": ["string", "WordCloudImageBackground"],
+    "WordCloudLineType": ["literal:solid,dotted,dashed", "double", "double[]"],
+    "WordCloudDataTooltip": ["string", "core:SeriesTooltipOption"]
+  },
+  "callbacks": {
+    "WordCloudShapeSignature": "(theta: number) => number",
+    "WordCloudColorSignature": "(params: DefaultLabelFormatterCallbackParams) => Color"
+  },
+  "supplements": {
+    "select": { "file": "echarts/types/dist/echarts.d.ts", "anchor": "interface StatesOptionMixin" },
+    "shapeCallback": { "file": "echarts-wordcloud/src/layout.js", "anchor": "typeof settings.shape" },
+    "colorCallback": { "file": "echarts-wordcloud/README.md", "anchor": "Color can be a callback function" },
+    "tooltip": { "file": "echarts/lib/component/tooltip/TooltipView.js", "anchor": "buildTooltipModel([data.getItemModel(dataIndex), dataModel, seriesModel" }
+  }
+}

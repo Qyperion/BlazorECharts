@@ -1,0 +1,10 @@
+@code {
+    [Parameter] public ChartOptions? Options { get; set; }
+}
+@* snippet: Guides.GettingStarted.InitOptions *@
+<EChart Options="Options" Class="chart" InitOptions="_init" Theme="dark" />
+
+@code {
+    private readonly ChartInitOptions _init = new() { Renderer = "svg", Locale = "EN" };
+}
+@* endsnippet *@

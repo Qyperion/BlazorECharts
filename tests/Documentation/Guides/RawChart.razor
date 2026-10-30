@@ -1,0 +1,13 @@
+@* snippet: Guides.Options.RawJson *@
+<EChart RawOptions="_options" Style="height:300px" />
+
+@code {
+    private readonly JsonElement _options = JsonDocument.Parse("""
+        {
+          "xAxis": { "type": "category", "data": ["A", "B", "C"] },
+          "yAxis": { "type": "value" },
+          "series": [{ "type": "line", "data": [3, 5, 4] }]
+        }
+        """).RootElement.Clone();
+}
+@* endsnippet *@

@@ -1,0 +1,86 @@
+@namespace BlazorECharts.Examples.Components
+@inherits ExampleBase
+@implements IAsyncDisposable
+
+<div class="example-controls" role="group" aria-label="Timeline steps">
+    <button type="button" disabled="@(_index == 0)" @onclick="() => ChangeAsync(-1)">Previous quarter</button>
+    <button type="button" disabled="@(_index == Quarters.Length - 1)" @onclick="() => ChangeAsync(1)">Next quarter</button>
+</div>
+<EChart Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="OnReadyAsync" OnError="FailAsync" />
+<p class="example-output" data-testid="timeline-step" data-index="@_index" aria-live="polite">@_step</p>
+
+@code {
+    private static readonly string[] Quarters = ["Q1", "Q2", "Q3", "Q4"];
+
+    // Messages of each member in each quarter.
+    private static readonly double[][] Messages =
+    [
+        [120, 96, 140, 80, 64],
+        [180, 130, 150, 110, 90],
+        [90, 70, 85, 60, 120],
+        [210, 160, 190, 150, 140],
+    ];
+
+    private readonly List<ChartSubscription> _subscriptions = [];
+    private EChartInstance? _chart;
+    private ChartOptions? _options;
+    private int _index;
+    private string _step = "Showing Q1. Use the buttons or the timeline under the chart.";
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        // The base option holds what every step shares; ECharts merges the entry of Options for the current step into it.
+        BaseOption = new ChartOptions
+        {
+            Timeline = new SliderTimelineOption
+            {
+                AxisType = "category",
+                AutoPlay = false,
+                Bottom = 10,
+                Data = [.. Quarters.Select(quarter => (TimelineDataItem?)quarter)],
+            },
+            Tooltip = new TooltipOption { Trigger = "axis" },
+            Grid = new GridOption { Top = 60, Bottom = 110 },
+            XAxis = new XAxisCategoryOption { Data = ["Avery", "Blake", "Casey", "Devon", "Emery"] },
+            YAxis = new YAxisValueOption { Max = 250 },
+            Series = new BarSeriesOption { Id = "messages", Name = "Messages" },
+        },
+        Options = [.. Quarters.Select((quarter, step) => new ChartOptions
+        {
+            Title = new TitleOption { Text = $"Messages in {quarter}", Left = "center" },
+            Series = new BarSeriesOption { Id = "messages", Data = [.. Messages[step].Select(messages => (BarSeriesOptionDataItem?)messages)] },
+        })],
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+
+    private async Task OnReadyAsync(EChartInstance chart)
+    {
+        _chart = chart;
+
+        // The event reports every change: from the buttons below, the timeline control or its play button.
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.TimelineChanged, e => InvokeAsync(() =>
+        {
+            _index = e.CurrentIndex ?? _index;
+            _step = $"timelinechanged: showing {Quarters[_index]} (step {_index + 1} of {Quarters.Length}).";
+            StateHasChanged();
+        })));
+        await ReadyAsync(chart);
+    }
+
+    private Task ChangeAsync(int delta) => RunAsync(async () =>
+    {
+        if (_chart is not null)
+            await _chart.DispatchActionAsync(new TimelineChangeAction { CurrentIndex = Math.Clamp(_index + delta, 0, Quarters.Length - 1) });
+    });
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var subscription in _subscriptions)
+            await subscription.DisposeAsync();
+    }
+}

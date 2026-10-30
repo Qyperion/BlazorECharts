@@ -1,0 +1,2981 @@
+{
+  "formatVersion": 1,
+  "version": "3.0.0",
+  "coreVersion": "6.1.0",
+  "records": [
+    {
+      "id": "wordcloud:WordCloudSeriesOption.mainType",
+      "model": "WordCloudSeriesOption",
+      "name": "mainType",
+      "mapping": "omit:ECharts reads mainType from the SeriesModel class, not from options.",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 75,
+        "endLine": 75,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "mainType?: 'series';"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.type",
+      "model": "WordCloudSeriesOption",
+      "name": "type",
+      "mapping": "literal:wordCloud",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 76,
+        "endLine": 76,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "type?: 'wordCloud';"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.silent",
+      "model": "WordCloudSeriesOption",
+      "name": "silent",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 81,
+        "endLine": 81,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "silent?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.blendMode",
+      "model": "WordCloudSeriesOption",
+      "name": "blendMode",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 82,
+        "endLine": 82,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "blendMode?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated",
+      "noEffect": "ECharts applies blendMode to the elements present at render; words are drawn after the series render."
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.cursor",
+      "model": "WordCloudSeriesOption",
+      "name": "cursor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 86,
+        "endLine": 86,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "cursor?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated",
+      "noEffect": "WordCloudView never sets the cursor of a word; ZRender shows its default pointer."
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.width",
+      "model": "WordCloudSeriesOption",
+      "name": "width",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 88,
+        "endLine": 88,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "width?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.height",
+      "model": "WordCloudSeriesOption",
+      "name": "height",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 89,
+        "endLine": 89,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "height?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.top",
+      "model": "WordCloudSeriesOption",
+      "name": "top",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 90,
+        "endLine": 90,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "top?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.right",
+      "model": "WordCloudSeriesOption",
+      "name": "right",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 91,
+        "endLine": 91,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "right?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.bottom",
+      "model": "WordCloudSeriesOption",
+      "name": "bottom",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 92,
+        "endLine": 92,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "bottom?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.left",
+      "model": "WordCloudSeriesOption",
+      "name": "left",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 93,
+        "endLine": 93,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "left?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.textStyle",
+      "model": "WordCloudSeriesOption",
+      "name": "textStyle",
+      "mapping": "WordCloudTextStyle",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 95,
+        "endLine": 95,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textStyle?: WordCloudTextStyle;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.emphasis",
+      "model": "WordCloudSeriesOption",
+      "name": "emphasis",
+      "mapping": "WordCloudState",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 96,
+        "endLine": 96,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "emphasis?: WordCloudEmphasisOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.shape",
+      "model": "WordCloudSeriesOption",
+      "name": "shape",
+      "mapping": "WordCloudShape",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 102,
+        "endLine": 102,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "shape?: WordCloudShape | ((theta: number) => number);"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.maskImage",
+      "model": "WordCloudSeriesOption",
+      "name": "maskImage",
+      "mapping": "native",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 104,
+        "endLine": 104,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "maskImage?: HTMLImageElement | HTMLCanvasElement;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.sizeRange",
+      "model": "WordCloudSeriesOption",
+      "name": "sizeRange",
+      "mapping": "double[]",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 106,
+        "endLine": 106,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "sizeRange?: [number, number];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.rotationRange",
+      "model": "WordCloudSeriesOption",
+      "name": "rotationRange",
+      "mapping": "double[]",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 107,
+        "endLine": 107,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "rotationRange?: [number, number];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.rotationStep",
+      "model": "WordCloudSeriesOption",
+      "name": "rotationStep",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 108,
+        "endLine": 108,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "rotationStep?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.gridSize",
+      "model": "WordCloudSeriesOption",
+      "name": "gridSize",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 110,
+        "endLine": 110,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "gridSize?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.drawOutOfBound",
+      "model": "WordCloudSeriesOption",
+      "name": "drawOutOfBound",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 112,
+        "endLine": 112,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "drawOutOfBound?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.layoutAnimation",
+      "model": "WordCloudSeriesOption",
+      "name": "layoutAnimation",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 114,
+        "endLine": 114,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "layoutAnimation?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.data",
+      "model": "WordCloudSeriesOption",
+      "name": "data",
+      "mapping": "WordCloudDataItem[]",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 120,
+        "endLine": 120,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "data?: WordCloudDataItem[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.keepAspect",
+      "model": "WordCloudSeriesOption",
+      "name": "keepAspect",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 103,
+        "endLine": 103,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "keepAspect?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.shrinkToFit",
+      "model": "WordCloudSeriesOption",
+      "name": "shrinkToFit",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 113,
+        "endLine": 113,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "shrinkToFit?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.randomSeed",
+      "model": "WordCloudSeriesOption",
+      "name": "randomSeed",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 118,
+        "endLine": 118,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "randomSeed?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.blur",
+      "model": "WordCloudSeriesOption",
+      "name": "blur",
+      "mapping": "WordCloudState",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 97,
+        "endLine": 97,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "blur?: WordCloudStateOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.select",
+      "model": "WordCloudSeriesOption",
+      "name": "select",
+      "mapping": "omit:WordCloudView creates only the emphasis and blur states; ECharts applies select styles only to elements that have a select state.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8294,
+        "endLine": 8296,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "select?: StateOption & StatesMixin['select'] & {\n        disabled?: boolean;\n    };"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.id",
+      "model": "WordCloudSeriesOption",
+      "name": "id",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 77,
+        "endLine": 77,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "id?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.name",
+      "model": "WordCloudSeriesOption",
+      "name": "name",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 78,
+        "endLine": 78,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "name?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.z",
+      "model": "WordCloudSeriesOption",
+      "name": "z",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 79,
+        "endLine": 79,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "z?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.zlevel",
+      "model": "WordCloudSeriesOption",
+      "name": "zlevel",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 80,
+        "endLine": 80,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "zlevel?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animation",
+      "model": "WordCloudSeriesOption",
+      "name": "animation",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7658,
+        "endLine": 7658,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animation?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animationThreshold",
+      "model": "WordCloudSeriesOption",
+      "name": "animationThreshold",
+      "mapping": "omit:WordCloudView reads animation directly for word state transitions; the data count threshold never applies.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7662,
+        "endLine": 7662,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animationThreshold?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animationDuration",
+      "model": "WordCloudSeriesOption",
+      "name": "animationDuration",
+      "mapping": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7667,
+        "endLine": 7667,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animationDuration?: number | AnimationDurationCallback;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animationDurationUpdate",
+      "model": "WordCloudSeriesOption",
+      "name": "animationDurationUpdate",
+      "mapping": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7681,
+        "endLine": 7681,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animationDurationUpdate?: number | AnimationDurationCallback;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animationDelay",
+      "model": "WordCloudSeriesOption",
+      "name": "animationDelay",
+      "mapping": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7676,
+        "endLine": 7676,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animationDelay?: number | AnimationDelayCallback;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animationDelayUpdate",
+      "model": "WordCloudSeriesOption",
+      "name": "animationDelayUpdate",
+      "mapping": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7690,
+        "endLine": 7690,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animationDelayUpdate?: number | AnimationDelayCallback;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animationEasing",
+      "model": "WordCloudSeriesOption",
+      "name": "animationEasing",
+      "mapping": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7671,
+        "endLine": 7671,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animationEasing?: AnimationEasing;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.animationEasingUpdate",
+      "model": "WordCloudSeriesOption",
+      "name": "animationEasingUpdate",
+      "mapping": "omit:WordCloudView adds words without enter or update animations, so series animation timing never reaches them.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7685,
+        "endLine": 7685,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "animationEasingUpdate?: AnimationEasing;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.stateAnimation",
+      "model": "WordCloudSeriesOption",
+      "name": "stateAnimation",
+      "mapping": "core:AnimationOption",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8364,
+        "endLine": 8364,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "stateAnimation?: AnimationOption$1;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.color",
+      "model": "WordCloudSeriesOption",
+      "name": "color",
+      "mapping": "core-many:ZRColor",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7593,
+        "endLine": 7593,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "color?: ZRColor | ZRColor[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.colorLayer",
+      "model": "WordCloudSeriesOption",
+      "name": "colorLayer",
+      "mapping": "core:ZRColor?[]?[]",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7594,
+        "endLine": 7594,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "colorLayer?: ZRColor[][];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.colorBy",
+      "model": "WordCloudSeriesOption",
+      "name": "colorBy",
+      "mapping": "literal:series,data",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8341,
+        "endLine": 8341,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "colorBy?: ColorBy;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.dataGroupId",
+      "model": "WordCloudSeriesOption",
+      "name": "dataGroupId",
+      "mapping": "omit:Read only by universal transition, which pairs elements before the words are drawn.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8339,
+        "endLine": 8339,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "dataGroupId?: OptionId;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.legendHoverLink",
+      "model": "WordCloudSeriesOption",
+      "name": "legendHoverLink",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8342,
+        "endLine": 8342,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "legendHoverLink?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.progressive",
+      "model": "WordCloudSeriesOption",
+      "name": "progressive",
+      "mapping": "omit:WordCloudView has no incremental rendering (incrementalPrepareRender).",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8346,
+        "endLine": 8346,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "progressive?: number | false;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.progressiveThreshold",
+      "model": "WordCloudSeriesOption",
+      "name": "progressiveThreshold",
+      "mapping": "omit:WordCloudView has no incremental rendering (incrementalPrepareRender).",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8347,
+        "endLine": 8347,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "progressiveThreshold?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.progressiveChunkMode",
+      "model": "WordCloudSeriesOption",
+      "name": "progressiveChunkMode",
+      "mapping": "omit:WordCloudView has no incremental rendering (incrementalPrepareRender).",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8348,
+        "endLine": 8348,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "progressiveChunkMode?: 'mod';"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.hoverLayerThreshold",
+      "model": "WordCloudSeriesOption",
+      "name": "hoverLayerThreshold",
+      "mapping": "omit:ECharts reads hoverLayerThreshold from the root option, not from a series.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8349,
+        "endLine": 8349,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "hoverLayerThreshold?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.seriesLayoutBy",
+      "model": "WordCloudSeriesOption",
+      "name": "seriesLayoutBy",
+      "mapping": "omit:The series reads only option.data, never a dataset.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8355,
+        "endLine": 8355,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "seriesLayoutBy?: 'column' | 'row';"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.labelLine",
+      "model": "WordCloudSeriesOption",
+      "name": "labelLine",
+      "mapping": "omit:Words are plain Text elements without label content, which the label layout stage never sees.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8356,
+        "endLine": 8356,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "labelLine?: LabelLineOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.labelLayout",
+      "model": "WordCloudSeriesOption",
+      "name": "labelLayout",
+      "mapping": "omit:Words are plain Text elements without label content, which the label layout stage never sees.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8360,
+        "endLine": 8360,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "labelLayout?: LabelLayoutOption | LabelLayoutOptionCallback;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.universalTransition",
+      "model": "WordCloudSeriesOption",
+      "name": "universalTransition",
+      "mapping": "omit:Universal transition pairs elements in the update lifecycle; the words are drawn after it.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8371,
+        "endLine": 8371,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "universalTransition?: boolean | UniversalTransitionOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.selectedMap",
+      "model": "WordCloudSeriesOption",
+      "name": "selectedMap",
+      "mapping": "core:SelectedMap",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8376,
+        "endLine": 8376,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "selectedMap?: Dictionary<boolean> | 'all';"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.selectedMode",
+      "model": "WordCloudSeriesOption",
+      "name": "selectedMode",
+      "mapping": "core:SeriesSelectedMode",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8377,
+        "endLine": 8377,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "selectedMode?: 'single' | 'multiple' | 'series' | boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.coordinateSystem",
+      "model": "WordCloudSeriesOption",
+      "name": "coordinateSystem",
+      "mapping": "omit:The layout always uses the box layout of the chart, never a coordinate system.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8229,
+        "endLine": 8229,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "coordinateSystem?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.coordinateSystemUsage",
+      "model": "WordCloudSeriesOption",
+      "name": "coordinateSystemUsage",
+      "mapping": "omit:The layout always uses the box layout of the chart, never a coordinate system.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8230,
+        "endLine": 8230,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "coordinateSystemUsage?: CoordinateSystemUsageOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.coord",
+      "model": "WordCloudSeriesOption",
+      "name": "coord",
+      "mapping": "omit:The layout always uses the box layout of the chart, never a coordinate system.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8231,
+        "endLine": 8231,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "coord?: CoordinateSystemDataCoord;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudSeriesOption.tooltip",
+      "model": "WordCloudSeriesOption",
+      "name": "tooltip",
+      "mapping": "core:SeriesTooltipOption",
+      "source": {
+        "file": "echarts/lib/component/tooltip/TooltipView.js",
+        "line": 461,
+        "endLine": 461,
+        "sha256": "06b21368cc62d04c7004ab6fb85746a7fda1e8934baada27bf8c0d4e1cc7e768",
+        "text": "buildTooltipModel([data.getItemModel(dataIndex), dataModel, seriesModel"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.color",
+      "model": "WordCloudTextStyle",
+      "name": "color",
+      "mapping": "WordCloudColor",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 8,
+        "endLine": 8,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "color?: Color | ((params: DefaultLabelFormatterCallbackParams) => Color);"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.fontStyle",
+      "model": "WordCloudTextStyle",
+      "name": "fontStyle",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 9,
+        "endLine": 9,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontStyle?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.fontWeight",
+      "model": "WordCloudTextStyle",
+      "name": "fontWeight",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 10,
+        "endLine": 10,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontWeight?: string | number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.fontFamily",
+      "model": "WordCloudTextStyle",
+      "name": "fontFamily",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 11,
+        "endLine": 11,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontFamily?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.fontSize",
+      "model": "WordCloudTextStyle",
+      "name": "fontSize",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 12,
+        "endLine": 12,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontSize?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.align",
+      "model": "WordCloudTextStyle",
+      "name": "align",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 13,
+        "endLine": 13,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "align?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.verticalAlign",
+      "model": "WordCloudTextStyle",
+      "name": "verticalAlign",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 14,
+        "endLine": 14,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "verticalAlign?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.baseline",
+      "model": "WordCloudTextStyle",
+      "name": "baseline",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 16,
+        "endLine": 16,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "baseline?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.opacity",
+      "model": "WordCloudTextStyle",
+      "name": "opacity",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 18,
+        "endLine": 18,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "opacity?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.lineHeight",
+      "model": "WordCloudTextStyle",
+      "name": "lineHeight",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 20,
+        "endLine": 20,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "lineHeight?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.backgroundColor",
+      "model": "WordCloudTextStyle",
+      "name": "backgroundColor",
+      "mapping": "WordCloudBackground",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 21,
+        "endLine": 25,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "backgroundColor?:\n    | string\n    | {\n        image: HTMLImageElement | HTMLCanvasElement | string;\n      };"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.borderColor",
+      "model": "WordCloudTextStyle",
+      "name": "borderColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 26,
+        "endLine": 26,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderColor?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.borderWidth",
+      "model": "WordCloudTextStyle",
+      "name": "borderWidth",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 27,
+        "endLine": 27,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderWidth?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.borderType",
+      "model": "WordCloudTextStyle",
+      "name": "borderType",
+      "mapping": "WordCloudLineType",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 28,
+        "endLine": 28,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderType?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.borderDashOffset",
+      "model": "WordCloudTextStyle",
+      "name": "borderDashOffset",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 29,
+        "endLine": 29,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderDashOffset?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.borderRadius",
+      "model": "WordCloudTextStyle",
+      "name": "borderRadius",
+      "mapping": "WordCloudNumberOrNumbers",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 30,
+        "endLine": 30,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderRadius?: number | number[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.padding",
+      "model": "WordCloudTextStyle",
+      "name": "padding",
+      "mapping": "WordCloudNumberOrNumbers",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 31,
+        "endLine": 31,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "padding?: number | number[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.width",
+      "model": "WordCloudTextStyle",
+      "name": "width",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 33,
+        "endLine": 33,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "width?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.height",
+      "model": "WordCloudTextStyle",
+      "name": "height",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 34,
+        "endLine": 34,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "height?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textBorderColor",
+      "model": "WordCloudTextStyle",
+      "name": "textBorderColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 35,
+        "endLine": 35,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderColor?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textBorderWidth",
+      "model": "WordCloudTextStyle",
+      "name": "textBorderWidth",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 36,
+        "endLine": 36,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderWidth?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textBorderType",
+      "model": "WordCloudTextStyle",
+      "name": "textBorderType",
+      "mapping": "WordCloudLineType",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 37,
+        "endLine": 37,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderType?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textBorderDashOffset",
+      "model": "WordCloudTextStyle",
+      "name": "textBorderDashOffset",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 38,
+        "endLine": 38,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderDashOffset?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textShadowBlur",
+      "model": "WordCloudTextStyle",
+      "name": "textShadowBlur",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 40,
+        "endLine": 40,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowBlur?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textShadowColor",
+      "model": "WordCloudTextStyle",
+      "name": "textShadowColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 41,
+        "endLine": 41,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowColor?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textShadowOffsetX",
+      "model": "WordCloudTextStyle",
+      "name": "textShadowOffsetX",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 42,
+        "endLine": 42,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowOffsetX?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textShadowOffsetY",
+      "model": "WordCloudTextStyle",
+      "name": "textShadowOffsetY",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 43,
+        "endLine": 43,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowOffsetY?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.tag",
+      "model": "WordCloudTextStyle",
+      "name": "tag",
+      "mapping": "string",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7854,
+        "endLine": 7854,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "tag?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.shadowBlur",
+      "model": "WordCloudTextStyle",
+      "name": "shadowBlur",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7622,
+        "endLine": 7622,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowBlur?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.shadowColor",
+      "model": "WordCloudTextStyle",
+      "name": "shadowColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7623,
+        "endLine": 7623,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowColor?: ColorString;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.shadowOffsetX",
+      "model": "WordCloudTextStyle",
+      "name": "shadowOffsetX",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7624,
+        "endLine": 7624,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowOffsetX?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.shadowOffsetY",
+      "model": "WordCloudTextStyle",
+      "name": "shadowOffsetY",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7625,
+        "endLine": 7625,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowOffsetY?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.rich",
+      "model": "WordCloudTextStyle",
+      "name": "rich",
+      "mapping": "WordCloudRichText",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7919,
+        "endLine": 7919,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "rich?: RichTextOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.richInheritPlainLabel",
+      "model": "WordCloudTextStyle",
+      "name": "richInheritPlainLabel",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 261,
+        "endLine": 261,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.get(richInheritPlainLabelOptionName)"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.overflow",
+      "model": "WordCloudTextStyle",
+      "name": "overflow",
+      "mapping": "literal:break,breakAll,truncate,none",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7916,
+        "endLine": 7916,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "overflow?: TextStyleProps['overflow'];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.lineOverflow",
+      "model": "WordCloudTextStyle",
+      "name": "lineOverflow",
+      "mapping": "literal:truncate",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7917,
+        "endLine": 7917,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "lineOverflow?: TextStyleProps['lineOverflow'];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.ellipsis",
+      "model": "WordCloudTextStyle",
+      "name": "ellipsis",
+      "mapping": "string",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7918,
+        "endLine": 7918,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "ellipsis?: TextStyleProps['ellipsis'];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.minMargin",
+      "model": "WordCloudTextStyle",
+      "name": "minMargin",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7897,
+        "endLine": 7897,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "minMargin?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudTextStyle.textMargin",
+      "model": "WordCloudTextStyle",
+      "name": "textMargin",
+      "mapping": "WordCloudNumberOrNumbers",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7915,
+        "endLine": 7915,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "textMargin?: number | number[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.color",
+      "model": "WordCloudItemTextStyle",
+      "name": "color",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 8,
+        "endLine": 8,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "color?: Color | ((params: DefaultLabelFormatterCallbackParams) => Color);"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.fontStyle",
+      "model": "WordCloudItemTextStyle",
+      "name": "fontStyle",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 9,
+        "endLine": 9,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontStyle?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.fontWeight",
+      "model": "WordCloudItemTextStyle",
+      "name": "fontWeight",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 10,
+        "endLine": 10,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontWeight?: string | number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.fontFamily",
+      "model": "WordCloudItemTextStyle",
+      "name": "fontFamily",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 11,
+        "endLine": 11,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontFamily?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.fontSize",
+      "model": "WordCloudItemTextStyle",
+      "name": "fontSize",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 12,
+        "endLine": 12,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "fontSize?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.align",
+      "model": "WordCloudItemTextStyle",
+      "name": "align",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 13,
+        "endLine": 13,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "align?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.verticalAlign",
+      "model": "WordCloudItemTextStyle",
+      "name": "verticalAlign",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 14,
+        "endLine": 14,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "verticalAlign?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.baseline",
+      "model": "WordCloudItemTextStyle",
+      "name": "baseline",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 16,
+        "endLine": 16,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "baseline?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.opacity",
+      "model": "WordCloudItemTextStyle",
+      "name": "opacity",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 18,
+        "endLine": 18,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "opacity?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.lineHeight",
+      "model": "WordCloudItemTextStyle",
+      "name": "lineHeight",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 20,
+        "endLine": 20,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "lineHeight?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.backgroundColor",
+      "model": "WordCloudItemTextStyle",
+      "name": "backgroundColor",
+      "mapping": "WordCloudBackground",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 21,
+        "endLine": 25,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "backgroundColor?:\n    | string\n    | {\n        image: HTMLImageElement | HTMLCanvasElement | string;\n      };"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.borderColor",
+      "model": "WordCloudItemTextStyle",
+      "name": "borderColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 26,
+        "endLine": 26,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderColor?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.borderWidth",
+      "model": "WordCloudItemTextStyle",
+      "name": "borderWidth",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 27,
+        "endLine": 27,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderWidth?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.borderType",
+      "model": "WordCloudItemTextStyle",
+      "name": "borderType",
+      "mapping": "WordCloudLineType",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 28,
+        "endLine": 28,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderType?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.borderDashOffset",
+      "model": "WordCloudItemTextStyle",
+      "name": "borderDashOffset",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 29,
+        "endLine": 29,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderDashOffset?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.borderRadius",
+      "model": "WordCloudItemTextStyle",
+      "name": "borderRadius",
+      "mapping": "WordCloudNumberOrNumbers",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 30,
+        "endLine": 30,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "borderRadius?: number | number[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.padding",
+      "model": "WordCloudItemTextStyle",
+      "name": "padding",
+      "mapping": "WordCloudNumberOrNumbers",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 31,
+        "endLine": 31,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "padding?: number | number[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.width",
+      "model": "WordCloudItemTextStyle",
+      "name": "width",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 33,
+        "endLine": 33,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "width?: number | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.height",
+      "model": "WordCloudItemTextStyle",
+      "name": "height",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 34,
+        "endLine": 34,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "height?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textBorderColor",
+      "model": "WordCloudItemTextStyle",
+      "name": "textBorderColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 35,
+        "endLine": 35,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderColor?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textBorderWidth",
+      "model": "WordCloudItemTextStyle",
+      "name": "textBorderWidth",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 36,
+        "endLine": 36,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderWidth?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textBorderType",
+      "model": "WordCloudItemTextStyle",
+      "name": "textBorderType",
+      "mapping": "WordCloudLineType",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 37,
+        "endLine": 37,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderType?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textBorderDashOffset",
+      "model": "WordCloudItemTextStyle",
+      "name": "textBorderDashOffset",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 38,
+        "endLine": 38,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textBorderDashOffset?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textShadowBlur",
+      "model": "WordCloudItemTextStyle",
+      "name": "textShadowBlur",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 40,
+        "endLine": 40,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowBlur?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textShadowColor",
+      "model": "WordCloudItemTextStyle",
+      "name": "textShadowColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 41,
+        "endLine": 41,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowColor?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textShadowOffsetX",
+      "model": "WordCloudItemTextStyle",
+      "name": "textShadowOffsetX",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 42,
+        "endLine": 42,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowOffsetX?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textShadowOffsetY",
+      "model": "WordCloudItemTextStyle",
+      "name": "textShadowOffsetY",
+      "mapping": "double",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 43,
+        "endLine": 43,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textShadowOffsetY?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.tag",
+      "model": "WordCloudItemTextStyle",
+      "name": "tag",
+      "mapping": "string",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7854,
+        "endLine": 7854,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "tag?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.shadowBlur",
+      "model": "WordCloudItemTextStyle",
+      "name": "shadowBlur",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7622,
+        "endLine": 7622,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowBlur?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.shadowColor",
+      "model": "WordCloudItemTextStyle",
+      "name": "shadowColor",
+      "mapping": "string",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7623,
+        "endLine": 7623,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowColor?: ColorString;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.shadowOffsetX",
+      "model": "WordCloudItemTextStyle",
+      "name": "shadowOffsetX",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7624,
+        "endLine": 7624,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowOffsetX?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.shadowOffsetY",
+      "model": "WordCloudItemTextStyle",
+      "name": "shadowOffsetY",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7625,
+        "endLine": 7625,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "shadowOffsetY?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.rich",
+      "model": "WordCloudItemTextStyle",
+      "name": "rich",
+      "mapping": "WordCloudRichText",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7919,
+        "endLine": 7919,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "rich?: RichTextOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.richInheritPlainLabel",
+      "model": "WordCloudItemTextStyle",
+      "name": "richInheritPlainLabel",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 261,
+        "endLine": 261,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.get(richInheritPlainLabelOptionName)"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.overflow",
+      "model": "WordCloudItemTextStyle",
+      "name": "overflow",
+      "mapping": "literal:break,breakAll,truncate,none",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7916,
+        "endLine": 7916,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "overflow?: TextStyleProps['overflow'];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.lineOverflow",
+      "model": "WordCloudItemTextStyle",
+      "name": "lineOverflow",
+      "mapping": "literal:truncate",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7917,
+        "endLine": 7917,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "lineOverflow?: TextStyleProps['lineOverflow'];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.ellipsis",
+      "model": "WordCloudItemTextStyle",
+      "name": "ellipsis",
+      "mapping": "string",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7918,
+        "endLine": 7918,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "ellipsis?: TextStyleProps['ellipsis'];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.minMargin",
+      "model": "WordCloudItemTextStyle",
+      "name": "minMargin",
+      "mapping": "double",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7897,
+        "endLine": 7897,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "minMargin?: number;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudItemTextStyle.textMargin",
+      "model": "WordCloudItemTextStyle",
+      "name": "textMargin",
+      "mapping": "WordCloudNumberOrNumbers",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7915,
+        "endLine": 7915,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "textMargin?: number | number[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.name",
+      "model": "WordCloudDataItem",
+      "name": "name",
+      "mapping": "string",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 56,
+        "endLine": 56,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "name?: string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.value",
+      "model": "WordCloudDataItem",
+      "name": "value",
+      "mapping": "WordCloudNumberOrNumbers",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 57,
+        "endLine": 57,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "value?: number | number[];"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.textStyle",
+      "model": "WordCloudDataItem",
+      "name": "textStyle",
+      "mapping": "WordCloudItemTextStyle",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 58,
+        "endLine": 58,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textStyle?: WordCloudTextStyle;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.emphasis",
+      "model": "WordCloudDataItem",
+      "name": "emphasis",
+      "mapping": "WordCloudState",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 59,
+        "endLine": 59,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "emphasis?: WordCloudEmphasisOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.blur",
+      "model": "WordCloudDataItem",
+      "name": "blur",
+      "mapping": "WordCloudState",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 60,
+        "endLine": 60,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "blur?: WordCloudStateOption;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.id",
+      "model": "WordCloudDataItem",
+      "name": "id",
+      "mapping": "core:NumberOrString",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7498,
+        "endLine": 7498,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "id?: OptionId;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.selected",
+      "model": "WordCloudDataItem",
+      "name": "selected",
+      "mapping": "bool",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7503,
+        "endLine": 7503,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "selected?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.tooltip",
+      "model": "WordCloudDataItem",
+      "name": "tooltip",
+      "mapping": "WordCloudDataTooltip",
+      "source": {
+        "file": "echarts/lib/component/tooltip/TooltipView.js",
+        "line": 461,
+        "endLine": 461,
+        "sha256": "06b21368cc62d04c7004ab6fb85746a7fda1e8934baada27bf8c0d4e1cc7e768",
+        "text": "buildTooltipModel([data.getItemModel(dataIndex), dataModel, seriesModel"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.select",
+      "model": "WordCloudDataItem",
+      "name": "select",
+      "mapping": "omit:WordCloudView creates only the emphasis and blur states; ECharts applies select styles only to elements that have a select state.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8271,
+        "endLine": 8271,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "interface StatesOptionMixin"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.groupId",
+      "model": "WordCloudDataItem",
+      "name": "groupId",
+      "mapping": "omit:Read only by universal transition, which pairs elements before the words are drawn.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7500,
+        "endLine": 7500,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "groupId?: OptionId;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudDataItem.childGroupId",
+      "model": "WordCloudDataItem",
+      "name": "childGroupId",
+      "mapping": "omit:Read only by universal transition, which pairs elements before the words are drawn.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 7501,
+        "endLine": 7501,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "childGroupId?: OptionId;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudState.focus",
+      "model": "WordCloudState",
+      "name": "focus",
+      "mapping": "literal:self,series,none",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 51,
+        "endLine": 51,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "focus?: 'self' | 'series' | 'none';"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudState.blurScope",
+      "model": "WordCloudState",
+      "name": "blurScope",
+      "mapping": "literal:coordinateSystem,global,series",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 52,
+        "endLine": 52,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "blurScope?: 'coordinateSystem' | 'global' | 'series';"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudState.textStyle",
+      "model": "WordCloudState",
+      "name": "textStyle",
+      "mapping": "WordCloudItemTextStyle",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 47,
+        "endLine": 47,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "textStyle?: WordCloudTextStyle;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    },
+    {
+      "id": "wordcloud:WordCloudState.disabled",
+      "model": "WordCloudState",
+      "name": "disabled",
+      "mapping": "omit:WordCloudView enables hover emphasis without reading emphasis.disabled.",
+      "source": {
+        "file": "echarts/types/dist/echarts.d.ts",
+        "line": 8289,
+        "endLine": 8289,
+        "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+        "text": "disabled?: boolean;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "omitted"
+    },
+    {
+      "id": "wordcloud:WordCloudImageBackground.image",
+      "model": "WordCloudImageBackground",
+      "name": "image",
+      "mapping": "WordCloudImage",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 24,
+        "endLine": 24,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "image: HTMLImageElement | HTMLCanvasElement | string;"
+      },
+      "test": "WordCloudModelTests.WordCloudModels_CoverEveryInventoryProperty",
+      "status": "generated"
+    }
+  ],
+  "callbacks": [
+    {
+      "name": "WordCloudShapeSignature",
+      "signature": "(theta: number) => number",
+      "source": {
+        "file": "echarts-wordcloud/src/layout.js",
+        "line": 544,
+        "endLine": 544,
+        "sha256": "849ee9029525a44df006c7576dbde4cfda227e989fe24dc0c6f97db0e4bfbb36",
+        "text": "rx = settings.shape((t / T) * 2 * Math.PI);"
+      },
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudShapeSignature.g.cs",
+      "test": "WordCloudModelTests.WordCloudCallbacks_UseModuleOrExplicitInline / WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson"
+    },
+    {
+      "name": "WordCloudColorSignature",
+      "signature": "(params: DefaultLabelFormatterCallbackParams) => Color",
+      "source": {
+        "file": "echarts-wordcloud/index.d.ts",
+        "line": 8,
+        "endLine": 8,
+        "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+        "text": "color?: Color | ((params: DefaultLabelFormatterCallbackParams) => Color);"
+      },
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudColorSignature.g.cs",
+      "test": "WordCloudModelTests.WordCloudCallbacks_UseModuleOrExplicitInline / WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson"
+    }
+  ],
+  "unions": [
+    {
+      "name": "WordCloudNumberOrNumbers",
+      "alternatives": [
+        "double",
+        "double[]"
+      ],
+      "sources": [
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 30,
+          "endLine": 30,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "borderRadius?: number | number[];"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 31,
+          "endLine": 31,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "padding?: number | number[];"
+        },
+        {
+          "file": "echarts/types/dist/echarts.d.ts",
+          "line": 7915,
+          "endLine": 7915,
+          "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+          "text": "textMargin?: number | number[];"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 30,
+          "endLine": 30,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "borderRadius?: number | number[];"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 31,
+          "endLine": 31,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "padding?: number | number[];"
+        },
+        {
+          "file": "echarts/types/dist/echarts.d.ts",
+          "line": 7915,
+          "endLine": 7915,
+          "sha256": "17b52825e438c4a187e85ee8a55f787ce262d81b8c63796533f18c56976de6ba",
+          "text": "textMargin?: number | number[];"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 57,
+          "endLine": 57,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "value?: number | number[];"
+        }
+      ],
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudNumberOrNumbers.g.cs",
+      "test": "WordCloudModelTests.WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson / WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy"
+    },
+    {
+      "name": "WordCloudShape",
+      "alternatives": [
+        "string",
+        "function:WordCloudShapeSignature"
+      ],
+      "sources": [
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 102,
+          "endLine": 102,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "shape?: WordCloudShape | ((theta: number) => number);"
+        }
+      ],
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudShape.g.cs",
+      "test": "WordCloudModelTests.WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson / WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy"
+    },
+    {
+      "name": "WordCloudColor",
+      "alternatives": [
+        "string",
+        "function:WordCloudColorSignature"
+      ],
+      "sources": [
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 8,
+          "endLine": 8,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "color?: Color | ((params: DefaultLabelFormatterCallbackParams) => Color);"
+        }
+      ],
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudColor.g.cs",
+      "test": "WordCloudModelTests.WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson / WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy"
+    },
+    {
+      "name": "WordCloudImage",
+      "alternatives": [
+        "string",
+        "native"
+      ],
+      "sources": [
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 24,
+          "endLine": 24,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "image: HTMLImageElement | HTMLCanvasElement | string;"
+        }
+      ],
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudImage.g.cs",
+      "test": "WordCloudModelTests.WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson / WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy"
+    },
+    {
+      "name": "WordCloudBackground",
+      "alternatives": [
+        "string",
+        "WordCloudImageBackground"
+      ],
+      "sources": [
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 21,
+          "endLine": 25,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "backgroundColor?:\n    | string\n    | {\n        image: HTMLImageElement | HTMLCanvasElement | string;\n      };"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 21,
+          "endLine": 25,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "backgroundColor?:\n    | string\n    | {\n        image: HTMLImageElement | HTMLCanvasElement | string;\n      };"
+        }
+      ],
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudBackground.g.cs",
+      "test": "WordCloudModelTests.WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson / WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy"
+    },
+    {
+      "name": "WordCloudLineType",
+      "alternatives": [
+        "literal:solid,dotted,dashed",
+        "double",
+        "double[]"
+      ],
+      "sources": [
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 28,
+          "endLine": 28,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "borderType?: string;"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 37,
+          "endLine": 37,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "textBorderType?: string;"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 28,
+          "endLine": 28,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "borderType?: string;"
+        },
+        {
+          "file": "echarts-wordcloud/index.d.ts",
+          "line": 37,
+          "endLine": 37,
+          "sha256": "469d1231f7a50ebd7d610932d9d8f98b8fb94b2002359bd52c3f57863b32f63e",
+          "text": "textBorderType?: string;"
+        }
+      ],
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudLineType.g.cs",
+      "test": "WordCloudModelTests.WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson / WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy"
+    },
+    {
+      "name": "WordCloudDataTooltip",
+      "alternatives": [
+        "string",
+        "core:SeriesTooltipOption"
+      ],
+      "sources": [
+        {
+          "file": "echarts/lib/component/tooltip/TooltipView.js",
+          "line": 461,
+          "endLine": 461,
+          "sha256": "06b21368cc62d04c7004ab6fb85746a7fda1e8934baada27bf8c0d4e1cc7e768",
+          "text": "buildTooltipModel([data.getItemModel(dataIndex), dataModel, seriesModel"
+        }
+      ],
+      "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudDataTooltip.g.cs",
+      "test": "WordCloudModelTests.WordCloudUnionAlternatives_PreserveShapesAndRejectWrongJson / WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy"
+    }
+  ],
+  "runtimeTextInventory": [
+    {
+      "name": "fontStyle",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'fontStyle'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "fontWeight",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'fontWeight'"
+      },
+      "mapping": "core:NumberOrString"
+    },
+    {
+      "name": "fontSize",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'fontSize'"
+      },
+      "mapping": "core:NumberOrString"
+    },
+    {
+      "name": "fontFamily",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'fontFamily'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "textShadowColor",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'textShadowColor'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "textShadowBlur",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'textShadowBlur'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "textShadowOffsetX",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'textShadowOffsetX'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "textShadowOffsetY",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 338,
+        "endLine": 338,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'textShadowOffsetY'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "align",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 339,
+        "endLine": 339,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'align'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "lineHeight",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 339,
+        "endLine": 339,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'lineHeight'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "width",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 339,
+        "endLine": 339,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'width'"
+      },
+      "mapping": "core:NumberOrString"
+    },
+    {
+      "name": "height",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 339,
+        "endLine": 339,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'height'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "tag",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 339,
+        "endLine": 339,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'tag'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "verticalAlign",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 339,
+        "endLine": 339,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'verticalAlign'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "ellipsis",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 339,
+        "endLine": 339,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'ellipsis'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "padding",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'padding'"
+      },
+      "mapping": "WordCloudNumberOrNumbers"
+    },
+    {
+      "name": "borderWidth",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'borderWidth'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "borderRadius",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'borderRadius'"
+      },
+      "mapping": "WordCloudNumberOrNumbers"
+    },
+    {
+      "name": "borderDashOffset",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'borderDashOffset'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "backgroundColor",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'backgroundColor'"
+      },
+      "mapping": "WordCloudBackground"
+    },
+    {
+      "name": "borderColor",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'borderColor'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "shadowColor",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'shadowColor'"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "shadowBlur",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'shadowBlur'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "shadowOffsetX",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'shadowOffsetX'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "shadowOffsetY",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 340,
+        "endLine": 340,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "'shadowOffsetY'"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "richInheritPlainLabel",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 261,
+        "endLine": 261,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.get(richInheritPlainLabelOptionName)"
+      },
+      "mapping": "bool"
+    },
+    {
+      "name": "rich",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 265,
+        "endLine": 265,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getModel(['rich', name_1])"
+      },
+      "mapping": "WordCloudRichText"
+    },
+    {
+      "name": "overflow",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 280,
+        "endLine": 280,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.get('overflow')"
+      },
+      "mapping": "literal:break,breakAll,truncate,none"
+    },
+    {
+      "name": "lineOverflow",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 284,
+        "endLine": 284,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.get('lineOverflow')"
+      },
+      "mapping": "literal:truncate"
+    },
+    {
+      "name": "minMargin",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 291,
+        "endLine": 291,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.get('minMargin')"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "textMargin",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 298,
+        "endLine": 298,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.get('textMargin')"
+      },
+      "mapping": "WordCloudNumberOrNumbers"
+    },
+    {
+      "name": "color",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 347,
+        "endLine": 347,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('color')"
+      },
+      "mapping": "WordCloudColor"
+    },
+    {
+      "name": "textBorderColor",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 348,
+        "endLine": 348,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('textBorderColor')"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "opacity",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 349,
+        "endLine": 349,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('opacity')"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "textBorderWidth",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 388,
+        "endLine": 388,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('textBorderWidth')"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "textBorderType",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 392,
+        "endLine": 392,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('textBorderType')"
+      },
+      "mapping": "WordCloudLineType"
+    },
+    {
+      "name": "textBorderDashOffset",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 396,
+        "endLine": 396,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('textBorderDashOffset')"
+      },
+      "mapping": "double"
+    },
+    {
+      "name": "baseline",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 437,
+        "endLine": 437,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('baseline')"
+      },
+      "mapping": "string"
+    },
+    {
+      "name": "borderType",
+      "source": {
+        "file": "echarts/lib/label/labelStyle.js",
+        "line": 450,
+        "endLine": 450,
+        "sha256": "71295f2ab6d7b75a2b98999c9c898d230d8a16c25ad3b2689c25c10ee09f3ff6",
+        "text": "textStyleModel.getShallow('borderType')"
+      },
+      "mapping": "WordCloudLineType"
+    }
+  ],
+  "supplements": {
+    "select": {
+      "file": "echarts/types/dist/echarts.d.ts",
+      "anchor": "interface StatesOptionMixin"
+    },
+    "shapeCallback": {
+      "file": "echarts-wordcloud/src/layout.js",
+      "anchor": "typeof settings.shape"
+    },
+    "colorCallback": {
+      "file": "echarts-wordcloud/README.md",
+      "anchor": "Color can be a callback function"
+    },
+    "tooltip": {
+      "file": "echarts/lib/component/tooltip/TooltipView.js",
+      "anchor": "buildTooltipModel([data.getItemModel(dataIndex), dataModel, seriesModel"
+    }
+  },
+  "unresolved": []
+}

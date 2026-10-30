@@ -1,0 +1,18 @@
+@* snippet: Package.Core.Component *@
+@page "/weekly-messages"
+@rendermode InteractiveServer
+@using BlazorECharts
+@using BlazorECharts.Options
+@using BlazorECharts.Values
+
+<EChart Options="_options" Style="height:360px" />
+
+@code {
+    private readonly ChartOptions _options = new()
+    {
+        XAxis = new XAxisCategoryOption { Data = ["Mon", "Tue", "Wed"] },
+        YAxis = new YAxisValueOption(),
+        Series = new LineSeriesOption { Data = [12, 18, 9] },
+    };
+}
+@* endsnippet *@

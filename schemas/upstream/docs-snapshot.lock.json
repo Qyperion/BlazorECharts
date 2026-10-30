@@ -1,0 +1,657 @@
+{
+  "formatVersion": 1,
+  "repository": "https://github.com/apache/echarts-doc",
+  "commit": "2e15d7c7321dce0c62fda00b8d2426c171bd8b0a",
+  "url": "https://codeload.github.com/apache/echarts-doc/tar.gz/2e15d7c7321dce0c62fda00b8d2426c171bd8b0a",
+  "sha256": "ed61abaf58190653eeffbc296686e3188a6199c2d4cb47d44c45eebd64828558",
+  "versionAlignment": "Commit snapshot, not a release tag. No claim of exact synchronization with 6.1.0; declaration/runtime evidence wins. All conflicts and docs-only paths stay unresolved.",
+  "recipe": "npm ci; npm run docs:acquire [-- --offline]; uses upstream tool/md2json.js and dep/etpl.js without source edits",
+  "dependencies": {
+    "marked": "0.3.19",
+    "globby": "11.1.0",
+    "htmlparser2": "4.1.0"
+  },
+  "snapshotSha256": "c8d7e6c505c9d6c8fd23767fa292f9f20dd635818a99ffe8972df330b19af4b9",
+  "recordsSha256": "4d51e8ad8adb5f04974f423cb8c1cc4001cc99412e45da5c109fbc693234bc93",
+  "entries": 59020,
+  "trees": [
+    {
+      "path": "option.json",
+      "sha256": "6d2a60ba652a94834d35d9b3629c471e40c8a5f3b0e78230b5f1f3be67a0281c"
+    },
+    {
+      "path": "api.json",
+      "sha256": "256c9964d5a60ad4599be56fe54b831c11f6d8b2b8176e6e2891986280a53ec4"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "dep/etpl.js",
+      "sha256": "75b84fea59ba0995820945ecb3b58ea39bed2260174198416246d9b7289e3031"
+    },
+    {
+      "path": "en/api/action.md",
+      "sha256": "54d18394cdec4ea2e95bf156b0d1307d397ff36822b34577c62b8e82332f2195"
+    },
+    {
+      "path": "en/api/api.md",
+      "sha256": "3cf47083471fb709a5399400644538b1316f7b919f1f2c4860615b01e721910a"
+    },
+    {
+      "path": "en/api/echarts-instance.md",
+      "sha256": "06f446ad05652ffad3415302752b452100603f228c93a535be25e210f6dba00f"
+    },
+    {
+      "path": "en/api/echarts.md",
+      "sha256": "44a41d67500fb5efa7f6d780730fa7d444391155a533ec222a8f6029b666f092"
+    },
+    {
+      "path": "en/api/events.md",
+      "sha256": "3df91f20350c1208cb7deb315afb2def0a2fe14bfc1abccf607ad5f755cd7587"
+    },
+    {
+      "path": "en/api/graphic.md",
+      "sha256": "1d6609691d81d0a452144657aa1b66289b954e72b4d885f58ff62f90ff4e257a"
+    },
+    {
+      "path": "en/api/version.md",
+      "sha256": "651d031566dfbfe218482d286721d2c41b4ab6375c6b7bd7165d76fa7a53296c"
+    },
+    {
+      "path": "en/option/component/angle-axis.md",
+      "sha256": "eb761b51f983e22e67c42a104dd2c6797dd4d777af3bff743d53c3e968d17772"
+    },
+    {
+      "path": "en/option/component/aria.md",
+      "sha256": "a1b9d2684c4bf2d0c8e8c898832999841f82c0f8624dd46443e90b60d15a592d"
+    },
+    {
+      "path": "en/option/component/axis-common.md",
+      "sha256": "b2a1f8d47bca5e16115451dfc71aca4b6921eadcef8dca8dd04a2e9c8447e62a"
+    },
+    {
+      "path": "en/option/component/axisPointer.md",
+      "sha256": "edaa5ba496f19367708e8b7e800a0fe7a7445cb09b3302ed74d3d7e1c0b64e24"
+    },
+    {
+      "path": "en/option/component/brush.md",
+      "sha256": "df9cdd2d36b16734c9a12b019eb84fb884a48d1fc745aaa50c0d177251c4a8ff"
+    },
+    {
+      "path": "en/option/component/calendar.md",
+      "sha256": "e21041b454b3208a47798a04d15a915f26870d542e5ccd1843ae5a201fb1e1bc"
+    },
+    {
+      "path": "en/option/component/data-transform-external.md",
+      "sha256": "741d1d22978757531c3fc58959cc740d58d8278a78232a85a58f916ebed4042e"
+    },
+    {
+      "path": "en/option/component/data-transform-filter.md",
+      "sha256": "9dd840ea788ec3b47b975be3feda2cebd8f945081923438c55529cf8db184a0d"
+    },
+    {
+      "path": "en/option/component/data-transform-sort.md",
+      "sha256": "e0544ba90a7ba2d552d0215253bc208996f150d78eb1bca9a89dbd2ac255c894"
+    },
+    {
+      "path": "en/option/component/data-zoom-inside.md",
+      "sha256": "eeee913ef8015f826596f76fab5ef15e430c466aa76e894afa1be9a381a2ad28"
+    },
+    {
+      "path": "en/option/component/data-zoom-slider.md",
+      "sha256": "1444e35dc9919a002fee7382a3c5e33435aebdd4047b2637c623bba5453aa821"
+    },
+    {
+      "path": "en/option/component/data-zoom.md",
+      "sha256": "fece39983349b7dd277e8c511a8de58bfce0fdc9f71478055b6e29b941675505"
+    },
+    {
+      "path": "en/option/component/dataset.md",
+      "sha256": "f834734f6a232a6cef4675a403fa955f1480afa40ae9b314aea6cc2739f59ad8"
+    },
+    {
+      "path": "en/option/component/geo-common.md",
+      "sha256": "8728af2c376481541f5ef4f80fdb52052fa9bacc4d56d4a3488b6ebb7ea40e01"
+    },
+    {
+      "path": "en/option/component/geo.md",
+      "sha256": "38a762d9c1a65f8f07d3c5e860576e853e2e25af2f6d3fe414060164345dbfa2"
+    },
+    {
+      "path": "en/option/component/graphic.md",
+      "sha256": "d9769d8ea846d991f44ab2d08e18ebe5eca6ebb8eb1f4e9df7a78663a70261bb"
+    },
+    {
+      "path": "en/option/component/grid.md",
+      "sha256": "bf09612f6eba887550aebd0c3bd68540314679cee59b46b04f7b1affa20ce2f1"
+    },
+    {
+      "path": "en/option/component/legend.md",
+      "sha256": "4535e5384a01867728a7577d4a4dc4ed5fe3c84d380f18747044d7e0e7bc10b1"
+    },
+    {
+      "path": "en/option/component/matrix.md",
+      "sha256": "a5104194a1d80b3e922e6cfd979b838eca60767fedf80b5015647e2ddab9067e"
+    },
+    {
+      "path": "en/option/component/parallel-axis.md",
+      "sha256": "b809a0e4a0ccebdcb2701f8f576a07dc205213717fe11e4515fd1988cbf7ed1b"
+    },
+    {
+      "path": "en/option/component/parallel.md",
+      "sha256": "c3d3329b35ff66fba922c30627d311e14a5ea523da0fe55324529dd80db2e260"
+    },
+    {
+      "path": "en/option/component/polar.md",
+      "sha256": "c434e3c71baf7ecc3b8c2e9c7a1d1e7d2ce79151ac8ebd7864183588d24fb2d6"
+    },
+    {
+      "path": "en/option/component/radar.md",
+      "sha256": "989ab25e90dda2c2818ee417161da1966fecfde436ed74ed9151179c352fe05c"
+    },
+    {
+      "path": "en/option/component/radius-axis.md",
+      "sha256": "7f54ff12bce8779cb99ebbe7eff86c4a641d1055b1ff294ab67bcff032474ef4"
+    },
+    {
+      "path": "en/option/component/single-axis.md",
+      "sha256": "44edcf008f5c873d4d96e15839e771d0e2c2927e2a280931870c88b2276489a6"
+    },
+    {
+      "path": "en/option/component/thumbnail.md",
+      "sha256": "0290189593dca4fa18e2bfb0617318ca0555083e00a103f3a5c10fd0d5d5121b"
+    },
+    {
+      "path": "en/option/component/timeline.md",
+      "sha256": "01d860c3cfe37f6d90fd85746131816ab3ad337c4f9784732c876197c7dc38e0"
+    },
+    {
+      "path": "en/option/component/title.md",
+      "sha256": "962dab514b3b93acbb251f01f6f58cf208ea93431c0c21792dbbee6789221646"
+    },
+    {
+      "path": "en/option/component/toolbox.md",
+      "sha256": "cf06d2f04d8dec1311523643db03574f2c85de0d033e636bf035d01d8502c8b6"
+    },
+    {
+      "path": "en/option/component/tooltip.md",
+      "sha256": "e342097c910f93c5c241c78c7a63947c73efb37ed64b1b6e181a5226ef5c2895"
+    },
+    {
+      "path": "en/option/component/visual-map-continuous.md",
+      "sha256": "89755d9b60c826593ed98ac9f08727bf1042e5e3a8401994357d78a5a9c7f67f"
+    },
+    {
+      "path": "en/option/component/visual-map-piecewise.md",
+      "sha256": "f9b2e765df8b343d8dcdffbe89bf0533f63a2fd9dd2e7e50dc3ab28ee1a671ac"
+    },
+    {
+      "path": "en/option/component/visual-map.md",
+      "sha256": "3170eb6f4cfb258655e60add64c2fb2e60d81008639a41d09045888f9c451ac2"
+    },
+    {
+      "path": "en/option/component/x-axis.md",
+      "sha256": "ba29ce4ed410be0e0e9e8291f10d7a5357819931d5ed38d0b6bac8a2060d19a5"
+    },
+    {
+      "path": "en/option/component/y-axis.md",
+      "sha256": "9dfc6c637e4ca2ad36f642a24b5ef675b13f24a182174a93d83656dfe1fa2af9"
+    },
+    {
+      "path": "en/option/option.md",
+      "sha256": "9897e74bef1e231a149005a3edb5f1fbc0d0c63b021110880c82aa952a7282a6"
+    },
+    {
+      "path": "en/option/partial/1d-data.md",
+      "sha256": "99b9b8d7c4a5f414483b16b4ca8dcf3cb5615fba32d0e8db667f9eb377d72422"
+    },
+    {
+      "path": "en/option/partial/2d-data.md",
+      "sha256": "27c33002adc29960cc6e5a383b6adc59625ddabef5425f95d36e8ff7ac171e8b"
+    },
+    {
+      "path": "en/option/partial/animation.md",
+      "sha256": "038b735d2ef9c950110e7cf620976c5898b709dedd07c84fb965e23a646a0697"
+    },
+    {
+      "path": "en/option/partial/area-style.md",
+      "sha256": "f7c709d14bd910a84ed8991ef8a2dab08a1ef598e1a29f06a9388a1454871422"
+    },
+    {
+      "path": "en/option/partial/axisPointer-common.md",
+      "sha256": "585a5620874f40adb0e1e7868b62cde9119d0f80f06db28092137767a012481c"
+    },
+    {
+      "path": "en/option/partial/barGrid.md",
+      "sha256": "d0d943b7c607c10cb02fc6e8d18ea4cebd2f0caf4818f7384c6dd37fa768b03a"
+    },
+    {
+      "path": "en/option/partial/circular-layout.md",
+      "sha256": "5ce40ccc5ad8e2c7df05911448680a19ed8e6b3cfdca6d2c6fd312bc71ce2f18"
+    },
+    {
+      "path": "en/option/partial/clip.md",
+      "sha256": "ef130bd861213f3b3845110c6f906cedb67c2cb6941bd565fe76e7eeb86792ec"
+    },
+    {
+      "path": "en/option/partial/color-desc.md",
+      "sha256": "cb69ae24f710c16239dc6f7a1603a35c283c0e05b7ab6dbcd4c553f86ba31575"
+    },
+    {
+      "path": "en/option/partial/colorBy.md",
+      "sha256": "ff4c66ee0114927aee03cab40ef9bdab22301f4a47d37579bf5bf5bf69f646ed"
+    },
+    {
+      "path": "en/option/partial/component-common-style.md",
+      "sha256": "5ad8f5c7c46ae05e11b90a03ddbdce5e4e833e286b584502e02c9476f103ebb6"
+    },
+    {
+      "path": "en/option/partial/coord-sys.md",
+      "sha256": "ea4eb601790a65dc503daf45c44bfebefcc9adea8a6e7be83be3689531642a5c"
+    },
+    {
+      "path": "en/option/partial/cursor.md",
+      "sha256": "e4e369ffce2cf717a4b23daac11f60c01de5ab4411a61d37a17a01b520d65316"
+    },
+    {
+      "path": "en/option/partial/data-id-desc.md",
+      "sha256": "4da97c2555e87779be7caca63ca852715dd641f973094e6feff4c7df13dec868"
+    },
+    {
+      "path": "en/option/partial/data-name-desc.md",
+      "sha256": "61f838a40593a325ea579091cbf4314b0121a0e6e0d329a5878853754fe3325e"
+    },
+    {
+      "path": "en/option/partial/data-transform.md",
+      "sha256": "311bea9f0058ee455b969c52ced0189c30775b70af2b10f5a4749ef630bd2c48"
+    },
+    {
+      "path": "en/option/partial/decal.md",
+      "sha256": "fbb371cfde1e258bed79f1c4478f6ef864ee367fb570ec32d26ca69aaf94774c"
+    },
+    {
+      "path": "en/option/partial/emphasis-common.md",
+      "sha256": "4271100a6e25c07d25d99c5d87164845724f9f777e204682cc2355a0a2d171f4"
+    },
+    {
+      "path": "en/option/partial/encode-dimensions.md",
+      "sha256": "7ceefdaf6c9a258b8ffe4910555b8e429b5b16b39144d977c8813537cdbfa9a6"
+    },
+    {
+      "path": "en/option/partial/formatter.md",
+      "sha256": "c74f69214fba6e9bf0cbcb6551f381768f3b4ab86d652d93cd7b776ec11b5922"
+    },
+    {
+      "path": "en/option/partial/group-id.md",
+      "sha256": "a11da2b54a9266aafe7a0383c8761108c20a057ef3af47436d4c5bb15a003a5f"
+    },
+    {
+      "path": "en/option/partial/icon.md",
+      "sha256": "3701628122d8213e54e93688332c43130b27f5651e9d200fed12f633e48d2e69"
+    },
+    {
+      "path": "en/option/partial/id.md",
+      "sha256": "4ae1d45de9cb29b11921148c2151dea4f0a47577c920ad66b3b2f49aaa3c6911"
+    },
+    {
+      "path": "en/option/partial/item-style.md",
+      "sha256": "0ba360862b01b746de0a37e5eec0fe3f1d28ab54d767f25605fed0f39ec0eb44"
+    },
+    {
+      "path": "en/option/partial/label-layout.md",
+      "sha256": "18c59c35f813735ef5a49c92f133e44f2c58325e029384859fa79bf262ac8337"
+    },
+    {
+      "path": "en/option/partial/label-line.md",
+      "sha256": "b60e918401177e411a1458d394902711810616054aa6d24670e864fd381a9af0"
+    },
+    {
+      "path": "en/option/partial/label-rotate-tangential.md",
+      "sha256": "148f4bc48f6aec3f9b1b8c56587a1699818968984c270ea236cff00753e5dcf7"
+    },
+    {
+      "path": "en/option/partial/label.md",
+      "sha256": "c9c976238cba0659271cb20449a5086db7b7daf3493f997d9703da9e25dd1f34"
+    },
+    {
+      "path": "en/option/partial/large.md",
+      "sha256": "692a362406f0e03854292c8a63b4c2afe6fd42356234d3a914f19563bef58646"
+    },
+    {
+      "path": "en/option/partial/legend-hover-link.md",
+      "sha256": "9f5949b71c579b755ac7175cea9d4196f5d4bdd6e444e9d0744653484d76bfd7"
+    },
+    {
+      "path": "en/option/partial/line-border-style.md",
+      "sha256": "07ac4c00b044fc6d0f897cbfad04acc0c2d574c9d904030a7f814c0cec9baf6d"
+    },
+    {
+      "path": "en/option/partial/line-data.md",
+      "sha256": "651b2bd3ebf1ea57aecba7df93729d8faf4b5641ca04d4ac1dc294441e40075b"
+    },
+    {
+      "path": "en/option/partial/line-style.md",
+      "sha256": "fc7e12baf444f09ef702ddf9ded01ba7ad3ffba6e6f6803802178b423f800a9e"
+    },
+    {
+      "path": "en/option/partial/mark-area.md",
+      "sha256": "51df37d17b2031ea00413085cef14fbc60385f41c30f1195d133d8fdac39f7c8"
+    },
+    {
+      "path": "en/option/partial/mark-line.md",
+      "sha256": "95e3dcefcd6bdb08cc7ad5906e3dbf33ff9cdc593f8f7adef908f9c91a7b5a96"
+    },
+    {
+      "path": "en/option/partial/mark-point.md",
+      "sha256": "d4badfae9d1f278557e23954e21c7c68ae80f659c95d19a7f806a633585e1612"
+    },
+    {
+      "path": "en/option/partial/marker.md",
+      "sha256": "efa830ff3d620c472d29cd0a7d2f036fd39cd321d70fc08cdda8dce673671ca4"
+    },
+    {
+      "path": "en/option/partial/matrix-body-corner.md",
+      "sha256": "90e959aec13ee29dd7474710d17bd3450e65e4bbfe443792a00c8c55342c0f5f"
+    },
+    {
+      "path": "en/option/partial/matrix-header.md",
+      "sha256": "d1d8102423a0be440b913839f206f64919ade3a4f6f2088cafa4b4c5e380e872"
+    },
+    {
+      "path": "en/option/partial/matrix-region.md",
+      "sha256": "13d7a12c473b91ed3c5f105b218e250fb1e8261d9d7aeeafca1d4a1cef700fd6"
+    },
+    {
+      "path": "en/option/partial/padding.md",
+      "sha256": "6a4f7e894a02dca5e08ac518cd897a8cb240388a209562af1539a455bf2c8769"
+    },
+    {
+      "path": "en/option/partial/parallel.md",
+      "sha256": "4c17915d15bcec0d77b97c6334290c3db8656a2390dac5b3fe1c875d34c7bcb9"
+    },
+    {
+      "path": "en/option/partial/progressive.md",
+      "sha256": "87b079fee236216d933c35c6525deb4265a01b036b70df21230defccfac4b71e"
+    },
+    {
+      "path": "en/option/partial/rect-layout-width-height.md",
+      "sha256": "5e6760e0aa52b54b093f9365e329d88e8e4ecd1d5f9686747844fc5a17efbdb7"
+    },
+    {
+      "path": "en/option/partial/rect-layout.md",
+      "sha256": "0cea3f8972122d7190836813d7c491e74f1b9e3ba60fd285cfe5ca327bccfd89"
+    },
+    {
+      "path": "en/option/partial/rich-inherit-plain-label.md",
+      "sha256": "bd436771387852627a4a95c1e81e19206db9028c5fc15cdc7be0eb0896c1669e"
+    },
+    {
+      "path": "en/option/partial/roam.md",
+      "sha256": "73367cb699054cbc67da2416d64bba9c19b172be22866803caabe41ebc429567"
+    },
+    {
+      "path": "en/option/partial/sector-border-radius.md",
+      "sha256": "4150d5ad735f7f92ce0b013bd3482cfe07ea5ba9f2a0caad3d5d83041b9cedd8"
+    },
+    {
+      "path": "en/option/partial/security-warning.md",
+      "sha256": "218fc45eb510c9f664090c09cbafa05f26ab868d13c09184bb4bdaad92c0e31d"
+    },
+    {
+      "path": "en/option/partial/select-common.md",
+      "sha256": "d175ec3afbcf781b1e5fc31abb0cc9a413a14a4de71038eed659566b8cb63af6"
+    },
+    {
+      "path": "en/option/partial/selected-mode.md",
+      "sha256": "5d9d5b6ccbdff9dbec711deb36eb7c6fce346f79225d28079e18302b30e96ee8"
+    },
+    {
+      "path": "en/option/partial/series-name.md",
+      "sha256": "977fb1a2205709f8d32319fa46c68f6fd3566df93e8b33ab44b5420ca16c9371"
+    },
+    {
+      "path": "en/option/partial/show.md",
+      "sha256": "bc2f9f61d580c3fd20846a7aa2d463032b2f3ac3a280ad5b2742567bae02805b"
+    },
+    {
+      "path": "en/option/partial/silent.md",
+      "sha256": "e2ab3f1bc417f5dd95a69a533d87f02a7ad929a996020237af5365d6358d5c36"
+    },
+    {
+      "path": "en/option/partial/stack.md",
+      "sha256": "09324dd2650ce3517205081ba02256bd063271647a21392221196aa5d73c4859"
+    },
+    {
+      "path": "en/option/partial/state-animation.md",
+      "sha256": "7320160b988305a92637bc5e9fdea5de5e6e26d351b9942e6ac8102f79aff8d9"
+    },
+    {
+      "path": "en/option/partial/style-shadow-opacity.md",
+      "sha256": "cea0f2ac8db8da10c5b8c59506b1a040a0317f06eac821694d626b0e5a76c8b2"
+    },
+    {
+      "path": "en/option/partial/symbol.md",
+      "sha256": "d5397890ca19e2b3dfc228d88df01000b80cab7812177516945563ca9acfa5cd"
+    },
+    {
+      "path": "en/option/partial/text-style.md",
+      "sha256": "e6b8ce5992ea07eef38add01a265087563d23fbfcea59a6769b6b411b909a39a"
+    },
+    {
+      "path": "en/option/partial/tooltip-common.md",
+      "sha256": "83ea2f15ae2eeb4480135176bd30493621e55c995ba4ae098e0519e53b23ca8b"
+    },
+    {
+      "path": "en/option/partial/universal-transition.md",
+      "sha256": "4d30d2f41415808602563b7cb4fee45e880a3fbea196f8dc481ac5639f9a3ee8"
+    },
+    {
+      "path": "en/option/partial/version.md",
+      "sha256": "de72b7c015be4f5cbd0ad8bca3035f8dc70d344d9b7c69749597e739844e284f"
+    },
+    {
+      "path": "en/option/partial/view-coord-sys.md",
+      "sha256": "4fac39e0c256c68f4cc6088ab493dd188ae808f9578d4175d9c08dfad5440373"
+    },
+    {
+      "path": "en/option/partial/visual-mapping.md",
+      "sha256": "6c531b9439f819fcff1d0fa6926f173bf4370aace22853b9aae494c1083b1b21"
+    },
+    {
+      "path": "en/option/partial/z-zlevel.md",
+      "sha256": "3c357fec6e20120e14fbc95fa0c51b4bc1cc046358a9f55d17d8a6a6ee099d3a"
+    },
+    {
+      "path": "en/option/partial/z.md",
+      "sha256": "ff50da8d257b4623543764c47939c658a71ce352fbabe24fadaa806483fee36e"
+    },
+    {
+      "path": "en/option/partial/zr-graphic.md",
+      "sha256": "cc6d9997b13703b28c58c9af872b88d6c0b0300d9436dd851996f21bed8810e1"
+    },
+    {
+      "path": "en/option/series/bar.md",
+      "sha256": "0023e7d087976b53b9130bbbef9dc971fb5aab3b0340ac397537fbd40c64eaee"
+    },
+    {
+      "path": "en/option/series/boxplot.md",
+      "sha256": "ab30114bc01920cddf978d59788553e1c39ae7e70fd52b0a81f866f5b5b159c7"
+    },
+    {
+      "path": "en/option/series/candlestick.md",
+      "sha256": "80a083d681c32d023a2d571a4aabec4a7100d35cad492ed0147013092f9b24eb"
+    },
+    {
+      "path": "en/option/series/chord.md",
+      "sha256": "e2abbea0f6d15a180dcf1a58430499613433d9dce44ef02ab08fabc20a846bb0"
+    },
+    {
+      "path": "en/option/series/custom.md",
+      "sha256": "5d61b6eb30846172935881096ca02f27aae648440b7c90a65f674684aea0fdf0"
+    },
+    {
+      "path": "en/option/series/effectScatter.md",
+      "sha256": "7a97e98e1d595bd7ab2d47d9f9d52f392ae594a3446c45cb5ecc7d043ead441d"
+    },
+    {
+      "path": "en/option/series/funnel.md",
+      "sha256": "ae654a1efb418727236612afcdf671a7225a901645b03acc16de5d8e03d2c142"
+    },
+    {
+      "path": "en/option/series/gauge.md",
+      "sha256": "6a0f929cb2a5aa1acec9511a7a478eeace613639c5a34b8110a00dc3fb835036"
+    },
+    {
+      "path": "en/option/series/graph.md",
+      "sha256": "f4e21ea578458dca174e6a5e5dbd291279d512c852d294c83eb97faed1f641fb"
+    },
+    {
+      "path": "en/option/series/heatmap.md",
+      "sha256": "81123edbc6fca6fee9b288bf572f7174b73adfd9edd9a57391caa21e8aa02fd9"
+    },
+    {
+      "path": "en/option/series/line.md",
+      "sha256": "620d08c8cdd26528a3e263e20197be9d56157e85b8f1b14049c61d27fcc9f6d7"
+    },
+    {
+      "path": "en/option/series/lines.md",
+      "sha256": "27c25d5efda32c872c31ad0b81de353a21879eaa4a8ecd8e6078de347dd78576"
+    },
+    {
+      "path": "en/option/series/map.md",
+      "sha256": "7303d0ff62a613f3df7b9b3bd98b6b0e1db48ff772a35c93ba78ee873b69dc8b"
+    },
+    {
+      "path": "en/option/series/parallel.md",
+      "sha256": "1a4ffbc45af5e1c8ad4da1862b6c02a59c3e3d47dd8b90b9401006ab663d54ee"
+    },
+    {
+      "path": "en/option/series/pictorialBar.md",
+      "sha256": "33f75fb30d6ea08803da2b5fd8cdaef0a3a503011db8a2f691b6b2790488ee82"
+    },
+    {
+      "path": "en/option/series/pie.md",
+      "sha256": "973a22bb6d7c48293a7946aa387fa759ed5d9819b581112ae6b7cb01f3b5f3e3"
+    },
+    {
+      "path": "en/option/series/radar.md",
+      "sha256": "b6486f151ed7c000a5c5c95f453225255da707587d9d8c04b7efbdd126748d7d"
+    },
+    {
+      "path": "en/option/series/sankey.md",
+      "sha256": "426d0d0ffbff21f32ef9eddfdf6799ab32c9deeec0f3364308cb996244101295"
+    },
+    {
+      "path": "en/option/series/scatter.md",
+      "sha256": "ee2ce0338fb7b38e44caf534a7782e8cea607c2c2aad6f7f2970b8adaf7d0436"
+    },
+    {
+      "path": "en/option/series/series.md",
+      "sha256": "f72f52f11d6002e0d8abf32bdf043823ca7c8ab393ab3bde63602f8e1e24e287"
+    },
+    {
+      "path": "en/option/series/sunburst.md",
+      "sha256": "9f3ac5c26389ca621d60138c07970451b2c863d9525b19fdd9f99ef5beee0a6d"
+    },
+    {
+      "path": "en/option/series/themeRiver.md",
+      "sha256": "d00a89cd8b192151a4774d98260837cefca07b4eaf30d9ffa5f321512fdf2521"
+    },
+    {
+      "path": "en/option/series/tree.md",
+      "sha256": "5b9f2fa68f78313e952d38138e4eb00b105d8deb26e9a3b8d6888f2834fd83e1"
+    },
+    {
+      "path": "en/option/series/treemap.md",
+      "sha256": "6414e030244d596a8215fcf24e68cd7e46eeaeedf59a6d72c033cc64e125e673"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "package.json",
+      "sha256": "051cda1316bcfccc74db3617948ddb50ea411f6fa4b5279e5ddbb0f2ae9fbc2b"
+    },
+    {
+      "path": "slides/ani/asset/md2reveal-0.1.7/lib/font/league-gothic/LICENSE",
+      "sha256": "f8a741f43a00e8dc1ba89debfe7cc6c760de0315e9ee47406c17474f9246c692"
+    },
+    {
+      "path": "slides/ani/asset/md2reveal-0.1.7/lib/font/source-sans-pro/LICENSE",
+      "sha256": "bb5f5f9b59ff3ab358efed2c5436e8aa2e12444959c4bde82167b874d5db1b1c"
+    },
+    {
+      "path": "slides/arch-brief/asset/md2reveal-0.1.7/lib/font/league-gothic/LICENSE",
+      "sha256": "f8a741f43a00e8dc1ba89debfe7cc6c760de0315e9ee47406c17474f9246c692"
+    },
+    {
+      "path": "slides/arch-brief/asset/md2reveal-0.1.7/lib/font/source-sans-pro/LICENSE",
+      "sha256": "bb5f5f9b59ff3ab358efed2c5436e8aa2e12444959c4bde82167b874d5db1b1c"
+    },
+    {
+      "path": "slides/custom/asset/md2reveal-0.1.7/lib/font/league-gothic/LICENSE",
+      "sha256": "f8a741f43a00e8dc1ba89debfe7cc6c760de0315e9ee47406c17474f9246c692"
+    },
+    {
+      "path": "slides/custom/asset/md2reveal-0.1.7/lib/font/source-sans-pro/LICENSE",
+      "sha256": "bb5f5f9b59ff3ab358efed2c5436e8aa2e12444959c4bde82167b874d5db1b1c"
+    },
+    {
+      "path": "slides/webgl/theme/league-gothic/LICENSE",
+      "sha256": "f8a741f43a00e8dc1ba89debfe7cc6c760de0315e9ee47406c17474f9246c692"
+    },
+    {
+      "path": "slides/webgl/theme/source-sans-pro/LICENSE",
+      "sha256": "bb5f5f9b59ff3ab358efed2c5436e8aa2e12444959c4bde82167b874d5db1b1c"
+    },
+    {
+      "path": "src/dep/flatten.js",
+      "sha256": "2b98b5af8ca70603d071b225cf0e05b19cde3450c5719cbb0d8d800344dcbbe9"
+    },
+    {
+      "path": "src/dep/truncate.js",
+      "sha256": "6b68ec11365a4f32d0b84659f20412a8c8869a32cd86861f2b7e3ce0ee3ae7d0"
+    },
+    {
+      "path": "tool/extractOptionKeys.js",
+      "sha256": "4af0fb4bab65cabb5b2071a259bfb54eeeeb081a49b1c45b9cf0ef4d5dc23393"
+    },
+    {
+      "path": "tool/format.js",
+      "sha256": "0e04856911514f20480d4c33fc8ed3ebbb4f1011c2d99a4e36617f1989a415f7"
+    },
+    {
+      "path": "tool/helper/compareVersions.js",
+      "sha256": "7eb290eec9e455702bd6b0f08d5df3a5a33145e2e90b253e1ec448286946a5f1"
+    },
+    {
+      "path": "tool/MarkDownTOCRenderer.js",
+      "sha256": "6b6de446d3cc4814b9b301a53d1d5f189f0ba064305465a55c97ab8a41759618"
+    },
+    {
+      "path": "tool/md2json.js",
+      "sha256": "1b701e39fe75061d5e5f2fdbb944b7487c042a08a6945392119f5f1b6dd23da9"
+    },
+    {
+      "path": "tool/patchLanguage.js",
+      "sha256": "48134cc6019ec72c21c28144c684d6712762c782d22105aecbbdec1dc65c02bb"
+    },
+    {
+      "path": "tool/plain-md.tpl",
+      "sha256": "3219c7ae78f1cbf20ba43ca222e3280ec2c2d6e8e91e113f0ccef0c1091fd838"
+    },
+    {
+      "path": "tool/schemaHelper.js",
+      "sha256": "4d5716437acad4bbe4cfec378dfde0b8c5ecebdce6aab8a2fd24eb2d43d13e45"
+    }
+  ],
+  "tplEnv": {
+    "galleryViewPath": "https://echarts.apache.org/examples/en/view.html?c=",
+    "galleryEditorPath": "https://echarts.apache.org/examples/en/editor.html?c=",
+    "galleryPath": "https://echarts.apache.org/examples/en/",
+    "websitePath": "https://echarts.apache.org",
+    "handbookPath": "https://echarts.apache.org/handbook/en/",
+    "ecVersion": "6.1.0"
+  }
+}

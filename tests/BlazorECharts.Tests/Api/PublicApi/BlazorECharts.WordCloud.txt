@@ -1,0 +1,217 @@
+public readonly struct BlazorECharts.WordCloud.WordCloudBackground : IJsonOnSerializing, IOptionValue
+  bool TryGet([NotNullWhen(true)] out WordCloudImageBackground? value)
+  bool TryGet([NotNullWhen(true)] out string? value)
+  object? Value { get; }
+  static WordCloudBackground From(WordCloudImageBackground value)
+  static WordCloudBackground From(string value)
+  static WordCloudBackground op_Implicit(WordCloudImageBackground value)
+  static WordCloudBackground op_Implicit(string value)
+public static class BlazorECharts.WordCloud.WordCloudBuilderExtensions
+  static EChartsBuilder AddWordCloud(this EChartsBuilder builder)
+public readonly struct BlazorECharts.WordCloud.WordCloudColor : IJsonOnSerializing, IOptionValue
+  bool TryGet([NotNullWhen(true)] out JsFunction<WordCloudColorSignature>? value)
+  bool TryGet([NotNullWhen(true)] out string? value)
+  object? Value { get; }
+  static WordCloudColor From(JsFunction<WordCloudColorSignature> value)
+  static WordCloudColor From(string value)
+  static WordCloudColor op_Implicit(JsFunction<WordCloudColorSignature> value)
+  static WordCloudColor op_Implicit(string value)
+public readonly struct BlazorECharts.WordCloud.WordCloudColorSignature : IJsFunctionSignature
+  static string Id { get; }
+public sealed class BlazorECharts.WordCloud.WordCloudDataItem : OptionObject
+  NumberOrString? Id { get; set; }
+  WordCloudDataTooltip? Tooltip { get; set; }
+  WordCloudItemTextStyle? TextStyle { get; set; }
+  WordCloudNumberOrNumbers? Value { get; set; }
+  WordCloudState? Blur { get; set; }
+  WordCloudState? Emphasis { get; set; }
+  bool? Selected { get; set; }
+  ctor()
+  string? Name { get; set; }
+public readonly struct BlazorECharts.WordCloud.WordCloudDataTooltip : IJsonOnSerializing, IOptionValue
+  bool TryGet([NotNullWhen(true)] out SeriesTooltipOption? value)
+  bool TryGet([NotNullWhen(true)] out string? value)
+  object? Value { get; }
+  static WordCloudDataTooltip From(SeriesTooltipOption value)
+  static WordCloudDataTooltip From(string value)
+  static WordCloudDataTooltip op_Implicit(SeriesTooltipOption value)
+  static WordCloudDataTooltip op_Implicit(string value)
+public sealed class BlazorECharts.WordCloud.WordCloudExtension : IChartExtension
+  IReadOnlyList<string> Dependencies { get; }
+  ctor()
+  string Id { get; }
+  string ModuleUrl { get; }
+  string Version { get; }
+  void ConfigureSerialization(EChartsSerializationContext context)
+public readonly struct BlazorECharts.WordCloud.WordCloudImage : IJsonOnSerializing, IOptionValue
+  bool TryGet([NotNullWhen(true)] out EChartsObjectReference? value)
+  bool TryGet([NotNullWhen(true)] out string? value)
+  object? Value { get; }
+  static WordCloudImage From(EChartsObjectReference value)
+  static WordCloudImage From(string value)
+  static WordCloudImage op_Implicit(EChartsObjectReference value)
+  static WordCloudImage op_Implicit(string value)
+public sealed class BlazorECharts.WordCloud.WordCloudImageBackground : OptionObject
+  WordCloudImage? Image { get; set; }
+  ctor()
+public sealed class BlazorECharts.WordCloud.WordCloudItemTextStyle : OptionObject
+  NumberOrString? FontSize { get; set; }
+  NumberOrString? FontWeight { get; set; }
+  NumberOrString? Width { get; set; }
+  WordCloudBackground? BackgroundColor { get; set; }
+  WordCloudLineType? BorderType { get; set; }
+  WordCloudLineType? TextBorderType { get; set; }
+  WordCloudNumberOrNumbers? BorderRadius { get; set; }
+  WordCloudNumberOrNumbers? Padding { get; set; }
+  WordCloudNumberOrNumbers? TextMargin { get; set; }
+  WordCloudRichText? Rich { get; set; }
+  bool? RichInheritPlainLabel { get; set; }
+  ctor()
+  double? BorderDashOffset { get; set; }
+  double? BorderWidth { get; set; }
+  double? Height { get; set; }
+  double? LineHeight { get; set; }
+  double? MinMargin { get; set; }
+  double? Opacity { get; set; }
+  double? ShadowBlur { get; set; }
+  double? ShadowOffsetX { get; set; }
+  double? ShadowOffsetY { get; set; }
+  double? TextBorderDashOffset { get; set; }
+  double? TextBorderWidth { get; set; }
+  double? TextShadowBlur { get; set; }
+  double? TextShadowOffsetX { get; set; }
+  double? TextShadowOffsetY { get; set; }
+  string? Align { get; set; }
+  string? Baseline { get; set; }
+  string? BorderColor { get; set; }
+  string? Color { get; set; }
+  string? Ellipsis { get; set; }
+  string? FontFamily { get; set; }
+  string? FontStyle { get; set; }
+  string? LineOverflow { get; set; }
+  string? Overflow { get; set; }
+  string? ShadowColor { get; set; }
+  string? Tag { get; set; }
+  string? TextBorderColor { get; set; }
+  string? TextShadowColor { get; set; }
+  string? VerticalAlign { get; set; }
+public readonly struct BlazorECharts.WordCloud.WordCloudLineType : IJsonOnSerializing, IOptionValue
+  bool TryGet([NotNullWhen(true)] out double[]? value)
+  bool TryGet([NotNullWhen(true)] out string? value)
+  bool TryGet(out double value)
+  object? Value { get; }
+  static WordCloudLineType From(double value)
+  static WordCloudLineType From(double[] value)
+  static WordCloudLineType From(string value)
+  static WordCloudLineType op_Implicit(double value)
+  static WordCloudLineType op_Implicit(double[] value)
+  static WordCloudLineType op_Implicit(string value)
+public readonly struct BlazorECharts.WordCloud.WordCloudNumberOrNumbers : IJsonOnSerializing, IOptionValue
+  bool TryGet([NotNullWhen(true)] out double[]? value)
+  bool TryGet(out double value)
+  object? Value { get; }
+  static WordCloudNumberOrNumbers From(double value)
+  static WordCloudNumberOrNumbers From(double[] value)
+  static WordCloudNumberOrNumbers op_Implicit(double value)
+  static WordCloudNumberOrNumbers op_Implicit(double[] value)
+public sealed class BlazorECharts.WordCloud.WordCloudRichText : IJsonOnSerializing, IOptionValue
+  IReadOnlyDictionary<string, WordCloudItemTextStyle?> Styles { get; }
+  WordCloudItemTextStyle? this[string name] { get; set; }
+  ctor()
+public sealed class BlazorECharts.WordCloud.WordCloudSeriesOption : SeriesOption
+  AnimationOption? StateAnimation { get; set; }
+  EChartsObjectReference? MaskImage { get; set; }
+  NumberOrString? Bottom { get; set; }
+  NumberOrString? Height { get; set; }
+  NumberOrString? Id { get; set; }
+  NumberOrString? Left { get; set; }
+  NumberOrString? Name { get; set; }
+  NumberOrString? RandomSeed { get; set; }
+  NumberOrString? Right { get; set; }
+  NumberOrString? Top { get; set; }
+  NumberOrString? Width { get; set; }
+  SelectedMap? SelectedMap { get; set; }
+  SeriesSelectedMode? SelectedMode { get; set; }
+  SeriesTooltipOption? Tooltip { get; set; }
+  WordCloudDataItem[]? Data { get; set; }
+  WordCloudShape? Shape { get; set; }
+  WordCloudState? Blur { get; set; }
+  WordCloudState? Emphasis { get; set; }
+  WordCloudTextStyle? TextStyle { get; set; }
+  ZRColor?[]?[]? ColorLayer { get; set; }
+  ZRColorOneOrMany? Color { get; set; }
+  bool? Animation { get; set; }
+  bool? DrawOutOfBound { get; set; }
+  bool? KeepAspect { get; set; }
+  bool? LayoutAnimation { get; set; }
+  bool? LegendHoverLink { get; set; }
+  bool? ShrinkToFit { get; set; }
+  bool? Silent { get; set; }
+  ctor()
+  double? GridSize { get; set; }
+  double? RotationStep { get; set; }
+  double? Z { get; set; }
+  double? Zlevel { get; set; }
+  double[]? RotationRange { get; set; }
+  double[]? SizeRange { get; set; }
+  string? BlendMode { get; set; }
+  string? ColorBy { get; set; }
+  string? Cursor { get; set; }
+public readonly struct BlazorECharts.WordCloud.WordCloudShape : IJsonOnSerializing, IOptionValue
+  bool TryGet([NotNullWhen(true)] out JsFunction<WordCloudShapeSignature>? value)
+  bool TryGet([NotNullWhen(true)] out string? value)
+  object? Value { get; }
+  static WordCloudShape From(JsFunction<WordCloudShapeSignature> value)
+  static WordCloudShape From(string value)
+  static WordCloudShape op_Implicit(JsFunction<WordCloudShapeSignature> value)
+  static WordCloudShape op_Implicit(string value)
+public readonly struct BlazorECharts.WordCloud.WordCloudShapeSignature : IJsFunctionSignature
+  static string Id { get; }
+public sealed class BlazorECharts.WordCloud.WordCloudState : OptionObject
+  WordCloudItemTextStyle? TextStyle { get; set; }
+  ctor()
+  string? BlurScope { get; set; }
+  string? Focus { get; set; }
+public sealed class BlazorECharts.WordCloud.WordCloudTextStyle : OptionObject
+  NumberOrString? FontSize { get; set; }
+  NumberOrString? FontWeight { get; set; }
+  NumberOrString? Width { get; set; }
+  WordCloudBackground? BackgroundColor { get; set; }
+  WordCloudColor? Color { get; set; }
+  WordCloudLineType? BorderType { get; set; }
+  WordCloudLineType? TextBorderType { get; set; }
+  WordCloudNumberOrNumbers? BorderRadius { get; set; }
+  WordCloudNumberOrNumbers? Padding { get; set; }
+  WordCloudNumberOrNumbers? TextMargin { get; set; }
+  WordCloudRichText? Rich { get; set; }
+  bool? RichInheritPlainLabel { get; set; }
+  ctor()
+  double? BorderDashOffset { get; set; }
+  double? BorderWidth { get; set; }
+  double? Height { get; set; }
+  double? LineHeight { get; set; }
+  double? MinMargin { get; set; }
+  double? Opacity { get; set; }
+  double? ShadowBlur { get; set; }
+  double? ShadowOffsetX { get; set; }
+  double? ShadowOffsetY { get; set; }
+  double? TextBorderDashOffset { get; set; }
+  double? TextBorderWidth { get; set; }
+  double? TextShadowBlur { get; set; }
+  double? TextShadowOffsetX { get; set; }
+  double? TextShadowOffsetY { get; set; }
+  string? Align { get; set; }
+  string? Baseline { get; set; }
+  string? BorderColor { get; set; }
+  string? Ellipsis { get; set; }
+  string? FontFamily { get; set; }
+  string? FontStyle { get; set; }
+  string? LineOverflow { get; set; }
+  string? Overflow { get; set; }
+  string? ShadowColor { get; set; }
+  string? Tag { get; set; }
+  string? TextBorderColor { get; set; }
+  string? TextShadowColor { get; set; }
+  string? VerticalAlign { get; set; }
+public static class BlazorECharts.WordCloud.WordCloudTypeRegistration
+  static void Register(EChartsSerializationContext context)

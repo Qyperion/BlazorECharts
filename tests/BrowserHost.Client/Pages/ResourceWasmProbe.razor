@@ -1,0 +1,10 @@
+@page "/harness/resources/wasm"
+@rendermode InteractiveWebAssembly
+<PageTitle>WebAssembly chart resources</PageTitle>
+<ResourceLifetimeProbe Mode="wasm" AutoMount="Mount" Renderer="@Renderer" Cycles="@(Cycles ?? 100)" />
+
+@code {
+    [SupplyParameterFromQuery(Name = "mount")] public bool Mount { get; set; }
+    [SupplyParameterFromQuery(Name = "renderer")] public string? Renderer { get; set; }
+    [SupplyParameterFromQuery(Name = "cycles")] public int? Cycles { get; set; }
+}

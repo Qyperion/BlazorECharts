@@ -1,0 +1,36 @@
+{
+  "formatVersion": 1,
+  "description": "Third-party trim analysis warnings that test-aot.ps1 accepts in the published standalone consumer. A warning that names BlazorECharts is never accepted. Explanations: docs/compatibility/wasm-aot.md.",
+  "warnings": [
+    {
+      "code": "IL2065",
+      "origin": "Microsoft.JSInterop 10.0.14",
+      "pattern": "^Microsoft\\.JSInterop\\.Infrastructure\\.DotNetDispatcher\\.ScanAssemblyForCallableMethods\\(",
+      "reason": "Static [JSInvokable] lookup by assembly name scans types with Type.GetMethods. BlazorECharts calls back only through DotNetObjectReference instances."
+    },
+    {
+      "code": "IL2111",
+      "origin": "Microsoft.JSInterop 10.0.14",
+      "pattern": "^Microsoft\\.JSInterop\\.Infrastructure\\.DotNetDispatcher\\.GetCachedMethodInfo\\(.*ScanTypeForCallableMethods",
+      "reason": "Instance callbacks are found by reflection on the referenced object's runtime type. DotNetObjectReference.Create<T> keeps the public methods of T, which covers every BlazorECharts callback type."
+    },
+    {
+      "code": "IL2072",
+      "origin": "Microsoft.AspNetCore.Components 10.0.14",
+      "pattern": "^Microsoft\\.AspNetCore\\.Components\\.(CascadingParameterState\\.FindCascadingParameters|ComponentFactory\\.PerformPropertyInjection|Reflection\\.ComponentProperties\\.SetProperties)\\(",
+      "reason": "The renderer reflects over component.GetType(). Component types are kept by the DynamicallyAccessedMembers annotation on OpenComponent<TComponent> and the router's component lookup."
+    },
+    {
+      "code": "IL2110",
+      "origin": "Microsoft.AspNetCore.Components 10.0.14 through Razor-generated App.BuildRenderTree",
+      "pattern": "Field 'Microsoft\\.AspNetCore\\.Components\\.Routing\\.Router\\.<NotFoundPage>k__BackingField' with 'DynamicallyAccessedMembersAttribute' is accessed via reflection",
+      "reason": "OpenComponent<Router> requires all Router members, and Router.NotFoundPage itself carries a DynamicallyAccessedMembers annotation. Any app that renders Router reports it."
+    },
+    {
+      "code": "IL2111",
+      "origin": "Microsoft.AspNetCore.Components 10.0.14 through Razor-generated App.BuildRenderTree",
+      "pattern": "Method 'Microsoft\\.AspNetCore\\.Components\\.Routing\\.Router\\.NotFoundPage\\.set' with parameters or return value with `DynamicallyAccessedMembersAttribute` is accessed via reflection",
+      "reason": "Same cause as the IL2110 entry, reported by the compiler's trim analyzer and by ILLink."
+    }
+  ]
+}

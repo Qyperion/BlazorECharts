@@ -1,0 +1,10 @@
+@page "/nested/lazy"
+@rendermode InteractiveServer
+<PageTitle>Lazy chart</PageTitle>
+<p data-testid="lazy-ready">@_ready</p>
+<EChart Class="lazy-chart" Style="width:480px;height:240px" Options="_options" OnReady="() => _ready = true" />
+
+@code {
+    private bool _ready;
+    private readonly ChartOptions _options = ConsumerCharts.Bar("svg-lazy");
+}

@@ -1,0 +1,12 @@
+{
+  "formatVersion": 1,
+  "commit": "fixture-docs",
+  "entries": [
+    { "path": "option.axis.boundaryGap", "category": "option", "types": ["boolean", "Array"], "source": { "package": "echarts-doc", "version": "fixture-docs", "file": "en/option.md", "sha256": "fixture", "start": {"line": 5, "column": 1}, "end": {"line": 6, "column": 1} } },
+    { "path": "option.formatter", "category": "option", "types": ["Function"], "source": { "package": "echarts-doc", "version": "fixture-docs", "file": "en/option.md", "sha256": "fixture", "start": {"line": 1, "column": 1}, "end": {"line": 2, "column": 1} } },
+    { "path": "option.newOption", "category": "option", "types": ["boolean"], "source": { "package": "echarts-doc", "version": "fixture-docs", "file": "en/option.md", "sha256": "fixture", "start": {"line": 3, "column": 1}, "end": {"line": 4, "column": 1} } },
+    { "path": "events.legendselectchanged", "category": "event", "types": ["Event"], "source": { "package": "echarts-doc", "version": "fixture-docs", "file": "en/events.md", "sha256": "fixture", "start": {"line": 1, "column": 1}, "end": {"line": 2, "column": 1} } },
+    { "path": "echartsInstance.getDom", "category": "instance-method", "types": ["Function"], "source": { "package": "echarts-doc", "version": "fixture-docs", "file": "en/api.md", "sha256": "fixture", "start": {"line": 1, "column": 1}, "end": {"line": 2, "column": 1} } },
+    { "path": "action.legend.legendToggleSelect", "category": "action", "types": ["Action"], "source": { "package": "echarts-doc", "version": "fixture-docs", "file": "en/action.md", "sha256": "fixture", "start": {"line": 1, "column": 1}, "end": {"line": 2, "column": 1} } }
+  ]
+}

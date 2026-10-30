@@ -1,0 +1,94 @@
+@namespace BlazorECharts.Examples.Scenarios
+@using System.Globalization
+@using BlazorECharts.Values
+@using BlazorECharts.Values.Signatures
+@inherits ExampleBase
+
+<div class="example-controls" role="group" aria-label="Layout">
+    <button type="button" aria-pressed="@(_mirrored ? "true" : "false")" @onclick="() => Show(mirrored: true)">Two people, mirrored</button>
+    <button type="button" aria-pressed="@(_mirrored ? "false" : "true")" @onclick="() => Show(mirrored: false)">Four people, stacked</button>
+</div>
+<EChart Class="example-chart" Style="height:440px" Options="_options" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+
+@code {
+    private const string Module = ExampleModules.Functions;
+
+    private static readonly (string Name, string Color, int Seed)[] People =
+        [("Avery", "#2f5fd0", 1), ("Blake", "#e8590c", 2), ("Casey", "#2f9e44", 3), ("Devon", "#ae3ec9", 4)];
+
+    private ChartOptions? _options;
+    private bool _mirrored = true;
+
+    public static ChartOptions CreateOptions() => Build(mirrored: true);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(Build(_mirrored));
+    }
+
+    private void Show(bool mirrored)
+    {
+        if (mirrored == _mirrored)
+            return;
+
+        _mirrored = mirrored;
+
+        // A new options reference replaces the chart; NotMerge drops series of the other layout.
+        _options = Accessible(Build(mirrored));
+    }
+
+    private static ChartOptions Build(bool mirrored)
+    {
+        var people = mirrored ? People[..2] : People;
+        return new ChartOptions
+        {
+            Title = new TitleOption { Text = mirrored ? "Who writes more: up versus down" : "Monthly messages, stacked", Left = "center" },
+            Color = [.. people.Select(person => (ZRColor?)person.Color)],
+            Tooltip = new TooltipOption
+            {
+                Trigger = "axis",
+                // The lower band is negated for layout only; the tooltip shows absolute counts.
+                Formatter = JsFunction.Module<TooltipFormatterSignature>(Module, "mirroredTooltip"),
+            },
+            Legend = new LegendOption { Bottom = 0 },
+            Grid = new GridOption { Left = 60, Right = 20, Top = 50, Bottom = 95 },
+            XAxis = new XAxisTimeOption
+            {
+                AxisLabel = new() { Formatter = JsFunction.Module<TimeAxisLabelFormatterOptionAlternativeSignature>(Module, "monthLabel") },
+            },
+            YAxis = new YAxisValueOption
+            {
+                AxisLabel = new() { Formatter = JsFunction.Module<AxisLabelFormatterAlternativeSignature>(Module, "absoluteNumber") },
+            },
+            DataZoom =
+            [
+                new InsideDataZoomOption { XAxisIndex = 0 },
+                new SliderDataZoomOption { XAxisIndex = 0, Bottom = 36, Height = 16 },
+            ],
+            Series = [.. people.Select((person, index) => (SeriesOption)new LineSeriesOption
+            {
+                Name = person.Name,
+                Stack = mirrored ? null : "total",
+                Smooth = true,
+                ShowSymbol = false,
+                LineStyle = new() { Width = 1 },
+                AreaStyle = new() { Opacity = 0.65 },
+                Emphasis = new() { Focus = "series" },
+                Data = Monthly(person.Seed, sign: mirrored && index == 1 ? -1 : 1),
+            })],
+        };
+    }
+
+    // Thirty months of synthetic counts; the mirrored participant is negated.
+    private static LineSeriesOptionDataItem?[] Monthly(int seed, int sign)
+    {
+        var random = SyntheticData.Random(seed);
+        var first = new DateOnly(2024, 1, 1);
+        return [.. Enumerable.Range(0, 30).Select(month => (LineSeriesOptionDataItem?)new OptionDataValue?[]
+        {
+            first.AddMonths(month).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+            sign * Math.Round(random.Between(80, 400) + 60 * Math.Sin(month / 3.0)),
+        })];
+    }
+}

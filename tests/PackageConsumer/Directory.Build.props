@@ -1,0 +1,15 @@
+<Project>
+
+  <!-- Package consumers are isolated from the repository build: this file stops the upward search,
+       so they get neither the repository settings nor its central package versions. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!-- tools/Release/test-packages.ps1 passes the version of the packages under test. -->
+    <BlazorEChartsVersion Condition="'$(BlazorEChartsVersion)' == ''">0.1.0-local</BlazorEChartsVersion>
+  </PropertyGroup>
+
+</Project>

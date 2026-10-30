@@ -1,0 +1,216 @@
+@using System.Text.Json
+@using BlazorECharts
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@inject EChartsRuntime Runtime
+
+<h1>Stable browser exports</h1>
+<p data-testid="ready">@(_ready == 4 ? "ready" : "waiting")</p>
+<p data-testid="status">@_status</p>
+<pre data-testid="result" style="max-height:70px;overflow:auto">@_result</pre>
+<button @onclick="() => Capture(Png)">PNG</button>
+<button @onclick="() => Capture(Jpeg)">JPEG</button>
+<button @onclick="() => Capture(Svg)">SVG markup</button>
+<button @onclick="() => Capture(SvgUrl)">SVG data URL</button>
+<button @onclick="() => Capture(Unsupported)">Unsupported SVG</button>
+<button @onclick="() => Capture(Canvas)">Canvas references</button>
+<button @onclick="() => Capture(ConnectCanvas)">Connect canvas</button>
+<button @onclick="() => Capture(ConnectedPng)">Connected PNG</button>
+<button @onclick="() => Capture(ConnectSvg)">Connect svg</button>
+<button @onclick="() => Capture(ConnectedSvg)">Connected SVG</button>
+<button @onclick="() => Capture(Timeout)">Short timeout</button>
+<button @onclick="() => Capture(ZeroTimeout)">Zero timeout</button>
+<button @onclick="() => Capture(Cancel)">Cancel wait</button>
+<button @onclick="() => Capture(DisposeWait)">Wait and dispose</button>
+<button @onclick="AcceptMemberUpdate">Accept member update</button>
+<button @onclick="() => Capture(PatternPng)">Pattern PNG</button>
+<button @onclick="() => Capture(PatternConnectedPng)">Pattern connected PNG</button>
+<button @onclick="() => Capture(ChartPng)">Chart PNG</button>
+<div style="display:flex;gap:20px">
+    <EChart @ref="_a" Class="export-a" Style="width:320px;height:200px" RawOptions="_optionsA" OnReady="Ready" AutoResize="false" />
+    <EChart @ref="_b" Class="export-b" Style="width:320px;height:200px" RawOptions="_optionsB" OnReady="Ready" AutoResize="false" />
+</div>
+<div style="display:flex;gap:20px">
+    <EChart @ref="_c" Class="export-c" Style="width:320px;height:200px" RawOptions="_optionsC" InitOptions="_svg" OnReady="Ready" AutoResize="false" />
+    <EChart @ref="_d" Class="export-d" Style="width:320px;height:200px" RawOptions="_optionsD" InitOptions="_svg" OnReady="Ready" AutoResize="false" />
+</div>
+@code {
+    private EChart? _a;
+    private EChart? _b;
+    private EChart? _c;
+    private EChart? _d;
+    private int _ready;
+    private string _status = "initial";
+    private string _result = "";
+    private Task? _blockedRead;
+    private Task? _memberUpdate;
+    private readonly ChartInitOptions _svg = new() { Renderer = "svg" };
+    private readonly JsonElement _optionsA = Options("A");
+    private readonly JsonElement _optionsB = Options("B");
+    private readonly JsonElement _optionsC = Options("C");
+    private readonly JsonElement _optionsD = Options("D");
+
+    private static JsonElement Options(string name)
+    {
+        using var d = JsonDocument.Parse(
+            """{"animation":true,"animationDuration":250,"animationDurationUpdate":100,"color":["#ff00ff"],"title":{"text":"Synthetic NAME"},"xAxis":{"data":["A","B"]},"yAxis":{},"series":[{"type":"bar","data":[2,5]}]}""".Replace("NAME", name));
+        return d.RootElement.Clone();
+    }
+
+    private void Ready(EChartInstance _) => _ready++;
+
+    private EChartInstance A => _a!.Instance!;
+    private EChartInstance C => _c!.Instance!;
+
+    private async Task Capture(Func<Task> action)
+    {
+        _status = "waiting";
+        StateHasChanged();
+        try
+        {
+            await action();
+        }
+        catch (Exception e)
+        {
+            _status = e.Message;
+        }
+    }
+
+    private async Task Png()
+    {
+        _result = await A.GetDataUrlAsync(new() { Type = ChartImageFormat.Png, PixelRatio = 2, BackgroundColor = "white" });
+        _status = "png";
+    }
+
+    private async Task Jpeg()
+    {
+        _result = await A.GetDataUrlAsync(new() { Type = ChartImageFormat.Jpeg, BackgroundColor = "white" });
+        _status = "jpeg";
+    }
+
+    private async Task Svg()
+    {
+        _result = await C.RenderToSvgStringAsync(new() { UseViewBox = true });
+        _status = "svg";
+    }
+
+    private async Task SvgUrl()
+    {
+        _result = await C.GetSvgDataUrlAsync();
+        _status = "svg url";
+    }
+
+    private async Task Unsupported()
+    {
+        _result = await A.GetDataUrlAsync(new() { Type = ChartImageFormat.Svg });
+    }
+
+    private async Task Canvas()
+    {
+        await using var canvas = await A.RenderToCanvasAsync(new() { PixelRatio = 2 });
+        await using var legacy = await A.GetRenderedCanvasAsync();
+        _status = "canvas references released";
+    }
+
+    private async Task ConnectCanvas()
+    {
+        await Runtime.ConnectAsync(new[] { A, _b!.Instance! });
+        _status = "connected canvas";
+    }
+
+    private async Task ConnectSvg()
+    {
+        await Runtime.ConnectAsync(new[] { C, _d!.Instance! });
+        _status = "connected svg";
+    }
+
+    private async Task ConnectedPng()
+    {
+        _result = await A.GetConnectedDataUrlAsync(new() { Type = ChartImageFormat.Png, PixelRatio = 1, ConnectedBackgroundColor = "white" });
+        _status = "connected png";
+    }
+
+    private async Task ConnectedSvg()
+    {
+        _result = await C.GetConnectedDataUrlAsync(new() { Type = ChartImageFormat.Svg, PixelRatio = 1 });
+        _status = "connected svg export";
+    }
+
+    private async Task Timeout()
+    {
+        await A.AwaitStableAsync(new() { Timeout = TimeSpan.FromMilliseconds(100) });
+        _status = "stable";
+    }
+
+    private async Task ZeroTimeout()
+    {
+        await A.AwaitStableAsync(new() { Timeout = TimeSpan.Zero });
+        _status = "stable";
+    }
+
+    private async Task Cancel()
+    {
+        using var ct = new CancellationTokenSource(100);
+        try
+        {
+            await A.AwaitStableAsync(cancellationToken: ct.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            _status = "cancelled";
+        }
+    }
+
+    private async Task DisposeWait()
+    {
+        var waiting = A.AwaitStableAsync().AsTask();
+        await Task.Delay(100);
+        await A.DisposeAsync();
+        try
+        {
+            await waiting;
+        }
+        catch (OperationCanceledException)
+        {
+            _status = "disposed wait cancelled";
+        }
+    }
+
+    private void AcceptMemberUpdate()
+    {
+        _blockedRead = _b!.Instance!.GetWidthAsync().AsTask();
+        using var json = JsonDocument.Parse("""{"series":[{"data":[7,9]}]}""");
+        _memberUpdate = _b.Instance.SetOptionAsync(json.RootElement).AsTask();
+        _status = "member update accepted";
+    }
+
+    private BlazorECharts.Options.ImagePatternObject Pattern(string kind)
+    {
+        var pattern = new BlazorECharts.Options.ImagePatternObject { Repeat = "repeat" };
+        pattern.AdditionalProperties["image"] = BlazorECharts.Values.EChartsValue.From(
+            new Uri(new Uri(RuntimeBase), "slow-background-" + kind + ".png").AbsoluteUri);
+        return pattern;
+    }
+
+    [Inject] private Microsoft.AspNetCore.Components.NavigationManager Navigation { get; set; } = default!;
+    private string RuntimeBase => Navigation.BaseUri;
+
+    private async Task PatternPng()
+    {
+        _result = await A.GetDataUrlAsync(new() { Type = ChartImageFormat.Png, BackgroundColor = Pattern("export"), PixelRatio = 2 });
+        _status = "png";
+    }
+
+    private async Task PatternConnectedPng()
+    {
+        _result = await A.GetConnectedDataUrlAsync(
+            new() { Type = ChartImageFormat.Png, ConnectedBackgroundColor = Pattern("connected"), PixelRatio = 1 });
+        _status = "connected png";
+    }
+
+    private async Task ChartPng()
+    {
+        _result = await A.GetDataUrlAsync(new() { Type = ChartImageFormat.Png, PixelRatio = 2 });
+        _status = "png";
+    }
+}

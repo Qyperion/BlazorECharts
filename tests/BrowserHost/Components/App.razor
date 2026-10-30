@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="@($"{HttpContext?.Request.PathBase}/")" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="@Assets["harness.css"]" />
+    <HeadOutlet />
+</head>
+<body>
+    <Routes />
+    <script src="@Assets["_framework/blazor.web.js"]" autostart="false"></script>
+    <script src="@Assets["harness/boot.js"]"></script>
+</body>
+</html>
+
+@code {
+    [CascadingParameter] private HttpContext? HttpContext { get; set; }
+}

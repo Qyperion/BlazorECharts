@@ -1,0 +1,66 @@
+@using BlazorECharts
+@using System.Text.Json
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Serialization.Generated
+@using BlazorECharts.Values
+@using BlazorECharts.Values.Signatures
+@inject NavigationManager Navigation
+
+<h1>EChart under a strict Content Security Policy</h1>
+<p data-testid="status">@_status</p>
+<button @onclick="ShowTooltip">Show tooltip</button>
+@* Sized by harness.css: style-src 'self' blocks inline style attributes. *@
+<EChart Class="csp-chart" Options="_options" OnReady="Ready" OnError="Failed" />
+
+@code {
+    private ChartOptions? _options;
+    private EChartInstance? _chart;
+    private string _status = "waiting";
+
+    protected override void OnInitialized()
+    {
+        var module = new Uri(new Uri(Navigation.BaseUri), "modules/csp-functions.js").AbsoluteUri;
+        using var custom = JsonDocument.Parse("""{"data":[[0,2],[1,5]]}""");
+        _options = new ChartOptions
+        {
+            Animation = false,
+            Tooltip = OneOrMany<TooltipOption>.One(new TooltipOption { Trigger = "item" }),
+            XAxis = new XAxisCategoryOption { Data = ["A", "B"] },
+            YAxis = new YAxisValueOption(),
+            Series = OneOrMany<SeriesOption>.Many(
+                new BarSeriesOption
+                {
+                    Name = "bars",
+                    Data = [4d, 7d],
+                    Label = new()
+                    {
+                        Show = true,
+                        Position = "top",
+                        Formatter = JsFunction.Module<SeriesLabelFormatterAlternativeSignature>(module, "label"),
+                    },
+                },
+                new CustomSeriesOption
+                {
+                    Name = "custom",
+                    RenderItem = JsFunction.Module<CustomRenderItemSignature>(module, "renderItem"),
+                    Data = GeneratedOptionMetadata.ReadCustomSeriesOption(custom.RootElement).Data,
+                }),
+        };
+    }
+
+    private async Task Ready(EChartInstance chart)
+    {
+        _chart = chart;
+        await chart.AwaitStableAsync();
+        _status = "ready";
+    }
+
+    private void Failed(EChartsError error) => _status = $"failed:{error.Code}:{error.Message}";
+
+    private async Task ShowTooltip()
+    {
+        await _chart!.DispatchActionAsync(new ShowTipAction { SeriesIndex = 0, DataIndex = 1 });
+        _status = "tooltip";
+    }
+}

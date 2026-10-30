@@ -1,0 +1,8 @@
+@page "/harness/resources/{Mode}/away"
+<PageTitle>Away from chart resources</PageTitle>
+<p data-testid="away">@Mode</p>
+<a href="@($"harness/resources/{Mode}?mount=true")">Back</a>
+
+@code {
+    [Parameter] public string Mode { get; set; } = "";
+}

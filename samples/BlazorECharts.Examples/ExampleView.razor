@@ -1,0 +1,67 @@
+@* Hosts one example with an accessible description and explicit loading, ready and error states. *@
+<section class="example-view" data-example="@Descriptor.Slug" data-renderer="@Renderer" data-theme="@(Theme ?? "default")"
+         data-render-mode="@RendererInfo.Name" data-interactive="@(RendererInfo.IsInteractive ? "true" : "false")">
+    <p id="@SummaryId" class="example-summary">@Descriptor.Summary</p>
+    <p class="example-status" data-testid="example-status" data-state="@StateName" role="status" aria-live="polite">@StatusText</p>
+    <div class="example-figure" role="group" aria-label="@Descriptor.Title chart" aria-describedby="@SummaryId">
+        <DynamicComponent @key="_key" Type="ComponentType" Parameters="_parameters" />
+    </div>
+</section>
+
+@code {
+    private ExampleStatus _status = ExampleStatus.Loading;
+    private Dictionary<string, object?> _parameters = [];
+    private string? _key;
+
+    /// <summary>Gets or sets the example to render.</summary>
+    [Parameter, EditorRequired] public ExampleDescriptor Descriptor { get; set; } = default!;
+
+    /// <summary>Gets or sets the ECharts renderer, <c>canvas</c> or <c>svg</c>.</summary>
+    [Parameter] public string Renderer { get; set; } = "canvas";
+
+    /// <summary>Gets or sets the ECharts theme of an example without its own component, or null for the default.</summary>
+    [Parameter] public string? Theme { get; set; }
+
+    /// <summary>Receives every status change.</summary>
+    [Parameter] public EventCallback<ExampleStatus> StatusChanged { get; set; }
+
+    private Type ComponentType => Descriptor.Component ?? typeof(OptionsExample);
+    private string SummaryId => $"summary-{Descriptor.Slug}";
+    private string StateName => _status.State.ToString().ToLowerInvariant();
+
+    private string StatusText => _status.State switch
+    {
+        ExampleState.Loading => RendererInfo.IsInteractive ? "Loading the chart…" : "The chart starts after the page becomes interactive.",
+        ExampleState.Ready => _status.Message is { } note ? $"Ready: {note}." : "Ready",
+        _ => $"Error: {_status.Message}",
+    };
+
+    protected override void OnParametersSet()
+    {
+        if (Renderer is not ("canvas" or "svg"))
+            throw new ArgumentException("Renderer must be canvas or svg.", nameof(Renderer));
+
+        var key = $"{Descriptor.Slug}:{Renderer}:{Theme}";
+        if (key == _key)
+            return;
+
+        _key = key;
+        _status = ExampleStatus.Loading;
+        _parameters = new()
+        {
+            [nameof(ExampleBase.Descriptor)] = Descriptor,
+            [nameof(ExampleBase.Renderer)] = Renderer,
+            [nameof(ExampleBase.Theme)] = Theme,
+            [nameof(ExampleBase.StatusChanged)] = EventCallback.Factory.Create<ExampleStatus>(this, status => SetStatusAsync(key, status)),
+        };
+    }
+
+    private async Task SetStatusAsync(string key, ExampleStatus status)
+    {
+        if (key != _key)
+            return;
+
+        _status = status;
+        await StatusChanged.InvokeAsync(status);
+    }
+}

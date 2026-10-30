@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <AssemblyName>PackageConsumer.Library.Charts</AssemblyName>
+    <RootNamespace>PackageConsumer.Library.Charts</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The lowest patch of the framework: the chart packages must restore under it without NU1605. -->
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.0" />
+
+    <!-- Only WordCloud: the core package and its static web assets arrive transitively. -->
+    <PackageReference Include="Qyperion.BlazorECharts.WordCloud" Version="$(BlazorEChartsVersion)" />
+  </ItemGroup>
+
+</Project>

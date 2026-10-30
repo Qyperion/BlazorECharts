@@ -1,0 +1,112 @@
+@namespace BlazorECharts.Examples.Scenarios
+@using BlazorECharts.WordCloud
+@inherits ExampleBase
+
+<div class="example-controls">
+    <label>Shape
+        <select value="@_shape" @onchange="ChangeShapeAsync" disabled="@(_chart is null)">
+            @foreach (var shape in Shapes)
+            {
+                <option value="@shape">@shape</option>
+            }
+        </select>
+    </label>
+    <button type="button" disabled="@(_chart is null)" @onclick="ExportAsync">Export @(IsSvg ? "SVG" : "PNG")</button>
+</div>
+<EChart Class="example-chart" Style="height:460px" Options="_options" InitOptions="InitOptions" OnReady="OnReadyAsync" OnError="FailAsync" />
+@if (_export is not null)
+{
+    <div class="example-output" data-testid="export-result" data-format="@(IsSvg ? "svg" : "png")" data-length="@_export.Length">
+        <p>Exported after the layout completed: @_export.Length.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) characters.</p>
+        <img src="@_preview" alt="Exported word cloud" />
+    </div>
+}
+
+@code {
+    private static readonly string[] Shapes = ["circle", "cardioid", "diamond", "triangle", "pentagon", "star"];
+
+    // A fixed synthetic vocabulary with decreasing frequencies.
+    private static readonly string[] Words =
+    [
+        "hello", "thanks", "tomorrow", "meeting", "coffee", "weekend", "photo", "project", "deadline", "music",
+        "travel", "birthday", "lunch", "train", "weather", "movie", "design", "review", "update", "question",
+        "awesome", "later", "morning", "evening", "garden", "recipe", "concert", "football", "holiday", "office",
+        "draft", "release", "budget", "invoice", "schedule", "podcast", "museum", "bicycle", "airport", "library",
+        "kitchen", "summer", "winter", "spring", "autumn", "ticket", "hotel", "beach", "mountain", "river",
+    ];
+
+    private EChartInstance? _chart;
+    private ChartOptions? _options;
+    private string _shape = "circle";
+    private string? _export;
+    private string? _preview;
+
+    private bool IsSvg => Renderer == "svg";
+
+    public static ChartOptions CreateOptions() => Build("circle");
+
+    private static ChartOptions Build(string shape) => new()
+    {
+        // WordCloud tooltips use the core tooltip component.
+        Tooltip = new TooltipOption { Show = true },
+        Series = new WordCloudSeriesOption
+        {
+            Name = "Words",
+            Shape = shape,
+            Width = "96%",
+            Height = "92%",
+            GridSize = 4,
+            SizeRange = [14, 72],
+            RotationRange = [-45, 45],
+            RotationStep = 45,
+            KeepAspect = false,
+            ShrinkToFit = true,
+            LayoutAnimation = true,
+            TextStyle = new WordCloudTextStyle
+            {
+                FontFamily = "Arial, sans-serif",
+                FontWeight = "bold",
+                Color = JsFunction.Module<WordCloudColorSignature>(ExampleModules.Functions, "wordColor"),
+            },
+            Emphasis = new WordCloudState { TextStyle = new WordCloudItemTextStyle { TextShadowBlur = 8, TextShadowColor = "#333333" } },
+            Data = [.. Words.Select((word, rank) => new WordCloudDataItem { Name = word, Value = Math.Round(400 / (rank + 1.5)) + 3 })],
+        },
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(Build(_shape));
+    }
+
+    private async Task OnReadyAsync(EChartInstance chart)
+    {
+        _chart = chart;
+
+        // Ready waits for the WordCloud layout itself, not only for the setOption call.
+        await ReadyAsync(chart);
+    }
+
+    private Task ChangeShapeAsync(ChangeEventArgs change) => RunAsync(async () =>
+    {
+        _shape = change.Value?.ToString() ?? "circle";
+        _export = null;
+        await _chart!.SetOptionAsync(Accessible(Build(_shape)), new SetOptionOptions { NotMerge = true });
+        await ReadyAsync(_chart);
+    });
+
+    // Exports wait for the current layout, including font loading, before capturing the final word set.
+    private Task ExportAsync() => RunAsync(async () =>
+    {
+        if (IsSvg)
+        {
+            _export = await _chart!.RenderToSvgStringAsync(new() { UseViewBox = true });
+            _preview = "data:image/svg+xml;charset=utf-8," + Uri.EscapeDataString(_export);
+        }
+        else
+        {
+            _export = await _chart!.GetDataUrlAsync(new() { Type = ChartImageFormat.Png, BackgroundColor = "#ffffff" });
+            _preview = _export;
+        }
+    });
+}

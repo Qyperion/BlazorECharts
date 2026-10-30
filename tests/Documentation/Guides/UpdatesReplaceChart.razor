@@ -1,0 +1,24 @@
+@* snippet: Guides.Updates.Replace *@
+<EChart Options="_options" UpdateOptions="_replace" Style="height:360px" />
+<button @onclick="ShowTotal">Total only</button>
+
+@code {
+    // Each new Options describes the whole chart: replace the chart instead of merging into it.
+    private readonly SetOptionOptions _replace = new() { NotMerge = true };
+
+    private ChartOptions _options = new()
+    {
+        XAxis = new XAxisCategoryOption { Data = ["Q1", "Q2", "Q3"] },
+        YAxis = new YAxisValueOption(),
+        Series = [new BarSeriesOption { Name = "North", Data = [12, 20, 17] }, new BarSeriesOption { Name = "South", Data = [18, 22, 21] }],
+    };
+
+    // Merged, the new series would take the place of "North" and "South" would stay on the chart.
+    private void ShowTotal() => _options = new()
+    {
+        XAxis = new XAxisCategoryOption { Data = ["Q1", "Q2", "Q3"] },
+        YAxis = new YAxisValueOption(),
+        Series = [new BarSeriesOption { Name = "Total", Data = [30, 42, 38] }],
+    };
+}
+@* endsnippet *@

@@ -1,0 +1,97 @@
+# The release gate on GitHub-hosted runners: tools/Release/verify-local.ps1 runs every stage on Windows,
+# as a local release does. The repository is read only, no secret is used and nothing is pushed or published. Actions are pinned to full commit SHAs; the comment names the release.
+# release.yml calls this workflow with a version: the gate then packs that release of the checked-out
+# commit, and the verification artifact carries the packages that release.yml publishes. A push to main
+# runs it too, so that the status badge of the README shows main.
+name: verify
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_call:
+    inputs:
+      version:
+        description: Release version to pack with the repository URL and the checked-out commit.
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+
+jobs:
+  verify:
+    name: Release gate (Windows)
+    runs-on: windows-2025
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          # packageManager in package.json would turn on the shared npm cache; the gate installs from the lock only.
+          package-manager-cache: false
+      - name: Install npm 12.2.0
+        run: npm install --global npm@12.2.0
+      - name: Install the WebAssembly build tools of the pinned workload set
+        # The workload set pins the manifests, and with them the WebAssembly pack version of the lock files;
+        # the manifests of the SDK alone are older. aot-manifest.json records the installed versions.
+        run: dotnet workload install wasm-tools --version 10.0.403
+      - run: npm ci
+      - name: Install the Playwright browsers
+        run: npx playwright install chromium firefox webkit
+      - name: Acquire the pinned upstream sources
+        run: npm run assets:acquire
+      - name: Acquire the pinned echarts-doc snapshot
+        run: npm run docs:acquire
+      - name: Run the release gate
+        shell: powershell
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          RELEASE_REPOSITORY: ${{ github.server_url }}/${{ github.repository }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          # A hashtable binds by name; an array of '-Name' strings would bind positionally.
+          $release = @{}
+          if ($env:RELEASE_VERSION) { $release = @{ Version = $env:RELEASE_VERSION; RepositoryUrl = $env:RELEASE_REPOSITORY; RepositoryCommit = $env:RELEASE_COMMIT } }
+          ./tools/Release/verify-local.ps1 -SourceRoot $PWD.Path -OutputPath (Join-Path $PWD 'artifacts/verification') -Configuration Release @release
+          exit $LASTEXITCODE
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: ${{ !cancelled() }}
+        with:
+          name: verification
+          # Every file a stage records, so Get-GateVerdict can recheck the verdict, and the verified packages;
+          # builds, consumers and browser traces stay on the runner.
+          path: |
+            artifacts/verification/*.json
+            artifacts/verification/*.md
+            artifacts/verification/logs/
+            artifacts/verification/gate-fixtures/fixtures.json
+            artifacts/verification/dotnet-test/**/*.trx
+            artifacts/verification/js-test/results.json
+            artifacts/verification/generator-test/results.json
+            artifacts/verification/playwright/*/results.json
+            artifacts/verification/packages/packages-manifest.json
+            artifacts/verification/packages/feed/*.nupkg
+            artifacts/verification/packages/feed/*.snupkg
+            artifacts/verification/packages/logs/
+            artifacts/verification/packages/consumers/logs/
+            artifacts/verification/packages/consumers/playwright/results.json
+            artifacts/verification/aot/aot-manifest.json
+            artifacts/verification/aot/logs/
+          if-no-files-found: error

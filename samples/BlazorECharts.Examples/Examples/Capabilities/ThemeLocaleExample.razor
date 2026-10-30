@@ -1,0 +1,73 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Values
+@inherits ExampleBase
+@inject EChartsRuntime Runtime
+
+<div class="example-controls" role="group" aria-label="Theme">
+    @foreach (var (name, label) in Themes)
+    {
+        <button type="button" aria-pressed="@(_theme == name ? "true" : "false")" @onclick="() => _theme = name">@label</button>
+    }
+</div>
+@if (_registered)
+{
+    <EChart Class="example-chart" Options="_options" Theme="@_theme" InitOptions="_init" OnReady="ReadyAsync" OnError="FailAsync" />
+}
+<p class="example-output">The legend selector buttons and the toolbox titles come from the registered “EXAMPLES” locale.</p>
+
+@code {
+    private static readonly (string? Name, string Label)[] Themes = [(null, "Default"), ("dark", "Dark"), ("examples-dusk", "Dusk (registered)")];
+    private ChartOptions? _options;
+    private ChartInitOptions _init = new();
+    private string? _theme;
+    private bool _registered;
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        Title = new TitleOption { Text = "Replies by channel", Left = "center" },
+        Tooltip = new TooltipOption { Trigger = "axis" },
+        Legend = new LegendOption { Bottom = 0, Selector = true },
+        Toolbox = new ToolboxComponentOption
+        {
+            Feature = new() { SaveAsImage = new(), Restore = new(), DataView = new() { ReadOnly = true } },
+        },
+        XAxis = new XAxisCategoryOption { Data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"] },
+        YAxis = new YAxisValueOption(),
+        Series =
+        [
+            new BarSeriesOption { Name = "General", Data = [32, 41, 38, 50, 47, 56] },
+            new BarSeriesOption { Name = "Support", Data = [18, 22, 30, 27, 35, 31] },
+            new LineSeriesOption { Name = "Average", Smooth = true, Data = [25, 31, 34, 38, 41, 43] },
+        ],
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+        _init = new ChartInitOptions { Renderer = Renderer, Locale = "EXAMPLES" };
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => !firstRender ? Task.CompletedTask : RunAsync(async () =>
+    {
+        // Themes and locales are page registrations: register them before a chart uses them.
+        await Runtime.RegisterThemeAsync("examples-dusk", new ChartOptions
+        {
+            BackgroundColor = "#1f2433",
+            Color = ["#f59f00", "#4dabf7", "#da77f2"],
+            TextStyle = new() { Color = "#e6edf7" },
+        });
+        await Runtime.RegisterLocaleAsync("EXAMPLES", new ChartLocaleOption
+        {
+            Legend = new() { Selector = new() { All = "Show all", Inverse = "Invert" } },
+            Toolbox = new()
+            {
+                SaveAsImage = new() { Title = "Download picture" },
+                Restore = new() { Title = "Start over" },
+                DataView = new() { Title = "Show the numbers" },
+            },
+        });
+        _registered = true;
+        StateHasChanged();
+    });
+}

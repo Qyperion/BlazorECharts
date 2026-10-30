@@ -1,0 +1,63 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Values
+@inherits ExampleBase
+@inject EChartsRuntime Runtime
+@implements IAsyncDisposable
+
+@if (_options is not null)
+{
+    <EChart Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+}
+<p class="example-output">The badge is a browser image created with CreateImageAsync, decoded before use and passed as a reference.</p>
+
+@code {
+    private ChartOptions? _options;
+    private EChartsObjectReference? _badge;
+
+    public static ChartOptions CreateOptions() => Build(ExampleModules.BadgeImage);
+
+    private static ChartOptions Build(Image badge) => new()
+    {
+        Title = new TitleOption { Text = "Weekly replies with a graphic annotation", Left = 20 },
+        Grid = new GridOption { Left = 50, Right = 30, Top = 70, Bottom = 40 },
+        XAxis = new XAxisCategoryOption { Data = ["W1", "W2", "W3", "W4", "W5", "W6"] },
+        YAxis = new YAxisValueOption(),
+        Series = new LineSeriesOption { Name = "Replies", Smooth = true, Data = [34, 41, 39, 52, 58, 61] },
+        Graphic = new GraphicGroupOption
+        {
+            // Rect and the other path shapes set their type themselves; group, image and text name it explicitly.
+            Right = 30,
+            Top = 12,
+            Children =
+            [
+                new GraphicRectOption
+                {
+                    Shape = new() { X = 0, Y = 0, Width = 210, Height = 48, R = 8 },
+                    Style = new() { Fill = "#e8eefc", Stroke = "#2f5fd0", LineWidth = 1 },
+                },
+                new GraphicImageOption { Style = new() { Image = badge, X = 8, Y = 8, Width = 32, Height = 32 } },
+                new GraphicTextOption
+                {
+                    X = 50,
+                    Y = 15,
+                    Style = new() { Text = "Best week: W6, 61 replies", Fill = "#1d2330", FontSize = 13 },
+                },
+            ],
+        },
+    };
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => !firstRender ? Task.CompletedTask : RunAsync(async () =>
+    {
+        // The image is decoded in the browser first; HTTP, decode and CORS failures reject here.
+        _badge = await Runtime.CreateImageAsync(ExampleModules.BadgeImage);
+        _options = Accessible(Build(_badge));
+        StateHasChanged();
+    });
+
+    // The chart keeps its own lease; releasing this handle does not affect the rendered image.
+    public async ValueTask DisposeAsync()
+    {
+        if (_badge is not null)
+            await _badge.DisposeAsync();
+    }
+}

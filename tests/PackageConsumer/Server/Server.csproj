@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <AssemblyName>PackageConsumer.Server</AssemblyName>
+    <RootNamespace>PackageConsumer.Server</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Qyperion.BlazorECharts" Version="$(BlazorEChartsVersion)" />
+    <PackageReference Include="Qyperion.BlazorECharts.WordCloud" Version="$(BlazorEChartsVersion)" />
+  </ItemGroup>
+
+</Project>

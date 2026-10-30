@@ -1,0 +1,122 @@
+@using BlazorECharts.Events
+@using BlazorECharts.Runtime
+@using BlazorECharts.Options
+@using BlazorECharts.Serialization
+@using BlazorECharts.Testing
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+<h1>Advanced series catalog</h1>
+<p data-testid="status">@_status</p>
+<select aria-label="Series" value="@_name" @onchange="SelectSeries">
+    @foreach (var name in AdvancedSeriesCatalog.Cases.Keys) { <option value="@name">@name</option> }
+</select>
+<button @onclick="() => Run(Update)">Update</button>
+<button @onclick="() => Run(Snapshot)">Snapshot</button>
+<button @onclick="() => Run(Drill)">Drill</button>
+<button @onclick="() => Run(ZrReference)">Zr reference</button>
+<div class="advanced-chart" style="width:900px;max-width:100%;height:480px" @ref="_element"></div>
+<pre data-testid="snapshot">@_snapshot</pre>
+<pre data-testid="typed-event">@_typedEvent</pre>
+<pre data-testid="event">@_event</pre>
+<pre data-testid="zr">@_zr</pre>
+@code {
+    private ElementReference _element;
+    private EChartsRuntime? _runtime;
+    private EChartInstance? _chart;
+    private ChartSubscription? _click;
+    private string _status = "waiting";
+    private string _name = "graph";
+    private string _snapshot = "";
+    private string _typedEvent = "";
+    private string _event = "";
+    private string _zr = "";
+
+    private string Module => new Uri(new Uri(Navigation.BaseUri), "modules/custom-renderers.js").AbsoluteUri;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        await Run(async () =>
+        {
+            _runtime = new(JS, Navigation, new() { MaximumServerResultSize = 4 * 1024 * 1024 });
+            _chart = await _runtime.CreateInstanceAsync(_element);
+            _click = await _chart.SubscribeAsync(ChartEvents.Click, e => InvokeAsync(() =>
+            {
+                _typedEvent = $"{e.SeriesType}|{e.SeriesId}|{e.DataType}|{e.Name}";
+                _event = e.Raw.GetRawText();
+                StateHasChanged();
+            }));
+            await Apply("graph");
+        });
+        StateHasChanged();
+    }
+
+    private async Task Run(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception e)
+        {
+            _status = "error:" + e;
+        }
+    }
+
+    private async Task Apply(string name)
+    {
+        _name = name;
+        await _chart!.SetOptionAsync(AdvancedSeriesCatalog.Create(name, Module), new SetOptionOptions { NotMerge = true });
+        await _chart.AwaitStableAsync();
+        _status = "ready:" + name;
+    }
+
+    private async Task SelectSeries(ChangeEventArgs e)
+    {
+        if (e.Value is string name)
+            await Run(() => Apply(name));
+    }
+
+    private async Task Update()
+    {
+        await _chart!.SetOptionAsync(AdvancedSeriesCatalog.Create(_name, Module, update: true));
+        await _chart.AwaitStableAsync();
+        _status = "updated:" + _name;
+    }
+
+    private async Task Snapshot()
+    {
+        await using var snapshot = await _chart!.GetOptionAsync();
+        _snapshot = OptionSerializer.Serialize(snapshot.Options, _runtime!.Serialization).Json.GetRawText();
+        _status = "snapshot";
+    }
+
+    private async Task Drill()
+    {
+        await _chart!.DispatchActionAsync(new TreemapRootToNodeAction { SeriesId = "treemap", TargetNodeId = "a" });
+        await _chart!.AwaitStableAsync();
+        _status = "drilled";
+    }
+
+    private async Task ZrReference()
+    {
+        await using var zr = await _chart!.GetZrAsync();
+        _zr = zr is null ? "missing" : "reference";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_click is not null)
+            await _click.DisposeAsync();
+
+        if (_chart is not null)
+            await _chart.DisposeAsync();
+
+        if (_runtime is not null)
+            await _runtime.DisposeAsync();
+    }
+}

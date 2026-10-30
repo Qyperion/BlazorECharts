@@ -1,0 +1,26 @@
+@inherits LayoutComponentBase
+
+<a class="skip-link" href="@SkipTarget" @onclick="SkipAsync" @onclick:preventDefault>Skip to content</a>
+<header class="site-header">
+    <a class="brand" href="examples">BlazorECharts</a>
+    <span class="brand-note">Typed Apache ECharts 6.1.0 for Blazor</span>
+    <nav class="project-links" aria-label="Project">
+        <a href="https://github.com/Qyperion/BlazorECharts">GitHub</a>
+        <a href="https://www.nuget.org/packages/Qyperion.BlazorECharts">NuGet</a>
+    </nav>
+    <HostingSwitch />
+</header>
+<main id="content" tabindex="-1" @ref="_main">
+    @Body
+</main>
+
+@code {
+    private ElementReference _main;
+
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    // Blazor handles same-page fragment links by scrolling only; keyboard focus must move explicitly.
+    private async Task SkipAsync() => await _main.FocusAsync();
+
+    private string SkipTarget => $"{Navigation.ToBaseRelativePath(Navigation.Uri).Split('#')[0]}#content";
+}

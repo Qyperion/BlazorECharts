@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsTestProject>true</IsTestProject>
+
+    <!-- The tests call the default-token overloads of the public API on purpose; a test token would change the path under test. -->
+    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="bunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../BrowserHost.Client/BrowserHost.Client.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+{
+  "combinedMembers": ["count", "inherited", "injected", "keep", "value"],
+  "stepLiterals": ["end", false, "middle", "start"],
+  "numericLiterals": [0, 1, 2],
+  "tupleLabels": ["x", "label", "enabled"]
+}

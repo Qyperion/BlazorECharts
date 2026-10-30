@@ -1,0 +1,83 @@
+@page "/harness/runtime"
+@rendermode InteractiveServer
+@implements IAsyncDisposable
+@using System.Text.Json
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Serialization
+@using BlazorECharts.Values
+@using Microsoft.JSInterop
+@inject EChartsRuntime First
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<PageTitle>Runtime probe</PageTitle>
+<h1>Primitive runtime probe</h1>
+<p data-testid="runtime-status">@_status</p>
+<p data-testid="runtime-evidence">@_evidence</p>
+<div id="runtime-canvas" @ref="_canvas" style="width:600px;height:300px"></div>
+<div id="runtime-svg" @ref="_svg" style="width:600px;height:300px"></div>
+<button @onclick="InitializeProbe" disabled="@(!_status.StartsWith("Failed:"))">Retry loader</button>
+<button @onclick="DisposeFirst" disabled="@(_status != "Ready")">Dispose first facade</button>
+<button @onclick="DisposeRemaining" disabled="@(_second is null)">Dispose remaining facade</button>
+
+@code {
+    private ElementReference _canvas;
+    private ElementReference _svg;
+    private EChartsRuntime? _second;
+    private EChartInstance? _secondChart;
+    private string _status = "Prerendered";
+    private string _evidence = "";
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => firstRender ? InitializeProbe() : Task.CompletedTask;
+
+    private async Task InitializeProbe()
+    {
+        try
+        {
+            await Task.WhenAll(Enumerable.Range(0, 20).Select(_ => First.InitializeAsync().AsTask()));
+            _second = new EChartsRuntime(JS, Navigation, new EChartsRuntimeOptions());
+            await _second.InitializeAsync();
+            var firstChart = await First.CreateInstanceAsync(_canvas, new ChartInitOptions { Renderer = "canvas" });
+            _secondChart = await _second.CreateInstanceAsync(_svg, new ChartInitOptions { Renderer = "svg" });
+            using var raw = JsonDocument.Parse("""{"animation":false,"xAxis":{"type":"category","data":["A","B","C"]},"yAxis":{},"series":[{"type":"bar","data":[4,8,3]}]}""");
+            await firstChart.SetOptionAsync(raw.RootElement);
+            var typed = new ChartOptions { Animation = false };
+            foreach (var property in raw.RootElement.EnumerateObject().Where(property => property.Name != "animation"))
+                typed.AdditionalProperties[property.Name] = EChartsValue.FromJson(property.Value);
+
+            await _secondChart.SetOptionAsync(typed);
+            _evidence = $"ECharts 6.1.0; shared identity: {First.RuntimeId == _second.RuntimeId}";
+            _status = "Ready";
+        }
+        catch (Exception error)
+        {
+            _status = "Failed: " + error.Message;
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task DisposeFirst()
+    {
+        await First.DisposeAsync();
+        await _secondChart!.SetOptionAsync(new ChartOptions { Animation = false });
+        _status = "First disposed; second updated";
+    }
+
+    private async Task DisposeRemaining()
+    {
+        if (_second is not null)
+            await _second.DisposeAsync();
+
+        _second = null;
+        _status = "Disposed";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await First.DisposeAsync();
+        if (_second is not null)
+            await _second.DisposeAsync();
+    }
+}

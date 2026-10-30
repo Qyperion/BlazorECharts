@@ -1,0 +1,49 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Values
+@using BlazorECharts.Values.Signatures
+@inherits ExampleBase
+@inject EChartsRuntime Runtime
+
+@if (_registered)
+{
+    <EChart Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+}
+
+@code {
+    private const string SeriesName = "examples-progress-ring";
+    private ChartOptions? _options;
+    private bool _registered;
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        Title = new TitleOption { Text = "Goal completion by team (registered custom series)", Left = "center" },
+        XAxis = new XAxisValueOption { Min = 0d, Max = 4d, Show = false },
+        YAxis = new YAxisValueOption { Min = 0d, Max = 2d, Show = false },
+        Series = new CustomSeriesOption
+        {
+            Name = "Completion",
+            // A string renderItem selects a series registered with RegisterCustomSeriesAsync.
+            RenderItem = SeriesName,
+            // Each item is x, y and the completed share.
+            Data = [Ring(1, 1, 0.82), Ring(2, 1, 0.47), Ring(3, 1, 0.65)],
+        },
+    };
+
+    private static CustomSeriesOptionDataItem Ring(double x, double y, double share) => new OptionDataValue?[] { x, y, share };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+
+    public static ValueTask RegisterAsync(EChartsRuntime runtime) =>
+        runtime.RegisterCustomSeriesAsync(SeriesName, JsFunction.Module<CustomRenderItemSignature>(ExampleModules.Functions, "progressRing"));
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => !firstRender ? Task.CompletedTask : RunAsync(async () =>
+    {
+        await RegisterAsync(Runtime);
+        _registered = true;
+        StateHasChanged();
+    });
+}

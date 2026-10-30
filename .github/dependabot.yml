@@ -1,0 +1,7 @@
+# Proposes updates of the SHA-pinned actions; nothing else is managed here.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

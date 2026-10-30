@@ -1,0 +1,33 @@
+@* snippet: Guides.Events.Subscribe *@
+@implements IAsyncDisposable
+
+<EChart Options="_options" Style="height:360px" OnReady="SubscribeAsync" />
+<p>@_selected</p>
+
+@code {
+    private readonly ChartOptions _options = new()
+    {
+        XAxis = new XAxisCategoryOption { Data = ["A", "B", "C"] },
+        YAxis = new YAxisValueOption(),
+        Series = new BarSeriesOption { Name = "Votes", Data = [5, 8, 3] },
+    };
+
+    private ChartSubscription? _click;
+    private string? _selected;
+
+    private async Task SubscribeAsync(EChartInstance chart)
+    {
+        _click = await chart.SubscribeAsync(ChartEvents.Click, e => InvokeAsync(() =>
+        {
+            _selected = $"{e.SeriesName}: {e.Name}";
+            StateHasChanged();
+        }));
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_click is not null)
+            await _click.DisposeAsync();
+    }
+}
+@* endsnippet *@

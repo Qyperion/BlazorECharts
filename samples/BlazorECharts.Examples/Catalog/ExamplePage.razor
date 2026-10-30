@@ -1,0 +1,61 @@
+@page "/examples/{Slug}"
+
+@if (_example is null)
+{
+    <PageTitle>Example not found · BlazorECharts</PageTitle>
+    <h1>Example not found</h1>
+    <p>No example is named “@Slug”. <a href="examples">Browse the examples</a>.</p>
+}
+else
+{
+    <PageTitle>@_example.Title · BlazorECharts</PageTitle>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="examples">Examples</a> / <span aria-current="page">@_example.Title</span></nav>
+    <h1>@_example.Title</h1>
+    <p class="example-tags">@string.Join(" · ", _example.Tags)</p>
+
+    <div class="toolbars">
+        <div class="toolbar" role="group" aria-label="Renderer">
+            <span class="toolbar-label" id="renderer-label">Renderer</span>
+            <button type="button" aria-pressed="@(EffectiveRenderer == "canvas" ? "true" : "false")" @onclick="@(() => SelectRenderer("canvas"))">Canvas</button>
+            <button type="button" aria-pressed="@(EffectiveRenderer == "svg" ? "true" : "false")" @onclick="@(() => SelectRenderer("svg"))">SVG</button>
+        </div>
+
+        @if (_example.Component is null)
+        {
+            <div class="toolbar" role="group" aria-label="Theme">
+                <span class="toolbar-label">Theme</span>
+                <button type="button" aria-pressed="@(EffectiveTheme is null ? "true" : "false")" @onclick="@(() => SelectTheme(null))">Light</button>
+                <button type="button" aria-pressed="@(EffectiveTheme == "dark" ? "true" : "false")" @onclick="@(() => SelectTheme("dark"))">Dark</button>
+            </div>
+        }
+    </div>
+
+    <ExampleView Descriptor="_example" Renderer="@EffectiveRenderer" Theme="@EffectiveTheme" />
+
+    <SourceView Path="@_example.SourcePath" />
+    <RuntimeDiagnostics Example="_example" />
+}
+
+@code {
+    private ExampleDescriptor? _example;
+
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    [Parameter] public string Slug { get; set; } = "";
+
+    [SupplyParameterFromQuery(Name = "renderer")] private string? Renderer { get; set; }
+
+    [SupplyParameterFromQuery(Name = "theme")] private string? Theme { get; set; }
+
+    private string EffectiveRenderer => Renderer == "svg" ? "svg" : "canvas";
+
+    // ECharts registers the dark theme itself; an interactive example chooses its own theme.
+    private string? EffectiveTheme => Theme == "dark" && _example?.Component is null ? "dark" : null;
+
+    protected override void OnParametersSet() => _example = ExampleRegistry.Find(Slug);
+
+    private void SelectRenderer(string renderer) =>
+        Navigation.NavigateTo(Navigation.GetUriWithQueryParameter("renderer", renderer == "canvas" ? null : renderer));
+
+    private void SelectTheme(string? theme) => Navigation.NavigateTo(Navigation.GetUriWithQueryParameter("theme", theme));
+}

@@ -1,0 +1,102 @@
+@namespace BlazorECharts.Examples.Scenarios
+@using System.Globalization
+@using BlazorECharts.Events
+@using BlazorECharts.Values
+@inherits ExampleBase
+@implements IAsyncDisposable
+
+<div class="example-controls">
+    <button type="button" disabled="@(_first is null)" @onclick="ClearAsync">Clear selection</button>
+    <span data-testid="brush-selection" data-first="@_first" data-last="@_last" aria-live="polite">@Summary</span>
+</div>
+<EChart Class="example-chart small" Options="_options" InitOptions="InitOptions" OnReady="OnReadyAsync" OnError="FailAsync" />
+
+@code {
+    private static readonly DateOnly FirstMonth = new(2024, 1, 1);
+    private const int MonthCount = 33;
+    private static readonly double[] Messages = CreateMessages();
+
+    private readonly List<ChartSubscription> _subscriptions = [];
+    private EChartInstance? _chart;
+    private ChartOptions? _options;
+    private int? _first;
+    private int? _last;
+
+    private string Summary => _first is { } first && _last is { } last
+        ? $"Selected {Label(first)} – {Label(last)}: {Messages[first..(last + 1)].Sum().ToString("N0", CultureInfo.InvariantCulture)} messages"
+        : "Drag across the bars to pick a period.";
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        Tooltip = new TooltipOption { Trigger = "axis", AxisPointer = new() { Type = "shadow" } },
+        Grid = new GridOption { Left = 50, Right = 20, Top = 20, Bottom = 40 },
+        XAxis = new XAxisCategoryOption
+        {
+            AxisTick = new() { Show = false },
+            Data = [.. Enumerable.Range(0, MonthCount).Select(index => (CategoryAxisDataItemOption?)Label(index))],
+        },
+        YAxis = new YAxisValueOption(),
+        // No toolbox buttons: the picker arms the brush itself with takeGlobalCursor.
+        Toolbox = new ToolboxComponentOption { Show = false },
+        Brush = new BrushOption
+        {
+            Toolbox = [],
+            XAxisIndex = 0,
+            BrushType = "lineX",
+            BrushMode = "single",
+            BrushStyle = new() { BorderWidth = 1, Color = "rgba(47, 95, 208, 0.12)", BorderColor = "rgba(47, 95, 208, 0.6)" },
+        },
+        Series = new BarSeriesOption
+        {
+            Name = "Messages",
+            BarCategoryGap = "12%",
+            Data = [.. Messages.Select(count => (BarSeriesOptionDataItem?)count)],
+        },
+    };
+
+    private static string Label(int index) => FirstMonth.AddMonths(index).ToString("MMM yyyy", CultureInfo.InvariantCulture);
+
+    private static double[] CreateMessages()
+    {
+        var random = SyntheticData.Random(33);
+        return [.. Enumerable.Range(0, MonthCount).Select(month => Math.Round(random.Between(200, 900) + 150 * Math.Sin(month / 2.0)))];
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+
+    private async Task OnReadyAsync(EChartInstance chart)
+    {
+        _chart = chart;
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.BrushSelected, OnBrushSelected));
+        await chart.DispatchActionAsync(new TakeGlobalCursorAction
+        {
+            Key = "brush",
+            BrushOption = new() { BrushType = "lineX", BrushMode = "single" },
+        });
+        await ReadyAsync(chart);
+    }
+
+    // The payload lists the data indices inside the brushed range for every series.
+    private Task OnBrushSelected(BrushSelectedEvent e) => InvokeAsync(() =>
+    {
+        var indices = e.Batch?.FirstOrDefault()?.Selected?.FirstOrDefault()?.DataIndex ?? [];
+        _first = indices.Length == 0 ? null : (int)indices.Min();
+        _last = indices.Length == 0 ? null : (int)indices.Max();
+        StateHasChanged();
+    });
+
+    private Task ClearAsync() => RunAsync(async () =>
+    {
+        await _chart!.DispatchActionAsync(new BrushAction { Areas = [] });
+    });
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var subscription in _subscriptions)
+            await subscription.DisposeAsync();
+    }
+}

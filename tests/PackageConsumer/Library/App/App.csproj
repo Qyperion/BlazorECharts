@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <AssemblyName>PackageConsumer.Library</AssemblyName>
+    <RootNamespace>PackageConsumer.Library</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The application's own component library; the chart packages reach it only through that library. -->
+    <ProjectReference Include="../Charts/Charts.csproj" />
+  </ItemGroup>
+
+</Project>

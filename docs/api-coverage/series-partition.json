@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "version": "6.1.0",
+  "series": [
+    {"name":"bar","typeId":"type:d936c1c1a9bed534c360d75a","group":"standard","family":"standard-series"},
+    {"name":"boxplot","typeId":"type:33c5b1d79f0cc2bed41ab818","group":"standard","family":"standard-series"},
+    {"name":"candlestick","typeId":"type:695eb40cfb32227c7d937358","group":"standard","family":"standard-series"},
+    {"name":"chord","typeId":"type:03b92db9858342d0840f50a4","group":"advanced","family":"advanced-series"},
+    {"name":"custom","typeId":"type:16afeb61cd9b11187886d02e","group":"advanced","family":"advanced-series"},
+    {"name":"effectScatter","typeId":"type:49ccca80852ef234fd170cf9","group":"standard","family":"standard-series"},
+    {"name":"funnel","typeId":"type:ddc430d453ce2330f50832bf","group":"standard","family":"standard-series"},
+    {"name":"gauge","typeId":"type:b403c25a2d0edc1cff015ac3","group":"standard","family":"standard-series"},
+    {"name":"graph","typeId":"type:0b4471aa13dee5e34d225f18","group":"advanced","family":"advanced-series"},
+    {"name":"heatmap","typeId":"type:f800a65d63786b715beed079","group":"standard","family":"standard-series"},
+    {"name":"line","typeId":"type:d731de2adfe6b591f8c4370a","group":"standard","family":"standard-series"},
+    {"name":"lines","typeId":"type:6d1965247b185f7939b90857","group":"standard","family":"standard-series"},
+    {"name":"map","typeId":"type:3be85c407fe330456f40e03a","group":"standard","family":"standard-series"},
+    {"name":"parallel","typeId":"type:6f50d910e80877fcb91c960e","group":"standard","family":"standard-series"},
+    {"name":"pictorialBar","typeId":"type:34e42832f70753d2885a7a88","group":"standard","family":"standard-series"},
+    {"name":"pie","typeId":"type:d4d6cc7cf643c80749811020","group":"standard","family":"standard-series"},
+    {"name":"radar","typeId":"type:509cdf0f63830dda329c0b19","group":"standard","family":"standard-series"},
+    {"name":"sankey","typeId":"type:175e1da7d377898fe82225ed","group":"advanced","family":"advanced-series"},
+    {"name":"scatter","typeId":"type:06c64722b90ab5d7c145cc9e","group":"standard","family":"standard-series"},
+    {"name":"sunburst","typeId":"type:efe3765d232c4f12ec21af67","group":"advanced","family":"advanced-series"},
+    {"name":"themeRiver","typeId":"type:600aa1a3c0c61a51b911fbad","group":"standard","family":"standard-series"},
+    {"name":"tree","typeId":"type:fccc297c275af2f1daae88b2","group":"advanced","family":"advanced-series"},
+    {"name":"treemap","typeId":"type:28409d825d4e6ad1fba2ac78","group":"advanced","family":"advanced-series"}
+  ],
+  "extensions": [
+    {"name":"wordCloud","group":"wordcloud","family":"wordcloud"}
+  ]
+}

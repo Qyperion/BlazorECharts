@@ -1,0 +1,938 @@
+@using System.Text.Json
+@using BlazorECharts
+@using BlazorECharts.Events
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Values
+@using BlazorECharts.Serialization
+@inject EChartsRuntime Runtime
+@implements IAsyncDisposable
+
+<h1>Chart events and actions</h1>
+<button @onclick="() => PayloadDeclaration(false)">Payload highlight</button>
+<button @onclick="() => PayloadDeclaration(true)">Payload downplay batch</button>
+<p data-testid="payload-declaration">@_payloadDeclaration</p>
+<pre data-testid="payload-declaration-json">@_payloadDeclarationJson</pre>
+<button @onclick="PrepareDownplay">Prepare downplay</button>
+<button @onclick="() => DownplayDeclaration(false)">Downplay declaration</button>
+<button @onclick="() => DownplayDeclaration(true)">Downplay declaration batch</button>
+<p data-testid="downplay-declaration">@_downplayDeclaration</p>
+<pre data-testid="downplay-declaration-json">@_downplayDeclarationJson</pre>
+<button @onclick="() => HighlightDeclaration(false)">Highlight declaration</button>
+<button @onclick="() => HighlightDeclaration(true)">Highlight declaration batch</button>
+<p data-testid="highlight-declaration">@_highlightDeclaration</p>
+<pre data-testid="highlight-declaration-json">@_highlightDeclarationJson</pre>
+<button @onclick="RemainingFixtures">Remaining action fixtures</button>
+<button @onclick="SelectBrushResult">Select brush result</button>
+<button @onclick="ApplyDataView">Apply data view</button>
+<button @onclick="ApplyMagicType">Apply magic type</button>
+<button @onclick="GeoFixtures">Geo action fixtures</button>
+<button @onclick="RoamGeo">Roam geo</button>
+<button @onclick="RoamGeoBatch">Roam geo batch</button>
+<p data-testid="remaining-brush">@_remainingBrush</p>
+<p data-testid="remaining-area">@_remainingArea</p>
+<p data-testid="remaining-data">@_remainingData</p>
+<p data-testid="remaining-magic">@_remainingMagic</p>
+<p data-testid="remaining-geo">@_remainingGeo</p>
+<pre data-testid="tree-toggle">@_treeToggle</pre>
+<p data-testid="tree-toggle-typed">@_treeToggleTyped</p>
+<p data-testid="tree-toggle-batch">@_treeToggleBatch</p>
+<pre data-testid="treemap-root">@_treemapRoot</pre>
+<pre data-testid="treemap-native-refs">@_treemapNativeRefs</pre>
+<p data-testid="treemap-root-typed">@_treemapRootTyped</p>
+<p data-testid="treemap-root-batch">@_treemapRootBatch</p>
+<p data-testid="treemap-native">@_treemapNative</p>
+<button @onclick="TreeFixtures">Tree fixtures</button>
+<button @onclick="ToggleTree">Toggle tree</button>
+<button @onclick="TreeBatch">Tree batch</button>
+<button @onclick="TreemapFixtures">Treemap fixtures</button>
+<button @onclick="TreemapDown">Treemap down</button>
+<button @onclick="TreemapRootBatch">Treemap root batch</button>
+<p data-testid="ready">@_ready</p>
+<p data-testid="status">@_status</p>
+<p data-testid="clicks">@_clicks/@_filtered/@_replaced</p>
+<p data-testid="unmatched">@_unmatched</p>
+<p data-testid="rendered">@_rendered</p>
+<p data-testid="finished">@_finished</p>
+<p data-testid="parallel">@_parallel</p>
+<pre data-testid="pointer">@_pointer</pre>
+<pre data-testid="native-refs">@_references</pre>
+<pre data-testid="legend">@_legend</pre>
+<pre data-testid="zoom">@_zoom</pre>
+<pre data-testid="brush">@_brush</pre>
+<pre data-testid="tooltip-show">@_tooltipShow</pre>
+<pre data-testid="tooltip-hide">@_tooltipHide</pre>
+<p data-testid="tooltip-show-typed">@_tooltipShowTyped</p>
+<p data-testid="tooltip-hide-typed">@_tooltipHideTyped</p>
+<p data-testid="tooltip-item">@_tooltipItem</p>
+<p data-testid="tooltip-axis">@_tooltipAxis</p>
+<p data-testid="tooltip-leave">@_tooltipLeave</p>
+<pre data-testid="node-drag">@_nodeDrag</pre>
+<pre data-testid="node-focus">@_nodeFocus</pre>
+<pre data-testid="node-unfocus">@_nodeUnfocus</pre>
+<p data-testid="node-drag-typed">@_nodeDragTyped</p>
+<p data-testid="node-drag-batch">@_nodeDragBatch</p>
+<p data-testid="node-focus-typed">@_nodeFocusTyped</p>
+<p data-testid="node-unfocus-typed">@_nodeUnfocusTyped</p>
+<pre data-testid="axis-order">@_axisOrder</pre>
+<pre data-testid="axis-pointer">@_axisPointer</pre>
+<p data-testid="axis-order-typed">@_axisOrderTyped</p>
+<p data-testid="axis-expand-typed">@_axisExpandTyped</p>
+<p data-testid="axis-pointer-typed">@_axisPointerTyped</p>
+<p data-testid="axis-pointer-batch">@_axisPointerBatch</p>
+<pre data-testid="sunburst-root">@_sunburstRoot</pre>
+<pre data-testid="sunburst-highlight">@_sunburstHighlight</pre>
+<pre data-testid="sunburst-native-refs">@_sunburstNativeRefs</pre>
+<p data-testid="sunburst-root-typed">@_sunburstRootTyped</p>
+<p data-testid="sunburst-root-batch">@_sunburstRootBatch</p>
+<p data-testid="sunburst-highlight-typed">@_sunburstHighlightTyped</p>
+<p data-testid="sunburst-unhighlight-typed">@_sunburstUnhighlightTyped</p>
+<p data-testid="sunburst-native">@_sunburstNative</p>
+<button @onclick="SunburstFixtures">Sunburst fixtures</button>
+<button @onclick="SunburstHighlight">Sunburst highlight</button>
+<button @onclick="SunburstUnhighlight">Sunburst unhighlight</button>
+<button @onclick="SunburstBatch">Sunburst batch</button>
+<button @onclick="SunburstUp">Sunburst up</button>
+<button @onclick="SunburstNative">Sunburst native target</button>
+<button @onclick="AxisFixtures">Axis fixtures</button>
+<button @onclick="ChangeAxisOrder">Change axis order</button>
+<button @onclick="ExpandParallelAxes">Expand parallel axes</button>
+<button @onclick="UpdateAxisPointer">Update axis pointer</button>
+<button @onclick="AxisBatch">Axis batch</button>
+<button @onclick="NodeFixtures">Node fixtures</button>
+<button @onclick="MoveSankeyNode">Move Sankey node</button>
+<button @onclick="MoveSankeyBatch">Move Sankey batch</button>
+<button @onclick="FocusGraph">Focus graph legacy</button>
+<button @onclick="UnfocusGraph">Unfocus graph legacy</button>
+<button @onclick="ShowTooltip">Show tooltip</button>
+<button @onclick="HideTooltip">Hide tooltip</button>
+<button @onclick="AxisTooltip">Axis tooltip</button>
+<button @onclick="Legend">Legend</button>
+<button @onclick="Zoom">Zoom</button>
+<button @onclick="Brush">Brush</button>
+<button @onclick="Replace">Replace</button>
+<button @onclick="Unsubscribe">Unsubscribe first</button>
+<button @onclick="Fault">Handler fault</button>
+<button @onclick="Render">Render</button>
+<button @onclick="HandlerCommand">Handler command</button>
+<button @onclick="ParallelSelection">Parallel selection</button>
+<button @onclick="MouseFixtures">Mouse fixtures</button>
+<p data-testid="mouse-pie">@_mousePie</p>
+<p data-testid="mouse-sunburst">@_mouseSunburst</p>
+<p data-testid="mouse-tree">@_mouseTree</p>
+<p data-testid="mouse-graphic">@_mouseGraphic</p>
+<p data-testid="mouse-matrix">@_mouseMatrix</p>
+<p data-testid="mouse-query">@_queryMatched/@_queryUnmatched</p>
+<button @onclick="Recreate">Recreate</button>
+<button @onclick="DisposeChart">Dispose</button>
+<EChart @ref="_chart" Class="events-chart" Style="width:650px;height:350px" Options="_options" InitOptions="_init" OnReady="Ready" OnError="Error" />
+
+@code {
+    private EChart? _chart;
+    private string _payloadDeclaration = "waiting";
+    private string _payloadDeclarationJson = "{}";
+
+    private async Task PayloadDeclaration(bool batch)
+    {
+        var payload = new Payload
+        {
+            Type = batch ? "downplay" : "highlight",
+            EscapeConnect = false,
+            Animation = new HighlightPayloadAnimation { Duration = 0, Delay = 0, Easing = "linear" },
+        };
+        using var extra = JsonDocument.Parse("""{"flag":false,"zero":0,"empty":[]}""");
+        payload.AdditionalProperties["future"] = EChartsValue.FromJson(extra.RootElement);
+        payload.AdditionalProperties["seriesIndex"] = EChartsValue.From(0);
+        payload.AdditionalProperties["notBlur"] = EChartsValue.From(false);
+        if (batch)
+        {
+            payload.Batch = [new HighlightPayloadBatchItem(), new HighlightPayloadBatchItem()];
+            for (var i = 0; i < payload.Batch.Length; i++)
+            {
+                payload.Batch[i]!.AdditionalProperties["dataIndex"] = EChartsValue.From(i);
+                payload.Batch[i]!.ExcludeSeriesId = [];
+            }
+        }
+        else
+            payload.AdditionalProperties["dataIndex"] = EChartsValue.From(0);
+
+        var json = OptionSerializer.Serialize(payload, Runtime.Serialization).Json;
+        if (batch)
+            await _chart!.Instance!.DispatchActionAsync(BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadDownplayAction(json));
+        else
+            await _chart!.Instance!.DispatchActionAsync(BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadHighlightAction(json));
+
+        await _chart.Instance.AwaitStableAsync();
+    }
+
+    private void RecordPayload(JsonElement raw)
+    {
+        var payload = BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadPayload(raw);
+        var animation = payload.Animation ?? payload.Batch?[0]?.Animation;
+        _payloadDeclarationJson = OptionSerializer.Serialize(payload, Runtime.Serialization).Json.GetRawText();
+        _payloadDeclaration = $"{payload.Type}/{payload.EscapeConnect}/{payload.Batch?.Length ?? 0}/{animation?.Duration}/{payload.AdditionalProperties.ContainsKey("future") || payload.Batch?[0]?.AdditionalProperties.ContainsKey("future") == true}";
+    }
+
+    private string _downplayDeclaration = "waiting";
+    private string _downplayDeclarationJson = "{}";
+
+    private async Task DownplayDeclaration(bool batch)
+    {
+        var payload = new DownplayPayload
+        {
+            NotBlur = false,
+            EscapeConnect = false,
+            Animation = new HighlightPayloadAnimation { Duration = 0, Delay = 0, Easing = "linear" },
+        };
+        using var extra = JsonDocument.Parse("""{"flag":false,"zero":0,"empty":[]}""");
+        payload.AdditionalProperties["future"] = EChartsValue.FromJson(extra.RootElement);
+        payload.AdditionalProperties["seriesIndex"] = EChartsValue.From(0);
+        if (batch)
+        {
+            payload.Batch = [new HighlightPayloadBatchItem(), new HighlightPayloadBatchItem()];
+            for (var i = 0; i < payload.Batch.Length; i++)
+            {
+                var item = payload.Batch[i]!;
+                item.AdditionalProperties["dataIndex"] = EChartsValue.From(i);
+                item.ExcludeSeriesId = [];
+            }
+        }
+        else
+            payload.AdditionalProperties["dataIndex"] = EChartsValue.From(0);
+
+        var json = OptionSerializer.Serialize(payload, Runtime.Serialization).Json;
+        await _chart!.Instance!.DispatchActionAsync(BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadDownplayAction(json));
+        await _chart.Instance.AwaitStableAsync();
+    }
+
+    private async Task PrepareDownplay()
+    {
+        await _chart!.Instance!.DispatchActionAsync(
+            new HighlightAction { SeriesIndex = 0, DataIndex = EventActionValue.Array(0d, 1d), NotBlur = true });
+        await _chart.Instance.AwaitStableAsync();
+    }
+
+    private string _highlightDeclaration = "waiting";
+    private string _highlightDeclarationJson = "{}";
+
+    private async Task HighlightDeclaration(bool batch)
+    {
+        var payload = new HighlightPayload
+        {
+            NotBlur = false,
+            EscapeConnect = false,
+            Animation = new HighlightPayloadAnimation { Duration = 0, Delay = 0, Easing = "linear" },
+        };
+        using var extra = JsonDocument.Parse("""{"flag":false,"zero":0,"empty":[]}""");
+        payload.AdditionalProperties["future"] = EChartsValue.FromJson(extra.RootElement);
+        payload.AdditionalProperties["seriesIndex"] = EChartsValue.From(0);
+        if (batch)
+        {
+            payload.Batch = [new HighlightPayloadBatchItem(), new HighlightPayloadBatchItem()];
+            for (var i = 0; i < payload.Batch.Length; i++)
+            {
+                var item = payload.Batch[i]!;
+                item.AdditionalProperties["dataIndex"] = EChartsValue.From(i);
+                item.ExcludeSeriesId = [];
+            }
+        }
+        else
+            payload.AdditionalProperties["dataIndex"] = EChartsValue.From(0);
+
+        var json = OptionSerializer.Serialize(payload, Runtime.Serialization).Json;
+        await _chart!.Instance!.DispatchActionAsync(BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadHighlightAction(json));
+        await _chart.Instance.AwaitStableAsync();
+    }
+
+    private string _remainingBrush = "waiting";
+    private string _remainingArea = "waiting";
+    private string _remainingData = "waiting";
+    private string _remainingMagic = "waiting";
+    private string _remainingGeo = "waiting";
+
+    private async Task RemainingFixtures()
+    {
+        await _chart!.Instance!.SetOptionAsync(Create(), new SetOptionOptions { NotMerge = true });
+        _status = "remaining ready";
+    }
+
+    private async Task SelectBrushResult() => await _chart!.Instance!.DispatchActionAsync(new BrushSelectAction
+    {
+        EscapeConnect = false,
+        Batch = [new ChartBrushSelectBatchItem { BrushId = "brush", BrushIndex = 0, Areas = [],
+            Selected = [new ChartBrushSelectedSeries { SeriesId = "s", SeriesName = "A", SeriesIndex = 0, DataIndex = [0, 2] }] }],
+    });
+
+    private async Task ApplyDataView()
+    {
+        var series = new BarSeriesOption { Name = "A", Data = [7d, 3d, 4d] };
+        await _chart!.Instance!.DispatchActionAsync(new ChangeDataViewAction
+        {
+            EscapeConnect = false,
+            NewOption = new ChartOptions { Series = OneOrMany<SeriesOption>.Many(series) },
+        });
+    }
+
+    private async Task ApplyMagicType() => await _chart!.Instance!.DispatchActionAsync(new ChangeMagicTypeAction
+    {
+        CurrentType = "line",
+        NewTitle = new ChartMagicTypeTitle { Line = "Line", Bar = "Bar" },
+        FeatureName = "magicType",
+        NewOption = new ChartOptions { Series = OneOrMany<SeriesOption>.Many(new LineSeriesOption { Name = "A", Data = [7d, 3d, 4d] }) },
+    });
+
+    private async Task GeoFixtures()
+    {
+        using var map = JsonDocument.Parse("""{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"name":"Square"},"geometry":{"type":"Polygon","coordinates":[[[0,0],[1,0],[1,1],[0,1],[0,0]]]}}]}""");
+        await Runtime.RegisterMapAsync("remaining-geo", map.RootElement);
+        await _chart!.Instance!.SetOptionAsync(new ChartOptions
+        {
+            Animation = false,
+            Geo = OneOrMany<GeoOption>.One(new GeoOption { Id = "geo", Map = "remaining-geo", Roam = true }),
+        }, new SetOptionOptions { NotMerge = true });
+        _status = "geo ready";
+    }
+
+    private async Task RoamGeo() =>
+        await _chart!.Instance!.DispatchActionAsync(new GeoRoamAction { GeoId = "geo", Dx = 10, Dy = 0, EscapeConnect = false });
+
+    private async Task RoamGeoBatch() => await _chart!.Instance!.DispatchActionAsync(new GeoRoamAction
+    {
+        GeoId = "geo",
+        Batch = [new ChartGeoRoamBatchItem { Dx = 0, Dy = 5 }, new ChartGeoRoamBatchItem { Zoom = 2, OriginX = 0, OriginY = 0 }],
+    });
+
+    private ChartSubscription<ClickEvent>? _first;
+    private ChartSubscription<ClickEvent>? _second;
+    private readonly List<ChartSubscription> _subscriptions = [];
+    private ChartInitOptions _init = new();
+    private readonly ChartOptions _options = Create();
+    private string _ready = "waiting";
+    private string _status = "initial";
+    private string _pointer = "{}";
+    private string _references = "[]";
+    private string _legend = "{}";
+    private string _zoom = "{}";
+    private string _brush = "{}";
+    private string _parallel = "waiting";
+    private int _clicks;
+    private int _filtered;
+    private int _replaced;
+    private int _unmatched;
+    private int _rendered;
+    private int _finished;
+    private bool _svg;
+    private string _tooltipShow = "{}";
+    private string _tooltipHide = "{}";
+    private string _tooltipShowTyped = "waiting";
+    private string _tooltipHideTyped = "waiting";
+    private string _tooltipItem = "waiting";
+    private string _tooltipAxis = "waiting";
+    private string _tooltipLeave = "waiting";
+    private string _nodeDrag = "{}";
+    private string _nodeFocus = "{}";
+    private string _nodeUnfocus = "{}";
+    private string _nodeDragTyped = "waiting";
+    private string _nodeDragBatch = "waiting";
+    private string _nodeFocusTyped = "waiting";
+    private string _nodeUnfocusTyped = "waiting";
+    private string _axisOrder = "{}";
+    private string _axisPointer = "{}";
+    private string _axisOrderTyped = "waiting";
+    private string _axisExpandTyped = "waiting";
+    private string _axisPointerTyped = "waiting";
+    private string _axisPointerBatch = "waiting";
+    private string _sunburstRoot = "{}";
+    private string _sunburstHighlight = "{}";
+    private string _sunburstNativeRefs = "[]";
+    private string _sunburstRootTyped = "waiting";
+    private string _sunburstRootBatch = "waiting";
+    private string _sunburstHighlightTyped = "waiting";
+    private string _sunburstUnhighlightTyped = "waiting";
+    private string _sunburstNative = "waiting";
+    private EChartsObjectReference? _sunburstNode;
+    private string _treeToggle = "{}";
+    private string _treeToggleTyped = "waiting";
+    private string _treeToggleBatch = "waiting";
+    private string _treemapRoot = "{}";
+    private string _treemapRootTyped = "waiting";
+    private string _treemapRootBatch = "waiting";
+    private string _treemapNativeRefs = "[]";
+    private string _treemapNative = "waiting";
+    private EChartsObjectReference? _treemapNode;
+
+    private static ChartOptions Create()
+    {
+        using var json = JsonDocument.Parse("""{"animation":false,"tooltip":{"trigger":"item","hideDelay":0},"legend":{},"xAxis":{"type":"category","data":["X","Y","Z"]},"yAxis":{},"dataZoom":[{"type":"inside"}],"brush":{},"series":[{"name":"A","type":"bar","data":[{"value":4,"event":{"category":"sale"}},8,3]},{"name":"B","type":"bar","data":[2,3,1]}]}""");
+        return BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadChartOptions(json.RootElement);
+    }
+
+    private Task Show(Action update) => InvokeAsync(() =>
+    {
+        update();
+        StateHasChanged();
+    });
+
+    private async Task Ready(EChartInstance instance)
+    {
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.Highlight, e => Show(() => RecordPayload(e.Raw))));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.Downplay, e => Show(() => RecordPayload(e.Raw))));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.Downplay, e => Show(() =>
+        {
+            var payload = BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadDownplayPayload(e.Raw);
+            var animation = payload.Animation ?? payload.Batch?[0]?.Animation;
+            var json = OptionSerializer.Serialize(payload, Runtime.Serialization).Json;
+            var easing = animation is null ? "" : OptionSerializer.Serialize(animation, Runtime.Serialization).Json.GetProperty("easing").GetString();
+            _downplayDeclarationJson = json.GetRawText();
+            _downplayDeclaration = $"{json.GetProperty("type").GetString()}/{payload.NotBlur}/{payload.EscapeConnect}/{payload.Batch?.Length ?? 0}/{easing}/{animation?.Duration}/{payload.AdditionalProperties.ContainsKey("future") || payload.Batch?[0]?.AdditionalProperties.ContainsKey("future") == true}";
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.Highlight, e => Show(() =>
+        {
+            var payload = BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadHighlightPayload(e.Raw);
+            var animation = payload.Animation ?? payload.Batch?[0]?.Animation;
+            var json = OptionSerializer.Serialize(payload, Runtime.Serialization).Json;
+            var easing = animation is null ? "" : OptionSerializer.Serialize(animation, Runtime.Serialization).Json.GetProperty("easing").GetString();
+            _highlightDeclarationJson = json.GetRawText();
+            _highlightDeclaration = $"{json.GetProperty("type").GetString()}/{payload.NotBlur}/{payload.EscapeConnect}/{payload.Batch?.Length ?? 0}/{easing}/{animation?.Duration}/{payload.AdditionalProperties.ContainsKey("future") || payload.Batch?[0]?.AdditionalProperties.ContainsKey("future") == true}";
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.BrushSelected, e => Show(() =>
+        {
+            if (e.Batch is { Length: > 0 } b && b[0].Selected is { Length: > 0 } s)
+                _remainingBrush = $"{e.Type}/{s[0].SeriesIndex}/{s[0].DataIndex?.Length}";
+
+            if (e.Raw.TryGetProperty("batch", out var raw) && raw.GetArrayLength() > 0)
+            {
+                var batch = BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadChartBrushSelectBatchItem(raw[0]);
+                if (batch.Areas is { Length: > 0 } areas && batch.Selected is { Length: > 0 } selected)
+                {
+                    var area = areas[0];
+                    _remainingArea = FormattableString.Invariant($"{area.BrushType?.Json.GetString()}/{area.BrushMode?.Json.GetString()}/{area.Transformable}/{area.RemoveOnClick}/{area.Z}/{area.BrushStyle?.Opacity}/{selected[0].SeriesName}/{!string.IsNullOrEmpty(selected[0].SeriesId)}");
+                }
+            }
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.DataViewChanged, e => Show(() =>
+            _remainingData = $"{e.Type}/{e.Raw.GetProperty("escapeConnect").GetBoolean()}")));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.MagicTypeChanged, e => Show(() =>
+            _remainingMagic = $"{e.Type}/{e.CurrentType}")));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.GeoRoam, e => Show(() =>
+            _remainingGeo = e.Batch is { Length: > 0 } b ? $"{e.Type}/batch/{b.Length}" : $"{e.Type}/{e.Dx}/{e.Dy}")));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.TreeExpandAndCollapse, e => Show(() =>
+        {
+            _treeToggle = e.Raw.GetRawText();
+            _treeToggleTyped = $"{e.Type}/{e.DataIndex}/{e.EscapeConnect}";
+            if (e.Batch is { Length: > 0 } b)
+                _treeToggleBatch = $"{b.Length}/{b[0].DataIndex}/{b[1].DataIndex}";
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.TreemapRootToNode, async e =>
+        {
+            foreach (var entry in e.NativeReferences.EnumerateArray())
+            {
+                var path = entry.GetProperty("path");
+                if (path.GetArrayLength() == 1 && path[0].GetString() == "targetNode")
+                {
+                    if (_treemapNode is not null)
+                        await _treemapNode.DisposeAsync();
+
+                    _treemapNode = await Runtime.RetainReferenceAsync(entry.GetProperty("reference"));
+                    _treemapNative = "retained";
+                }
+            }
+
+            await Show(() =>
+            {
+                _treemapRoot = e.Raw.GetRawText();
+                _treemapNativeRefs = e.NativeReferences.GetRawText();
+                _treemapRootTyped = $"{e.Type}/{e.Direction?.Json.GetString()}/{e.TargetNodeId}";
+                if (e.Batch is { Length: > 0 } b)
+                    _treemapRootBatch = $"{b.Length}/{b[0].Direction?.Json.GetString()}/{b[1].Direction?.Json.GetString()}";
+            });
+        }));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.Click, e => Show(() => RecordMouse(e))));
+        _subscriptions.Add(
+            await instance.SubscribeAsync(ChartEvents.Click, e => Show(() => _queryMatched++), EventQuery.Select("series", index: 0, dataName: "A")));
+        _subscriptions.Add(
+            await instance.SubscribeAsync(ChartEvents.Click, e => Show(() => _queryUnmatched++), EventQuery.Select("series", index: 0, dataName: "B")));
+        _first = await instance.SubscribeAsync(ChartEvents.Click, e => Show(() =>
+        {
+            _clicks++;
+            _pointer = e.Raw.GetRawText();
+            _references = e.NativeReferences.GetRawText();
+        }));
+        using var query = JsonDocument.Parse("""{"seriesIndex":0}""");
+        _second = await instance.SubscribeAsync(ChartEvents.Click, e => Show(() => _filtered++), EventQuery.FromJson(query.RootElement));
+        _subscriptions.Add(_first);
+        _subscriptions.Add(_second);
+        using var unmatchedQuery = JsonDocument.Parse("""{"seriesIndex":1}""");
+        _subscriptions.Add(
+            await instance.SubscribeAsync(ChartEvents.Click, e => Show(() => _unmatched++), EventQuery.FromJson(unmatchedQuery.RootElement)));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.Rendered, e => Show(() => _rendered++)));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.Finished, e => Show(() => _finished++)));
+        _subscriptions.Add(
+            await instance.SubscribeAsync(ChartEvents.AxisAreaSelected, e => Show(() => _parallel = e.ParallelAxisId + ":" + e.Intervals![0][0])));
+        Runtime.Serialization.Register(new OptionTypeRegistration<AxisAreaSelectProbe>((w, v, c, p) => c.WriteProperty(w, v, "type", v.Type, p)));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.LegendSelectChanged, e => Show(() => _legend = e.Raw.GetRawText())));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.DataZoom, e => Show(() => _zoom = e.Raw.GetRawText())));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.BrushEnd, e => Show(() => _brush = e.Raw.GetRawText())));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.ShowTip, e => Show(() =>
+        {
+            if (e.Raw.TryGetProperty("unknown", out _))
+            {
+                _tooltipShow = e.Raw.GetRawText();
+                _tooltipShowTyped = $"{e.SeriesIndex}/{e.DataIndex}/{e.X}";
+            }
+
+            if (e.From is not null && e.DataIndexInside is not null)
+                _tooltipItem = $"{e.SeriesIndex}/{e.DataIndex}/{e.DataIndexInside}";
+
+            if (e.DataByCoordSys is { Length: > 0 } systems && systems[0]?.DataByAxis is { Length: > 0 } axes)
+            {
+                var axis = axes[0]!;
+                var item = axis.SeriesDataIndices![0]!;
+                _tooltipAxis = $"{systems[0]!.CoordSysMainType}/{axis.AxisDim}/{item.SeriesIndex}/{item.DataIndex}/{item.DataIndexInside}/{e.EscapeConnect}";
+            }
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.HideTip, e => Show(() =>
+        {
+            if (e.Raw.TryGetProperty("fixture", out _))
+            {
+                _tooltipHide = e.Raw.GetRawText();
+                _tooltipHideTyped = e.From ?? "missing";
+            }
+
+            if (e.From is not null)
+                _tooltipLeave = "hidden";
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.DragNode, e => Show(() =>
+        {
+            _nodeDrag = e.Raw.GetRawText();
+            _nodeDragTyped = FormattableString.Invariant($"{e.Type}/{e.DataIndex}/{e.LocalX}/{e.LocalY}");
+            if (e.Batch is { Length: > 0 } batch)
+                _nodeDragBatch = FormattableString.Invariant($"{batch.Length}/{batch[0].DataIndex}/{batch[0].LocalX}/{batch[0].LocalY}");
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.FocusNodeAdjacency, e => Show(() =>
+        {
+            _nodeFocus = e.Raw.GetRawText();
+            _nodeFocusTyped = $"{e.Type}/{e.Batch?.Length ?? 0}";
+            _ = e.SeriesId;
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.UnfocusNodeAdjacency, e => Show(() =>
+        {
+            _nodeUnfocus = e.Raw.GetRawText();
+            _nodeUnfocusTyped = $"{e.Type}/{e.Batch?.Length ?? 0}";
+        })));
+        _ready = "ready";
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.ChangeAxisOrder, e => Show(() =>
+        {
+            _axisOrder = e.Raw.GetRawText();
+            _axisOrderTyped = $"{e.Type}/{e.SortInfo?.OrdinalNumbers?[0]}/{e.IsInitSort}";
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.ParallelAxisExpand, e => Show(() =>
+        {
+            _axisExpandTyped = $"{e.Type}/{e.AxisExpandWindow?[0]}/{e.AxisExpandWindow?[1]}";
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.UpdateAxisPointer, e => Show(() =>
+        {
+            _axisPointer = e.Raw.GetRawText();
+            if (e.AxesInfo is { Length: > 0 })
+                _axisPointerTyped = $"{e.Type}/{e.AxesInfo[0].AxisDim}/{e.AxesInfo[0].AxisIndex}/{e.SeriesIndex}/{e.DataIndex}";
+
+            if (e.Batch is { Length: > 0 })
+                _axisPointerBatch = $"{e.Batch.Length}/{e.Batch[0].Type}/{e.Batch[0].AxesInfo?[0].AxisIndex}";
+        })));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.SunburstHighlight, e => Show(() =>
+        {
+            _sunburstHighlight = e.Raw.GetRawText();
+            _sunburstHighlightTyped = $"{e.Type}/{e.DataIndex?.Json.GetRawText()}/{e.TargetNodeId}/{e.NotBlur}";
+        })));
+        _subscriptions.Add(
+            await instance.SubscribeAsync(
+                ChartEvents.SunburstUnhighlight,
+                e => Show(() => _sunburstUnhighlightTyped = $"{e.Type}/{e.DataIndex?.Json.GetRawText()}")));
+        _subscriptions.Add(await instance.SubscribeAsync(ChartEvents.SunburstRootToNode, async e =>
+        {
+            foreach (var entry in e.NativeReferences.EnumerateArray())
+            {
+                var path = entry.GetProperty("path");
+                if (path.GetArrayLength() == 1 && path[0].GetString() == "targetNode")
+                {
+                    var retained = await Runtime.RetainReferenceAsync(entry.GetProperty("reference"));
+                    if (_sunburstNode is not null)
+                        await _sunburstNode.DisposeAsync();
+
+                    _sunburstNode = retained;
+                    await Show(() =>
+                    {
+                        _sunburstNative = "retained";
+                        _sunburstNativeRefs = e.NativeReferences.GetRawText();
+                    });
+                }
+            }
+
+            await Show(() =>
+            {
+                _sunburstRoot = e.Raw.GetRawText();
+                _sunburstRootTyped = $"{e.Type}/{e.Direction?.Json.GetString()}/{e.TargetNodeId}";
+                if (e.Batch is { Length: > 0 })
+                    _sunburstRootBatch = $"{e.Batch.Length}/{e.Batch[0].Type}/{e.Batch[0].Direction?.Json.GetString()}/{e.Batch[^1].Direction?.Json.GetString()}";
+            });
+        }));
+    }
+
+    private void Error(EChartsError error) => _status = error.Message;
+
+    private async Task TreeFixtures()
+    {
+        using var json = JsonDocument.Parse("""{"animation":false,"series":[{"id":"tree","type":"tree","symbolSize":24,"initialTreeDepth":-1,"data":[{"name":"Root","children":[{"name":"Branch","children":[{"name":"Leaf"}]}]}]}]}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement, new SetOptionOptions { NotMerge = true });
+        await _chart.Instance.AwaitStableAsync();
+        _status = "tree ready";
+    }
+
+    private async Task ToggleTree()
+    {
+        var action = new TreeExpandAndCollapseAction { SeriesId = "tree", DataIndex = 1, EscapeConnect = false };
+        AddNodeUnknown(action);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task TreeBatch() => await _chart!.Instance!.DispatchActionAsync(new TreeExpandAndCollapseAction
+    {
+        SeriesId = "tree",
+        EscapeConnect = false,
+        Batch = [new ChartTreeToggleBatchItem { DataIndex = 1 }, new ChartTreeToggleBatchItem { DataIndex = 1 }],
+    });
+
+    private async Task TreemapFixtures()
+    {
+        using var json = JsonDocument.Parse("""{"animation":false,"series":[{"id":"map","name":"Map","type":"treemap","data":[{"id":"branch","name":"Branch","children":[{"id":"leaf","name":"Leaf","value":2},{"id":"leaf2","name":"Leaf 2","value":1}]},{"id":"other","name":"Other","value":2}]}]}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement, new SetOptionOptions { NotMerge = true });
+        await _chart.Instance.AwaitStableAsync();
+        _status = "treemap ready";
+    }
+
+    private async Task TreemapDown() =>
+        await _chart!.Instance!.DispatchActionAsync(new TreemapRootToNodeAction { SeriesId = "map", TargetNodeId = "branch", EscapeConnect = false });
+
+    // Batch items are complete payloads of the action, so their selectors are typed.
+    private async Task TreemapRootBatch() => await _chart!.Instance!.DispatchActionAsync(new TreemapRootToNodeAction
+    {
+        SeriesId = "map",
+        EscapeConnect = false,
+        Batch = [new TreemapRootToNodeAction { TargetNodeId = "branch" }, new TreemapRootToNodeAction { TargetNodeId = "leaf" }],
+    });
+
+    private string _mousePie = "waiting";
+    private string _mouseSunburst = "waiting";
+    private string _mouseTree = "waiting";
+    private string _mouseGraphic = "waiting";
+    private string _mouseMatrix = "waiting";
+    private int _queryMatched;
+    private int _queryUnmatched;
+
+    private async Task MouseFixtures()
+    {
+        using var json = JsonDocument.Parse("""
+            {"animation":false,
+             "graphic":[{"type":"rect","x":560,"y":140,"shape":{"width":60,"height":60},"style":{"fill":"#91cc75"},"info":{"kind":"marker","zero":0,"empty":[]}}],
+             "matrix":{"left":530,"top":230,"width":110,"height":110,"triggerEvent":true,"x":{"data":["X0","X1"]},"y":{"data":["Y0","Y1"]},"body":{"itemStyle":{"color":"#eeeeee"}}},
+             "series":[
+              {"type":"pie","id":"pie","center":[90,175],"radius":[0,70],"label":{"show":false},"data":[{"name":"A","value":3},{"name":"B","value":1}]},
+              {"type":"sunburst","id":"sun","name":"Sun","center":[260,175],"radius":[0,80],"nodeClick":false,"label":{"show":false},"data":[{"name":"Branch","children":[{"name":"Leaf","value":2},{"name":"Leaf 2","value":1}]},{"name":"Other","value":2}]},
+              {"type":"tree","id":"tree","name":"Forest","left":370,"top":60,"width":140,"height":230,"expandAndCollapse":false,"symbolSize":14,"label":{"show":false},"data":[{"name":"Root","children":[{"name":"Child","value":5}]}]}]}
+            """);
+        await _chart!.Instance!.SetOptionAsync(json.RootElement, new SetOptionOptions { NotMerge = true });
+        await _chart.Instance.AwaitStableAsync();
+        _status = "mouse ready";
+    }
+
+    private void RecordMouse(ClickEvent e)
+    {
+        switch (e.ComponentType == "series" ? e.SeriesType : e.ComponentType)
+        {
+            case "pie":
+                var color = e.Color is { } value ? ValueJson(EChartsValue.From(value)) : "none";
+                _mousePie = FormattableString.Invariant($"{e.Name}/{e.Percent}/{color}");
+                break;
+            case "sunburst":
+                _mouseSunburst = $"{e.Name}/{string.Join(">", e.TreePathInfo?.Select(p => p.Name) ?? [])}/{e.TreePathInfo?[^1].DataIndex}/{e.TreeAncestors is null}";
+                break;
+            case "tree":
+                _mouseTree = $"{e.Name}/{string.Join(">", e.TreeAncestors?.Select(p => p.Name) ?? [])}/{e.TreePathInfo is null}";
+                break;
+            case "graphic":
+                _mouseGraphic = e.Info is { } info ? ValueJson(info) : "missing";
+                break;
+            case "matrix":
+                _mouseMatrix = $"{e.TargetType}/{string.Join(",", e.Coord ?? [])}";
+                break;
+        }
+    }
+
+    private string ValueJson(EChartsValue value)
+    {
+        var holder = new ChartOptions();
+        holder.AdditionalProperties["value"] = value;
+        return OptionSerializer.Serialize(holder, Runtime.Serialization).Json.GetProperty("value").GetRawText();
+    }
+
+    private async Task SunburstFixtures()
+    {
+        using var json = JsonDocument.Parse("""{"animation":false,"series":[{"id":"sun","name":"Sun","type":"sunburst","nodeClick":"rootToNode","data":[{"id":"branch","name":"Branch","children":[{"id":"leaf","name":"Leaf","value":2},{"id":"leaf2","name":"Leaf 2","value":1}]},{"id":"other","name":"Other","value":2}]}]}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement, new SetOptionOptions { NotMerge = true });
+        await _chart.Instance.AwaitStableAsync();
+        _status = "sunburst ready";
+    }
+
+    private async Task SunburstHighlight()
+    {
+        var action = new SunburstHighlightAction
+        {
+            SeriesId = "sun",
+            TargetNodeId = "leaf",
+            DataIndex = 0d,
+            NotBlur = true,
+            HighlightKey = 7,
+            EscapeConnect = false,
+        };
+        AddNodeUnknown(action);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task SunburstUnhighlight() =>
+        await _chart!.Instance!.DispatchActionAsync(new SunburstUnhighlightAction { SeriesIndex = 0d, DataIndex = 2d, HighlightKey = 7 });
+
+    private async Task SunburstBatch() =>
+        await _chart!.Instance!.DispatchActionAsync(
+            new SunburstRootToNodeAction
+            {
+                SeriesId = "sun",
+                EscapeConnect = false,
+                Batch =
+                [
+                    new ChartSunburstRootActionBatchItem { TargetNodeId = "branch" },
+                    new ChartSunburstRootActionBatchItem { TargetNodeId = "leaf" },
+                ],
+            });
+
+    private async Task SunburstUp() =>
+        await _chart!.Instance!.DispatchActionAsync(new SunburstRootToNodeAction { SeriesId = "sun", TargetNode = "branch" });
+
+    private async Task SunburstNative()
+    {
+        await _chart!.Instance!.DispatchActionAsync(new SunburstRootToNodeAction { SeriesId = "sun", TargetNode = _sunburstNode! });
+        _status = "native target dispatched";
+    }
+
+    private async Task AxisFixtures()
+    {
+        using var json = JsonDocument.Parse("""{"animation":false,"tooltip":{"trigger":"axis","triggerOn":"none"},"grid":{"top":20,"height":100},"xAxis":{"id":"x","type":"category","data":["X","Y","Z"],"axisPointer":{"show":true}},"yAxis":{},"parallel":{"id":"p","top":210,"height":90,"axisExpandable":true,"axisExpandCount":2,"axisExpandWidth":80},"parallelAxis":[{"dim":0},{"dim":1},{"dim":2}],"series":[{"type":"bar","data":[4,8,3]},{"type":"parallel","data":[[1,2,3],[2,3,4]]}]}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement, new SetOptionOptions { NotMerge = true });
+        await _chart.Instance.AwaitStableAsync();
+        _status = "axes ready";
+    }
+
+    private async Task ChangeAxisOrder()
+    {
+        var action = new ChangeAxisOrderAction
+        {
+            ComponentType = "xAxis",
+            XAxisId = "x",
+            IsInitSort = false,
+            SortInfo = new ChartAxisSortInfo { OrdinalNumbers = [2, 0, 1] },
+        };
+        AddNodeUnknown(action);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task ExpandParallelAxes() =>
+        await _chart!.Instance!.DispatchActionAsync(
+            new ParallelAxisExpandAction
+            {
+                ParallelId = "p",
+                AxisExpandWindow = [0, 1],
+                AxisExpandWidth = 80,
+                Animation = new AnimationOption { Duration = 0 },
+            });
+
+    private async Task UpdateAxisPointer()
+    {
+        var action = new UpdateAxisPointerAction
+        {
+            SeriesIndex = 0,
+            DataIndex = 0,
+            CurrTrigger = "click",
+            AxesInfo = [new ChartAxisPointerInfo { AxisDim = "x", AxisIndex = 0, Value = 0d }],
+            DispatchAction = JsFunction.Module<BlazorECharts.Values.Signatures.DispatchActionSignature>("./axis-actions.mjs", "dispatch"),
+        };
+        AddNodeUnknown(action);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task AxisBatch() =>
+        await _chart!.Instance!.DispatchActionAsync(
+            new UpdateAxisPointerAction
+            {
+                SeriesIndex = 0,
+                DataIndex = 0,
+                Batch = [new ChartAxisPointerActionBatchItem { AxesInfo = [new ChartAxisPointerInfo { AxisDim = "x", AxisIndex = 0, Value = 0d }] }],
+            });
+
+    private async Task NodeFixtures()
+    {
+        using var json = JsonDocument.Parse("""{"animation":false,"series":[{"id":"g","type":"graph","left":"5%","top":"10%","width":"30%","height":"70%","layout":"none","symbolSize":25,"data":[{"name":"G1","x":0,"y":0},{"name":"G2","x":1,"y":1}],"links":[{"source":0,"target":1}]},{"id":"s","name":"S","type":"sankey","left":"55%","right":"5%","top":"10%","bottom":"10%","draggable":true,"data":[{"name":"A"},{"name":"B"}],"links":[{"source":"A","target":"B","value":1}]}]}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement, new SetOptionOptions { NotMerge = true });
+        await _chart.Instance.AwaitStableAsync();
+        _status = "nodes ready";
+    }
+
+    private static void AddNodeUnknown(ChartAction action)
+    {
+        using var json = JsonDocument.Parse("""{"flag":false,"zero":0,"empty":[]}""");
+        action.AdditionalProperties["unknown"] = EChartsValue.FromJson(json.RootElement);
+    }
+
+    private async Task MoveSankeyNode()
+    {
+        var action = new DragNodeAction { SeriesId = "s", DataIndex = 0, LocalX = 0.1, LocalY = 0.25, EscapeConnect = false };
+        AddNodeUnknown(action);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task MoveSankeyBatch()
+    {
+        var action = new DragNodeAction
+        {
+            SeriesId = "s",
+            EscapeConnect = false,
+            Batch = [new ChartDragNodeBatchItem { DataIndex = 0, LocalX = 0, LocalY = 0.5 }],
+        };
+        AddNodeUnknown(action);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task FocusGraph() =>
+        await _chart!.Instance!.DispatchActionAsync(
+            new FocusNodeAdjacencyAction { SeriesId = EventActionValue.Array("g", 0d), EscapeConnect = false });
+
+    private async Task UnfocusGraph() =>
+        await _chart!.Instance!.DispatchActionAsync(
+            new UnfocusNodeAdjacencyAction { Batch = [new ChartNodeAdjacencyBatchItem { SeriesId = "g", ExcludeSeriesId = 0d }] });
+
+    private async Task ShowTooltip()
+    {
+        var action = new ShowTipAction { SeriesIndex = 0d, DataIndex = 0d, X = 0, Y = 12 };
+        using var extra = JsonDocument.Parse("""{"flag":false,"zero":0,"empty":[]}""");
+        action.AdditionalProperties["unknown"] = EChartsValue.FromJson(extra.RootElement);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task HideTooltip()
+    {
+        var action = new HideTipAction();
+        action.AdditionalProperties["from"] = EChartsValue.From("fixture");
+        action.AdditionalProperties["fixture"] = EChartsValue.From("hide");
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private async Task AxisTooltip()
+    {
+        using var json = JsonDocument.Parse("""{"tooltip":{"trigger":"axis"}}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement);
+        _status = "axis tooltip ready";
+    }
+
+    private async Task Legend()
+    {
+        await _chart!.Instance!.DispatchActionAsync(new LegendToggleSelectAction { Name = "A" });
+        _status = "legend dispatched";
+    }
+
+    private async Task Zoom()
+    {
+        using var json = JsonDocument.Parse("""[{"dataZoomIndex":0,"start":5,"end":95}]""");
+        await _chart!.Instance!.DispatchActionAsync(
+            new DataZoomAction { Batch = [BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadChartZoomBatch(json.RootElement[0])] });
+    }
+
+    private async Task Brush()
+    {
+        using var json = JsonDocument.Parse("""[{"brushType":"rect","range":[[10,50],[10,50]]}]""");
+        using var extra = JsonDocument.Parse("""{"flag":false,"zero":0,"empty":[]}""");
+        var action = new BrushEndAction
+        {
+            Areas = [BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadChartBrushArea(json.RootElement[0])],
+        };
+        action.AdditionalProperties["unknown"] = EChartsValue.FromJson(extra.RootElement);
+        await _chart!.Instance!.DispatchActionAsync(action);
+    }
+
+    private void Replace()
+    {
+        _first!.ReplaceHandler(e => Show(() => _replaced++));
+        _status = "replaced";
+    }
+
+    private async Task Unsubscribe()
+    {
+        await _first!.DisposeAsync();
+        _status = "unsubscribed";
+    }
+
+    private void Fault()
+    {
+        _second!.ReplaceHandler(_ => Task.FromException(new InvalidOperationException("fixture async handler failed")));
+        _status = "fault armed";
+    }
+
+    private async Task Render()
+    {
+        using var json = JsonDocument.Parse("""{"title":{"text":"Events updated"}}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement);
+    }
+
+    private void HandlerCommand()
+    {
+        _second!.ReplaceHandler(async _ =>
+        {
+            await _chart!.Instance!.DispatchActionAsync(new DownplayAction());
+            await Show(() => _status = "callback command completed");
+        });
+        _status = "command armed";
+    }
+
+    private sealed class AxisAreaSelectProbe() : ChartAction("axisAreaSelect");
+
+    private async Task ParallelSelection()
+    {
+        using var json = JsonDocument.Parse("""{"parallel":{},"parallelAxis":[{"id":"axis-a","dim":0},{"dim":1}],"series":[{"id":"parallel","type":"parallel","data":[[1,2],[3,4]]}]}""");
+        await _chart!.Instance!.SetOptionAsync(json.RootElement);
+        var action = new AxisAreaSelectProbe();
+        action.AdditionalProperties["parallelAxisId"] = EChartsValue.From("axis-a");
+        action.AdditionalProperties["intervals"] = EChartsValue.From(new double[][] { [1, 3] });
+        await _chart.Instance.DispatchActionAsync(action);
+    }
+
+    private void Recreate()
+    {
+        _svg = !_svg;
+        _init = new() { Renderer = _svg ? "svg" : "canvas" };
+    }
+
+    private async Task DisposeChart()
+    {
+        await _chart!.Instance!.DisposeAsync();
+        _status = "disposed";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var subscription in _subscriptions)
+            await subscription.DisposeAsync();
+
+        if (_sunburstNode is not null)
+            await _sunburstNode.DisposeAsync();
+
+        if (_treemapNode is not null)
+            await _treemapNode.DisposeAsync();
+    }
+}

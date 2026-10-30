@@ -1,0 +1,94 @@
+@using BlazorECharts.Runtime
+@using BlazorECharts.Options
+@using BlazorECharts.Testing
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+<h1>Complete series catalog</h1>
+<p data-testid="status">@_status</p>
+<select aria-label="Series" value="@_name" @onchange="SelectSeries">
+    @foreach (var name in CompleteSeriesCatalog.Cases.Keys.Order()) { <option value="@name">@name</option> }
+</select>
+<button @onclick="Graphics">Graphic geometry</button>
+<span data-testid="expected-count">@CompleteSeriesCatalog.Cases[_name]</span>
+<div class="complete-series-chart series-chart advanced-chart" style="width:900px;max-width:100%;height:480px" @ref="_element"></div>
+@code {
+    private ElementReference _element;
+    private EChartsRuntime? _runtime;
+    private EChartInstance? _chart;
+    private string _status = "waiting";
+    private string _name = "bar";
+
+    private string Module(string file) => new Uri(new Uri(Navigation.BaseUri), "modules/" + file).AbsoluteUri;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        try
+        {
+            _runtime = new(JS, Navigation, new() { MaximumServerResultSize = 4 * 1024 * 1024 });
+            await _runtime.RegisterMapAsync("series-map", StandardSeriesCatalog.Parse(StandardSeriesCatalog.Map));
+            _chart = await _runtime.CreateInstanceAsync(_element);
+            await Apply("bar");
+        }
+        catch (Exception e)
+        {
+            _status = "error:" + e;
+        }
+
+        StateHasChanged();
+    }
+
+    // The status shows each phase, and a stall fails here well before the test times out.
+    private async Task Apply(string name)
+    {
+        _name = name;
+        _status = "applying:" + name;
+        var options = CompleteSeriesCatalog.Create(name, Module("series-functions.js"), Module("custom-renderers.js"));
+        await _chart!.SetOptionAsync(options, new SetOptionOptions { NotMerge = true });
+        _status = "stabilizing:" + name;
+        await _chart.AwaitStableAsync(new() { Timeout = TimeSpan.FromSeconds(10) });
+        _status = "ready:" + name;
+    }
+
+    private async Task SelectSeries(ChangeEventArgs e)
+    {
+        if (e.Value is not string name)
+            return;
+
+        try
+        {
+            await Apply(name);
+        }
+        catch (Exception error)
+        {
+            _status = "error:" + error;
+        }
+    }
+
+    private async Task Graphics()
+    {
+        try
+        {
+            await _chart!.SetOptionAsync(GraphicGeometryFixtures.Create(Module("graphic-geometry.js")), new SetOptionOptions { NotMerge = true });
+            await _chart.AwaitStableAsync();
+            _status = "ready:graphics";
+        }
+        catch (Exception error)
+        {
+            _status = "error:" + error;
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_chart is not null)
+            await _chart.DisposeAsync();
+
+        if (_runtime is not null)
+            await _runtime.DisposeAsync();
+    }
+}

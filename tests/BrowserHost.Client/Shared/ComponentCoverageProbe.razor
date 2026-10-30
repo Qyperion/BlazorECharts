@@ -1,0 +1,189 @@
+@using BlazorECharts.Runtime
+@using BlazorECharts.Options
+@using BlazorECharts.Serialization
+@using BlazorECharts.Testing
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+<h1>Typed components and coordinate systems</h1>
+<p data-testid="status">@_status</p>
+<button @onclick="() => Run(() => Apply(ComponentOptionFixtures.Coordinates(Module)))">Coordinates</button>
+<button @onclick="() => Run(() => Apply(ComponentOptionFixtures.Transforms()))">Transforms</button>
+<button @onclick="() => Run(() => Apply(ComponentOptionFixtures.DatasetMediaAndAria()))">Media</button>
+<button @onclick="() => Run(Components)">Components</button>
+<button @onclick="() => Run(() => Apply(ComponentOptionFixtures.VisualMapChannels()))">Visual map</button>
+<button @onclick="() => Run(() => Apply(ComponentOptionFixtures.Timeline()))">Timeline</button>
+<button @onclick="() => Run(TimelineChange)">Timeline step</button>
+<button @onclick="() => Run(() => Apply(ComponentOptionFixtures.SeriesMarkers()))">Markers</button>
+<button @onclick="() => Run(() => Apply(ComponentOptionFixtures.Thumbnail()))">Thumbnail</button>
+<button @onclick="() => Run(Dates)">Dates</button>
+<button @onclick="() => Run(LargeSnapshot)">Large snapshot</button>
+<button @onclick="() => Run(Resize)">Resize</button>
+<button @onclick="() => Run(Snapshot)">Snapshot</button>
+<button @onclick="() => Run(ReapplySnapshot)">Reapply snapshot</button>
+<select aria-label="Dataset form" @onchange="SelectDataset">
+    <option value="">Choose dataset form</option><option value="keyed">keyed</option><option value="objects">objects</option><option value="native">native</option>
+</select>
+<select aria-label="Coordinate system" @onchange="SelectCoordinate">
+    <option value="">Choose coordinate system</option>
+    @foreach (var name in new[] { "polar", "calendar", "single", "parallel", "radar", "matrix", "geo" }) { <option value="@name">@name</option> }
+</select>
+<div class="component-chart" style="width:100%;max-width:900px;height:460px" @ref="_element"></div>
+<pre data-testid="prepared">@_prepared</pre>
+<pre data-testid="snapshot">@_snapshot</pre>
+@code {
+    private ElementReference _element;
+    private EChartsRuntime? _runtime;
+    private EChartInstance? _chart;
+    private string _status = "waiting";
+    private string _prepared = "";
+    private string _snapshot = "";
+
+    private string Module => new Uri(new Uri(Navigation.BaseUri), "modules/components.js").AbsoluteUri;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        await Run(async () =>
+        {
+            _runtime = new(JS, Navigation, new());
+            await _runtime.RegisterMapAsync(
+                "component-map",
+                ComponentOptionFixtures.Parse("""{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"name":"Synthetic"},"geometry":{"type":"Polygon","coordinates":[[[0,0],[10,0],[10,10],[0,10],[0,0]]]}}]}"""));
+            _chart = await _runtime.CreateInstanceAsync(_element);
+            await Apply(ComponentOptionFixtures.Coordinates(Module));
+        });
+        StateHasChanged();
+    }
+
+    private async Task Run(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception e)
+        {
+            _status = "error:" + e;
+        }
+    }
+
+    private async Task Apply(ChartOptions options)
+    {
+        _prepared = OptionSerializer.Serialize(options, _runtime!.Serialization).Json.GetRawText();
+        await _chart!.SetOptionAsync(options, new SetOptionOptions { NotMerge = true });
+        await _chart.AwaitStableAsync();
+        _status = "ready";
+    }
+
+    private async Task Components()
+    {
+        var options = ComponentOptionFixtures.Coordinates(Module);
+        var controls = BlazorECharts.Serialization.Generated.GeneratedOptionMetadata.ReadChartOptions(
+            ComponentOptionFixtures.Parse("""{"legend":{"data":["first","second"],"top":30},"tooltip":{"trigger":"axis"},"dataZoom":[{"type":"inside","xAxisIndex":0},{"type":"slider","xAxisIndex":0,"bottom":0}],"visualMap":{"type":"continuous","min":1,"max":100,"dimension":1,"show":false},"brush":{"toolbox":["rect","clear"],"xAxisIndex":0},"toolbox":{"feature":{"restore":{},"dataZoom":{}}}}"""));
+        options.Legend = controls.Legend;
+        options.Tooltip = controls.Tooltip;
+        options.DataZoom = controls.DataZoom;
+        options.VisualMap = controls.VisualMap;
+        options.Brush = controls.Brush;
+        options.Toolbox = controls.Toolbox;
+        await Apply(options);
+    }
+
+    // The probe runtime keeps the default 32 KiB Server result limit; the host hub allows 4 MiB.
+    private async Task LargeSnapshot()
+    {
+        var data = Enumerable.Range(0, 5_000)
+            .Select(i => (BlazorECharts.Values.LineSeriesOptionDataItem?)new BlazorECharts.Values.OptionDataValue?[] { i, i % 7 })
+            .ToArray();
+        await Apply(
+            new ChartOptions
+            {
+                Animation = false,
+                XAxis = new XAxisValueOption(),
+                YAxis = new YAxisValueOption(),
+                Series = new LineSeriesOption { Data = data },
+            });
+        try
+        {
+            await using var snapshot = await _chart!.GetOptionAsync();
+            _status = "snapshot-ok";
+        }
+        catch (JSException error)
+        {
+            _status = "snapshot-failed:" + error.Message[..Math.Max(0, error.Message.IndexOf(']') + 1)];
+        }
+
+        _status += " width:" + await _chart!.GetWidthAsync();
+    }
+
+    private async Task Dates()
+    {
+        await Apply(ComponentOptionFixtures.Dates());
+        _status = "dates";
+    }
+
+    private async Task TimelineChange()
+    {
+        await _chart!.DispatchActionAsync(new TimelineChangeAction { CurrentIndex = 2 });
+        await _chart.AwaitStableAsync();
+        _status = "timeline:2";
+    }
+
+    private async Task Resize()
+    {
+        await _chart!.ResizeAsync();
+        await _chart.AwaitStableAsync();
+        _status = "resized";
+    }
+
+    private async Task Snapshot()
+    {
+        await using var snapshot = await _chart!.GetOptionAsync();
+        _snapshot = OptionSerializer.Serialize(snapshot.Options, _runtime!.Serialization).Json.GetRawText();
+        _status = "snapshot";
+    }
+
+    private async Task ReapplySnapshot()
+    {
+        await using var snapshot = await _chart!.GetOptionAsync();
+        await _chart.SetOptionAsync(snapshot, new SetOptionOptions { NotMerge = true });
+        await _chart.AwaitStableAsync();
+        _status = "snapshot-reapplied";
+    }
+
+    private async Task SelectDataset(ChangeEventArgs e)
+    {
+        if (e.Value is not string { Length: > 0 } form)
+            return;
+
+        await Run(async () =>
+        {
+            if (form == "native")
+            {
+                await using var result = await _runtime!.ImportObjectAsync(Module, "typedRows");
+                await Apply(ComponentOptionFixtures.DatasetForm(form, result));
+            }
+            else
+                await Apply(ComponentOptionFixtures.DatasetForm(form));
+        });
+    }
+
+    private async Task SelectCoordinate(ChangeEventArgs e)
+    {
+        if (e.Value is string { Length: > 0 } name)
+            await Run(() => Apply(ComponentOptionFixtures.CoordinateCatalog(name)));
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_chart is not null)
+            await _chart.DisposeAsync();
+
+        if (_runtime is not null)
+            await _runtime.DisposeAsync();
+    }
+}

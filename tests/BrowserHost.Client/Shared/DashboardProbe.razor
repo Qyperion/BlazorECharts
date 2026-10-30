@@ -1,0 +1,38 @@
+@using BlazorECharts
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+
+<h1>Dashboard of twelve charts</h1>
+<p data-testid="interactive">@RendererInfo.IsInteractive</p>
+<p data-testid="ready">@_ready</p>
+<p data-testid="error-count">@_errors</p>
+<button @onclick="Mount">Mount</button>
+<div style="display:grid;grid-template-columns:repeat(4, 220px);gap:8px">
+    @if (_mounted)
+    {
+        @for (var i = 0; i < 12; i++)
+        {
+            <EChart Class="dashboard-chart" Style="width:220px;height:150px" Options="@Options(i)" OnReady="Ready" OnError="Error" />
+        }
+    }
+</div>
+
+@code {
+    private bool _mounted;
+    private int _ready;
+    private int _errors;
+
+    private void Mount() => _mounted = true;
+
+    private void Ready(EChartInstance instance) => _ready++;
+
+    private void Error(EChartsError error) => _errors++;
+
+    private static ChartOptions Options(int chart) => new()
+    {
+        Animation = false,
+        XAxis = new XAxisCategoryOption { Data = ["A", "B", "C"] },
+        YAxis = new YAxisValueOption(),
+        Series = new BarSeriesOption { Data = [chart, chart + 1d, chart + 2d] },
+    };
+}

@@ -1,0 +1,12 @@
+@inject EChartsRuntime Runtime
+<Router AppAssembly="typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData" />
+    </Found>
+    <NotFound><p>Not found</p></NotFound>
+</Router>
+
+@code {
+    // The application root lives as long as the app, so its consumer metadata is registered exactly once.
+    protected override void OnInitialized() => Runtime.Serialization.Register(ConsumerJsonContext.Default.CustomPointArray);
+}

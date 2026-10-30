@@ -1,0 +1,267 @@
+@using System.Text.Json
+@using BlazorECharts
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Serialization
+@using BlazorECharts.Values
+@using BlazorECharts.Events
+@inject EChartsRuntime Runtime
+
+<h1>Chart instance methods</h1>
+<p data-testid="ready">@_ready</p>
+<p data-testid="status">@_status</p>
+<pre data-testid="result">@_result</pre>
+<button @onclick="() => Run(Snapshot)">Snapshot</button>
+<button @onclick="() => Run(Coordinates)">Coordinates</button>
+<button @onclick="() => Run(References)">References</button>
+<button @onclick="() => Run(Append)">Append</button>
+<button @onclick="() => Run(Unsupported)">Unsupported append</button>
+<button @onclick="() => Run(Loading)">Loading</button>
+<button @onclick="() => Run(Resize)">Hide and resize</button>
+<button @onclick="() => Run(Clear)">Clear</button>
+<button @onclick="() => Run(DisposeChart)">Dispose</button>
+<button @onclick="() => Run(NativeEvents)">Native events</button>
+<button @onclick="() => Run(ThemeLayout)">Theme and layout</button>
+<button @onclick="() => Run(PartialMatrix)">Partial matrix</button>
+<button @onclick="() => Run(ImperativeTheme)">Imperative theme</button>
+<button @onclick="() => Run(MultiFinder)">Multi finder</button>
+<button @onclick="() => Run(MatrixClamp)">Matrix clamp</button>
+<button @onclick="RecreateRenderer">Recreate renderer</button>
+<p data-testid="native-events">@_events</p>
+<p data-testid="bindings">@_bindings</p>
+<EChart @ref="_chart" Class="methods-chart" Style="width:640px;height:360px" RawOptions="_options" InitOptions="_init" OnReady="Ready" OnError="Error" AutoResize="false" />
+
+@code {
+    private EChart? _chart;
+    private string _ready = "waiting";
+    private string _status = "initial";
+    private string _result = "{}";
+    private int _events;
+    private int _bindings;
+    private ChartInitOptions _init = new();
+
+    private static JsonElement Parse(string json)
+    {
+        using var d = JsonDocument.Parse(json);
+        return d.RootElement.Clone();
+    }
+
+    private readonly JsonElement _options = Parse("""{"animation":false,"title":{"text":"Methods"},"extension":{"zero":0,"flag":false,"empty":[],"nested":{"value":null}},"xAxis":{"min":0,"max":10},"yAxis":{"min":0,"max":10},"series":[{"type":"scatter","itemStyle":{"color":"#ff0000"},"data":[[1,2],[3,4]]}]}""");
+
+    private EChartInstance Instance => _chart!.Instance!;
+
+    private void Ready(EChartInstance instance) => _ready = "ready";
+
+    private void Error(EChartsError error) => _status = error.Message;
+
+    private async Task Run(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception error)
+        {
+            _status = error.Message;
+        }
+    }
+
+    private async Task Snapshot()
+    {
+        await using var snapshot = await Instance.GetOptionAsync();
+        _result = OptionSerializer.Serialize(snapshot.Options, Runtime.Serialization).Json.GetRawText();
+        _status = "snapshot";
+        _bindings = snapshot.Bindings.Count;
+    }
+
+    private async Task Coordinates()
+    {
+        var scalar = await Instance.ConvertToPixelAsync(ChartFinder.Select("xAxis"), 1);
+        var pixels = await Instance.ConvertToPixelAsync(ChartFinder.Select("series", index: 0), CoordinateValue.Array(1, 2));
+        var data = await Instance.ConvertFromPixelAsync(ChartFinder.Select("series", index: 0), pixels.Numbers!);
+        var contains = await Instance.ContainPixelAsync(ChartFinder.Component("grid"), pixels.Numbers!);
+        var width = await Instance.GetWidthAsync();
+        var height = await Instance.GetHeightAsync();
+        var ratio = await Instance.GetDevicePixelRatioAsync();
+        var ssr = await Instance.IsSsrAsync();
+        var nativeId = await Instance.GetIdAsync();
+        await using var visual = await Instance.GetVisualAsync(ChartFinder.Select("series", index: 0), "color");
+        _result = "{\"scalar\":"
+            + scalar.Scalar
+            + ",\"pixels\":["
+            + string.Join(",", pixels.Numbers!)
+            + "],\"data\":["
+            + string.Join(",", data.Numbers!)
+            + "],\"contains\":"
+            + (contains ? "true" : "false")
+            + ",\"width\":"
+            + width
+            + ",\"height\":"
+            + height
+            + ",\"ratio\":"
+            + ratio
+            + ",\"ssr\":"
+            + (ssr ? "true" : "false")
+            + ",\"nativeId\":\""
+            + nativeId
+            + "\",\"visual\":"
+            + visual.Json.GetRawText()
+            + "}";
+        _status = "coordinates";
+    }
+
+    private async Task References()
+    {
+        var dom = await Instance.GetDomAsync();
+        var zr = await Instance.GetZrAsync();
+        await using (await dom.AcquireLeaseAsync(Runtime.RuntimeId!))
+        {
+            await dom.DisposeAsync();
+            await dom.DisposeAsync();
+        }
+
+        await zr.DisposeAsync();
+        await zr.DisposeAsync();
+        _status = "references released:" + await Instance.GetWidthAsync();
+    }
+
+    private async Task Append()
+    {
+        await Instance.AppendDataAsync(0, EChartsValue.FromJson(Parse("[[5,6]]")));
+        _status = "appended";
+    }
+
+    private async Task Unsupported()
+    {
+        await Instance.SetOptionAsync(Parse("""{"animation":false,"xAxis":{},"yAxis":{},"series":[{"type":"bar","data":[1]}]}"""), true, false);
+        await Instance.AppendDataAsync(0, EChartsValue.FromJson(Parse("[2]")));
+    }
+
+    private async Task Loading()
+    {
+        await Instance.ShowLoadingAsync("default", new ChartLoadingOptions { Text = "Loading", ShowSpinner = false });
+        _status = "loading";
+    }
+
+    private async Task Resize()
+    {
+        await Instance.HideLoadingAsync();
+        await Instance.ResizeAsync(new ChartResizeOptions { Width = 600, Height = 320, Silent = true });
+        await Instance.UpdateLabelLayoutAsync();
+        _status = "resized:" + await Instance.GetWidthAsync();
+    }
+
+    private async Task Clear()
+    {
+        await Instance.ClearAsync();
+        await using var snapshot = await Instance.GetOptionAsync();
+        _status = "cleared:" + OptionSerializer.Serialize(snapshot.Options, Runtime.Serialization).Json.GetProperty("series").GetArrayLength();
+    }
+
+    private async Task DisposeChart()
+    {
+        var instance = Instance;
+        await instance.DisposeAsync();
+        _status = "disposed:" + instance.IsDisposed;
+    }
+
+    private async Task NativeEvents()
+    {
+        var empty = await Instance.IsSilentAsync("primitive");
+        await using var subscription = await Instance.SubscribeAsync(new ChartEvent<JsonElement>("primitive", v => v.Clone()), e => InvokeAsync(() =>
+        {
+            _events++;
+            StateHasChanged();
+        }));
+        var subscribed = await Instance.IsSilentAsync("primitive");
+        await Instance.TriggerAsync("primitive", [EChartsValue.FromJson(Parse("{\"value\":0}"))]);
+        await Instance.TriggerWithContextAsync("nativecontext", [EChartsValue.From(0)], EChartsValue.FromJson(Parse("{\"marker\":2}")));
+        var action = await Instance.MakeActionFromEventAsync(Parse("{\"type\":\"legendselectchanged\",\"name\":\"A\"}"));
+        _status = "events:" + empty + ":" + subscribed + ":" + action.Type;
+    }
+
+    private async Task ThemeLayout()
+    {
+        await Instance.SetThemeAsync(new ChartOptions { BackgroundColor = "#123456" }, new ChartSetThemeOptions { Silent = true });
+        await Instance.SetOptionAsync(Parse("""{"animation":false,"calendar":{"range":"2026-10","cellSize":[30,30]},"series":[]}"""), true, false);
+        var date = CoordinateValue.From(new DateTimeOffset(2026, 10, 17, 12, 0, 0, TimeSpan.Zero));
+        var layout = await Instance.ConvertToLayoutAsync(ChartFinder.Component("calendar"), date);
+        _result = "{\"width\":" + layout.Rect!.Width + ",\"height\":" + layout.Rect.Height + ",\"content\":" + layout.ContentRect!.Width + "}";
+        _status = "theme layout";
+    }
+
+    private async Task PartialMatrix()
+    {
+        await Instance.SetOptionAsync(
+            Parse("""{"animation":false,"matrix":{"x":{"data":["X0","X1"]},"y":{"data":["Y0","Y1"]}},"series":[]}"""),
+            true,
+            false);
+        var point = await Instance.ConvertToPixelAsync(ChartFinder.Component("matrix"), CoordinateValue.Array(default, 0));
+        var layout = await Instance.ConvertToLayoutAsync(ChartFinder.Component("matrix"), CoordinateValue.Array(default, 0));
+        var data = await Instance.ConvertFromPixelAsync(ChartFinder.Component("matrix"), new double[] { -100, point.Numbers![1] });
+        var nanPoint = await Instance.ConvertToPixelAsync(ChartFinder.Component("matrix"), CoordinateValue.Array(double.NaN, 0));
+        var nanData = await Instance.ConvertFromPixelAsync(ChartFinder.Component("matrix"), point.Numbers!);
+        _status = "matrix:"
+            + (double.IsNaN(point.Numbers![0]) && double.IsNaN(nanPoint.Numbers![0]))
+            + ":"
+            + (double.IsFinite(point.Numbers[1]) && double.IsFinite(nanPoint.Numbers![1]))
+            + ":"
+            + double.IsNaN(layout.Rect!.X)
+            + ":"
+            + double.IsFinite(layout.Rect.Y)
+            + ":"
+            + (double.IsNaN(data.Numbers![0]) && double.IsNaN(nanData.Numbers![0]))
+            + ":"
+            + (double.IsFinite(data.Numbers[1]) && double.IsFinite(nanData.Numbers![1]));
+    }
+
+    private async Task MultiFinder()
+    {
+        await Instance.SetOptionAsync(
+            Parse("""{"animation":false,"grid":{"left":40,"right":40,"top":30,"bottom":30},"xAxis":[{"id":"x0","min":0,"max":10},{"id":"x1","min":0,"max":100}],"yAxis":[{"id":"y0","min":0,"max":10},{"id":"y1","min":0,"max":1000}],"series":[{"type":"scatter","data":[[1,2]]}]}"""),
+            true,
+            false);
+        var combined = await Instance.ConvertToPixelAsync(
+            ChartFinder.Select("xAxis", index: 1).And("yAxis", id: "y1"),
+            CoordinateValue.Array(25, 750));
+        var back = await Instance.ConvertFromPixelAsync(ChartFinder.Select("xAxis", id: "x1").And("yAxis", index: 1), combined.Numbers!);
+        _result = JsonSerializer.Serialize(new Dictionary<string, double[]> { ["combined"] = combined.Numbers!, ["back"] = back.Numbers! });
+        _status = "multi finder";
+    }
+
+    private async Task MatrixClamp()
+    {
+        await Instance.SetOptionAsync(
+            Parse("""{"animation":false,"matrix":{"x":{"data":["X0","X1"]},"y":{"data":["Y0","Y1"]}},"series":[]}"""),
+            true,
+            false);
+        var matrix = ChartFinder.Component("matrix");
+        var clamp = new ChartConvertOptions { Clamp = ChartMatrixClamp.All };
+        var unclamped = await Instance.ConvertToLayoutAsync(matrix, CoordinateValue.Array(10000, 1));
+        var clamped = await Instance.ConvertToLayoutAsync(matrix, CoordinateValue.Array(10000, 1), clamp);
+        var pixel = await Instance.ConvertToPixelAsync(matrix, CoordinateValue.Array(10000, 1), clamp);
+        var data = await Instance.ConvertFromPixelAsync(matrix, new double[] { -100, clamped.Rect!.Y + 1 }, clamp);
+        var body = await Instance.ConvertToLayoutAsync(
+            matrix,
+            CoordinateValue.Array(-10000, 1),
+            new ChartConvertOptions { Clamp = ChartMatrixClamp.Body, IgnoreMergeCells = true });
+        _status = "clamp:"
+            + double.IsNaN(unclamped.Rect!.X)
+            + ":"
+            + double.IsFinite(clamped.Rect.X)
+            + ":"
+            + double.IsFinite(pixel.Numbers![0])
+            + ":"
+            + double.IsFinite(data.Numbers![0])
+            + ":"
+            + body.MatrixXYLocatorRange![0][0];
+    }
+
+    private async Task ImperativeTheme()
+    {
+        await Instance.SetThemeAsync(new ChartOptions { BackgroundColor = "#123456" });
+        _status = "imperative theme";
+    }
+
+    private void RecreateRenderer() => _init = new ChartInitOptions { Renderer = "svg" };
+}

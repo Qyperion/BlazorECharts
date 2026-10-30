@@ -1,0 +1,271 @@
+@using System.Globalization
+@using System.Text.Json
+@using BlazorECharts
+@using BlazorECharts.Events
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Serialization.Generated
+@using BlazorECharts.Testing
+@using BlazorECharts.Values
+@inject EChartsRuntime Runtime
+@implements IAsyncDisposable
+
+<h1>Selection, timeline, axis break, pointer and other action events</h1>
+<p data-testid="ready">@_ready</p>
+<p data-testid="status">@_status</p>
+<button @onclick="() => Run(Legend)">Legend actions</button>
+<button @onclick="() => Run(Geo)">Geo actions</button>
+<button @onclick="() => Run(Timeline)">Timeline actions</button>
+<button @onclick="() => Run(AxisBreak)">Axis break actions</button>
+<button @onclick="() => Run(Pointer)">Pointer fixture</button>
+<button @onclick="() => Run(SeriesSelection)">Series selection actions</button>
+<button @onclick="() => Run(Restore)">Restore action</button>
+<button @onclick="() => Run(TreemapZoom)">Treemap zoom action</button>
+<button @onclick="() => Run(VisualMapRange)">Visual map range action</button>
+<button @onclick="() => Run(DataZoomCursor)">Data zoom cursor action</button>
+<button @onclick="() => Run(Brush)">Brush action</button>
+<button @onclick="() => Run(TreeRoam)">Tree roam fixture</button>
+@* The chart stays above the growing event lists, so pointer coordinates do not move during a test. *@
+<EChart @ref="_chart" Class="interaction-chart" Style="width:600px;height:340px" Options="_options" OnReady="Ready" />
+<pre data-testid="events">@string.Join("\n", _events.OrderBy(e => e.Key, StringComparer.Ordinal).Select(e => $"{e.Key} {e.Value}"))</pre>
+<pre data-testid="counts">@string.Join("\n", _counts.OrderBy(e => e.Key, StringComparer.Ordinal).Select(e => $"{e.Key} {e.Value}"))</pre>
+
+@code {
+    private EChart? _chart;
+    private readonly ChartOptions _options = Read("""{"animation":false,"series":[]}""");
+    private readonly Dictionary<string, string> _events = [];
+
+    // Every delivery counts: a summary keeps only the last event of a type, so a double delivery shows here.
+    private readonly Dictionary<string, int> _counts = [];
+
+    private readonly List<ChartSubscription> _subscriptions = [];
+    private string _ready = "waiting";
+    private string _status = "initial";
+
+    private EChartInstance Chart => _chart!.Instance!;
+
+    private static ChartOptions Read(string json)
+    {
+        using var d = JsonDocument.Parse(json);
+        return GeneratedOptionMetadata.ReadChartOptions(d.RootElement);
+    }
+
+    private static string Selected(IReadOnlyDictionary<string, bool>? selected) =>
+        string.Join(",", (selected ?? new Dictionary<string, bool>()).OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => $"{p.Key}={p.Value}"));
+
+    private Task Record(string type, string summary) => InvokeAsync(() =>
+    {
+        _events[type] = summary;
+        _counts[type] = _counts.GetValueOrDefault(type) + 1;
+        StateHasChanged();
+    });
+
+    private async Task Run(Func<Task> action)
+    {
+        try
+        {
+            _events.Clear();
+            _counts.Clear();
+            await action();
+        }
+        catch (Exception error)
+        {
+            _status = "error:" + error.Message;
+        }
+    }
+
+    private static string Numbers(EventActionValue? value) => value is { } v && v.TryGetNumbers(out var numbers) ? string.Join(",", numbers) : "";
+
+    private async Task Apply(string json)
+    {
+        await Chart.SetOptionAsync(Read(json), new SetOptionOptions { NotMerge = true });
+        await Chart.AwaitStableAsync();
+    }
+
+    private async Task Dispatch(ChartAction action)
+    {
+        await Chart.DispatchActionAsync(action);
+        await Chart.AwaitStableAsync();
+    }
+
+    private async Task Ready(EChartInstance chart)
+    {
+        async Task On<T>(ChartEvent<T> e, Func<T, string> summary) where T : ChartEventPayload =>
+            _subscriptions.Add(await chart.SubscribeAsync(e, payload => Record(payload.Raw.GetProperty("type").GetString()!, summary(payload))));
+
+        await On(ChartEvents.LegendSelected, e => $"{e.Name}|{Selected(e.Selected)}");
+        await On(ChartEvents.LegendUnselected, e => $"{e.Name}|{Selected(e.Selected)}");
+        await On(ChartEvents.LegendSelectChanged, e => $"{e.Name}|{Selected(e.Selected)}");
+        await On(ChartEvents.LegendSelectAll, e => $"{string.Join(",", e.LegendIndex ?? [])}|{Selected(e.Selected)}");
+        await On(ChartEvents.LegendInverseSelect, e => $"{string.Join(",", e.LegendIndex ?? [])}|{Selected(e.Selected)}");
+        await On(ChartEvents.LegendScroll, e => $"{e.ScrollDataIndex}|{e.LegendId}");
+        await On(ChartEvents.GeoSelected, e => $"{e.Name}|{Selected(e.Selected)}");
+        await On(ChartEvents.GeoUnselected, e => $"{e.Name}|{Selected(e.Selected)}");
+        await On(ChartEvents.GeoSelectChanged, e => $"{e.Name}|{Selected(e.Selected)}|{e.AllSelected?.Length}");
+        await On(ChartEvents.TimelineChanged, e => $"{e.CurrentIndex}");
+        await On(ChartEvents.TimelinePlayChanged, e => $"{e.PlayState}");
+        await On(ChartEvents.AxisBreakChanged, e => $"{e.FromAction}|" + string.Join(",", (e.Breaks ?? []).Select(b =>
+            $"{b.Start?.Json.GetRawText()}-{b.End?.Json.GetRawText()}:{b.IsExpanded}/{b.Old?.IsExpanded}")));
+
+        string Pointer(string? componentType, string? seriesName, int? dataIndex) => $"{componentType}|{seriesName}|{dataIndex}";
+
+        await On(ChartEvents.MouseOver, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.MouseMove, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.MouseDown, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.MouseUp, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.Click, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.DoubleClick, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.ContextMenu, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.MouseOut, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(ChartEvents.GlobalOut, e => Pointer(e.ComponentType, e.SeriesName, e.DataIndex));
+        await On(
+            ChartEvents.SelectChanged,
+            e => $"{e.FromAction}|" + string.Join(";", (e.Selected ?? []).Select(s => $"{s.SeriesIndex}:{string.Join(",", s.DataIndex ?? [])}")));
+        await On(ChartEvents.Restore, e => e.Type ?? "");
+        await On(ChartEvents.DataRangeSelected, e => $"{e.VisualMapId}|{Numbers(e.Selected)}");
+        await On(ChartEvents.GlobalCursorTaken, e => $"{e.Key}|{e.DataZoomSelectActive}");
+        await On(ChartEvents.Brush, e => string.Join(";", (e.Areas ?? []).Select(a => $"{a.BrushType}:{Numbers(a.CoordRange)}")));
+        await On(ChartEvents.TreeRoam, e => $"{e.ComponentType}|{e.SeriesId}|zoomed={e.Zoom > 1}");
+        _ready = "ready";
+        StateHasChanged();
+    }
+
+    private async Task Legend()
+    {
+        await Apply("""
+            {"animation":false,"legend":{"id":"legend","type":"scroll","left":0,"width":180,"data":["A","B","C","D","E","F"]},
+             "grid":{"top":60},"xAxis":{"type":"category","data":["X"]},"yAxis":{},
+             "series":[{"name":"A","type":"bar","data":[1]},{"name":"B","type":"bar","data":[2]},{"name":"C","type":"bar","data":[3]},
+                       {"name":"D","type":"bar","data":[4]},{"name":"E","type":"bar","data":[5]},{"name":"F","type":"bar","data":[6]}]}
+            """);
+        await Dispatch(new LegendUnselectAction { Name = "A" });
+        await Dispatch(new LegendSelectAction { Name = "A" });
+        await Dispatch(new LegendInverseSelectAction { LegendId = "legend" });
+        await Dispatch(new LegendAllSelectAction { LegendIndex = 0 });
+        await Dispatch(new LegendScrollAction { LegendId = "legend", ScrollDataIndex = 3 });
+        _status = "legend";
+    }
+
+    private async Task Geo()
+    {
+        using var map = JsonDocument.Parse("""
+            {"type":"FeatureCollection","features":[
+             {"type":"Feature","properties":{"name":"Left"},"geometry":{"type":"Polygon","coordinates":[[[0,0],[1,0],[1,1],[0,1],[0,0]]]}},
+             {"type":"Feature","properties":{"name":"Right"},"geometry":{"type":"Polygon","coordinates":[[[2,0],[3,0],[3,1],[2,1],[2,0]]]}}]}
+            """);
+        await Runtime.RegisterMapAsync("interaction-geo", map.RootElement);
+        await Apply("""{"animation":false,"geo":{"id":"geo","map":"interaction-geo","selectedMode":"multiple"}}""");
+        await Dispatch(new GeoSelectAction { GeoId = "geo", Name = "Left" });
+        await Dispatch(new GeoUnselectAction { GeoId = "geo", Name = "Left" });
+        await Dispatch(new GeoToggleSelectAction { GeoId = "geo", Name = "Right" });
+        _status = "geo";
+    }
+
+    private async Task Timeline()
+    {
+        await Chart.SetOptionAsync(ComponentOptionFixtures.Timeline(), new SetOptionOptions { NotMerge = true });
+        await Chart.AwaitStableAsync();
+        await Dispatch(new TimelineChangeAction { CurrentIndex = 1 });
+        await Dispatch(new TimelinePlayChangeAction { PlayState = false });
+        _status = "timeline";
+    }
+
+    private async Task AxisBreak()
+    {
+        await Apply("""
+            {"animation":false,"xAxis":{"type":"category","data":["A","B","C"]},
+             "yAxis":{"type":"value","breaks":[{"start":200,"end":900,"gap":"10%"}]},
+             "series":[{"type":"bar","data":[50,1000,120]}]}
+            """);
+        var range = new ChartAxisBreakIdentifier { Start = 200d, End = 900d };
+        await Dispatch(new ExpandAxisBreakAction { YAxisIndex = 0d, Breaks = [range] });
+        var expanded = _events.GetValueOrDefault("axisbreakchanged");
+        await Dispatch(new CollapseAxisBreakAction { YAxisIndex = 0d, Breaks = [range] });
+        var collapsed = _events.GetValueOrDefault("axisbreakchanged");
+        await Dispatch(new ToggleAxisBreakAction { YAxisIndex = 0d, Breaks = [range] });
+        _status = $"axis break {expanded} {collapsed}";
+    }
+
+    private async Task Pointer()
+    {
+        await Apply("""{"animation":false,"grid":{"left":60,"right":60,"top":40,"bottom":40},"xAxis":{"type":"category","data":["A","B"]},"yAxis":{"max":10},"series":[{"name":"Pointer","type":"bar","barWidth":"60%","data":[10,10]}]}""");
+        _status = "pointer";
+    }
+
+    private async Task SeriesSelection()
+    {
+        await Apply("""{"animation":false,"series":[{"id":"pie","type":"pie","selectedMode":"multiple","data":[{"name":"A","value":1},{"name":"B","value":2},{"name":"C","value":3}]}]}""");
+        await Dispatch(new SelectAction { SeriesId = "pie", DataIndex = 0d });
+        var selected = _events.GetValueOrDefault("selectchanged");
+        await Dispatch(new UnselectAction { SeriesId = "pie", DataIndex = 0d });
+        var unselected = _events.GetValueOrDefault("selectchanged");
+        await Dispatch(new ToggleSelectAction { SeriesId = "pie", Name = "B" });
+        _status = $"selection {selected} {unselected}";
+    }
+
+    private async Task Restore()
+    {
+        await Apply("""
+            {"animation":false,"toolbox":{"feature":{"restore":{}}},"dataZoom":[{"type":"inside","start":0,"end":100}],
+             "xAxis":{"type":"category","data":["A","B","C","D"]},"yAxis":{},"series":[{"type":"line","data":[1,2,3,4]}]}
+            """);
+        await Dispatch(new DataZoomAction { Start = 25d, End = 75d });
+        await Dispatch(new RestoreAction());
+        _status = "restore";
+    }
+
+    private async Task TreemapZoom()
+    {
+        await Apply("""
+            {"animation":false,"series":[{"id":"treemap","type":"treemap","data":[
+             {"id":"a","name":"A","children":[{"id":"a1","name":"A1","value":1}]},{"id":"b","name":"B","value":99}]}]}
+            """);
+        await Dispatch(new TreemapZoomToNodeAction { SeriesId = "treemap", TargetNodeId = "a" });
+        _status = "treemap";
+    }
+
+    private async Task VisualMapRange()
+    {
+        await Apply("""
+            {"animation":false,"visualMap":{"id":"range","type":"continuous","min":0,"max":100,"calculable":true},
+             "xAxis":{"type":"category","data":["A","B"]},"yAxis":{},"series":[{"type":"bar","data":[30,70]}]}
+            """);
+        await Dispatch(new SelectDataRangeAction { VisualMapId = "range", Selected = new double[] { 20, 60 } });
+        _status = "visual map";
+    }
+
+    private async Task DataZoomCursor()
+    {
+        await Apply("""
+            {"animation":false,"toolbox":{"feature":{"dataZoom":{}}},
+             "xAxis":{"type":"category","data":["A","B","C"]},"yAxis":{},"series":[{"type":"line","data":[1,2,3]}]}
+            """);
+        await Dispatch(new TakeGlobalCursorAction { Key = "dataZoomSelect", DataZoomSelectActive = true });
+        _status = "data zoom cursor";
+    }
+
+    private async Task Brush()
+    {
+        await Apply("""
+            {"animation":false,"brush":{"xAxisIndex":0},"xAxis":{"type":"category","data":["A","B","C","D"]},"yAxis":{},
+             "series":[{"type":"bar","data":[1,2,3,4]}]}
+            """);
+        await Dispatch(new BrushAction { Areas = [new ChartBrushArea { BrushType = "lineX", XAxisIndex = 0d, CoordRange = new double[] { 1, 2 } }] });
+        _status = "brush";
+    }
+
+    private async Task TreeRoam()
+    {
+        await Apply("""
+            {"animation":false,"series":[{"id":"tree","type":"tree","roam":true,"top":40,"bottom":40,"left":80,"right":80,
+             "data":[{"name":"Root","children":[{"name":"Left"},{"name":"Right"}]}]}]}
+            """);
+        _status = "tree roam";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var subscription in _subscriptions)
+            await subscription.DisposeAsync();
+    }
+}

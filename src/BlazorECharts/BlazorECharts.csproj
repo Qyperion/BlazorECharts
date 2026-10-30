@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <!-- The nuget.org id carries the owner prefix; the assembly, namespace and _content path keep the library name. -->
+    <PackageId>Qyperion.BlazorECharts</PackageId>
+    <StaticWebAssetBasePath>_content/BlazorECharts</StaticWebAssetBasePath>
+
+    <Description>Typed Blazor components and C# API for Apache ECharts 6.1.0. The pinned ECharts runtime is included as static web assets.</Description>
+    <!-- The package distributes ECharts (Apache-2.0) with the bundled ZRender (BSD-3-Clause) and tslib (0BSD). -->
+    <PackageLicenseExpression>MIT AND Apache-2.0 AND BSD-3-Clause AND 0BSD</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BlazorECharts.Tests" />
+    <InternalsVisibleTo Include="BlazorECharts.ComponentTests" />
+    <!-- The browser lifecycle probe displays the internal initialization generation. -->
+    <InternalsVisibleTo Include="BrowserHost.Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The lowest patch keeps applications on older patches restorable; the tests and samples run on the central version. -->
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- TypeScript sources and their tsconfig are build inputs of wwwroot/js, not content for consumers. -->
+    <Content Remove="JavaScript/**" />
+    <None Include="JavaScript/**" Pack="false" />
+  </ItemGroup>
+
+  <Target Name="RequireBuiltEChartsAssets" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('wwwroot/js/assets-manifest.json')" Text="Pinned ECharts assets are missing. Developers must run npm run assets:acquire and npm run assets:build before building the RCL." />
+  </Target>
+
+</Project>

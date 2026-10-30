@@ -1,0 +1,55 @@
+<p data-testid="status">@_status</p>
+<p data-testid="png-length">@_pngLength</p>
+<pre data-testid="png-export" hidden>@_png</pre>
+<pre data-testid="svg-export" hidden>@_svg</pre>
+<EChart Class="bar-chart" Style="width:640px;height:320px" Options="_bar" InitOptions="_svgRenderer" OnReady="BarReadyAsync" OnError="Failed" />
+<EChart Class="cloud-chart" Style="width:640px;height:320px" Options="_cloud" OnReady="CloudReadyAsync" OnError="Failed" />
+
+@code {
+    private readonly ChartOptions _bar = ConsumerCharts.Bar("packaged");
+    private readonly ChartOptions _cloud = ConsumerCharts.Cloud();
+    private readonly ChartInitOptions _svgRenderer = new() { Renderer = "svg" };
+    private EChartInstance? _barInstance;
+    private EChartInstance? _cloudInstance;
+    private string _status = "loading";
+    private string _svg = "";
+    private string _png = "";
+    private int _pngLength;
+    private bool _completing;
+
+    private Task BarReadyAsync(EChartInstance instance)
+    {
+        _barInstance = instance;
+        return CompleteAsync();
+    }
+
+    private Task CloudReadyAsync(EChartInstance instance)
+    {
+        _cloudInstance = instance;
+        return CompleteAsync();
+    }
+
+    private void Failed(EChartsError error) => _status = $"failed: {error.Code}: {error.Message}";
+
+    // Exports run after stable rendering: for the word cloud that is the end of its layout.
+    private async Task CompleteAsync()
+    {
+        if (_barInstance is null || _cloudInstance is null || _completing)
+            return;
+
+        _completing = true;
+        try
+        {
+            await _barInstance.AwaitStableAsync();
+            _svg = await _barInstance.RenderToSvgStringAsync();
+            await _cloudInstance.AwaitStableAsync();
+            _png = await _cloudInstance.GetDataUrlAsync();
+            _pngLength = _png.Length;
+            _status = "ready";
+        }
+        catch (Exception error)
+        {
+            _status = $"failed: {error.GetType().Name}: {error.Message}";
+        }
+    }
+}

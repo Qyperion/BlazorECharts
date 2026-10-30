@@ -1,0 +1,24 @@
+@* Shows the actual render mode and, in a Blazor Web App, reloads the page in another mode. *@
+<nav class="hosting-switch" aria-label="Render mode">
+    <span class="hosting-current" data-testid="render-mode">@CurrentMode</span>
+    @foreach (var mode in Host.Modes)
+    {
+        <a href="@Link(mode)" aria-current="@(Selected == mode ? "page" : null)" target="_top">@Label(mode)</a>
+    }
+</nav>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+    [Inject] private DemoHostInfo Host { get; set; } = default!;
+
+    private string CurrentMode => RendererInfo.IsInteractive ? $"Interactive {RendererInfo.Name}" : "Prerendered";
+
+    // The query selects the mode at load time; client-side navigation keeps the mode but drops the query.
+    private string Selected => new Uri(Navigation.Uri).Query.Contains("hosting=auto", StringComparison.Ordinal) ? "auto"
+        : new Uri(Navigation.Uri).Query.Contains("hosting=wasm", StringComparison.Ordinal) || RendererInfo.Name == "WebAssembly" ? "wasm"
+        : "server";
+
+    private static string Label(string mode) => mode switch { "wasm" => "WebAssembly", "auto" => "Auto", _ => "Server" };
+
+    private string Link(string mode) => Navigation.GetUriWithQueryParameter("hosting", mode == "server" ? null : mode);
+}

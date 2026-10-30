@@ -1,0 +1,91 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Events
+@using BlazorECharts.Values
+@inherits ExampleBase
+@implements IAsyncDisposable
+
+<div class="example-controls" role="group" aria-label="Dispatch actions">
+    <button type="button" @onclick="HighlightAsync">Highlight Saturday</button>
+    <button type="button" @onclick="DownplayAsync">Remove highlight</button>
+    <button type="button" @onclick="ShowTipAsync">Show tooltip for Friday</button>
+    <button type="button" @onclick="ToggleReceivedAsync">Toggle “Received”</button>
+</div>
+<EChart Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="OnReadyAsync" OnError="FailAsync" />
+<div class="example-output" aria-live="polite">
+    <strong>Events</strong> (click a bar or a legend item)
+    <ol data-testid="event-log">
+        @foreach (var entry in _events)
+        {
+            <li>@entry</li>
+        }
+    </ol>
+</div>
+
+@code {
+    private readonly List<string> _events = [];
+    private readonly List<ChartSubscription> _subscriptions = [];
+    private EChartInstance? _chart;
+    private ChartOptions? _options;
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        Tooltip = new TooltipOption { Trigger = "item" },
+        Legend = new LegendOption { Bottom = 0 },
+        XAxis = new XAxisCategoryOption { Data = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] },
+        YAxis = new YAxisValueOption(),
+        Series =
+        [
+            new BarSeriesOption { Name = "Sent", Data = [12, 19, 15, 22, 30, 41, 28] },
+            new BarSeriesOption { Name = "Received", Data = [18, 21, 17, 25, 35, 52, 33] },
+        ],
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+
+    private async Task OnReadyAsync(EChartInstance chart)
+    {
+        _chart = chart;
+
+        // Listeners are attached only for subscribed events. Handlers run outside the chart command queue.
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.Click, e => LogAsync(
+            $"click: {e.SeriesName} / {e.Name} = {(e.Value is { } value && value.TryGetNumber(out var number) ? number : null)}")));
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.LegendSelectChanged, e => LogAsync(
+            $"legendselectchanged: {e.Name} → {(e.Selected?.GetValueOrDefault(e.Name ?? "") == true ? "shown" : "hidden")}")));
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.Highlight, _ => LogAsync("highlight")));
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.ShowTip, e => LogAsync($"showtip: data index {e.DataIndex}")));
+        await ReadyAsync(chart);
+    }
+
+    private Task LogAsync(string entry) => InvokeAsync(() =>
+    {
+        _events.Insert(0, entry);
+        if (_events.Count > 6)
+            _events.RemoveAt(_events.Count - 1);
+
+        StateHasChanged();
+    });
+
+    private Task HighlightAsync() => RunAsync(() => Dispatch(new HighlightAction { SeriesIndex = 1, DataIndex = 5 }));
+
+    private Task DownplayAsync() => RunAsync(() => Dispatch(new DownplayAction { SeriesIndex = 1, DataIndex = 5 }));
+
+    private Task ShowTipAsync() => RunAsync(() => Dispatch(new ShowTipAction { SeriesIndex = 0, DataIndex = 4 }));
+
+    private Task ToggleReceivedAsync() => RunAsync(() => Dispatch(new LegendToggleSelectAction { Name = "Received" }));
+
+    private async Task Dispatch(ChartAction action)
+    {
+        if (_chart is not null)
+            await _chart.DispatchActionAsync(action);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var subscription in _subscriptions)
+            await subscription.DisposeAsync();
+    }
+}

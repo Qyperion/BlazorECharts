@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BlazorECharts/BlazorECharts.csproj" />
+    <Project Path="src/BlazorECharts.WordCloud/BlazorECharts.WordCloud.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/BlazorECharts.Examples/BlazorECharts.Examples.csproj" />
+    <Project Path="samples/BlazorECharts.Demo.Client/BlazorECharts.Demo.Client.csproj" />
+    <Project Path="samples/BlazorECharts.Demo/BlazorECharts.Demo.csproj" />
+    <Project Path="samples/BlazorECharts.Standalone/BlazorECharts.Standalone.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BlazorECharts.Tests/BlazorECharts.Tests.csproj" />
+    <Project Path="tests/BlazorECharts.ComponentTests/BlazorECharts.ComponentTests.csproj" />
+    <Project Path="tests/BrowserHost/BrowserHost.csproj" />
+    <Project Path="tests/BrowserHost.Client/BrowserHost.Client.csproj" />
+    <Project Path="tests/Documentation/DocumentationExamples.csproj" />
+  </Folder>
+</Solution>

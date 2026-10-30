@@ -1,0 +1,197 @@
+@using System.Text.Json
+@using BlazorECharts.Events
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Values
+@using BlazorECharts.WordCloud
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+<h1>WordCloud registration</h1>
+<p data-testid="status">@_status</p>
+<button @onclick="() => Run(RoundTrip)">Round trip</button>
+<button @onclick="() => Run(DisposeFirst)">Dispose first</button>
+<button @onclick="() => Run(BrokenMask)">Broken mask</button>
+<button @onclick="() => Run(Inline)">Inline</button>
+<button @onclick="() => Run(Mask)">Mask</button>
+<button @onclick="() => Run(TextStyles)">Text styles</button>
+<button @onclick="() => Run(SubscribeClick)">Subscribe click</button>
+<p data-testid="clicked">@_clicked</p>
+<div class="wordcloud-chart" style="width:700px;height:400px" @ref="_first"></div>
+<div class="wordcloud-chart" style="width:700px;height:400px" @ref="_second"></div>
+@code {
+    private ElementReference _first;
+    private ElementReference _second;
+    private EChartsRuntime? _a;
+    private EChartsRuntime? _b;
+    private EChartInstance? _one;
+    private EChartInstance? _two;
+    private string _status = "waiting";
+    private string _clicked = "";
+    private ChartSubscription<ClickEvent>? _click;
+
+    private string Module => new Uri(new Uri(Navigation.BaseUri), "modules/wordcloud-functions.js").AbsoluteUri;
+
+    private EChartsRuntime CreateRuntime()
+    {
+        var builder = new ServiceCollection().AddECharts(o =>
+        {
+            o.AllowInlineJavaScript = Navigation.Uri.Contains("inline=1");
+            o.MaximumServerResultSize = 4 * 1024 * 1024;
+        }).AddWordCloud();
+        return new(JS, Navigation, builder.Options);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        await Run(async () =>
+        {
+            _a = CreateRuntime();
+            _b = CreateRuntime();
+            _one = await _a.CreateInstanceAsync(_first);
+            _two = await _b.CreateInstanceAsync(_second);
+            await _one.SetOptionAsync(Options());
+            await _two.SetOptionAsync(Options());
+            _status = "ready";
+        });
+        StateHasChanged();
+    }
+
+    private WordCloudSeriesOption Words() => new()
+    {
+        Left = "center",
+        Top = "center",
+        Width = "90%",
+        Height = "90%",
+        SizeRange = [12, 12],
+        RotationRange = [0, 0],
+        GridSize = 4,
+        KeepAspect = false,
+        ShrinkToFit = false,
+        LayoutAnimation = true,
+        Shape = JsFunction.Module<WordCloudShapeSignature>(Module, "shape"),
+        TextStyle = new WordCloudTextStyle { FontFamily = "Arial", Color = JsFunction.Module<WordCloudColorSignature>(Module, "color") },
+        Emphasis = new WordCloudState { Focus = "self", TextStyle = new WordCloudItemTextStyle { TextShadowBlur = 2 } },
+        Data = Enumerable.Range(0, 20).Select(i => new WordCloudDataItem { Name = $"Word{i:00}", Value = i + 1 }).ToArray(),
+    };
+
+    private ChartOptions Options()
+    {
+        var pie = new PieSeriesOption();
+        pie.AdditionalProperties["data"] = EChartsValue.Array(EChartsValue.From(2), EChartsValue.From(3));
+        pie.AdditionalProperties["radius"] = EChartsValue.Array(EChartsValue.From(0), EChartsValue.From(12));
+        return new ChartOptions { Animation = false, Series = OneOrMany<SeriesOption>.Many(pie, Words()) };
+    }
+
+    private async Task Run(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception e)
+        {
+            _status = "error:" + e.Message;
+        }
+    }
+
+    private async Task RoundTrip()
+    {
+        await using var snapshot = await _two!.GetOptionAsync();
+        await _two.SetOptionAsync(snapshot, new SetOptionOptions { NotMerge = true });
+        _status = "roundtrip";
+    }
+
+    private async Task DisposeFirst()
+    {
+        await _a!.DisposeAsync();
+        await _two!.GetWidthAsync();
+        _status = "survived";
+    }
+
+    private async Task BrokenMask()
+    {
+        await using var image = await _b!.CreateImageAsync(new Uri(new Uri(Navigation.BaseUri), "modules/missing-wordcloud-mask.png").AbsoluteUri);
+    }
+
+    private async Task Mask()
+    {
+        await using var image = await _b!.CreateImageAsync(new Uri(new Uri(Navigation.BaseUri), "modules/wordcloud-mask.svg").AbsoluteUri);
+        var words = Words();
+        words.MaskImage = image;
+        words.KeepAspect = true;
+        await _two!.SetOptionAsync(
+            new ChartOptions { Animation = false, Series = OneOrMany<SeriesOption>.One(words) },
+            new SetOptionOptions { NotMerge = true });
+        _status = "mask";
+    }
+
+    private async Task Inline()
+    {
+        var words = Words();
+        words.Shape = JsFunction.Inline<WordCloudShapeSignature>("theta => 1");
+        words.TextStyle!.Color = JsFunction.Inline<WordCloudColorSignature>("() => '#2468ac'");
+        await _two!.SetOptionAsync(
+            new ChartOptions { Animation = false, Series = OneOrMany<SeriesOption>.One(words) },
+            new SetOptionOptions { NotMerge = true });
+        _status = "inline";
+    }
+
+    private async Task TextStyles()
+    {
+        var words = Words();
+        words.Data = [new WordCloudDataItem { Name = "{token|Long synthetic word}", Value = 1 }];
+        words.TextStyle = new WordCloudTextStyle
+        {
+            FontFamily = "Arial",
+            Width = 60,
+            BorderType = new double[] { 4, 2 },
+            BorderWidth = 1,
+            BorderColor = "red",
+            TextBorderType = 3,
+            TextBorderWidth = 1,
+            TextBorderColor = "blue",
+            Overflow = "truncate",
+            LineOverflow = "truncate",
+            Ellipsis = "~",
+            RichInheritPlainLabel = false,
+            Rich = new WordCloudRichText
+            {
+                ["token"] = new WordCloudItemTextStyle { Color = "red", FontSize = 12, TextBorderType = new double[] { 2, 1 } },
+            },
+        };
+        await _two!.SetOptionAsync(
+            new ChartOptions { Animation = false, Series = OneOrMany<SeriesOption>.One(words) },
+            new SetOptionOptions { NotMerge = true });
+        await using var snapshot = await _two.GetOptionAsync();
+        await _two.SetOptionAsync(snapshot, new SetOptionOptions { NotMerge = true });
+        _status = "textstyles";
+    }
+
+    private async Task SubscribeClick()
+    {
+        _click = await _two!.SubscribeAsync(ChartEvents.Click, async e =>
+        {
+            _clicked = $"{e.ComponentType}:{e.SeriesType}:{e.SeriesIndex}:{e.DataIndex}:{e.Name}";
+            await InvokeAsync(StateHasChanged);
+        });
+        _status = "subscribed";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_click is not null)
+            await _click.DisposeAsync();
+
+        if (_a is not null)
+            await _a.DisposeAsync();
+
+        if (_b is not null)
+            await _b.DisposeAsync();
+    }
+}

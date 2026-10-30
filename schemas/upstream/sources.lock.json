@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "packages": [
+    {
+      "name": "echarts",
+      "version": "6.1.0",
+      "url": "https://registry.npmjs.org/echarts/-/echarts-6.1.0.tgz",
+      "integrity": "sha512-q0yaFPggC9FUdsWH4blavRWFmxdrIodbkoKNAjJudAI6CA9gNPxHtV2RcZNEepZVlk4yvBYkOkbk6HIVpIyHZA==",
+      "upstreamCommit": "c5a48f5f97d23e5379720870b8444cd05b50ffb4",
+      "repository": "https://github.com/apache/echarts",
+      "license": "Apache-2.0",
+      "notices": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "declarations": [
+        "types/dist/all.d.ts",
+        "types/dist/echarts.d.cts",
+        "types/dist/echarts.d.ts",
+        "types/dist/shared.d.ts",
+        "types/dist/option.d.ts",
+        "index.d.ts"
+      ],
+      "sha256": "681aff88cc1038c3fa941a3a53d1b177a52250b05335efc607d6105ae13be481",
+      "files": {
+        "dist/echarts.esm.min.mjs": "28515f26aa57f87eb1e4ed4eb446927eaf329b5f5e02b4bfd4b0264fea40d1da",
+        "dist/echarts.esm.mjs": "c15d5af94babaa46220140af06d335737b674b5ba9592dcd1b394a5de3ff4bd4"
+      }
+    },
+    {
+      "name": "@qyperion/echarts-wordcloud",
+      "directory": "echarts-wordcloud",
+      "version": "3.0.0",
+      "url": "https://registry.npmjs.org/@qyperion/echarts-wordcloud/-/echarts-wordcloud-3.0.0.tgz",
+      "integrity": "sha512-59r2EW9Osqk9xAG249mCPDYtm27edvdQj9qflnoGlNPdkcqjkUd77qHFHDK8UgG9oqaDO/VK9tDZSBLlDBXLIA==",
+      "upstreamCommit": "ade0b8d3d96d9956af7c45945d70fd578109212f",
+      "repository": "https://github.com/Qyperion/echarts-wordcloud",
+      "license": "ISC",
+      "notices": [
+        "LICENSE"
+      ],
+      "declarations": [
+        "index.d.ts"
+      ],
+      "sha256": "9103333e91b67071d4822a7bc721aa2b34c980e80113c9b0dfeb02828b5aabf1",
+      "files": {
+        "dist/echarts-wordcloud.js": "9a21315f1a0b43eec3e32d2a991e6717b367661d04880c0173c56d2c74f017f5"
+      },
+      "installer": {
+        "entry": "index.js",
+        "buildTool": "esbuild@0.28.2",
+        "sha256": "787351c0b914c20281b181c6fd71569a81f54fc8dea28876e473fb0657df0f7c"
+      }
+    },
+    {
+      "name": "zrender",
+      "version": "6.1.0",
+      "url": "https://registry.npmjs.org/zrender/-/zrender-6.1.0.tgz",
+      "integrity": "sha512-oEGMDB6pOP2S6OwRR4PdVv610zrjnA3Bh+JnSG12fYJlBKjtNAoEb5fSUoCOOINlH96I2fU38/A2UpRKs67xYQ==",
+      "upstreamCommit": "32b6686724832dcea026e9443d056ea216ed0ab2",
+      "repository": "https://github.com/ecomfe/zrender",
+      "license": "BSD-3-Clause",
+      "notices": [
+        "LICENSE"
+      ],
+      "declarations": [
+        "index.d.ts"
+      ],
+      "sha256": "38f2fb722a638be016ca0175b139c40c886ef47fc2afdb741b2e7e7ae9683f9c"
+    },
+    {
+      "name": "tslib",
+      "version": "2.3.0",
+      "url": "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz",
+      "integrity": "sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==",
+      "upstreamCommit": "0b9301459c223140c9a01b4215cbbc1639a396ca",
+      "repository": "https://github.com/microsoft/tslib",
+      "license": "0BSD",
+      "notices": [
+        "CopyrightNotice.txt",
+        "LICENSE.txt"
+      ],
+      "declarations": [
+        "tslib.d.ts"
+      ],
+      "sha256": "ae285639feff7e3c39de4626352181a5d73b815725e42639b411c43848abffdb"
+    }
+  ],
+  "documentation": {
+    "lock": "schemas/upstream/docs-snapshot.lock.json",
+    "repository": "https://github.com/apache/echarts-doc",
+    "commit": "2e15d7c7321dce0c62fda00b8d2426c171bd8b0a",
+    "sha256": "ed61abaf58190653eeffbc296686e3188a6199c2d4cb47d44c45eebd64828558"
+  },
+  "runtimeSource": {
+    "package": "echarts",
+    "version": "6.1.0",
+    "archiveSha256": "681aff88cc1038c3fa941a3a53d1b177a52250b05335efc607d6105ae13be481",
+    "upstreamCommit": "c5a48f5f97d23e5379720870b8444cd05b50ffb4",
+    "projection": "lib/**/*.js from exact npm archive, compared with freshly unpacked verified bytes"
+  }
+}

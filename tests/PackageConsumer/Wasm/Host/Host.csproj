@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <AssemblyName>PackageConsumer.Wasm</AssemblyName>
+    <RootNamespace>PackageConsumer.Wasm</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The consumer's own client project; the chart packages reach the host only through it. -->
+    <ProjectReference Include="../Client/Client.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "description": "Tracked files of the public release tree. Every tracked file matches an include or an exclude entry; an entry ending with / is a directory. Exclusions win, and internal files are never exported.",
+  "include": [
+    ".editorconfig",
+    ".gitattributes",
+    ".gitignore",
+    ".node-version",
+    ".github/",
+    "BlazorECharts.slnx",
+    "Directory.Build.props",
+    "Directory.Build.targets",
+    "Directory.Packages.props",
+    "NuGet.Config",
+    "global.json",
+    "package.json",
+    "package-lock.json",
+    "vitest.config.ts",
+    "LICENSE",
+    "CHANGELOG.md",
+    "THIRD-PARTY-NOTICES.md",
+    "README.md",
+    "SECURITY.md",
+    "docs/",
+    "samples/",
+    "schemas/",
+    "src/",
+    "tests/",
+    "tools/"
+  ],
+  "exclude": []
+}

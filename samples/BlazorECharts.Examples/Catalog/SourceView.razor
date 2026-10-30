@@ -1,0 +1,49 @@
+@* Shows the versioned source file that the example was compiled from. *@
+@using Microsoft.JSInterop
+<section class="source-view" aria-labelledby="source-heading">
+    <div class="section-header">
+        <h2 id="source-heading">Source</h2>
+        <div class="section-actions">
+            <button type="button" data-testid="copy-source" @onclick="CopyAsync">@_copyText</button>
+            <button type="button" aria-expanded="@(_expanded ? "true" : "false")" aria-controls="example-source" @onclick="() => _expanded = !_expanded">
+                @(_expanded ? "Hide source" : "Show source")
+            </button>
+        </div>
+    </div>
+    <p class="source-path"><code data-testid="source-path">@Path</code></p>
+    <pre id="example-source" class="source-code" hidden="@(!_expanded)" tabindex="0" data-testid="example-source"><code>@_text</code></pre>
+</section>
+
+@code {
+    private const string ClipboardModule = "_content/BlazorECharts.Examples/catalog/clipboard.js";
+
+    private bool _expanded = true;
+    private string _text = "";
+    private string _copyText = "Copy source";
+
+    [Inject] private IJSRuntime Scripts { get; set; } = default!;
+
+    /// <summary>Gets or sets the source path relative to the examples project.</summary>
+    [Parameter, EditorRequired] public string Path { get; set; } = "";
+
+    protected override void OnParametersSet()
+    {
+        _text = ExampleSource.Read(Path);
+        _copyText = "Copy source";
+    }
+
+    private async Task CopyAsync()
+    {
+        try
+        {
+            await using var clipboard = await Scripts.InvokeAsync<IJSObjectReference>("import", $"./{Assets[ClipboardModule]}");
+            await clipboard.InvokeVoidAsync("copy", _text);
+            _copyText = "Copied";
+        }
+        catch (JSException)
+        {
+            // The browser denied the clipboard, for example without a secure context.
+            _copyText = "Copy failed";
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "version": "3.0.0",
+  "coreVersion": "6.1.0",
+  "package": {
+    "name": "@qyperion/echarts-wordcloud",
+    "directory": "echarts-wordcloud",
+    "version": "3.0.0",
+    "url": "https://registry.npmjs.org/@qyperion/echarts-wordcloud/-/echarts-wordcloud-3.0.0.tgz",
+    "integrity": "sha512-59r2EW9Osqk9xAG249mCPDYtm27edvdQj9qflnoGlNPdkcqjkUd77qHFHDK8UgG9oqaDO/VK9tDZSBLlDBXLIA==",
+    "upstreamCommit": "ade0b8d3d96d9956af7c45945d70fd578109212f",
+    "repository": "https://github.com/Qyperion/echarts-wordcloud",
+    "license": "ISC",
+    "notices": [
+      "LICENSE"
+    ],
+    "declarations": [
+      "index.d.ts"
+    ],
+    "sha256": "9103333e91b67071d4822a7bc721aa2b34c980e80113c9b0dfeb02828b5aabf1",
+    "files": {
+      "dist/echarts-wordcloud.js": "9a21315f1a0b43eec3e32d2a991e6717b367661d04880c0173c56d2c74f017f5"
+    },
+    "installer": {
+      "entry": "index.js",
+      "buildTool": "esbuild@0.28.2",
+      "sha256": "787351c0b914c20281b181c6fd71569a81f54fc8dea28876e473fb0657df0f7c"
+    }
+  },
+  "files": [
+    {
+      "path": "js/wordcloud-installer.js",
+      "bytes": 42743,
+      "sha256": "787351c0b914c20281b181c6fd71569a81f54fc8dea28876e473fb0657df0f7c"
+    },
+    {
+      "path": "js/wordcloud-extension.js",
+      "bytes": 5009,
+      "sha256": "34931c4d2d8bd882858ea54866d3fb16fa31d6ce1f351a0977e627b305a31582"
+    },
+    {
+      "path": "notices/echarts-wordcloud/LICENSE",
+      "bytes": 1962,
+      "sha256": "a0507e7e89e107480f28f2c5b29f470f33e494ebaaf06fce36f37009fc4cdf1e"
+    },
+    {
+      "path": "notices/PROVENANCE.md",
+      "bytes": 582,
+      "sha256": "c79b4cbb2e4ba8e6955415fd13679323ec33471f8e1db356fce49be13d8a7b8d"
+    }
+  ]
+}

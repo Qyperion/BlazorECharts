@@ -1,0 +1,60 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Values
+@inherits ExampleBase
+@inject EChartsRuntime Runtime
+
+@if (_registered)
+{
+    <EChart Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+}
+<p class="example-output" data-testid="map-regions">@_regions</p>
+
+@code {
+    private ChartOptions? _options;
+    private bool _registered;
+    private string _regions = "Registering the synthetic office map…";
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        Title = new TitleOption { Text = "Messages sent from each room", Left = "center" },
+        Tooltip = new TooltipOption { Trigger = "item" },
+        VisualMap = new ContinuousVisualMapOption
+        {
+            Min = 0,
+            Max = 120,
+            Left = "left",
+            Bottom = 10,
+            Calculable = true,
+            InRange = new() { Color = new string?[] { "#e8eefc", "#2f5fd0" } },
+        },
+        Series = new MapSeriesOption
+        {
+            Name = "Messages",
+            Map = OfficeMap.Name,
+            Roam = true,
+            Label = new() { Show = true },
+            Data =
+            [
+                Room("Lobby", 24), Room("Design", 96), Room("Support", 118), Room("Kitchen", 41), Room("Rooftop", 12),
+            ],
+        },
+    };
+
+    private static MapDataItemOption Room(string name, double messages) =>
+        new() { Name = name, Value = messages };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => !firstRender ? Task.CompletedTask : RunAsync(async () =>
+    {
+        await OfficeMap.RegisterAsync(Runtime);
+        var map = await Runtime.GetMapAsync(OfficeMap.Name);
+        _regions = $"Registered map with special areas: {string.Join(", ", map?.GetSpecialAreas()?.Keys ?? [])}.";
+        _registered = true;
+        StateHasChanged();
+    });
+}

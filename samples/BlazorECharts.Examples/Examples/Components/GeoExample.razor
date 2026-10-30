@@ -1,0 +1,86 @@
+@namespace BlazorECharts.Examples.Components
+@inherits ExampleBase
+@inject EChartsRuntime Runtime
+
+@if (_registered)
+{
+    <EChart Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+}
+<p class="example-output">@(_registered ? "Scroll to zoom and drag to pan: desks and hand-offs move with the floor plan." : "Registering the synthetic office map…")</p>
+
+@code {
+    private ChartOptions? _options;
+    private bool _registered;
+
+    // Desks on the floor plan of OfficeMap, in its map units, with the messages sent from each.
+    private static readonly (string Name, double X, double Y, double Messages)[] Desks =
+    [
+        ("Avery", 10, 10, 24), ("Blake", 30, 20, 31), ("Casey", 55, 12, 58), ("Devon", 70, 22, 96), ("Emery", 88, 8, 47),
+        ("Finley", 12, 40, 66), ("Harper", 30, 52, 118), ("Jordan", 48, 45, 74), ("Kendall", 75, 45, 41), ("Logan", 90, 52, 19),
+    ];
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        Title = new TitleOption { Text = "Messages sent from each desk", Left = "center" },
+        Tooltip = new TooltipOption { Trigger = "item" },
+        // The series below share this geo component, so they zoom and pan together.
+        Geo = new GeoOption
+        {
+            Map = OfficeMap.Name,
+            Top = 50,
+            Bottom = 20,
+            Roam = true,
+            Label = new() { Show = true, Color = "#5b6475" },
+            ItemStyle = new() { AreaColor = "#eef2fa", BorderColor = "#9aa5bd" },
+        },
+        Series =
+        [
+            new ScatterSeriesOption
+            {
+                Name = "Desks",
+                CoordinateSystem = "geo",
+                SymbolSize = 10,
+                Data = [.. Desks.Select(desk => (ScatterSeriesOptionDataItem?)new ScatterDataItemOption { Name = desk.Name, Value = Point(desk) })],
+            },
+            // The ripple starts only while a desk is hovered, so the chart still reaches a stable layout.
+            new EffectScatterSeriesOption
+            {
+                Name = "Busiest desks",
+                CoordinateSystem = "geo",
+                ShowEffectOn = "emphasis",
+                SymbolSize = 18,
+                Data = [.. Desks.OrderByDescending(desk => desk.Messages).Take(2)
+                    .Select(desk => (EffectScatterSeriesOptionDataItem?)new EffectScatterDataItemOption { Name = desk.Name, Value = Point(desk) })],
+            },
+            new LinesSeriesOption
+            {
+                Name = "Hand-offs",
+                CoordinateSystem = "geo",
+                LineStyle = new() { Width = 2, Curveness = 0.25, Opacity = 0.6 },
+                Data = new LinesDataItemOption?[] { Route("Harper", "Devon"), Route("Devon", "Casey"), Route("Finley", "Harper") },
+            },
+        ],
+    };
+
+    private static OptionDataValue?[] Point((string Name, double X, double Y, double Messages) desk) => [desk.X, desk.Y, desk.Messages];
+
+    private static LinesDataItemOption Route(string from, string to)
+    {
+        var start = Desks.Single(desk => desk.Name == from);
+        var end = Desks.Single(desk => desk.Name == to);
+        return new() { Name = $"{from} to {to}", Coords = [[start.X, start.Y], [end.X, end.Y]] };
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => !firstRender ? Task.CompletedTask : RunAsync(async () =>
+    {
+        await OfficeMap.RegisterAsync(Runtime);
+        _registered = true;
+        StateHasChanged();
+    });
+}

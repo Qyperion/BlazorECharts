@@ -1,0 +1,61 @@
+@namespace BlazorECharts.Examples.Components
+@inherits ExampleBase
+
+<div class="example-controls" role="group" aria-label="Container width">
+    <button type="button" aria-pressed="@(_narrow ? "false" : "true")" @onclick="() => _narrow = false">Wide container</button>
+    <button type="button" aria-pressed="@(_narrow ? "true" : "false")" @onclick="() => _narrow = true">Narrow container (360 px)</button>
+</div>
+<div data-testid="media-frame" style="@(_narrow ? "width:360px;max-width:100%" : "width:100%")">
+    <EChart Class="example-chart" Options="_options" InitOptions="InitOptions" OnReady="ReadyAsync" OnError="FailAsync" />
+</div>
+<p class="example-output">Media queries test the size of the chart, not of the window: narrowing the container moves the legend under the pie.</p>
+
+@code {
+    private ChartOptions? _options;
+    private bool _narrow;
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        BaseOption = new ChartOptions
+        {
+            Title = new TitleOption { Text = "Message types", Left = "center" },
+            Tooltip = new TooltipOption { Trigger = "item" },
+            Legend = new LegendOption(),
+            Series = new PieSeriesOption
+            {
+                Name = "Messages",
+                Data = [Slice("Text", 1840), Slice("Photo", 620), Slice("Sticker", 410), Slice("Voice", 260), Slice("Video", 120)],
+            },
+        },
+        // The entry without a query applies when no other entry matches. Each entry sets every position it uses,
+        // because ECharts merges the matching entry into the current layout instead of starting over.
+        Media =
+        [
+            new MediaOption
+            {
+                Option = new ChartOptions
+                {
+                    Legend = new LegendOption { Orient = "vertical", Left = "auto", Right = 20, Top = "middle", Bottom = "auto" },
+                    Series = new PieSeriesOption { Center = new NumberOrString?[] { "40%", "55%" }, Radius = new NumberOrString?[] { "35%", "65%" } },
+                },
+            },
+            new MediaOption
+            {
+                Query = new MediaQuery { MaxWidth = 500 },
+                Option = new ChartOptions
+                {
+                    Legend = new LegendOption { Orient = "horizontal", Left = "center", Right = "auto", Top = "auto", Bottom = 0 },
+                    Series = new PieSeriesOption { Center = new NumberOrString?[] { "50%", "48%" }, Radius = new NumberOrString?[] { "25%", "50%" } },
+                },
+            },
+        ],
+    };
+
+    private static PieDataItemOption Slice(string name, double messages) => new() { Name = name, Value = messages };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+}

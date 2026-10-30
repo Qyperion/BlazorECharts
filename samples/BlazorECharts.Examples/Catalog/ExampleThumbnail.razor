@@ -1,0 +1,70 @@
+@* The chart of a catalog card: the example's options without title, legend, toolbox, data zoom and animation, created
+   once the card is visible. It is laid out at twice the size of the card and shown at half, as the full example in
+   miniature. It takes no pointer events, so the whole card is a link and the page scrolls over it. *@
+<div class="example-thumbnail" aria-hidden="true" data-state="@(_failed ? "error" : null)">
+    @if (_options is not null)
+    {
+        <EChart Class="example-thumbnail-chart" Options="_options" InitOptions="_init" OnError="Fail" />
+    }
+    else if (_failed)
+    {
+        <span class="example-thumbnail-error">Preview unavailable</span>
+    }
+</div>
+
+@code {
+    // One canvas pixel per CSS pixel of the layout: half-scale, it is sharp on a 2x display and light on memory.
+    private readonly ChartInitOptions _init = new() { DevicePixelRatio = 1 };
+
+    private ChartOptions? _options;
+    private bool _started;
+    private bool _failed;
+
+    [Inject] private EChartsRuntime Runtime { get; set; } = default!;
+
+    /// <summary>Gets or sets the example to show.</summary>
+    [Parameter, EditorRequired] public ExampleDescriptor Descriptor { get; set; } = default!;
+
+    /// <summary>Gets or sets whether the card has been near the viewport; the chart is created the first time it is.</summary>
+    [Parameter] public bool Visible { get; set; }
+
+    /// <summary>Creates the static options of an example's thumbnail.</summary>
+    public static ChartOptions CreateOptions(ExampleDescriptor descriptor)
+    {
+        var options = descriptor.CreateOptions();
+
+        // ECharts ignores the root components of an option that declares a base option, as timeline and media charts do.
+        var target = options.BaseOption ?? options;
+        target.Animation = false;
+        target.Title = null;
+        target.Legend = null;
+        target.Toolbox = null;
+        target.DataZoom = null;
+        return options;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!Visible || _started)
+            return;
+
+        _started = true;
+        try
+        {
+            if (Descriptor.Prepare is { } prepare)
+                await prepare(Runtime);
+
+            _options = CreateOptions(Descriptor);
+        }
+        catch (Exception)
+        {
+            _failed = true;
+        }
+    }
+
+    private void Fail(EChartsError error)
+    {
+        _options = null;
+        _failed = true;
+    }
+}

@@ -1,0 +1,293 @@
+@using System.Text.Json
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Serialization
+@using BlazorECharts.Serialization.Generated
+@using BlazorECharts.Testing
+@using BlazorECharts.Values
+@using BlazorECharts.Values.Signatures
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+<h1>Browser functions and native graphics</h1>
+<p data-testid="status">@_status</p>
+<button @onclick="() => Run(Module)">Module</button>
+<button @onclick="() => Run(Intrinsic)">Intrinsic values</button>
+<button @onclick="() => Run(ModuleBindingRoundTrip)">Module binding round trip</button>
+<button @onclick="() => Run(InlineBindingRoundTrip)">Inline binding round trip</button>
+<button @onclick="() => Run(Color)">Color callback</button>
+<button @onclick="() => Run(ActionPosition)">Action position</button>
+<button @onclick="() => Run(AsyncTooltip)">Async tooltip</button>
+<button @onclick="() => Run(Snapshot)">Snapshot reapply</button>
+<button @onclick="() => Run(Native)">Native values</button>
+<button @onclick="() => Run(Graphics)">Graphic helpers</button>
+<button @onclick="() => Run(Inline)">Inline</button>
+<button @onclick="() => Run(Failure)">Import failure</button>
+<button @onclick="() => Run(DecodeFailure)">Decode failure</button>
+<button @onclick="() => Run(Dispose)">Dispose</button>
+<div class="functions-chart" style="width:640px;height:360px" @ref="_element"></div>
+@code {
+    private ElementReference _element;
+    private EChartsRuntime? _runtime;
+    private EChartInstance? _chart;
+    private string _status = "waiting";
+
+    private string Functions => new Uri(new Uri(Navigation.BaseUri), "modules/chart-functions.js").AbsoluteUri;
+    private string Natives => new Uri(new Uri(Navigation.BaseUri), "modules/native-values.js").AbsoluteUri;
+
+    private static JsonElement Parse(string json)
+    {
+        using var doc = JsonDocument.Parse(json);
+        return doc.RootElement.Clone();
+    }
+
+    private static EChartsValue Value(string json) => EChartsValue.FromJson(Parse(json));
+
+    private static CustomSeriesOptionDataItem?[]? CustomData(string json) =>
+        GeneratedOptionMetadata.ReadCustomSeriesOption(Parse("{\"data\":" + json + "}")).Data;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        await Run(async () =>
+        {
+            _runtime = new(
+                JS,
+                Navigation,
+                new() { AllowInlineJavaScript = Navigation.Uri.Contains("inline=1"), MaximumServerResultSize = 4 * 1024 * 1024 });
+            _chart = await _runtime.CreateInstanceAsync(_element);
+            await _chart.SetOptionAsync(Parse("""{"animation":false,"xAxis":{"min":0,"max":10},"yAxis":{"min":0,"max":10},"series":[]}"""));
+            _status = "ready";
+        });
+        StateHasChanged();
+    }
+
+    private async Task Run(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception e)
+        {
+            _status = "error:" + e.Message;
+        }
+    }
+
+    private async Task Module()
+    {
+        await _chart!.SetOptionAsync(ModuleOptions(false));
+        _status = "module";
+    }
+
+    private async Task Intrinsic()
+    {
+        var options = new ChartOptions
+        {
+            Animation = false,
+            Series = OneOrMany<SeriesOption>.Many(new CustomSeriesOption
+            {
+                RenderItem = JsFunction.Module<CustomRenderItemSignature>(Functions, "intrinsicRenderItem"),
+                Data = CustomData("""[[2,3,"А😀"],[6,7,"B"]]"""),
+            }),
+        };
+        options.AdditionalProperties["intrinsicFixture"] = Value("""{"text":"А😀","number":0,"flag":false,"empty":[],"nothing":null,"values":["a",0,false,null]}""");
+        await _chart!.SetOptionAsync(options);
+        await using var snapshot = await _chart.GetOptionAsync();
+        await _chart.SetOptionAsync(snapshot, new SetOptionOptions { NotMerge = true });
+        _status = "intrinsic:roundtrip";
+    }
+
+    private async Task ModuleBindingRoundTrip()
+    {
+        await _chart!.SetOptionAsync(ModuleOptions(true));
+        _status = "restored:module";
+    }
+
+    private static JsFunction<T> Restore<T>(JsFunction<T> function) where T : IJsFunctionSignature
+    {
+        var context = new EChartsSerializationContext { AllowInlineJavaScript = true };
+        OptionMetadata.Register(context);
+        var temporary = new ChartOptions();
+        temporary.AdditionalProperties["callback"] = EChartsValue.From(function);
+        return JsFunction.FromBinding<T>(OptionSerializer.Serialize(temporary, context).Bindings.Single());
+    }
+
+    private ChartOptions ModuleOptions(bool restore)
+    {
+        var render = JsFunction.Module<CustomRenderItemSignature>(Functions, "renderItem");
+        var tooltip = JsFunction.Module<TooltipFormatterSignature>(Functions, "tooltipDom");
+        var options = new ChartOptions
+        {
+            Animation = false,
+            Series = OneOrMany<SeriesOption>.Many(new CustomSeriesOption
+            {
+                RenderItem = restore ? Restore(render) : render,
+                Data = CustomData("[[2,3],[6,7]]"),
+            }),
+            Tooltip = OneOrMany<TooltipOption>.One(new TooltipOption { Trigger = "item", Formatter = restore ? Restore(tooltip) : tooltip }),
+        };
+        options.AdditionalProperties["ordinary"] = Value("""{"formatter":"function() { window.accidentalExecution = true; }","kind":"inline","source":"throw 1"}""");
+        return options;
+    }
+
+    private async Task InlineBindingRoundTrip()
+    {
+        var function = Restore(JsFunction.Inline<CustomRenderItemSignature>("(value) => value + 9"));
+        var options = new ChartOptions();
+        options.AdditionalProperties["inlineCallback"] = EChartsValue.From(function);
+        await _chart!.SetOptionAsync(options);
+        _status = "restored:inline";
+    }
+
+    private async Task Snapshot()
+    {
+        var snapshot = await _chart!.GetOptionAsync();
+        var count = snapshot.Bindings.Count;
+        await _chart.SetOptionAsync(snapshot, new SetOptionOptions { NotMerge = true });
+        await snapshot.DisposeAsync();
+        var rejected = false;
+        try
+        {
+            await _chart.SetOptionAsync(snapshot);
+        }
+        catch (ObjectDisposedException)
+        {
+            rejected = true;
+        }
+
+        _status = $"snapshot:{count}:{rejected}";
+    }
+
+    private async Task ActionPosition()
+    {
+        await _chart!.DispatchActionAsync(
+            new ShowTipAction
+            {
+                SeriesIndex = 0,
+                DataIndex = 0,
+                Position = EventActionValue.From(JsFunction.Module<TooltipPositionCallback>(Functions, "position")),
+            });
+        _status = "position";
+    }
+
+    private async Task Color()
+    {
+        var series = new RawSeriesOption("bar");
+        series.AdditionalProperties["data"] = Value("[3,7]");
+        series.AdditionalProperties["itemStyle"] = EChartsValue.Object(
+            new Dictionary<string, EChartsValue> { ["color"] = EChartsValue.From(JsFunction.Module<ItemColorCallbackSignature>(Functions, "color")) });
+        await _chart!.SetOptionAsync(
+            new ChartOptions { Animation = false, Series = OneOrMany<SeriesOption>.Many(series) },
+            new SetOptionOptions { ReplaceMerge = OneOrMany<string>.One("series") });
+        _status = "color";
+    }
+
+    private async Task AsyncTooltip()
+    {
+        await _chart!.SetOptionAsync(
+            new ChartOptions
+            {
+                Tooltip = OneOrMany<TooltipOption>.One(
+                    new TooltipOption { Trigger = "item", Formatter = JsFunction.Module<TooltipFormatterSignature>(Functions, "tooltipAsync") }),
+            });
+        await _chart.DispatchActionAsync(new ShowTipAction { SeriesIndex = 0, DataIndex = 1 });
+        _status = "async tooltip";
+    }
+
+    private async Task Native()
+    {
+        await using var dom = await _runtime!.ImportObjectAsync(Natives, "makeDom");
+        await using var pattern = await _runtime.ImportObjectAsync(Natives, "makePattern");
+        await using var image = await _runtime.CreateImageAsync(new Uri(new Uri(Navigation.BaseUri), "modules/pixel.svg").AbsoluteUri);
+        var options = new ChartOptions();
+        options.AdditionalProperties["nativeFixture"] = EChartsValue.Object(
+            new Dictionary<string, EChartsValue>
+            {
+                ["dom"] = EChartsValue.From(dom),
+                ["pattern"] = EChartsValue.From(pattern),
+                ["image"] = EChartsValue.From(image),
+            });
+
+        // Native image binding is nested in an ordinary graphic option.
+        options.AdditionalProperties["graphic"] = EChartsValue.Array(EChartsValue.Object(new Dictionary<string, EChartsValue>
+        {
+            ["type"] = EChartsValue.From("image"),
+            ["left"] = EChartsValue.From(20),
+            ["top"] = EChartsValue.From(20),
+            ["style"] = EChartsValue.Object(
+                new Dictionary<string, EChartsValue>
+                {
+                    ["image"] = EChartsValue.From(image),
+                    ["width"] = EChartsValue.From(40),
+                    ["height"] = EChartsValue.From(40),
+                }),
+        }), EChartsValue.Object(new Dictionary<string, EChartsValue>
+        {
+            ["type"] = EChartsValue.From("rect"),
+            ["shape"] = Value("""{"x":80,"y":20,"width":40,"height":40}"""),
+            ["style"] = EChartsValue.Object(new Dictionary<string, EChartsValue> { ["fill"] = EChartsValue.From(pattern) }),
+        }));
+        await _chart!.SetOptionAsync(options);
+        _status = "native";
+    }
+
+    private async Task Graphics()
+    {
+        await using var gradient = await _runtime!.InvokeNativeAsync(
+            "graphic.LinearGradient",
+            [
+                EChartsValue.From(0),
+                EChartsValue.From(0),
+                EChartsValue.From(1),
+                EChartsValue.From(0),
+                Value("""[{"offset":0,"color":"#ff0000"},{"offset":1,"color":"#0000ff"}]"""),
+            ],
+            construct: true);
+        await using var rect = await _runtime.InvokeNativeAsync(
+            "graphic.Rect",
+            [Value("""{"shape":{"x":80,"y":40,"width":90,"height":50},"style":{"fill":"#008800"}}""")],
+            construct: true);
+        await using var dom = await _chart!.GetZrAsync();
+        await using var added = await _runtime.ImportObjectAsync(Natives, "addToZr", [EChartsValue.From(dom), EChartsValue.From(rect.Reference)]);
+        var options = new ChartOptions();
+        options.AdditionalProperties["backgroundColor"] = EChartsValue.From(gradient.Reference);
+        await _chart.SetOptionAsync(options);
+        _status = "graphics";
+    }
+
+    private async Task Inline()
+    {
+        var options = new ChartOptions();
+        options.AdditionalProperties["inlineCallback"] = EChartsValue.From(JsFunction.Inline<CustomRenderItemSignature>("(value) => value + 9"));
+        await _chart!.SetOptionAsync(options);
+        _status = "inline";
+    }
+
+    private async Task Failure()
+    {
+        var options = new ChartOptions();
+        options.AdditionalProperties["broken"] = EChartsValue.From(JsFunction.Module<CustomRenderItemSignature>(Functions, "missingExport"));
+        await _chart!.SetOptionAsync(options);
+    }
+
+    private async Task DecodeFailure()
+    {
+        await using var image = await _runtime!.CreateImageAsync(new Uri(new Uri(Navigation.BaseUri), "modules/missing-image.png").AbsoluteUri);
+    }
+
+    private async Task Dispose()
+    {
+        await _chart!.DisposeAsync();
+        _status = "disposed";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_runtime is not null)
+            await _runtime.DisposeAsync();
+    }
+}

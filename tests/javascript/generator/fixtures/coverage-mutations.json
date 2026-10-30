@@ -1,0 +1,12 @@
+[
+  { "name": "MissingUnionAlternativeFails", "mutation": "remove-alternative", "diagnostic": "Missing/changed union alternative" },
+  { "name": "InvalidManifestStatusFails", "mutation": "invalid-status", "diagnostic": "INVALID_MAPPING_STATUS" },
+  { "name": "VanishedMappingFails", "mutation": "remove-mapping", "diagnostic": "UNRESOLVED_SCOPE_RECORD" },
+  { "name": "DuplicateMappingFails", "mutation": "duplicate-mapping", "diagnostic": "Duplicate mapping" },
+  { "name": "DanglingProvenanceFails", "mutation": "dangling-source", "diagnostic": "DANGLING_SOURCE_REFERENCE" },
+  { "name": "MissingOverloadFails", "mutation": "remove-overload", "diagnostic": "SIGNATURE_DRIFT" },
+  { "name": "CrossFileSymbolCannotHideMissingWriter", "mutation": "wrong-symbol-file", "diagnostic": "SYMBOL_FILE_MISMATCH" },
+  { "name": "DuplicateSourceRecordFails", "mutation": "duplicate-source", "diagnostic": "INVALID_SOURCE_SCHEMA" },
+  { "name": "DanglingUnionTypeFails", "mutation": "dangling-type", "diagnostic": "INVALID_SOURCE_SCHEMA" },
+  { "name": "MissingRecordTypeReturnsNamedDiagnostic", "mutation": "missing-record-type", "diagnostic": "INVALID_SOURCE_SCHEMA" }
+]

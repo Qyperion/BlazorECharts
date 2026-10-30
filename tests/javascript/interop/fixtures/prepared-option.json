@@ -1,0 +1,8 @@
+{
+  "json": { "data": [null, null, null] },
+  "bindings": [
+    { "path": ["data", 0], "kind": "module", "token": "binding:0", "signature": "fixture:formatter", "moduleUrl": "./format.js", "exportName": "format" },
+    { "path": ["data", 1], "kind": "inline", "token": "binding:1", "signature": "fixture:renderItem", "source": "() => 42" },
+    { "path": ["data", 2], "kind": "object", "token": "object:42", "runtimeId": "page", "ownerId": "consumer" }
+  ]
+}

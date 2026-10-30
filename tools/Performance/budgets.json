@@ -1,0 +1,33 @@
+{
+  "retainedJsHeap": {
+    "payloadFactor": 1.5,
+    "constantBytes": 524288,
+    "reason": "While charts are mounted, the wrapper keeps at most this much more JavaScript heap than native ECharts. It keeps one normalized clone of the first option as the recreation baseline: about 0.6–0.8 × the payload."
+  },
+  "jsHeapResidue": {
+    "constantBytes": 524288,
+    "reason": "The median of the JavaScript heap after unmount minus before the mount, per cycle and after two full collections, exceeds the native median by at most this. Native ECharts itself keeps up to about 0.1 MiB per cycle; something kept per cycle shows in every cycle, a single noisy sample does not move the median."
+  },
+  "managedHeapResidue": {
+    "payloadFactor": 0.5,
+    "constantBytes": 262144,
+    "reason": "WebAssembly only: the median of the .NET heap after unmount minus before the mount, per cycle. A payload kept per cycle shows in every cycle; a conservative collection inflates a single sample. The server heap is shared by the whole process (earlier pages' circuits, ArrayPool buckets per core), so its values are reported, not checked; the managed code is the same on both hosts."
+  },
+  "streamJsHeapGrowth": {
+    "constantBytes": 1048576,
+    "reason": "After 1,000 updates and two full collections, the JavaScript heap grows by at most this more than with native ECharts."
+  },
+  "streamManagedHeapGrowth": {
+    "constantBytes": 2097152,
+    "reason": "WebAssembly only: after 1,000 updates, the median .NET heap growth is at most this."
+  },
+  "wasmRuntimeTimersPerUpdate": {
+    "limit": 0.1,
+    "reason": "The single-threaded .NET runtime runs thread-pool work from setTimeout(0), which Chrome clamps to 4 ms in a chain of nested timers. A thread-pool hop per awaited update made each one wait 4 ms however little work it did."
+  },
+  "browserCpuSlope": {
+    "server": 1.5,
+    "wasm": 4,
+    "reason": "Browser main-thread CPU per data point of a mount, fitted over the line ladder, relative to native ECharts. Server adds receiving, UTF-8 decoding, JSON.parse and the getOption clone; WebAssembly also runs .NET serialization in the interpreter."
+  }
+}

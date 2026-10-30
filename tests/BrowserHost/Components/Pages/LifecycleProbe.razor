@@ -1,0 +1,9 @@
+@page "/harness/lifecycle/server"
+@rendermode InteractiveServer
+
+<PageTitle>Server chart lifecycle</PageTitle>
+<ChartLifecycleProbe Hidden="Hidden" />
+
+@code {
+    [SupplyParameterFromQuery(Name = "hidden")] public bool Hidden { get; set; }
+}

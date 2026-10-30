@@ -1,0 +1,97 @@
+@using BlazorECharts
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Values
+
+<h1>Chart lifecycle probe</h1>
+<p data-testid="interactive">@RendererInfo.IsInteractive</p>
+<p data-testid="ready-count">@_ready</p>
+<p data-testid="error-count">@_errors</p>
+<p data-testid="last-error">@_lastError</p>
+<p data-testid="last-detail">@_lastDetail</p>
+<p data-testid="last-message">@_lastMessage</p>
+<p data-testid="generation">@(_chart?.Generation ?? 0)</p>
+<p data-testid="parent-renders">@_renders</p>
+<button @onclick="Mount">Mount chart</button>
+<button @onclick="Unmount">Unmount chart</button>
+<button @onclick="Show">Show container</button>
+<button @onclick="Retry">Retry chart</button>
+<button @onclick="DisposeTwice">Dispose twice</button>
+<button @onclick="() => _renders++">Parent render</button>
+<div class="chart-container" style="width:600px;height:300px;display:@(_hidden ? "none" : "block")">
+    @if (_mounted)
+    {
+        <EChart @ref="_chart" Class="echart" Style="width:100%;height:100%" Options="_options" OnReady="Ready" OnError="Error" />
+    }
+</div>
+
+@code {
+    [Parameter] public bool Hidden { get; set; }
+
+    private EChart? _chart;
+    private ChartOptions? _options;
+    private bool _mounted = true;
+    private bool _hidden;
+    private int _ready;
+    private int _errors;
+    private int _renders;
+    private string _lastError = "";
+    private string _lastDetail = "";
+    private string _lastMessage = "";
+
+    protected override void OnInitialized() => _hidden = Hidden;
+
+    private void Mount()
+    {
+        _options = new ChartOptions { Animation = false };
+        using var raw = System.Text.Json.JsonDocument.Parse("""{"xAxis":{"type":"category","data":["A","B","C"]},"yAxis":{},"series":[{"type":"bar","data":[4,8,3]}]}""");
+        foreach (var property in raw.RootElement.EnumerateObject())
+            _options.AdditionalProperties[property.Name] = EChartsValue.FromJson(property.Value);
+
+        _mounted = true;
+    }
+
+    private void Unmount()
+    {
+        _mounted = false;
+        _options = null;
+        _chart = null;
+    }
+
+    private void Show() => _hidden = false;
+
+    private void Ready(EChartInstance instance)
+    {
+        _ready++;
+    }
+
+    private void Error(EChartsError error)
+    {
+        _errors++;
+        _lastError = error.Code;
+        _lastDetail = error.DetailCode ?? "";
+        _lastMessage = error.Message;
+    }
+
+    private async Task Retry()
+    {
+        try
+        {
+            if (_chart is not null)
+                await _chart.InitializeAsync();
+        }
+        catch
+        {
+            // OnError is displayed above.
+        }
+    }
+
+    private async Task DisposeTwice()
+    {
+        if (_chart is not null)
+        {
+            await _chart.DisposeAsync();
+            await _chart.DisposeAsync();
+        }
+    }
+}

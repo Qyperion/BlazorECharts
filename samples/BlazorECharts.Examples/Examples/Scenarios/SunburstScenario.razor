@@ -1,0 +1,104 @@
+@namespace BlazorECharts.Examples.Scenarios
+@using BlazorECharts.Events
+@using BlazorECharts.Values
+@inherits ExampleBase
+@implements IAsyncDisposable
+
+<div class="example-controls">
+    <button type="button" disabled="@(_chart is null)" @onclick="ResetAsync">Back to all media</button>
+    <span data-testid="sunburst-state" aria-live="polite">@_state</span>
+</div>
+<EChart Class="example-chart" Style="height:480px" Options="_options" InitOptions="InitOptions" OnReady="OnReadyAsync" OnError="FailAsync" />
+
+@code {
+    private const string RootName = "All media";
+    private readonly List<ChartSubscription> _subscriptions = [];
+    private EChartInstance? _chart;
+    private ChartOptions? _options;
+    private string _state = "Click a ring segment to drill into it; click the center to go up.";
+    private bool _drilling;
+
+    public static ChartOptions CreateOptions() => new()
+    {
+        Title = new TitleOption { Text = "Shared media by type and format", Left = "center" },
+        Tooltip = new TooltipOption { Trigger = "item" },
+        Series = new SunburstSeriesOption
+        {
+            // The series name is the root node; drilling back to it shows every category again.
+            Name = RootName,
+            Radius = [0, "92%"],
+            Emphasis = new() { Focus = "ancestor" },
+            ItemStyle = new() { BorderColor = "#ffffff", BorderWidth = 1 },
+            Levels =
+            [
+                new SunburstSeriesLevelOption(),
+                new SunburstSeriesLevelOption { Radius = ["14%", "48%"], Label = new() { Rotate = "tangential" } },
+                new SunburstSeriesLevelOption { Radius = ["48%", "78%"], Label = new() { Rotate = "radial", MinAngle = 6 } },
+                new SunburstSeriesLevelOption
+                {
+                    Radius = ["78%", "82%"],
+                    Label = new() { Position = "outside", Padding = 3, Silent = false },
+                    ItemStyle = new() { BorderWidth = 2 },
+                },
+            ],
+            Data =
+            [
+                Category("Photos", "#2f5fd0", Leaf("Camera", 420), Leaf("Screenshots", 260), Leaf("Edited", 90)),
+                Category("Videos", "#2f9e44", Leaf("Clips", 180), Leaf("Round videos", 75)),
+                Category("Audio", "#e8590c", Leaf("Voice", 310), Leaf("Music", 60)),
+                Category("Files", "#ae3ec9", Leaf("Documents", 140), Leaf("Archives", 35)),
+                Category("Stickers", "#1098ad", Leaf("Animated", 230), Leaf("Static", 150)),
+            ],
+        },
+    };
+
+    private static SunburstSeriesNodeItemOption Category(string name, string color, params SunburstSeriesNodeItemOption[] children) =>
+        new() { Name = name, ItemStyle = new() { Color = color }, Children = children };
+
+    // Leaves keep the current root when clicked; only categories drill down.
+    private static SunburstSeriesNodeItemOption Leaf(string name, double count) =>
+        new() { Name = name, Value = count, NodeClick = false };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _options = Accessible(CreateOptions());
+    }
+
+    private async Task OnReadyAsync(EChartInstance chart)
+    {
+        _chart = chart;
+
+        // A segment click first dispatches sunburstRootToNode, then emits the click event that names the segment.
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.SunburstRootToNode, e => InvokeAsync(() =>
+        {
+            _drilling = !(e.Direction is { } value && value.TryGetString(out var direction) && direction == "rollUp");
+            if (!_drilling)
+                _state = "Rolled up one level.";
+
+            StateHasChanged();
+        })));
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.Click, e => InvokeAsync(() =>
+        {
+            if (!_drilling)
+                return;
+
+            _drilling = false;
+            _state = $"Drilled into {e.Name}.";
+            StateHasChanged();
+        })));
+        await ReadyAsync(chart);
+    }
+
+    private Task ResetAsync() => RunAsync(async () =>
+    {
+        await _chart!.DispatchActionAsync(new SunburstRootToNodeAction { SeriesIndex = 0, TargetNodeId = RootName });
+        _state = "Showing all media.";
+    });
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var subscription in _subscriptions)
+            await subscription.DisposeAsync();
+    }
+}

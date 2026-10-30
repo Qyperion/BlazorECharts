@@ -1,0 +1,190 @@
+@namespace BlazorECharts.Examples.Capabilities
+@using BlazorECharts.Events
+@using BlazorECharts.Values
+@using Microsoft.JSInterop
+@inherits ExampleBase
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+@inject EChartsRuntimeOptions RuntimeOptions
+@implements IAsyncDisposable
+
+<div class="lab">
+    <aside class="lab-panel" data-testid="lab-panel" data-collapsed="@(_collapsed ? "true" : "false")">
+        <button type="button" aria-expanded="@(_collapsed ? "false" : "true")" aria-controls="lab-filters" @onclick="() => _collapsed = !_collapsed">
+            @(_collapsed ? "Expand" : "Collapse panel")
+        </button>
+        <div id="lab-filters" hidden="@_collapsed">
+            <p>Resizing this panel changes the chart width; a ResizeObserver resizes the chart.</p>
+        </div>
+    </aside>
+    <div class="lab-main">
+        <div class="lab-tabs" role="tablist" aria-label="Charts">
+            <button type="button" role="tab" id="lab-tab-activity" aria-selected="@(_tab == 0 ? "true" : "false")" aria-controls="lab-panel-activity" @onclick="() => _tab = 0">Activity</button>
+            <button type="button" role="tab" id="lab-tab-members" aria-selected="@(_tab == 1 ? "true" : "false")" aria-controls="lab-panel-members" @onclick="() => _tab = 1">Members</button>
+        </div>
+        <div role="tabpanel" id="lab-panel-activity" aria-labelledby="lab-tab-activity" hidden="@(_tab != 0)">
+            @if (!_removed)
+            {
+                <EChart @ref="_activity" Class="example-chart small lab-activity" Options="_activityOptions" InitOptions="_init" AutoResize="_autoResize" OnReady="ActivityReadyAsync" OnError="FailAsync" />
+            }
+            else
+            {
+                <p class="example-note">The chart was removed from the page; its native instance and observers were released.</p>
+            }
+        </div>
+        <div role="tabpanel" id="lab-panel-members" aria-labelledby="lab-tab-members" hidden="@(_tab != 1)">
+            @* Hidden at first: initialization waits until the panel has a size. *@
+            <EChart Class="example-chart small lab-members" Options="_membersOptions" InitOptions="_membersInit" OnError="FailAsync" />
+        </div>
+        <div class="example-controls">
+            <button type="button" @onclick="() => _removed = !_removed">@(_removed ? "Restore the activity chart" : "Remove the activity chart")</button>
+            <button type="button" aria-pressed="@(_clicks is null ? "false" : "true")" disabled="@(_activity?.Instance is null)" @onclick="ToggleClicksAsync">Listen to clicks</button>
+            <span data-testid="lab-clicks" data-count="@_clickCount">Clicks received: @_clickCount</span>
+            <label>Native renderer
+                <select data-testid="lab-renderer" value="@_renderer" @onchange="ChangeRenderer">
+                    <option value="canvas">canvas</option>
+                    <option value="svg">svg</option>
+                </select>
+            </label>
+            <label><input type="checkbox" checked="@_autoResize" @onchange="change => _autoResize = change.Value is true" /> Resize with the container</label>
+            <button type="button" disabled="@(_activity?.Instance is null)" @onclick="UpdateDataAsync">Update data</button>
+        </div>
+        <div class="lab-second">
+            <div class="example-chart tiny" @ref="_secondElement"></div>
+            <button type="button" disabled="@(_second is null)" @onclick="DisposeSecondFacadeAsync">Dispose the second facade</button>
+            <span data-testid="lab-second-state">@_secondState</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    private EChart? _activity;
+    private ChartOptions? _activityOptions;
+    private ChartOptions? _membersOptions;
+    private ChartInitOptions _init = new();
+    private ChartInitOptions _membersInit = new();
+    private ElementReference _secondElement;
+    private EChartsRuntime? _second;
+    private ChartSubscription? _clicks;
+    private string _renderer = "canvas";
+    private string _secondState = "Starting a second, independent facade…";
+    private int _tab;
+    private int _clickCount;
+    private int _revision;
+    private bool _collapsed;
+    private bool _removed;
+    private bool _ready;
+    private bool _autoResize = true;
+
+    public static ChartOptions CreateOptions() => Activity(0);
+
+    private static ChartOptions Activity(int revision) => new()
+    {
+        Title = new TitleOption { Text = "Activity this week", Left = "center" },
+        Tooltip = new TooltipOption { Trigger = "axis" },
+        XAxis = new XAxisCategoryOption { Data = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] },
+        YAxis = new YAxisValueOption(),
+        Series = new BarSeriesOption
+        {
+            Id = "activity",
+            Name = "Messages",
+            Data = [.. Enumerable.Range(0, 7).Select(day => (BarSeriesOptionDataItem?)(10 + (day * 7 + revision * 5) % 30))],
+        },
+    };
+
+    private static ChartOptions Members() => new()
+    {
+        Title = new TitleOption { Text = "Members this week", Left = "center" },
+        XAxis = new XAxisCategoryOption { Data = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] },
+        YAxis = new YAxisValueOption(),
+        Series = new LineSeriesOption { Name = "Members", Data = [12, 14, 13, 17, 21, 19, 23] },
+    };
+
+    private static ChartOptions Spark() => new()
+    {
+        Animation = false,
+        Grid = new GridOption { Left = 4, Right = 4, Top = 4, Bottom = 4 },
+        XAxis = new XAxisCategoryOption { Show = false, Data = ["1", "2", "3", "4", "5", "6"] },
+        YAxis = new YAxisValueOption { Show = false },
+        Series = new LineSeriesOption { Name = "Trend", ShowSymbol = false, AreaStyle = new(), Data = [3, 5, 4, 7, 6, 9] },
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _init = new ChartInitOptions { Renderer = Renderer };
+        _membersInit = new ChartInitOptions { Renderer = Renderer };
+        _renderer = Renderer;
+        _activityOptions = Accessible(Activity(_revision));
+        _membersOptions = Accessible(Members());
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => !firstRender ? Task.CompletedTask : RunAsync(async () =>
+    {
+        // A second facade over the same page runtime owns its own chart; disposing it leaves the component charts alone.
+        _second = new EChartsRuntime(JS, Navigation, RuntimeOptions);
+        var spark = await _second.CreateInstanceAsync(_secondElement, new ChartInitOptions { Renderer = Renderer });
+        await spark.SetOptionAsync(Accessible(Spark()));
+        _secondState = "Second facade: one chart.";
+        StateHasChanged();
+    });
+
+    private async Task ActivityReadyAsync(EChartInstance chart)
+    {
+        if (_ready)
+            return;
+
+        _ready = true;
+        await ReadyAsync(chart);
+    }
+
+    private Task ToggleClicksAsync() => RunAsync(async () =>
+    {
+        if (_clicks is not null)
+        {
+            await _clicks.DisposeAsync();
+            _clicks = null;
+            return;
+        }
+
+        // Subscriptions can be added and removed at any time; a recreated chart rebinds live subscriptions.
+        _clicks = await _activity!.Instance!.SubscribeAsync(ChartEvents.Click, _ => InvokeAsync(() =>
+        {
+            _clickCount++;
+            StateHasChanged();
+        }));
+    });
+
+    // A new InitOptions instance recreates the native chart inside the same component and managed handle.
+    // In a hidden tab the recreation waits until the tab is shown again.
+    private void ChangeRenderer(ChangeEventArgs change)
+    {
+        _renderer = change.Value?.ToString() == "svg" ? "svg" : "canvas";
+        _init = new ChartInitOptions { Renderer = _renderer };
+    }
+
+    private Task UpdateDataAsync() => RunAsync(async () =>
+    {
+        _revision++;
+        await _activity!.Instance!.SetOptionAsync(Activity(_revision));
+    });
+
+    private Task DisposeSecondFacadeAsync() => RunAsync(async () =>
+    {
+        if (_second is null)
+            return;
+
+        await _second.DisposeAsync();
+        _second = null;
+        _secondState = "Second facade disposed; its chart was released.";
+    });
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_clicks is not null)
+            await _clicks.DisposeAsync();
+
+        if (_second is not null)
+            await _second.DisposeAsync();
+    }
+}

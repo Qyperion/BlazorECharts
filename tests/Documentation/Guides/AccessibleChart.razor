@@ -1,0 +1,8 @@
+@* snippet: Guides.ChartApi.Accessibility *@
+<EChart Options="_options" Style="height:300px" id="sales-chart" aria-describedby="sales-summary" />
+<p id="sales-summary">Sales grew in every quarter of 2026.</p>
+
+@code {
+    private readonly ChartOptions _options = new() { Aria = new AriaOption { Enabled = true } };
+}
+@* endsnippet *@
