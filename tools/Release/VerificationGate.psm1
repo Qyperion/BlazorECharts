@@ -27,7 +27,7 @@ $script:BrowserSpecCounts = @{
     'components.spec.ts' = 18; 'coordinates.spec.ts' = 18; 'dates.spec.ts' = 4; 'graphics.spec.ts' = 10; 'demo/demo.spec.ts' = 24; 'demo/app-scenarios.spec.ts' = 16
     'demo/accessibility.spec.ts' = 3; 'demo/components.spec.ts' = 24; 'functions.spec.ts' = 27; 'events.spec.ts' = 34; 'event-conformance.spec.ts' = 1; 'methods.spec.ts' = 20
     'globals.spec.ts' = 14; 'runtime.spec.ts' = 6; 'extensions.spec.ts' = 4; 'updates.spec.ts' = 4; 'interaction-events.spec.ts' = 24; 'lifecycle.spec.ts' = 12; 'recreate.spec.ts' = 8
-    'harness/hosting-smoke.spec.ts' = 2; 'demo/hosting.spec.ts' = 24; 'wordcloud.spec.ts' = 74; 'wordcloud-registration.spec.ts' = 15; 'exports.spec.ts' = 24
+    'harness/hosting-smoke.spec.ts' = 2; 'demo/hosting.spec.ts' = 27; 'wordcloud.spec.ts' = 74; 'wordcloud-registration.spec.ts' = 15; 'exports.spec.ts' = 24
     'compatibility/wordcloud.spec.ts' = 10; 'resource-lifetime.spec.ts' = 16; 'server-reliability.spec.ts' = 7; 'runtime-versioning.spec.ts' = 4
     'matrix/browser-matrix.spec.ts' = @{ 'matrix-chrome' = 7; 'matrix-msedge' = 7; 'matrix-firefox' = 7 }
 }

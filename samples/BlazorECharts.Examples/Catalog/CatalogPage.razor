@@ -64,8 +64,11 @@
         if (!firstRender)
             return;
 
-        _self = DotNetObjectReference.Create(this);
         await using var module = await Scripts.InvokeAsync<IJSObjectReference>("import", $"./{Assets[ThumbnailsModule]}");
+        if (_disposed)
+            return;
+
+        _self = DotNetObjectReference.Create(this);
         _observer = await module.InvokeAsync<IJSObjectReference>("observeCards", _list, _self);
         if (_disposed)
             await StopObservingAsync();

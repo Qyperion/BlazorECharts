@@ -394,6 +394,41 @@ for (const mode of ['server', 'wasm', 'standalone'] as const) {
     }
   });
 
+  test(`CatalogLeftWhileThumbnailModuleLoads_KeepsWorking ${mode}`, async ({ page }) => {
+    // Arrange
+    let release!: () => void;
+    const held = new Promise<void>(resolve => release = resolve);
+    const thumbnailModule = /_content\/BlazorECharts\.Examples\/catalog\/thumbnails(\.[a-z0-9]+)?\.js/;
+    await page.route(thumbnailModule, async route => {
+      await held;
+      await route.continue();
+    });
+    const requested = page.waitForRequest(thumbnailModule);
+
+    // Act
+    await page.goto(url(mode, '/examples'));
+    await requested;
+
+    // Leave before the catalog has started observing its cards.
+    await page.locator('.example-card[data-slug="bar"] a').click();
+
+    // Assert
+    await expect(page.locator('.example-view[data-example="bar"]')).toBeVisible();
+
+    // Act
+    const loaded = page.waitForEvent('requestfinished', request => thumbnailModule.test(request.url()));
+    release();
+
+    // Importing the same URL settles once the held module is evaluated; the catalog's continuation follows.
+    await page.evaluate(async url => { await import(url); }, (await loaded).url());
+    await frames(page);
+    await page.getByRole('link', { name: 'Examples', exact: true }).click();
+
+    // Assert
+    await expect(page.getByRole('heading', { level: 1, name: 'Examples' })).toBeVisible();
+    expect(await catalogCharts(page)).toBeGreaterThan(0);
+  });
+
   test(`RemovalDuringImportAndLayout_LeavesNoLateWork ${mode}`, async ({ page }) => {
     // Arrange
     let release!: () => void;
