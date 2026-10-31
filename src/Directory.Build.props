@@ -19,8 +19,10 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
-    <!-- PackageValidationBaselineVersion follows once a release is published, see docs/maintaining/release.md. -->
+    <!-- A release pack compares the API with the last published version from nuget.org; raise it after every release.
+         A local pack keeps 0.1.0-local, below any baseline, so the PublicApi baseline tests guard it instead. -->
     <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion Condition="'$(RepositoryUrl)' != ''">1.1.0</PackageValidationBaselineVersion>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- Marks both assemblies trimmable for consumer trimming and runs the trim, AOT and single-file analyzers on every build. -->

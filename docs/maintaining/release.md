@@ -276,9 +276,11 @@ and its upstream notices ship as static web assets under `staticwebassets/` and 
 `_content/BlazorECharts/` and `_content/BlazorECharts.WordCloud/`. These URLs come from
 `StaticWebAssetBasePath` in each project file, not from the package id; `StaticAssetPathTests` checks
 that the C# constants that build the URLs match the project files. TypeScript sources and their
-`tsconfig.json` are not packed. `EnablePackageValidation` runs on every pack; after the first
-release, set `PackageValidationBaselineVersion` to the last published version in
-`src/Directory.Build.props`, so that pack compares the API with that package from nuget.org.
+`tsconfig.json` are not packed. `EnablePackageValidation` runs on every pack. A release pack
+(`-RepositoryUrl`, as in `release.yml`) also compares the API with `PackageValidationBaselineVersion` in
+`src/Directory.Build.props`, the last published version, restored from nuget.org; raise it after every
+release. A local pack keeps the version `0.1.0-local`, whose assembly version is below any baseline
+(CP0003), so the [public API baseline](#public-api-baseline) guards it instead.
 Published metadata cannot be changed, so these rules are checked on every package:
 
 - The license expression names everything a package distributes:
