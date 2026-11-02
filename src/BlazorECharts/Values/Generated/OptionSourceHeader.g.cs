@@ -23,7 +23,7 @@ public readonly struct OptionSourceHeader : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static OptionSourceHeader From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("OptionSourceHeader", value, "one of false or true", "a number or \"auto\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -40,7 +40,7 @@ public readonly struct OptionSourceHeader : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static OptionSourceHeader From(string value)
     {
-        if (!(value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "auto")) throw LiteralUnion.Rejected("OptionSourceHeader", value, "\"auto\"", "a number or one of false or true", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

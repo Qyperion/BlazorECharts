@@ -23,7 +23,7 @@ public readonly struct GraphicTextType : IOptionValue, IJsonOnSerializing, IRead
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicTextType From(string value)
     {
-        if (!(value == "text")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "text")) throw LiteralUnion.Rejected("GraphicTextType", value, "\"text\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

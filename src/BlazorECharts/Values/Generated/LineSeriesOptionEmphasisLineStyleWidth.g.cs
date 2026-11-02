@@ -23,7 +23,7 @@ public readonly struct LineSeriesOptionEmphasisLineStyleWidth : IOptionValue, IJ
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LineSeriesOptionEmphasisLineStyleWidth From(string value)
     {
-        if (!(value == "bolder")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "bolder")) throw LiteralUnion.Rejected("LineSeriesOptionEmphasisLineStyleWidth", value, "\"bolder\"", "a number", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

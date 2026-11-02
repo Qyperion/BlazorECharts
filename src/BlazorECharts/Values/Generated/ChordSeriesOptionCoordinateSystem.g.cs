@@ -23,7 +23,7 @@ public readonly struct ChordSeriesOptionCoordinateSystem : IOptionValue, IJsonOn
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ChordSeriesOptionCoordinateSystem From(string value)
     {
-        if (!(value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "none")) throw LiteralUnion.Rejected("ChordSeriesOptionCoordinateSystem", value, "\"none\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

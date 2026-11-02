@@ -17,8 +17,27 @@ function fixture() {
     getInstanceByDom() {},
     init() {
       const listeners = new Map<string, Set<(...args: any[]) => unknown>>();
+      const zrListeners = new Map<string, Set<(...args: any[]) => unknown>>();
+      const zr = {
+        listeners: zrListeners,
+        on(name: string, handler: any) {
+          if (!zrListeners.has(name))
+            zrListeners.set(name, new Set());
+
+          zrListeners.get(name)!.add(handler);
+        },
+        off(name: string, handler: any) {
+          zrListeners.get(name)?.delete(handler);
+        },
+        emit(name: string, data?: unknown) {
+          for (const handler of zrListeners.get(name) ?? [])
+            handler(data);
+        },
+      };
       const native = {
         listeners,
+        zr,
+        getZr: () => zr,
         options: {},
         disposed: false,
         on(name: string, query: any, callback?: any) {
@@ -160,6 +179,85 @@ describe('event subscriptions', () => {
     // Assert
     expect(count).toBe(2);
     expect(natives[1].listeners.get('click').size).toBe(0);
+  });
+
+  it('ZrEvent_ListensOnZRenderAndSendsOnlyThePointerFields', async () => {
+    // Arrange
+    const { page, natives } = fixture();
+    await page.openFacade('a');
+    const id = page.createChart('a', {} as HTMLElement, null, {})!;
+    const calls: any[] = [];
+    page.subscribe('a', id, 'zr', 'zr:click', null, { invokeMethodAsync: async (...args: any[]) => { calls.push(args); } });
+    const element = new (class Rect {})();
+    natives[0].zr.emit('click', {
+      type: 'click',
+      offsetX: 120.5,
+      offsetY: 40,
+      wheelDelta: 0,
+      zrByTouch: false,
+      target: element,
+      topTarget: element,
+      event: { button: 2, ctrlKey: true, shiftKey: false, altKey: false, metaKey: true },
+      stop() {},
+    });
+
+    // Act
+    await tick();
+
+    // Assert
+    expect(natives[0].listeners.get('click')).toBeUndefined();
+    expect(calls).toHaveLength(1);
+    expect(calls[0][3]).toEqual({
+      type: 'click', offsetX: 120.5, offsetY: 40, button: 2, ctrlKey: true, shiftKey: false, altKey: false, metaKey: true,
+      wheelDelta: 0, byTouch: false, hasTarget: true,
+    });
+    expect(calls[0][4]).toEqual([]);
+
+    // Act
+    natives[0].zr.emit('click', { type: 'click', offsetX: 1, offsetY: 2, zrByTouch: true, event: {} });
+    await tick();
+
+    // Assert
+    expect(calls[1][3]).toMatchObject({ button: null, ctrlKey: false, byTouch: true, hasTarget: false });
+  });
+
+  it('ZrEvent_RebindsOnTheNewZRenderAfterRecreateAndUnbindsOnDispose', async () => {
+    // Arrange
+    const { page, natives } = fixture();
+    await page.openFacade('a');
+    const id = page.createChart('a', {} as HTMLElement, null, {})!;
+    let count = 0;
+    page.subscribe('a', id, 'down', 'zr:mousedown', null, { invokeMethodAsync: async () => { count++; } }, 5);
+    const old = [...natives[0].zr.listeners.get('mousedown')][0] as any;
+
+    // Act
+    page.recreateChart('a', id, {}, null);
+    old({ type: 'mousedown', offsetX: 0, offsetY: 0 });
+    natives[1].zr.emit('mousedown', { type: 'mousedown', offsetX: 0, offsetY: 0 });
+    await tick();
+
+    // Assert
+    expect(count).toBe(1);
+    expect(natives[0].zr.listeners.get('mousedown').size).toBe(0);
+    expect(natives[1].zr.listeners.get('mousedown').size).toBe(1);
+
+    // Act
+    page.disposeChart('a', id);
+
+    // Assert
+    expect(natives[1].zr.listeners.get('mousedown').size).toBe(0);
+  });
+
+  it('ZrEvent_RejectsAQueryAndAnUnsupportedName', async () => {
+    // Arrange
+    const { page } = fixture();
+    await page.openFacade('a');
+    const id = page.createChart('a', {} as HTMLElement, null, {})!;
+    const callback = { invokeMethodAsync: async () => {} };
+
+    // Act & Assert
+    expect(() => page.subscribe('a', id, 'query', 'zr:click', { seriesIndex: 0 }, callback)).toThrow('ZRender events take no query.');
+    expect(() => page.subscribe('a', id, 'drag', 'zr:drag', null, callback)).toThrow('zr:drag is not a supported ZRender event.');
   });
 
   it('EventHandler_FaultReachesErrorChannel_without_unhandled_rejection', async () => {

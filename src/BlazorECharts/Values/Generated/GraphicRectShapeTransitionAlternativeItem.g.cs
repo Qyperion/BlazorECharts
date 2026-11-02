@@ -23,7 +23,7 @@ public readonly struct GraphicRectShapeTransitionAlternativeItem : IOptionValue,
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicRectShapeTransitionAlternativeItem From(string value)
     {
-        if (!(value == "height" || value == "x" || value == "y" || value == "width" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "height" || value == "x" || value == "y" || value == "width" || value == "r")) throw LiteralUnion.Rejected("GraphicRectShapeTransitionAlternativeItem", value, "one of \"height\", \"x\", \"y\", \"width\" or \"r\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

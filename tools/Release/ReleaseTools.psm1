@@ -568,6 +568,20 @@ function Test-TrimWarnings {
     , $failures.ToArray()
 }
 
+# A release names its version in the first section of CHANGELOG.md. The next section is the version it follows: the
+# published package that package validation compares the API with. Returns the failures and that previous version.
+function Read-ChangelogRelease([Parameter(Mandatory)][string]$Path, [Parameter(Mandatory)][string]$Version) {
+    $headings = @(Get-Content -LiteralPath $Path -Encoding UTF8 | Where-Object { $_ -match '^## ' } | ForEach-Object { $_.Substring(3).Trim() })
+    $failures = New-Object System.Collections.Generic.List[string]
+    if ($headings -contains 'Unreleased') { $failures.Add("CHANGELOG.md still has '## Unreleased'; the release names it '## $Version'.") }
+    if ($headings.Count -eq 0 -or $headings[0] -cne $Version) { $failures.Add("The first section of CHANGELOG.md must be '## $Version'.") }
+    $previous = if ($headings.Count -gt 1 -and $headings[0] -ceq $Version) { $headings[1] } else { $null }
+    if ($previous -and $previous -notmatch '^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$') {
+        $failures.Add("The section after '## $Version' is '## $previous', not a released version.")
+    }
+    [pscustomobject]@{ Failures = $failures.ToArray(); Previous = $previous }
+}
+
 function Write-Failures([string]$Title, [string[]]$Failures) {
     if ($Failures.Count -eq 0) { Write-Host "PASS $Title"; return }
     Write-Host "FAIL $Title"
@@ -651,4 +665,5 @@ Export-ModuleMember -Function Get-PackageId, Get-PackageIds, Get-AssemblyName, G
     Test-SymbolPackage, Resolve-FullPath, Test-PathInside, Invoke-Logged, Invoke-LoggedProcess, Get-BytesSha256, Get-FileSha256,
     Read-ZipEntryBytes, Read-Json, Get-LockPackage, Test-NuGetPackage, Test-PackageOnlyConsumer, Test-ConsumerRestore, Write-Failures,
     Write-ConsumerNuGetConfig, Reset-PackageCache, Copy-ConsumerTemplate, Test-CachedPackage, Get-TrimWarnings, Test-TrimWarnings,
-    Get-HeadBlobSizes, Test-BlobSizes, Invoke-GitCommand, Initialize-OutputDirectory, Clear-OutputDirectory, Reset-OutputEntries
+    Get-HeadBlobSizes, Test-BlobSizes, Invoke-GitCommand, Initialize-OutputDirectory, Clear-OutputDirectory, Reset-OutputEntries,
+    Read-ChangelogRelease

@@ -31,7 +31,7 @@ public readonly struct GraphicRingShapeTransition : IOptionValue, IJsonOnSeriali
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicRingShapeTransition From(string value)
     {
-        if (!(value == "r0" || value == "cy" || value == "all" || value == "cx" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "r0" || value == "cy" || value == "all" || value == "cx" || value == "r")) throw LiteralUnion.Rejected("GraphicRingShapeTransition", value, "one of \"r0\", \"cy\", \"all\", \"cx\" or \"r\"", "an array of GraphicRingShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

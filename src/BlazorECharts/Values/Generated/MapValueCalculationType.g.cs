@@ -23,7 +23,7 @@ public readonly struct MapValueCalculationType : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static MapValueCalculationType From(string value)
     {
-        if (!(value == "max" || value == "min" || value == "average" || value == "sum")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "max" || value == "min" || value == "average" || value == "sum")) throw LiteralUnion.Rejected("MapValueCalculationType", value, "one of \"max\", \"min\", \"average\" or \"sum\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

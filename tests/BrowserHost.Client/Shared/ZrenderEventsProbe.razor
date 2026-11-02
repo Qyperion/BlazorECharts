@@ -1,0 +1,101 @@
+@using System.Globalization
+@using BlazorECharts
+@using BlazorECharts.Events
+@using BlazorECharts.Options
+@using BlazorECharts.Runtime
+@using BlazorECharts.Values
+@implements IAsyncDisposable
+
+<h1>ZRender pointer events</h1>
+<p data-testid="ready">@_ready</p>
+<p data-testid="status">@_status</p>
+<button @onclick="ArmBrush">Arm brush</button>
+<button @onclick="ToggleRenderer">Toggle renderer</button>
+<button @onclick="Unsubscribe">Unsubscribe</button>
+<EChart @ref="_chart" Class="zrender-chart" Style="width:600px;height:340px" Options="_options" InitOptions="_init" OnReady="Ready" />
+<pre data-testid="events">@string.Join("\n", _events)</pre>
+
+@code {
+    private static readonly string[] Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+
+    private readonly ChartOptions _options = new()
+    {
+        Animation = false,
+        Grid = new GridOption { Left = 50, Right = 20, Top = 20, Bottom = 40 },
+        XAxis = new XAxisCategoryOption { Data = [.. Months.Select(month => (CategoryAxisDataItemOption?)month)] },
+        YAxis = new YAxisValueOption(),
+        Toolbox = new ToolboxComponentOption { Show = false },
+        Brush = new BrushOption { Toolbox = [], XAxisIndex = 0, BrushType = "lineX", BrushMode = "single" },
+        Series = new BarSeriesOption { Name = "Messages", Data = [4, 8, 3, 6, 5, 7] },
+    };
+
+    private readonly List<string> _events = [];
+    private readonly List<ChartSubscription> _subscriptions = [];
+    private EChart? _chart;
+    private ChartSubscription? _zrClick;
+    private ChartInitOptions _init = new() { Renderer = "canvas" };
+    private bool _svg;
+    private string _ready = "waiting";
+    private string _status = "initial";
+
+    private EChartInstance Chart => _chart!.Instance!;
+
+    private async Task Ready(EChartInstance chart)
+    {
+        _subscriptions.Add(await chart.SubscribeAsync(ChartEvents.Click, e => Record($"series-click {e.Name}")));
+        _subscriptions.Add(await chart.SubscribeAsync(ZrEvents.MouseDown, e => Record($"zr-mousedown button={e.Button}")));
+        _zrClick = await chart.SubscribeAsync(ZrEvents.Click, OnZrClick);
+        _subscriptions.Add(_zrClick);
+        _ready = "ready";
+        StateHasChanged();
+    }
+
+    // The category under the pointer, read the way an application selects one bar while the brush cursor is active.
+    private async Task OnZrClick(ZrEvent e)
+    {
+        var inside = await Chart.ContainPixelAsync(ChartFinder.Select("grid", index: 0), [e.OffsetX, e.OffsetY]);
+        var category = inside ? await Chart.ConvertFromPixelAsync(ChartFinder.Select("xAxis", index: 0), e.OffsetX) : null;
+        var month = category?.Scalar is { } index ? Months[(int)Math.Round(index)] : "outside";
+        await Record(
+            $"zr-click {month} button={e.Button} ctrl={e.CtrlKey} target={e.HasTarget}"
+            + $" x={e.OffsetX.ToString("0", CultureInfo.InvariantCulture)} y={e.OffsetY.ToString("0", CultureInfo.InvariantCulture)}");
+    }
+
+    private Task Record(string value) => InvokeAsync(() =>
+    {
+        _events.Add(value);
+        StateHasChanged();
+    });
+
+    private async Task ArmBrush()
+    {
+        await Chart.DispatchActionAsync(new TakeGlobalCursorAction
+        {
+            Key = "brush",
+            BrushOption = new() { BrushType = "lineX", BrushMode = "single" },
+        });
+        _events.Clear();
+        _status = "armed";
+    }
+
+    private void ToggleRenderer()
+    {
+        _svg = !_svg;
+        _init = new() { Renderer = _svg ? "svg" : "canvas" };
+        _events.Clear();
+        _status = _svg ? "svg" : "canvas";
+    }
+
+    private async Task Unsubscribe()
+    {
+        await _zrClick!.DisposeAsync();
+        _events.Clear();
+        _status = "unsubscribed";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        foreach (var subscription in _subscriptions)
+            await subscription.DisposeAsync();
+    }
+}

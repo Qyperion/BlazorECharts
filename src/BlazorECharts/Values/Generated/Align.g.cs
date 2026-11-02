@@ -23,7 +23,7 @@ public readonly struct Align : IOptionValue, IJsonOnSerializing, IReadableOption
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static Align From(string value)
     {
-        if (!(value == "left" || value == "right" || value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "left" || value == "right" || value == "auto")) throw LiteralUnion.Rejected("Align", value, "one of \"left\", \"right\" or \"auto\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

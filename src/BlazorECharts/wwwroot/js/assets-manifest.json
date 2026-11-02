@@ -10,7 +10,7 @@
     {
       "path": "js/blazor-echarts.js",
       "bytes": 1051,
-      "sha256": "d814c430ad57d8c8699027eda0ef68e50c0b543deb49fa50f12d1dc5492afd64"
+      "sha256": "0d117a3a71dbeeaf347b9fddac8b8991b79b8de91b6e28dbe846e44b637b2af3"
     },
     {
       "path": "js/echarts-6.1.0.js",
@@ -19,8 +19,8 @@
     },
     {
       "path": "js/runtime-loader.js",
-      "bytes": 91808,
-      "sha256": "77f61b15f5ae2db1da3ccc4abd36d3dcb891a084cbaf850fa2ba48860c4788cb"
+      "bytes": 92925,
+      "sha256": "f3f3ce0fd0323e1a40ba6da4bb65d04e48b8de043c17d755396b201049bcf6e2"
     },
     {
       "path": "notices/echarts/LICENSE",

@@ -23,6 +23,9 @@ public partial class EChartInstance
     {
         ArgumentNullException.ThrowIfNull(descriptor);
         ArgumentNullException.ThrowIfNull(handler);
+        if (descriptor.Name.StartsWith(ZrEvents.Prefix, StringComparison.Ordinal) && query is { Json.ValueKind: not JsonValueKind.Null })
+            throw new ArgumentException("ZRender events take no query; use EventQuery.Throttled for a throttle.", nameof(query));
+
         EnsureActive();
         cancellationToken.ThrowIfCancellationRequested();
         if (_transport is not IChartEventTransport transport)

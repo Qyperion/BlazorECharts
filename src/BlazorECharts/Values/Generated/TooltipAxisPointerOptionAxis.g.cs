@@ -23,7 +23,7 @@ public readonly struct TooltipAxisPointerOptionAxis : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TooltipAxisPointerOptionAxis From(string value)
     {
-        if (!(value == "radius" || value == "angle" || value == "x" || value == "y" || value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "radius" || value == "angle" || value == "x" || value == "y" || value == "auto")) throw LiteralUnion.Rejected("TooltipAxisPointerOptionAxis", value, "one of \"radius\", \"angle\", \"x\", \"y\" or \"auto\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

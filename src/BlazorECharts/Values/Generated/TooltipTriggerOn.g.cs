@@ -23,7 +23,7 @@ public readonly struct TooltipTriggerOn : IOptionValue, IJsonOnSerializing, IRea
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TooltipTriggerOn From(string value)
     {
-        if (!(value == "mousemove|click|mousewheel" || value == "click" || value == "none" || value == "mousewheel" || value == "mousemove")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "mousemove|click|mousewheel" || value == "click" || value == "none" || value == "mousewheel" || value == "mousemove")) throw LiteralUnion.Rejected("TooltipTriggerOn", value, "one of \"mousemove|click|mousewheel\", \"click\", \"none\", \"mousewheel\" or \"mousemove\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

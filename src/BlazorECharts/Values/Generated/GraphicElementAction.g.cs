@@ -23,7 +23,7 @@ public readonly struct GraphicElementAction : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicElementAction From(string value)
     {
-        if (!(value == "remove" || value == "merge" || value == "replace")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "remove" || value == "merge" || value == "replace")) throw LiteralUnion.Rejected("GraphicElementAction", value, "one of \"remove\", \"merge\" or \"replace\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

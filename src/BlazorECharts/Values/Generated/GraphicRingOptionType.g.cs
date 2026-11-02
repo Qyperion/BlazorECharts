@@ -23,7 +23,7 @@ public readonly struct GraphicRingOptionType : IOptionValue, IJsonOnSerializing,
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicRingOptionType From(string value)
     {
-        if (!(value == "ring")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "ring")) throw LiteralUnion.Rejected("GraphicRingOptionType", value, "\"ring\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

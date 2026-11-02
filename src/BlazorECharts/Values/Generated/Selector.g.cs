@@ -31,7 +31,7 @@ public readonly struct Selector : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static Selector From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("Selector", value, "one of false or true", "an array of SelectorAlternativeItem");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

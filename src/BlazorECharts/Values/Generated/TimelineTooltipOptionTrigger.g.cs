@@ -23,7 +23,7 @@ public readonly struct TimelineTooltipOptionTrigger : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TimelineTooltipOptionTrigger From(string value)
     {
-        if (!(value == "item")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "item")) throw LiteralUnion.Rejected("TimelineTooltipOptionTrigger", value, "\"item\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

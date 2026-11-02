@@ -23,7 +23,7 @@ public readonly struct PieLabelOptionAlignTo : IOptionValue, IJsonOnSerializing,
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static PieLabelOptionAlignTo From(string value)
     {
-        if (!(value == "none" || value == "labelLine" || value == "edge")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "none" || value == "labelLine" || value == "edge")) throw LiteralUnion.Rejected("PieLabelOptionAlignTo", value, "one of \"none\", \"labelLine\" or \"edge\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

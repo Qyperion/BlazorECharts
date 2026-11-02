@@ -23,7 +23,7 @@ public readonly struct RadarSeriesOptionCoordinateSystem : IOptionValue, IJsonOn
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static RadarSeriesOptionCoordinateSystem From(string value)
     {
-        if (!(value == "radar")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "radar")) throw LiteralUnion.Rejected("RadarSeriesOptionCoordinateSystem", value, "\"radar\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

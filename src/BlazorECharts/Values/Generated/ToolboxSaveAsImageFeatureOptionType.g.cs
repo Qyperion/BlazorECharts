@@ -23,7 +23,7 @@ public readonly struct ToolboxSaveAsImageFeatureOptionType : IOptionValue, IJson
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ToolboxSaveAsImageFeatureOptionType From(string value)
     {
-        if (!(value == "jpeg" || value == "png")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "jpeg" || value == "png")) throw LiteralUnion.Rejected("ToolboxSaveAsImageFeatureOptionType", value, "one of \"jpeg\" or \"png\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

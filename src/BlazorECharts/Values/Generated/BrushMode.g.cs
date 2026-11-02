@@ -23,7 +23,7 @@ public readonly struct BrushMode : IOptionValue, IJsonOnSerializing, IReadableOp
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BrushMode From(string value)
     {
-        if (!(value == "multiple" || value == "single")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "multiple" || value == "single")) throw LiteralUnion.Rejected("BrushMode", value, "one of \"multiple\" or \"single\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

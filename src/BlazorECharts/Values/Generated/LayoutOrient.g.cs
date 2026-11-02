@@ -23,7 +23,7 @@ public readonly struct LayoutOrient : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LayoutOrient From(string value)
     {
-        if (!(value == "horizontal" || value == "vertical")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "horizontal" || value == "vertical")) throw LiteralUnion.Rejected("LayoutOrient", value, "one of \"horizontal\" or \"vertical\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct UniversalTransitionOptionDivideShape : IOptionValue, IJso
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static UniversalTransitionOptionDivideShape From(string value)
     {
-        if (!(value == "clone" || value == "split")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "clone" || value == "split")) throw LiteralUnion.Rejected("UniversalTransitionOptionDivideShape", value, "one of \"clone\" or \"split\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

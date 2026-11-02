@@ -23,7 +23,7 @@ public readonly struct SortTransformOptionConfigItemIncomparable : IOptionValue,
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SortTransformOptionConfigItemIncomparable From(string value)
     {
-        if (!(value == "max" || value == "min")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "max" || value == "min")) throw LiteralUnion.Rejected("SortTransformOptionConfigItemIncomparable", value, "one of \"max\" or \"min\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

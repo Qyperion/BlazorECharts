@@ -51,6 +51,12 @@ try {
         [System.IO.File]::WriteAllText($sourceLink, (Get-SourceLinkJson $RepositoryUrl $RepositoryCommit))
         $properties += @("-p:RepositoryUrl=$RepositoryUrl", "-p:RepositoryCommit=$RepositoryCommit", '-p:RepositoryType=git', '-p:PublishRepositoryUrl=true',
             "-p:SourceLink=$sourceLink")
+
+        # Package validation compares the API with the version the release follows in CHANGELOG.md, restored from nuget.org.
+        $changelog = Read-ChangelogRelease (Join-Path $SourceRoot 'CHANGELOG.md') $Version
+        Write-Failures "CHANGELOG.md names the release $Version" $changelog.Failures
+        if ($changelog.Failures.Count -ne 0) { throw 'CHANGELOG.md does not name this release.' }
+        if ($changelog.Previous) { $properties += "-p:PackageValidationBaselineVersion=$($changelog.Previous)" }
     }
     foreach ($kind in @('Core', 'WordCloud')) {
         $id = Get-PackageId $kind

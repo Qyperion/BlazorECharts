@@ -15,7 +15,7 @@ public readonly struct WordCloudLineType : IOptionValue, IJsonOnSerializing
     private readonly bool _initialized;
     private WordCloudLineType(object? value) { _value = value; _initialized = true; }
     /// <summary>Creates the string alternative.</summary>
-    public static WordCloudLineType From(string value) { if (!(value == "solid" || value == "dotted" || value == "dashed")) throw new ArgumentException("Invalid WordCloudLineType literal.", nameof(value)); return new(value); }
+    public static WordCloudLineType From(string value) { if (!(value == "solid" || value == "dotted" || value == "dashed")) throw new ArgumentException($"WordCloudLineType: \"{value}\" is not one of \"solid\", \"dotted\" or \"dashed\". The union also accepts a number or an array of numbers.", nameof(value)); return new(value); }
     /// <summary>Preserves the source alternative.</summary>
     public static implicit operator WordCloudLineType(string value) => From(value);
     /// <summary>Creates the double alternative.</summary>

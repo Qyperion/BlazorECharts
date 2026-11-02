@@ -23,7 +23,7 @@ public readonly struct TooltipHidePayloadType : IOptionValue, IJsonOnSerializing
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TooltipHidePayloadType From(string value)
     {
-        if (!(value == "hideTip")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "hideTip")) throw LiteralUnion.Rejected("TooltipHidePayloadType", value, "\"hideTip\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

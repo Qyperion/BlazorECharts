@@ -23,7 +23,7 @@ public readonly struct PatternObjectType : IOptionValue, IJsonOnSerializing, IRe
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static PatternObjectType From(string value)
     {
-        if (!(value == "pattern")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "pattern")) throw LiteralUnion.Rejected("PatternObjectType", value, "\"pattern\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

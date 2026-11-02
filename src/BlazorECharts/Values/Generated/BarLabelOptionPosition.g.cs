@@ -23,7 +23,7 @@ public readonly struct BarLabelOptionPosition : IOptionValue, IJsonOnSerializing
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BarLabelOptionPosition From(string value)
     {
-        if (!(value == "insideStart" || value == "insideBottomLeft" || value == "top" || value == "end" || value == "insideBottom" || value == "insideLeft" || value == "start" || value == "bottom" || value == "outside" || value == "insideEnd" || value == "left" || value == "insideBottomRight" || value == "insideTop" || value == "right" || value == "insideRight" || value == "insideTopLeft" || value == "middle" || value == "inside" || value == "insideTopRight")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "insideStart" || value == "insideBottomLeft" || value == "top" || value == "end" || value == "insideBottom" || value == "insideLeft" || value == "start" || value == "bottom" || value == "outside" || value == "insideEnd" || value == "left" || value == "insideBottomRight" || value == "insideTop" || value == "right" || value == "insideRight" || value == "insideTopLeft" || value == "middle" || value == "inside" || value == "insideTopRight")) throw LiteralUnion.Rejected("BarLabelOptionPosition", value, "one of \"insideStart\", \"insideBottomLeft\", \"top\", \"end\", \"insideBottom\", \"insideLeft\", \"start\", \"bottom\", \"outside\", \"insideEnd\", \"left\", \"insideBottomRight\", \"insideTop\", \"right\", \"insideRight\", \"insideTopLeft\", \"middle\", \"inside\" or \"insideTopRight\"", "an array of NumberOrString", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -4,6 +4,33 @@ Changes of the `Qyperion.BlazorECharts` and `Qyperion.BlazorECharts.WordCloud` p
 are released together with the same version; the release notes of each package link to this
 file at the release tag.
 
+## 1.2.0
+
+- The `ArgumentException` of a literal union names the union, the rejected value, the accepted
+  literals and the other alternatives, such as `ZRFontWeight: "600" is not one of "lighter",
+  "bolder", "normal" or "bold". The union also accepts a number. Pass 600 as a number, not a
+  string.` The literal properties of `Qyperion.BlazorECharts.WordCloud` name their model and
+  member the same way.
+- Serializing a built-in model with a context that has none, such as
+  `new EChartsSerializationContext()`, names `OptionMetadata.CreateContext()` in the error; a
+  model of another assembly names the registration of its extension. The new
+  [Test options without a browser](docs/options.md#test-options-without-a-browser) section shows
+  how a unit test serializes options with the built-in, WordCloud and custom data metadata.
+- `ChartBrushCursorOption.BrushType`, the brush option of `TakeGlobalCursorAction`, accepts only
+  the brush types of ECharts: `"rect"`, `"polygon"`, `"lineX"`, `"lineY"`, `"auto"` and `false`.
+  A misspelled type used to pass and failed in the browser when the user started a brush; it now
+  throws `ArgumentException` at the assignment. The error of an event or action payload field
+  shows the rejected value, such as `received "linex"`, instead of its JSON kind.
+- `ZrEvents` subscribes to the pointer events of the chart's ZRender surface: `Click`,
+  `DoubleClick`, `MouseDown`, `MouseUp`, `MouseMove`, `MouseWheel` and `ContextMenu`, with the
+  `ZrEvent` payload (position, button, modifier keys, wheel delta). They arrive also where ECharts
+  raises no component event, such as on a brush selection, and move to the new chart when
+  `InitOptions` recreate it, like other subscriptions. See
+  [ZRender events](docs/events.md#zrender-events). The brush period picker example selects a month
+  with a click.
+- The interop protocol of `runtime-loader.js` is 4: a page that kept the scripts of an earlier
+  version reports `RuntimeVersionMismatch` and asks for a reload.
+
 ## 1.1.0
 
 - `Qyperion.BlazorECharts.WordCloud` uses [`@qyperion/echarts-wordcloud`](https://github.com/Qyperion/echarts-wordcloud)

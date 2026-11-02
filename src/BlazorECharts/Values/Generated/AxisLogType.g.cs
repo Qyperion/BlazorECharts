@@ -23,7 +23,7 @@ public readonly struct AxisLogType : IOptionValue, IJsonOnSerializing, IReadable
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static AxisLogType From(string value)
     {
-        if (!(value == "log")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "log")) throw LiteralUnion.Rejected("AxisLogType", value, "\"log\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct GraphicBezierCurveShapeTransition : IOptionValue, IJsonOn
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicBezierCurveShapeTransition From(string value)
     {
-        if (!(value == "percent" || value == "x1" || value == "y2" || value == "cpy1" || value == "y1" || value == "cpx1" || value == "cpy2" || value == "all" || value == "x2" || value == "cpx2")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "percent" || value == "x1" || value == "y2" || value == "cpy1" || value == "y1" || value == "cpx1" || value == "cpy2" || value == "all" || value == "x2" || value == "cpx2")) throw LiteralUnion.Rejected("GraphicBezierCurveShapeTransition", value, "one of \"percent\", \"x1\", \"y2\", \"cpy1\", \"y1\", \"cpx1\", \"cpy2\", \"all\", \"x2\" or \"cpx2\"", "an array of GraphicBezierCurveShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

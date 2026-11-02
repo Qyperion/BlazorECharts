@@ -23,7 +23,7 @@ public readonly struct TreeSeriesOptionLayout : IOptionValue, IJsonOnSerializing
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreeSeriesOptionLayout From(string value)
     {
-        if (!(value == "radial" || value == "orthogonal")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "radial" || value == "orthogonal")) throw LiteralUnion.Rejected("TreeSeriesOptionLayout", value, "one of \"radial\" or \"orthogonal\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

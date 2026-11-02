@@ -23,7 +23,7 @@ public readonly struct HighlightPayloadType : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static HighlightPayloadType From(string value)
     {
-        if (!(value == "highlight")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "highlight")) throw LiteralUnion.Rejected("HighlightPayloadType", value, "\"highlight\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

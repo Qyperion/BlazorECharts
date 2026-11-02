@@ -23,7 +23,7 @@ public readonly struct SelectorType : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SelectorType From(string value)
     {
-        if (!(value == "inverse" || value == "all")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "inverse" || value == "all")) throw LiteralUnion.Rejected("SelectorType", value, "one of \"inverse\" or \"all\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

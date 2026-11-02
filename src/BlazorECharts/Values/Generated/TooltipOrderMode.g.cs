@@ -23,7 +23,7 @@ public readonly struct TooltipOrderMode : IOptionValue, IJsonOnSerializing, IRea
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TooltipOrderMode From(string value)
     {
-        if (!(value == "seriesAsc" || value == "seriesDesc" || value == "valueDesc" || value == "valueAsc")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "seriesAsc" || value == "seriesDesc" || value == "valueDesc" || value == "valueAsc")) throw LiteralUnion.Rejected("TooltipOrderMode", value, "one of \"seriesAsc\", \"seriesDesc\", \"valueDesc\" or \"valueAsc\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -113,7 +113,7 @@ public sealed class WordCloudSeriesOption : SeriesOption
     public ZRColor?[]?[]? ColorLayer { get => _colorLayer; set { SetProperty(ref _colorLayer, value, "colorLayer"); } }
     private string? _colorBy;
     /// <summary>Gets or sets the exact upstream colorBy value, preserving explicit null.</summary>
-    public string? ColorBy { get => _colorBy; set { if (value is not null && !(value == "series" || value == "data")) throw new ArgumentException("Invalid colorBy literal.", nameof(value)); SetProperty(ref _colorBy, value, "colorBy"); } }
+    public string? ColorBy { get => _colorBy; set { if (value is not null && !(value == "series" || value == "data")) throw new ArgumentException($"WordCloudSeriesOption.ColorBy: \"{value}\" is not one of \"series\" or \"data\".", nameof(value)); SetProperty(ref _colorBy, value, "colorBy"); } }
     private bool? _legendHoverLink;
     /// <summary>Gets or sets the exact upstream legendHoverLink value, preserving explicit null.</summary>
     public bool? LegendHoverLink { get => _legendHoverLink; set { SetProperty(ref _legendHoverLink, value, "legendHoverLink"); } }

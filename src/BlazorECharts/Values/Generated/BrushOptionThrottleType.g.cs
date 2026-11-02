@@ -23,7 +23,7 @@ public readonly struct BrushOptionThrottleType : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BrushOptionThrottleType From(string value)
     {
-        if (!(value == "fixRate" || value == "debounce")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "fixRate" || value == "debounce")) throw LiteralUnion.Rejected("BrushOptionThrottleType", value, "one of \"fixRate\" or \"debounce\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

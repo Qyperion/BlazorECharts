@@ -284,7 +284,10 @@ public readonly struct EventActionValue : IOptionValue
         if (s_alternatives.GetOrAdd(alternatives, static value => value.Split('|')).Any(a => Matches(json, a)))
             return;
 
-        throw new ArgumentException($"Expected {alternatives}; received {json.ValueKind}.");
+        var received = json.ValueKind is JsonValueKind.String or JsonValueKind.Number or JsonValueKind.True or JsonValueKind.False
+            ? json.GetRawText()
+            : json.ValueKind.ToString();
+        throw new ArgumentException($"Expected {alternatives}; received {received}.");
     }
 
     private static bool Matches(JsonElement json, string alternative) => alternative.EndsWith("[]", StringComparison.Ordinal)

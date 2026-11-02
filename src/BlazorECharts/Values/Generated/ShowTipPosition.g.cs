@@ -31,7 +31,7 @@ public readonly struct ShowTipPosition : IOptionValue, IJsonOnSerializing, IRead
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ShowTipPosition From(string value)
     {
-        if (!(value == "top" || value == "bottom" || value == "left" || value == "right" || value == "inside")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "top" || value == "bottom" || value == "left" || value == "right" || value == "inside")) throw LiteralUnion.Rejected("ShowTipPosition", value, "one of \"top\", \"bottom\", \"left\", \"right\" or \"inside\"", "a browser callback (JsFunction<ShowTipPositionAlternativeSignature>), ComponentTooltipPositionAlternative or an array of NumberOrString", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

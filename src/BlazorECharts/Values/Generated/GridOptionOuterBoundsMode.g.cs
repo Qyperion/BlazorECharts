@@ -23,7 +23,7 @@ public readonly struct GridOptionOuterBoundsMode : IOptionValue, IJsonOnSerializ
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GridOptionOuterBoundsMode From(string value)
     {
-        if (!(value == "same" || value == "none" || value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "same" || value == "none" || value == "auto")) throw LiteralUnion.Rejected("GridOptionOuterBoundsMode", value, "one of \"same\", \"none\" or \"auto\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

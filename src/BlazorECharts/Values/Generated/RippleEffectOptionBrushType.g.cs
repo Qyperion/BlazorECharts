@@ -23,7 +23,7 @@ public readonly struct RippleEffectOptionBrushType : IOptionValue, IJsonOnSerial
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static RippleEffectOptionBrushType From(string value)
     {
-        if (!(value == "fill" || value == "stroke")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "fill" || value == "stroke")) throw LiteralUnion.Rejected("RippleEffectOptionBrushType", value, "one of \"fill\" or \"stroke\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

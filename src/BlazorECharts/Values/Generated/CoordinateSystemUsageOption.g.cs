@@ -23,7 +23,7 @@ public readonly struct CoordinateSystemUsageOption : IOptionValue, IJsonOnSerial
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CoordinateSystemUsageOption From(string value)
     {
-        if (!(value == "box" || value == "data")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "box" || value == "data")) throw LiteralUnion.Rejected("CoordinateSystemUsageOption", value, "one of \"box\" or \"data\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

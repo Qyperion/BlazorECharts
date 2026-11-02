@@ -23,7 +23,7 @@ public readonly struct Bounding : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static Bounding From(string value)
     {
-        if (!(value == "raw" || value == "all")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "raw" || value == "all")) throw LiteralUnion.Rejected("Bounding", value, "one of \"raw\" or \"all\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

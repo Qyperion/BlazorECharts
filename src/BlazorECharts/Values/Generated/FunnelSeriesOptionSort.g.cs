@@ -23,7 +23,7 @@ public readonly struct FunnelSeriesOptionSort : IOptionValue, IJsonOnSerializing
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static FunnelSeriesOptionSort From(string value)
     {
-        if (!(value == "ascending" || value == "none" || value == "descending")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "ascending" || value == "none" || value == "descending")) throw LiteralUnion.Rejected("FunnelSeriesOptionSort", value, "one of \"ascending\", \"none\" or \"descending\"", "a browser callback (JsFunction<FunnelSortComparatorSignature>)", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

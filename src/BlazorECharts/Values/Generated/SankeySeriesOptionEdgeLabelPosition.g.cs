@@ -23,7 +23,7 @@ public readonly struct SankeySeriesOptionEdgeLabelPosition : IOptionValue, IJson
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SankeySeriesOptionEdgeLabelPosition From(string value)
     {
-        if (!(value == "inside")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "inside")) throw LiteralUnion.Rejected("SankeySeriesOptionEdgeLabelPosition", value, "\"inside\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

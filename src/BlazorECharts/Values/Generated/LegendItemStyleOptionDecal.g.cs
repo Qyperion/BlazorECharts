@@ -23,7 +23,7 @@ public readonly struct LegendItemStyleOptionDecal : IOptionValue, IJsonOnSeriali
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LegendItemStyleOptionDecal From(string value)
     {
-        if (!(value == "inherit" || value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "inherit" || value == "none")) throw LiteralUnion.Rejected("LegendItemStyleOptionDecal", value, "one of \"inherit\" or \"none\"", "DecalObject", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

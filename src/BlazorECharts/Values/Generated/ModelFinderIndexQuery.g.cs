@@ -31,7 +31,7 @@ public readonly struct ModelFinderIndexQuery : IOptionValue, IJsonOnSerializing,
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static ModelFinderIndexQuery From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("ModelFinderIndexQuery", value, "false", "a number, an array of number or one of \"none\" or \"all\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -48,7 +48,7 @@ public readonly struct ModelFinderIndexQuery : IOptionValue, IJsonOnSerializing,
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ModelFinderIndexQuery From(string value)
     {
-        if (!(value == "none" || value == "all")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "none" || value == "all")) throw LiteralUnion.Rejected("ModelFinderIndexQuery", value, "one of \"none\" or \"all\"", "a number, an array of number or false", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

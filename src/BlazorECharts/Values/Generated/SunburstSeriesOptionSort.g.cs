@@ -23,7 +23,7 @@ public readonly struct SunburstSeriesOptionSort : IOptionValue, IJsonOnSerializi
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SunburstSeriesOptionSort From(string value)
     {
-        if (!(value == "asc" || value == "desc")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "asc" || value == "desc")) throw LiteralUnion.Rejected("SunburstSeriesOptionSort", value, "one of \"asc\" or \"desc\"", "a browser callback (JsFunction<SunburstSeriesOptionSortAlternativeSignature>)", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct TextOverflow : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TextOverflow From(string value)
     {
-        if (!(value == "truncate" || value == "none" || value == "breakAll" || value == "break")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "truncate" || value == "none" || value == "breakAll" || value == "break")) throw LiteralUnion.Rejected("TextOverflow", value, "one of \"truncate\", \"none\", \"breakAll\" or \"break\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

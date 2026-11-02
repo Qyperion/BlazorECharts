@@ -32,6 +32,51 @@ public class UnionContractsTests
     }
 
     [Fact]
+    public void Generated_LiteralUnion_RejectionNamesTheUnionTheValueAndTheAlternatives()
+    {
+        // Act
+        var fontWeight = Assert.Throws<ArgumentException>(() => ZRFontWeight.From("600"));
+        var trigger = Assert.Throws<ArgumentException>(() => TooltipTrigger.From("hover"));
+        var missing = Assert.Throws<ArgumentException>(() => TooltipTrigger.From(null!));
+        var step = Assert.Throws<ArgumentException>(() => LineStep.From(true));
+        var clip = Assert.Throws<ArgumentException>(() => ClipPath.From(true));
+        var easing = Assert.Throws<ArgumentException>(() => AnimationEasing.From("bounce"));
+
+        // Assert
+        Assert.Equal("value", fontWeight.ParamName);
+        Assert.StartsWith(
+            "ZRFontWeight: \"600\" is not one of \"lighter\", \"bolder\", \"normal\" or \"bold\"."
+            + " The union also accepts a number. Pass 600 as a number, not a string.",
+            fontWeight.Message);
+
+        Assert.StartsWith("TooltipTrigger: \"hover\" is not one of \"axis\", \"item\" or \"none\". (Parameter", trigger.Message);
+        Assert.StartsWith("TooltipTrigger: null is not one of \"axis\", \"item\" or \"none\". (Parameter", missing.Message);
+        Assert.StartsWith("LineStep: true is not false. The union also accepts one of \"end\", \"start\" or \"middle\". (Parameter", step.Message);
+        Assert.StartsWith("ClipPath: true is not false. The union also accepts ClipPathAlternative. (Parameter", clip.Message);
+        Assert.StartsWith("AnimationEasing: \"bounce\" is not one of \"backIn\", ", easing.Message);
+        Assert.Contains(
+            " or \"quadraticOut\". The union also accepts a browser callback (JsFunction<AnimationEasingAlternativeSignature>). (Parameter",
+            easing.Message);
+    }
+
+    [Fact]
+    public void Generated_LiteralUnion_SuggestsANumberOnlyForANumericStringOfAUnionWithANumber()
+    {
+        // Act
+        var name = Assert.Throws<ArgumentException>(() => ZRFontWeight.From("heavy"));
+        var fraction = Assert.Throws<ArgumentException>(() => ZRFontWeight.From("450.5"));
+        var withoutNumber = Assert.Throws<ArgumentException>(() => TooltipTrigger.From("600"));
+
+        // Assert
+        Assert.StartsWith(
+            "ZRFontWeight: \"heavy\" is not one of \"lighter\", \"bolder\", \"normal\" or \"bold\". The union also accepts a number. (Parameter",
+            name.Message);
+
+        Assert.Contains(" Pass 450.5 as a number, not a string. (Parameter", fraction.Message);
+        Assert.DoesNotContain("Pass", withoutNumber.Message);
+    }
+
+    [Fact]
     public void Generated_AxisIdAndDatasetDimensions_AcceptActualUpstreamAlternatives()
     {
         // Arrange

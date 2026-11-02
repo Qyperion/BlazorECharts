@@ -9,7 +9,7 @@ var EChartsError = class extends Error {
 };
 
 // src/BlazorECharts/JavaScript/runtime-protocol.ts
-var pageRuntimeKey = /* @__PURE__ */ Symbol.for("BlazorECharts.page-runtime.v3");
+var pageRuntimeKey = /* @__PURE__ */ Symbol.for("BlazorECharts.page-runtime.v4");
 
 // src/BlazorECharts/JavaScript/blazor-echarts.ts
 var page = () => globalThis[pageRuntimeKey];

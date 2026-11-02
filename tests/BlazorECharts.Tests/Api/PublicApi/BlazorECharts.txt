@@ -713,6 +713,27 @@ public sealed class BlazorECharts.Events.UpdateAxisPointerEvent : ChartEventPayl
   int? DataIndex { get; }
   int? SeriesIndex { get; }
   string? Type { get; }
+public sealed class BlazorECharts.Events.ZrEvent : ChartEventPayload
+  bool AltKey { get; }
+  bool ByTouch { get; }
+  bool CtrlKey { get; }
+  bool HasTarget { get; }
+  bool MetaKey { get; }
+  bool ShiftKey { get; }
+  ctor(JsonElement json)
+  double OffsetX { get; }
+  double OffsetY { get; }
+  double WheelDelta { get; }
+  int? Button { get; }
+  string? Type { get; }
+public static class BlazorECharts.Events.ZrEvents
+  static ChartEvent<ZrEvent> Click { get; }
+  static ChartEvent<ZrEvent> ContextMenu { get; }
+  static ChartEvent<ZrEvent> DoubleClick { get; }
+  static ChartEvent<ZrEvent> MouseDown { get; }
+  static ChartEvent<ZrEvent> MouseMove { get; }
+  static ChartEvent<ZrEvent> MouseUp { get; }
+  static ChartEvent<ZrEvent> MouseWheel { get; }
 public sealed class BlazorECharts.Options.AnchorOption : OptionObject
   NumberOrString?[]? OffsetCenter { get; set; }
   StaticItemStyleOption? ItemStyle { get; set; }

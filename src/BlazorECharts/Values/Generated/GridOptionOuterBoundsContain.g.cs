@@ -23,7 +23,7 @@ public readonly struct GridOptionOuterBoundsContain : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GridOptionOuterBoundsContain From(string value)
     {
-        if (!(value == "axisLabel" || value == "all" || value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "axisLabel" || value == "all" || value == "auto")) throw LiteralUnion.Rejected("GridOptionOuterBoundsContain", value, "one of \"axisLabel\", \"all\" or \"auto\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

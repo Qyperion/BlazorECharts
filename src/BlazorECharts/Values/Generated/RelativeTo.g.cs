@@ -23,7 +23,7 @@ public readonly struct RelativeTo : IOptionValue, IJsonOnSerializing, IReadableO
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static RelativeTo From(string value)
     {
-        if (!(value == "coordinate" || value == "container")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "coordinate" || value == "container")) throw LiteralUnion.Rejected("RelativeTo", value, "one of \"coordinate\" or \"container\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

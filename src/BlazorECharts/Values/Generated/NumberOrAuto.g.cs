@@ -31,7 +31,7 @@ public readonly struct NumberOrAuto : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static NumberOrAuto From(string value)
     {
-        if (!(value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "auto")) throw LiteralUnion.Rejected("NumberOrAuto", value, "\"auto\"", "a number", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

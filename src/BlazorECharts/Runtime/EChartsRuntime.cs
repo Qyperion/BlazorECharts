@@ -38,7 +38,7 @@ public sealed partial class EChartsRuntime
     internal ILoggerFactory? Loggers { get; init; }
 
     // The .NET interop protocol of runtime-loader.js (runtime-protocol.ts): openFacade receives it first and rejects another one.
-    internal const int RuntimeProtocol = 3;
+    internal const int RuntimeProtocol = 4;
 
     private ResourceAssetCollection? _assets;
 

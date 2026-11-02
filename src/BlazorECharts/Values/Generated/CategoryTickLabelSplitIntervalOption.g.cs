@@ -39,7 +39,7 @@ public readonly struct CategoryTickLabelSplitIntervalOption : IOptionValue, IJso
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CategoryTickLabelSplitIntervalOption From(string value)
     {
-        if (!(value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "auto")) throw LiteralUnion.Rejected("CategoryTickLabelSplitIntervalOption", value, "\"auto\"", "a number or a browser callback (JsFunction<CategoryTickLabelSplitIntervalOptionAlternativeSignature>)", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -18,6 +18,7 @@ export interface ChartObject {
 
   on?(name: string, queryOrHandler: unknown, handler?: (payload?: unknown) => void): void;
   off?(name: string, handler: (payload?: unknown) => void): void;
+  getZr?(): { on?(name: string, handler: (payload?: unknown) => void): void; off?(name: string, handler: (payload?: unknown) => void): void };
   dispatchAction?(payload: Record<string, unknown>, settings?: boolean | Record<string, unknown>): void;
 }
 

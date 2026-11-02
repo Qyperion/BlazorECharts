@@ -23,7 +23,7 @@ public readonly struct SeriesSelectedMode : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SeriesSelectedMode From(string value)
     {
-        if (!(value == "series" || value == "multiple" || value == "single")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "series" || value == "multiple" || value == "single")) throw LiteralUnion.Rejected("SeriesSelectedMode", value, "one of \"series\", \"multiple\" or \"single\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct SeriesSelectedMode : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static SeriesSelectedMode From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("SeriesSelectedMode", value, "one of false or true", "one of \"series\", \"multiple\" or \"single\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

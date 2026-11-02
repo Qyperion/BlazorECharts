@@ -23,7 +23,7 @@ public readonly struct SymbolRepeat : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static SymbolRepeat From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("SymbolRepeat", value, "one of false or true", "a number or \"fixed\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -40,7 +40,7 @@ public readonly struct SymbolRepeat : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SymbolRepeat From(string value)
     {
-        if (!(value == "fixed")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "fixed")) throw LiteralUnion.Rejected("SymbolRepeat", value, "\"fixed\"", "a number or one of false or true", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

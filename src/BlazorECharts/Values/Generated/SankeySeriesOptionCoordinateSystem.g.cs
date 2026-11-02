@@ -23,7 +23,7 @@ public readonly struct SankeySeriesOptionCoordinateSystem : IOptionValue, IJsonO
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SankeySeriesOptionCoordinateSystem From(string value)
     {
-        if (!(value == "view")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "view")) throw LiteralUnion.Rejected("SankeySeriesOptionCoordinateSystem", value, "\"view\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

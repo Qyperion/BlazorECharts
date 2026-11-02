@@ -23,7 +23,7 @@ public readonly struct CategoryAxisType : IOptionValue, IJsonOnSerializing, IRea
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CategoryAxisType From(string value)
     {
-        if (!(value == "category")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "category")) throw LiteralUnion.Rejected("CategoryAxisType", value, "\"category\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

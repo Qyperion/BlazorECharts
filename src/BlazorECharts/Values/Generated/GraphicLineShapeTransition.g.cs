@@ -23,7 +23,7 @@ public readonly struct GraphicLineShapeTransition : IOptionValue, IJsonOnSeriali
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicLineShapeTransition From(string value)
     {
-        if (!(value == "percent" || value == "x1" || value == "y2" || value == "y1" || value == "all" || value == "x2")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "percent" || value == "x1" || value == "y2" || value == "y1" || value == "all" || value == "x2")) throw LiteralUnion.Rejected("GraphicLineShapeTransition", value, "one of \"percent\", \"x1\", \"y2\", \"y1\", \"all\" or \"x2\"", "an array of GraphicLineShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

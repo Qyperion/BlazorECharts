@@ -31,7 +31,7 @@ public readonly struct TreemapSeriesDecal : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreemapSeriesDecal From(string value)
     {
-        if (!(value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "none")) throw LiteralUnion.Rejected("TreemapSeriesDecal", value, "\"none\"", "an array of DecalObject", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

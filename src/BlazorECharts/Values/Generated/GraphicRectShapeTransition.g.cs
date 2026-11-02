@@ -31,7 +31,7 @@ public readonly struct GraphicRectShapeTransition : IOptionValue, IJsonOnSeriali
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicRectShapeTransition From(string value)
     {
-        if (!(value == "height" || value == "x" || value == "y" || value == "all" || value == "width" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "height" || value == "x" || value == "y" || value == "all" || value == "width" || value == "r")) throw LiteralUnion.Rejected("GraphicRectShapeTransition", value, "one of \"height\", \"x\", \"y\", \"all\", \"width\" or \"r\"", "an array of GraphicRectShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

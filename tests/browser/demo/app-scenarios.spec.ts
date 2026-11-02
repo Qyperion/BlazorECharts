@@ -55,10 +55,37 @@ for (const hosting of hostings) {
       expect(native.areas).toEqual([{ type: 'lineX', range: [3, 6] }]);
 
       // Act
+      // May lies under the brush cover, where ECharts raises no series click; ZRender reports the click.
+      const month = (index: number, value: number) => chart.evaluate(
+        async (element, { module, index, value }) => {
+          const point = (await import(module)).getInstanceByDom(element).convertToPixel({ gridIndex: 0 }, [index, value]);
+          const box = element.getBoundingClientRect();
+          return { x: box.left + point[0], y: box.top + point[1] };
+        },
+        { module: echartsModule, index, value }
+      );
+      const may = await month(4, 100);
+      await page.mouse.click(may.x, may.y);
+
+      // Assert
+      await expect(selection).toHaveAttribute('data-first', '4');
+      await expect(selection).toHaveAttribute('data-last', '4');
+      await expect(selection).toContainText('Selected May 2024:');
+
+      // Act
+      // Above the bar of Oct is the empty part of its category.
+      const october = await month(9, 900);
+      await page.mouse.click(october.x, october.y);
+
+      // Assert
+      await expect(selection).toHaveAttribute('data-first', '9');
+      await expect(selection).toHaveAttribute('data-last', '9');
+
+      // Act
       await page.getByRole('button', { name: 'Clear selection' }).click();
 
       // Assert
-      await expect(selection).toHaveText('Drag across the bars to pick a period.');
+      await expect(selection).toHaveText('Drag across the bars to pick a period, or click a month.');
     });
 
     test(`SunburstDrillsIntoLevels ${hosting}`, async ({ page }) => {

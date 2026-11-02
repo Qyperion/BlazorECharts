@@ -23,7 +23,7 @@ public readonly struct GraphicSectorShapeTransition : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicSectorShapeTransition From(string value)
     {
-        if (!(value == "cornerRadius" || value == "r0" || value == "clockwise" || value == "cy" || value == "all" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cornerRadius" || value == "r0" || value == "clockwise" || value == "cy" || value == "all" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw LiteralUnion.Rejected("GraphicSectorShapeTransition", value, "one of \"cornerRadius\", \"r0\", \"clockwise\", \"cy\", \"all\", \"startAngle\", \"cx\", \"endAngle\" or \"r\"", "an array of GraphicSectorShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

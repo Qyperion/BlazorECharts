@@ -23,7 +23,7 @@ public readonly struct PieLabelOptionPosition : IOptionValue, IJsonOnSerializing
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static PieLabelOptionPosition From(string value)
     {
-        if (!(value == "insideBottomLeft" || value == "top" || value == "inner" || value == "insideBottom" || value == "insideLeft" || value == "center" || value == "bottom" || value == "outer" || value == "outside" || value == "left" || value == "insideBottomRight" || value == "insideTop" || value == "right" || value == "insideRight" || value == "insideTopLeft" || value == "inside" || value == "insideTopRight")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "insideBottomLeft" || value == "top" || value == "inner" || value == "insideBottom" || value == "insideLeft" || value == "center" || value == "bottom" || value == "outer" || value == "outside" || value == "left" || value == "insideBottomRight" || value == "insideTop" || value == "right" || value == "insideRight" || value == "insideTopLeft" || value == "inside" || value == "insideTopRight")) throw LiteralUnion.Rejected("PieLabelOptionPosition", value, "one of \"insideBottomLeft\", \"top\", \"inner\", \"insideBottom\", \"insideLeft\", \"center\", \"bottom\", \"outer\", \"outside\", \"left\", \"insideBottomRight\", \"insideTop\", \"right\", \"insideRight\", \"insideTopLeft\", \"inside\" or \"insideTopRight\"", "an array of NumberOrString", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

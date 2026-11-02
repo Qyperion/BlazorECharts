@@ -324,6 +324,17 @@ export async function generateWordCloud(input?: Mapping) {
           ? `JsFunction<${s.slice(9)}>`
           : s.startsWith('core-many:') ? `${s.slice(10)}OneOrMany` : s.startsWith('core:') || s.startsWith('enum:') ? s.slice(5) : s;
 
+  // The error of a string literal outside its list names the member, the value and the other alternatives.
+  const words = (s: string): string => s === 'double' ? 'a number' : s === 'double[]' ? 'an array of numbers' : s === 'string' ? 'a string'
+    : s === 'bool' ? 'a boolean' : s === 'native' ? 'a browser object reference' : s.startsWith('function:') ? 'a browser callback' : cs(s);
+  const rejected = (member: string, literals: string[], others: string[]): string => {
+    const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} or ${items.at(-1)}`;
+    const values = literals.map(x => JSON.stringify(x));
+    const message = `${member}: "{value}" is not ${values.length === 1 ? values[0] : `one of ${list(values)}`}.`
+      + (others.length ? ` The union also accepts ${list(others.map(words))}.` : '');
+    return `throw new ArgumentException($${JSON.stringify(message)}, nameof(value));`;
+  };
+
   // core:X is a core model or a core union (read through IReadableOptionValue); core-many:X is XOneOrMany, X or an array of a core union.
   const coreValue = (name: string) => {
     const value = existsSync(`src/BlazorECharts/Values/Generated/${name}.g.cs`);
@@ -388,7 +399,7 @@ export async function generateWordCloud(input?: Mapping) {
     for (const [n, s] of entries) {
       let validation = '';
       if (s.startsWith('literal:'))
-        validation = `if (value is not null && !(${s.slice(8).split(',').map(x => `value == ${JSON.stringify(x)}`).join(' || ')})) throw new ArgumentException("Invalid ${n} literal.", nameof(value)); `;
+        validation = `if (value is not null && !(${s.slice(8).split(',').map(x => `value == ${JSON.stringify(x)}`).join(' || ')})) ${rejected(`${name}.${pascal(n)}`, s.slice(8).split(','), [])} `;
 
       const remarks = noEffect.has(`${name}.${n}`)
         ? `    /// <remarks>No effect in @qyperion/echarts-wordcloud ${config.version}: ${noEffect.get(`${name}.${n}`)!.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</remarks>\n`
@@ -438,7 +449,7 @@ export async function generateWordCloud(input?: Mapping) {
     for (const type of [...new Set(specs.map(cs))]) {
       const literal = specs.filter(s => cs(s) === type && s.startsWith('literal:'));
       const validation = literal.length && !specs.some(s => cs(s) === type && !s.startsWith('literal:'))
-        ? `if (!(${literal.flatMap(s => s.slice(8).split(',')).map(x => `value == ${x === 'false' ? 'false' : JSON.stringify(x)}`).join(' || ')})) throw new ArgumentException("Invalid ${name} literal.", nameof(value)); `
+        ? `if (!(${literal.flatMap(s => s.slice(8).split(',')).map(x => `value == ${x === 'false' ? 'false' : JSON.stringify(x)}`).join(' || ')})) ${rejected(name, literal.flatMap(s => s.slice(8).split(',')), specs.filter(s => cs(s) !== type))} `
         : '';
       code += `    /// <summary>Creates the ${type.replaceAll('<', '&lt;')} alternative.</summary>\n    public static ${name} From(${type} value) { ${validation}return new(value); }\n    /// <summary>Preserves the source alternative.</summary>\n    public static implicit operator ${name}(${type} value) => From(value);\n`;
     }

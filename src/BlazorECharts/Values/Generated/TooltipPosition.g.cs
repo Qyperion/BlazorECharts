@@ -39,7 +39,7 @@ public readonly struct TooltipPosition : IOptionValue, IJsonOnSerializing, IRead
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TooltipPosition From(string value)
     {
-        if (!(value == "top" || value == "bottom" || value == "left" || value == "right" || value == "inside")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "top" || value == "bottom" || value == "left" || value == "right" || value == "inside")) throw LiteralUnion.Rejected("TooltipPosition", value, "one of \"top\", \"bottom\", \"left\", \"right\" or \"inside\"", "a browser callback (JsFunction<TooltipPositionCallback>), TooltipPositionAlternative or an array of NumberOrString", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

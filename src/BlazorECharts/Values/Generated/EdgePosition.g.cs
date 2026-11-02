@@ -23,7 +23,7 @@ public readonly struct EdgePosition : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static EdgePosition From(string value)
     {
-        if (!(value == "top" || value == "bottom" || value == "left" || value == "right")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "top" || value == "bottom" || value == "left" || value == "right")) throw LiteralUnion.Rejected("EdgePosition", value, "one of \"top\", \"bottom\", \"left\" or \"right\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

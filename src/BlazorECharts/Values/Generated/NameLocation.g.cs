@@ -23,7 +23,7 @@ public readonly struct NameLocation : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static NameLocation From(string value)
     {
-        if (!(value == "end" || value == "start" || value == "center" || value == "middle")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "end" || value == "start" || value == "center" || value == "middle")) throw LiteralUnion.Rejected("NameLocation", value, "one of \"end\", \"start\", \"center\" or \"middle\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

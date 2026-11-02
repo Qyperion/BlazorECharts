@@ -13,10 +13,10 @@ public sealed class WordCloudState : OptionObject
 {
     private string? _focus;
     /// <summary>Gets or sets the exact upstream focus value, preserving explicit null.</summary>
-    public string? Focus { get => _focus; set { if (value is not null && !(value == "self" || value == "series" || value == "none")) throw new ArgumentException("Invalid focus literal.", nameof(value)); SetProperty(ref _focus, value, "focus"); } }
+    public string? Focus { get => _focus; set { if (value is not null && !(value == "self" || value == "series" || value == "none")) throw new ArgumentException($"WordCloudState.Focus: \"{value}\" is not one of \"self\", \"series\" or \"none\".", nameof(value)); SetProperty(ref _focus, value, "focus"); } }
     private string? _blurScope;
     /// <summary>Gets or sets the exact upstream blurScope value, preserving explicit null.</summary>
-    public string? BlurScope { get => _blurScope; set { if (value is not null && !(value == "coordinateSystem" || value == "global" || value == "series")) throw new ArgumentException("Invalid blurScope literal.", nameof(value)); SetProperty(ref _blurScope, value, "blurScope"); } }
+    public string? BlurScope { get => _blurScope; set { if (value is not null && !(value == "coordinateSystem" || value == "global" || value == "series")) throw new ArgumentException($"WordCloudState.BlurScope: \"{value}\" is not one of \"coordinateSystem\", \"global\" or \"series\".", nameof(value)); SetProperty(ref _blurScope, value, "blurScope"); } }
     private WordCloudItemTextStyle? _textStyle;
     /// <summary>Gets or sets the exact upstream textStyle value, preserving explicit null.</summary>
     public WordCloudItemTextStyle? TextStyle { get => _textStyle; set { SetProperty(ref _textStyle, value, "textStyle"); } }

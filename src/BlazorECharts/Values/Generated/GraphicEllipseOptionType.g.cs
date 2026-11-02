@@ -23,7 +23,7 @@ public readonly struct GraphicEllipseOptionType : IOptionValue, IJsonOnSerializi
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicEllipseOptionType From(string value)
     {
-        if (!(value == "ellipse")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "ellipse")) throw LiteralUnion.Rejected("GraphicEllipseOptionType", value, "\"ellipse\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

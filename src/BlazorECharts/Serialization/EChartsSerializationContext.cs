@@ -358,10 +358,17 @@ public sealed class EChartsSerializationContext
     private void WriteOptions(Utf8JsonWriter writer, OptionObject options, string path)
     {
         if (!_options.TryGetValue(options.GetType(), out var writeProperties))
+        {
+            var advice = options.GetType().Assembly == typeof(OptionObject).Assembly
+                ? "The context has no built-in models: create it with OptionMetadata.CreateContext(), or call"
+                + " OptionMetadata.Register(context) on a context of your own."
+                : "Register an OptionTypeRegistration<T> for it; a model of an extension needs the registration of its extension, such as"
+                + " WordCloudTypeRegistration.Register(context).";
             throw new OptionSerializationException(
-                $"No option writer for CLR type '{options.GetType().FullName}' at {path}. Register an OptionTypeRegistration<T>.",
+                $"No option writer for CLR type '{options.GetType().FullName}' at {path}. {advice}",
                 path,
                 options.GetType());
+        }
 
         var additional = options.AdditionalProperties.Count == 0
             ? []

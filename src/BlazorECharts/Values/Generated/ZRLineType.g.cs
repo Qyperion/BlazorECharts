@@ -23,7 +23,7 @@ public readonly struct ZRLineType : IOptionValue, IJsonOnSerializing, IReadableO
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ZRLineType From(string value)
     {
-        if (!(value == "dashed" || value == "solid" || value == "dotted")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "dashed" || value == "solid" || value == "dotted")) throw LiteralUnion.Rejected("ZRLineType", value, "one of \"dashed\", \"solid\" or \"dotted\"", "a number or an array of number", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct SeriesLayoutBy : IOptionValue, IJsonOnSerializing, IReada
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SeriesLayoutBy From(string value)
     {
-        if (!(value == "column" || value == "row")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "column" || value == "row")) throw LiteralUnion.Rejected("SeriesLayoutBy", value, "one of \"column\" or \"row\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

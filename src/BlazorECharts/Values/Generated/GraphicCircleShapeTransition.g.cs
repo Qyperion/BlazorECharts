@@ -23,7 +23,7 @@ public readonly struct GraphicCircleShapeTransition : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicCircleShapeTransition From(string value)
     {
-        if (!(value == "cy" || value == "all" || value == "cx" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cy" || value == "all" || value == "cx" || value == "r")) throw LiteralUnion.Rejected("GraphicCircleShapeTransition", value, "one of \"cy\", \"all\", \"cx\" or \"r\"", "an array of GraphicCircleShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

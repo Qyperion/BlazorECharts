@@ -23,7 +23,7 @@ public readonly struct Draggable : IOptionValue, IJsonOnSerializing, IReadableOp
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static Draggable From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("Draggable", value, "one of false or true", "one of \"horizontal\" or \"vertical\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct Draggable : IOptionValue, IJsonOnSerializing, IReadableOp
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static Draggable From(string value)
     {
-        if (!(value == "horizontal" || value == "vertical")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "horizontal" || value == "vertical")) throw LiteralUnion.Rejected("Draggable", value, "one of \"horizontal\" or \"vertical\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

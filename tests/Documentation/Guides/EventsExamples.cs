@@ -21,6 +21,25 @@ internal static class EventsExamples
         // endsnippet
     }
 
+    internal static async Task Zr(EChartInstance chart)
+    {
+        // snippet: Guides.Events.Zr
+        // A click anywhere on the chart: also on a brush selection or above a bar, where ECharts raises no series click.
+        await using var clicks = await chart.SubscribeAsync(ZrEvents.Click, async e =>
+        {
+            if (!await chart.ContainPixelAsync(ChartFinder.Select("grid", index: 0), [e.OffsetX, e.OffsetY]))
+                return;
+
+            ChartPixelValue category = await chart.ConvertFromPixelAsync(ChartFinder.Select("xAxis", index: 0), e.OffsetX);
+            Console.WriteLine($"Category {category.Scalar}");
+        });
+
+        // Pointer moves arrive often: throttle them.
+        await using var moves = await chart.SubscribeAsync(ZrEvents.MouseMove, e => Task.CompletedTask,
+            EventQuery.Throttled(TimeSpan.FromMilliseconds(100)));
+        // endsnippet
+    }
+
     internal static async Task Actions(EChartInstance chart)
     {
         // snippet: Guides.Events.Actions

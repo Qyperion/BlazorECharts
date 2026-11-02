@@ -23,7 +23,7 @@ public readonly struct ParallelCoordinateSystemOptionAxisExpandTriggerOn : IOpti
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ParallelCoordinateSystemOptionAxisExpandTriggerOn From(string value)
     {
-        if (!(value == "click" || value == "mousemove")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "click" || value == "mousemove")) throw LiteralUnion.Rejected("ParallelCoordinateSystemOptionAxisExpandTriggerOn", value, "one of \"click\" or \"mousemove\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

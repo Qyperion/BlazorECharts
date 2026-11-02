@@ -23,7 +23,7 @@ public readonly struct SeriesEmphasisFocus : IOptionValue, IJsonOnSerializing, I
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SeriesEmphasisFocus From(string value)
     {
-        if (!(value == "series" || value == "relative" || value == "none" || value == "ancestor" || value == "self" || value == "descendant")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "series" || value == "relative" || value == "none" || value == "ancestor" || value == "self" || value == "descendant")) throw LiteralUnion.Rejected("SeriesEmphasisFocus", value, "one of \"series\", \"relative\", \"none\", \"ancestor\", \"self\" or \"descendant\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

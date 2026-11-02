@@ -74,7 +74,8 @@ echarts-doc default (`ECharts default: …`), a union lists its alternatives and
 signature marker lists the callback parameters. Events and actions take the first sentence of their
 echarts-doc API description and link its section of `api.html`; the text comes from
 `artifacts/generator/docs/api.json` (`npm run docs:acquire`) and must hash to the schema's
-`descriptionHash`, so a snapshot of another echarts-doc commit fails generation. Closed literal unions validate their accepted values. Arrays and
+`descriptionHash`, so a snapshot of another echarts-doc commit fails generation. Closed literal unions validate their accepted
+values; the error names the union, the value, the accepted literals and the other alternatives. Arrays and
 `OneOrMany<T>` preserve scalar, empty array and one-element array shapes. `X | X[]` of a union `X`
 with a scalar alternative is the struct `XOneOrMany`: `OneOrMany<X?>` would need two user-defined
 conversions from that alternative. Nullable

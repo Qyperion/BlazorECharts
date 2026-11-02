@@ -23,7 +23,7 @@ public readonly struct CanvasLineJoin : IOptionValue, IJsonOnSerializing, IReada
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CanvasLineJoin From(string value)
     {
-        if (!(value == "round" || value == "miter" || value == "bevel")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "round" || value == "miter" || value == "bevel")) throw LiteralUnion.Rejected("CanvasLineJoin", value, "one of \"round\", \"miter\" or \"bevel\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

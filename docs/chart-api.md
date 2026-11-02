@@ -27,7 +27,7 @@ bool inside = await chart.ContainPixelAsync(ChartFinder.Select("grid", index: 0)
 | Options | `SetOptionAsync`, `GetOptionAsync`, `ClearAsync`, `AppendDataAsync` ([updates](updates.md)) |
 | Size and state | `ResizeAsync`, `GetWidthAsync`, `GetHeightAsync`, `GetDevicePixelRatioAsync`, `GetIdAsync`, `IsDisposedAsync`, `IsSsrAsync` |
 | Coordinates | `ConvertToPixelAsync`, `ConvertFromPixelAsync`, `ConvertToLayoutAsync`, `ContainPixelAsync`, `GetVisualAsync` |
-| Events and actions | `SubscribeAsync`, `DispatchActionAsync`, `MakeActionFromEventAsync`, `TriggerAsync`, `TriggerWithContextAsync`, `IsSilentAsync` ([events](events.md)) |
+| Events and actions | `SubscribeAsync`, `DispatchActionAsync`, `MakeActionFromEventAsync`, `TriggerAsync`, `TriggerWithContextAsync`, `IsSilentAsync` ([events](events.md), [ZRender events](events.md#zrender-events)) |
 | Theme and loading | `SetThemeAsync`, `ShowLoadingAsync`, `HideLoadingAsync`, `UpdateLabelLayoutAsync` |
 | Groups | `SetGroupAsync`, `GetGroupAsync` ([connected charts](events.md#connected-charts)) |
 | Export | `AwaitStableAsync`, `GetDataUrlAsync`, `GetConnectedDataUrlAsync`, `GetSvgDataUrlAsync`, `RenderToSvgStringAsync`, `RenderToCanvasAsync` ([export](export.md)) |

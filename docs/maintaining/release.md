@@ -75,18 +75,25 @@ is a minor change. JSON names of generated members are not CLR API; their change
 
 ## Release checklist
 
+Changes go to `main` directly; `verify` runs on every push. A release is one more commit on `main`,
+`chore(release): <version>`, on top of the changes it ships:
+
 1. Choose the version; package metadata is in `src/Directory.Build.props`, descriptions are in
    each `.csproj`. The [public API baseline](#public-api-baseline) diff since the previous release
    decides the version.
-2. Add the version to `CHANGELOG.md` and point the repository links of both package READMEs
-   (`src/*/README.md`) at the tag `v<version>`: a published README never changes, and the package
-   inspection of a release rejects links to another ref.
+2. Rename the section `## Unreleased` of `CHANGELOG.md` to `## <version>` and point the repository
+   links of both package READMEs (`src/*/README.md`) at the tag `v<version>`: a published README
+   never changes, and the package inspection of a release rejects links to another ref. The
+   section after `## <version>` is the version the release follows, which
+   [package validation](#packages) compares the API with.
 3. Commit every change. The gate verifies one committed tree and refuses uncommitted tracked
    files and a checkout whose line endings or name case differ from the committed ones (a rename
    that changes only the case is not recorded on Windows: `git rm --cached` the old path, `git add` the new).
-4. Run the [local release gate](#local-release-gate). Only `PASS` is a release.
-5. Keep `<OutputPath>` (by default `artifacts/verification`) as the record of what was verified.
-6. [Publish](#publishing) from the public repository: a dry run of `release.yml`, then the tag.
+4. Optionally run the [local release gate](#local-release-gate) with `-Version`, `-RepositoryUrl`
+   and `-RepositoryCommit` before pushing: it runs the checks that only a release pack runs, such
+   as the README links, the release notes and package validation.
+5. [Publish](#releasing-a-version): push `main`, then the tag. Only a `PASS` of the gate in the
+   run of the tag is a release.
 
 ## Local release gate
 
@@ -277,10 +284,11 @@ and its upstream notices ship as static web assets under `staticwebassets/` and 
 `StaticWebAssetBasePath` in each project file, not from the package id; `StaticAssetPathTests` checks
 that the C# constants that build the URLs match the project files. TypeScript sources and their
 `tsconfig.json` are not packed. `EnablePackageValidation` runs on every pack. A release pack
-(`-RepositoryUrl`, as in `release.yml`) also compares the API with `PackageValidationBaselineVersion` in
-`src/Directory.Build.props`, the last published version, restored from nuget.org; raise it after every
-release. A local pack keeps the version `0.1.0-local`, whose assembly version is below any baseline
-(CP0003), so the [public API baseline](#public-api-baseline) guards it instead.
+(`-RepositoryUrl`, as in `release.yml`) requires `## <version>` as the first section of
+`CHANGELOG.md` and no `## Unreleased` section, and compares the API with the version of the next
+section: `package.ps1` passes it as `PackageValidationBaselineVersion`, and the pack restores that
+package from nuget.org. A local pack keeps the version `0.1.0-local`, whose assembly version is
+below any baseline (CP0003), so the [public API baseline](#public-api-baseline) guards it instead.
 Published metadata cannot be changed, so these rules are checked on every package:
 
 - The license expression names everything a package distributes:
@@ -427,7 +435,9 @@ and no pull request or branch trigger.
 
 On GitHub, in the public repository:
 
-1. Protect `main` (pull requests, the `verify` checks, no force push once the history is public).
+1. Protect `main` with a ruleset that blocks force pushes and deletion. Changes are pushed to
+   `main` directly, so the ruleset requires neither pull requests nor status checks; `verify`
+   runs on every push and pull request, and a Dependabot pull request is merged once it passes.
 2. Create the environment `nuget` with a required reviewer and a deployment rule for tags `v*`.
 3. Add the repository variable `NUGET_USER` with the nuget.org profile name (not the email).
 4. Enable private vulnerability reporting (`SECURITY.md` relies on it) and Dependabot alerts.
@@ -443,24 +453,35 @@ On nuget.org:
 
 ### Releasing a version
 
-1. Run `release` manually on `main` with the version and `publish` off: a dry run. The
-   `verification` artifact holds the packages, the report and `packages-manifest.json`.
-2. Tag the verified commit and push the tag:
+The tag is the release: its run of `release.yml` runs the gate, and nothing reaches nuget.org
+before a reviewer approves the `nuget` deployment.
+
+1. Push `main` with the release commit, then tag that commit and push the tag:
 
    ```powershell
-   git tag v<version> <commit>
+   git push origin main
+   git tag v<version>
    git push origin v<version>
    ```
 
-3. Approve the `nuget` deployment once the gate passed. A run that failed after a partial push
-   can run again: `--skip-duplicate` skips what nuget.org already has.
+   The tag does not wait for `verify` of `main`: both check the same commit, each in its own
+   concurrency group, and a failing gate stops the release before the publish job.
+2. Approve the `nuget` deployment once the gate passed. A flaky stage, or a run that failed after
+   a partial push, runs again with **Re-run failed jobs**: `--skip-duplicate` skips what nuget.org
+   already has.
+3. When the gate fails on a defect, nothing was published: fix it in a new commit, delete the tag
+   (`git push origin --delete v<version>`, `git tag -d v<version>`) and tag the fixed commit. A
+   published version is never reused.
 4. Check both package pages (README, license, repository, symbols, WordCloud depending on exactly
    the core of the same version) and build a clean consumer from nuget.org:
    `dotnet add package Qyperion.BlazorECharts --version <version>`, the same for WordCloud, in an
    Interactive Server and a WebAssembly application.
 5. Check that the `pages` run of the tag deployed the [demo site](#demo-site), and create the
-   GitHub release of the tag with the changelog section of the version; no workflow creates it.
-6. Set `PackageValidationBaselineVersion` to the published version.
+   GitHub release of the tag with the changelog section of the version, for example
+   `gh release create v<version> --title <version> --notes-file <section>`; no workflow creates it.
+
+A manual run of `release` with `publish` off is a dry run of the same gate on a branch. On `main`
+it shares the concurrency group of `verify`: one cancels the other.
 
 Until the first package is published, a new [initial export](#initial-export) can replace
 `Initial` (force push). After that the public repository is the source: later versions are

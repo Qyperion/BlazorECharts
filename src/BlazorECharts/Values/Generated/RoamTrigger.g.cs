@@ -23,7 +23,7 @@ public readonly struct RoamTrigger : IOptionValue, IJsonOnSerializing, IReadable
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static RoamTrigger From(string value)
     {
-        if (!(value == "selfRect" || value == "global")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "selfRect" || value == "global")) throw LiteralUnion.Rejected("RoamTrigger", value, "one of \"selfRect\" or \"global\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

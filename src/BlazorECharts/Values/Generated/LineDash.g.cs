@@ -23,7 +23,7 @@ public readonly struct LineDash : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LineDash From(string value)
     {
-        if (!(value == "dashed" || value == "solid" || value == "dotted")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "dashed" || value == "solid" || value == "dotted")) throw LiteralUnion.Rejected("LineDash", value, "one of \"dashed\", \"solid\" or \"dotted\"", "an array of number or false", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -40,7 +40,7 @@ public readonly struct LineDash : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static LineDash From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("LineDash", value, "false", "an array of number or one of \"dashed\", \"solid\" or \"dotted\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

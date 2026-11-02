@@ -116,7 +116,11 @@ var options = new ChartOptions
 ```
 
 Literal unions validate their value: `AnimationEasing` accepts only the easing names of ECharts,
-and an unknown name throws `ArgumentException`. Each union has a static `From` for every
+and an unknown name throws `ArgumentException`. The message names the union, the rejected value,
+the accepted literals and the other alternatives. A numeric alternative takes a number, not its
+text: `FontWeight = 600` works, while `FontWeight = "600"` throws, because the string alternative
+of `ZRFontWeight` accepts only `normal`, `bold`, `bolder` and `lighter`, as the ECharts type
+declarations do. Each union has a static `From` for every
 alternative, which helps when an implicit conversion is ambiguous. A browser callback alternative
 takes a [`JsFunction<TSignature>`](functions.md).
 
@@ -367,3 +371,36 @@ JSON is passed through as data; strings that look like code are never executed.
 `AdditionalProperties`, or `RawSeriesOption.FromJson(json)`. It is meant for series types that
 an [extension](extensions.md#custom-series-types) installs without a typed model. A
 `GetOptionAsync` snapshot reads such a series as a `RawSeriesOption` too.
+
+## Test options without a browser
+
+Options are plain objects, so a unit test can build and serialize them without a browser or a
+runtime. Building them runs the union checks: a literal outside its union throws
+`ArgumentException` at the assignment. `OptionSerializer.Serialize` runs the rest and throws
+`OptionSerializationException` with the JSON path for an uninitialized union value, an additional
+field that collides with a typed property, custom data without metadata, an inline function
+without `AllowInlineJavaScript` and a number that is not finite.
+
+The serialization context must know the models: `OptionMetadata.CreateContext()` registers the
+built-in ones, an extension adds its own, and custom data needs the same `Register` calls as
+`runtime.Serialization`:
+
+<!-- snippet: Guides.Options.WithoutBrowser -->
+```csharp
+using BlazorECharts.Serialization;
+using BlazorECharts.WordCloud;
+
+var context = OptionMetadata.CreateContext();
+WordCloudTypeRegistration.Register(context);   // with Qyperion.BlazorECharts.WordCloud
+context.Register(SalesJsonContext.Default.SalesPointArray);
+
+PreparedOption prepared = OptionSerializer.Serialize(options, context);
+JsonElement json = prepared.Json;
+```
+
+`prepared.Json` is the JSON that the chart passes to `setOption`. A browser function or object
+reference is `null` there and is listed in `prepared.Bindings` with its path. A context created
+with `new EChartsSerializationContext()` has no models and rejects the root object. To serialize
+inline functions, create the context as
+`new EChartsSerializationContext { AllowInlineJavaScript = true }` and call
+`OptionMetadata.Register(context)` on it.

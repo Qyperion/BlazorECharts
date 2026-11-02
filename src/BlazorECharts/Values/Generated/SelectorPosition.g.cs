@@ -23,7 +23,7 @@ public readonly struct SelectorPosition : IOptionValue, IJsonOnSerializing, IRea
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SelectorPosition From(string value)
     {
-        if (!(value == "end" || value == "start" || value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "end" || value == "start" || value == "auto")) throw LiteralUnion.Rejected("SelectorPosition", value, "one of \"end\", \"start\" or \"auto\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

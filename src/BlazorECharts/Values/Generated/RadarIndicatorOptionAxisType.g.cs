@@ -23,7 +23,7 @@ public readonly struct RadarIndicatorOptionAxisType : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static RadarIndicatorOptionAxisType From(string value)
     {
-        if (!(value == "value" || value == "log")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "value" || value == "log")) throw LiteralUnion.Rejected("RadarIndicatorOptionAxisType", value, "one of \"value\" or \"log\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
