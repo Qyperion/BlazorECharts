@@ -4,7 +4,7 @@ Changes of the `Qyperion.BlazorECharts` and `Qyperion.BlazorECharts.WordCloud` p
 are released together with the same version; the release notes of each package link to this
 file at the release tag.
 
-## Unreleased
+## 1.2.0
 
 - The `ArgumentException` of a literal union names the union, the rejected value, the accepted
   literals and the other alternatives, such as `ZRFontWeight: "600" is not one of "lighter",

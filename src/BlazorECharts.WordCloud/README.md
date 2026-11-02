@@ -33,10 +33,10 @@ Render the chart in an interactive component, as in the BlazorECharts quick star
 [live demo](https://qyperion.github.io/BlazorECharts/examples/wordcloud) shows a word cloud with its
 C# source.
 
-The [documentation](https://github.com/Qyperion/BlazorECharts/tree/v1.1.0/docs) covers getting started, options, updates,
+The [documentation](https://github.com/Qyperion/BlazorECharts/tree/v1.2.0/docs) covers getting started, options, updates,
 events, functions, exports, extensions, render modes and errors; the word cloud series is in
-[extensions](https://github.com/Qyperion/BlazorECharts/blob/v1.1.0/docs/extensions.md). The
-[security notes](https://github.com/Qyperion/BlazorECharts/blob/v1.1.0/docs/security.md#wordcloud) describe the global
+[extensions](https://github.com/Qyperion/BlazorECharts/blob/v1.2.0/docs/extensions.md). The
+[security notes](https://github.com/Qyperion/BlazorECharts/blob/v1.2.0/docs/security.md#wordcloud) describe the global
 `setImmediate` polyfill that the first registration installs.
 
 Licensed under MIT. @qyperion/echarts-wordcloud (ISC) and the bundled wordcloud2.js layout (MIT)
