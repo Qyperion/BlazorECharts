@@ -110,7 +110,8 @@ shows the words that the layout placed.
   message, one per word in the animated layout (see [security](security.md#wordcloud)).
 
 Standalone serialization of WordCloud options, outside a registered runtime, needs
-`WordCloudTypeRegistration.Register(context)` on the serialization context.
+`WordCloudTypeRegistration.Register(context)` on a context from `OptionMetadata.CreateContext()`
+(see [testing options without a browser](options.md#test-options-without-a-browser)).
 
 ## Themes and locales
 

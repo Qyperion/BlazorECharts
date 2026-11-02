@@ -7,7 +7,10 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 // endsnippet
 using BlazorECharts.Runtime;
+// snippet: Guides.Options.WithoutBrowser
 using BlazorECharts.Serialization;
+using BlazorECharts.WordCloud;
+// endsnippet
 
 namespace DocumentationExamples.Guides;
 
@@ -157,6 +160,19 @@ internal static class OptionsExamples
         dataset.AdditionalProperties["source"] = EChartsValue.From(new SalesPoint[] { new(1, 120), new(2, 200) });
         // endsnippet
         _ = dataset;
+    }
+
+    internal static JsonElement WithoutBrowser(ChartOptions options)
+    {
+        // snippet: Guides.Options.WithoutBrowser
+        var context = OptionMetadata.CreateContext();
+        WordCloudTypeRegistration.Register(context);   // with Qyperion.BlazorECharts.WordCloud
+        context.Register(SalesJsonContext.Default.SalesPointArray);
+
+        PreparedOption prepared = OptionSerializer.Serialize(options, context);
+        JsonElement json = prepared.Json;
+        // endsnippet
+        return json;
     }
 }
 

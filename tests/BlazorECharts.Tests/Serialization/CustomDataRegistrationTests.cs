@@ -87,6 +87,37 @@ public sealed class CustomDataRegistrationTests
     }
 
     [Fact]
+    public void OptionRegistry_ContextWithoutBuiltInModels_PointsToOptionMetadata()
+    {
+        // Act
+        var error = Assert.Throws<OptionSerializationException>(
+            () => OptionSerializer.Serialize(new BlazorECharts.Options.ChartOptions(), new EChartsSerializationContext()));
+
+        // Assert
+        Assert.Equal("$", error.Path);
+        Assert.Equal(
+            "No option writer for CLR type 'BlazorECharts.Options.ChartOptions' at $. The context has no built-in models: create it with"
+            + " OptionMetadata.CreateContext(), or call OptionMetadata.Register(context) on a context of your own.",
+            error.Message);
+    }
+
+    [Fact]
+    public void OptionRegistry_UnregisteredModelOfAnotherAssembly_PointsToItsRegistration()
+    {
+        // Arrange
+        var options = new FixtureOptions { Nested = new FixtureExtensionOptions { Extension = "consumer" } };
+
+        // Act
+        var error = Assert.Throws<OptionSerializationException>(() => OptionSerializer.Serialize(options, FixtureOptions.CreateContext()));
+
+        // Assert
+        Assert.EndsWith(
+            " at $.nested. Register an OptionTypeRegistration<T> for it; a model of an extension needs the registration of its extension,"
+            + " such as WordCloudTypeRegistration.Register(context).",
+            error.Message);
+    }
+
+    [Fact]
     public void CustomData_RegistrationIsLocalToContext()
     {
         // Arrange

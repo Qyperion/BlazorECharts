@@ -11,6 +11,11 @@ file at the release tag.
   "bolder", "normal" or "bold". The union also accepts a number. Pass 600 as a number, not a
   string.` The literal properties of `Qyperion.BlazorECharts.WordCloud` name their model and
   member the same way.
+- Serializing a built-in model with a context that has none, such as
+  `new EChartsSerializationContext()`, names `OptionMetadata.CreateContext()` in the error; a
+  model of another assembly names the registration of its extension. The new
+  [Test options without a browser](docs/options.md#test-options-without-a-browser) section shows
+  how a unit test serializes options with the built-in, WordCloud and custom data metadata.
 
 ## 1.1.0
 
