@@ -84,6 +84,19 @@ for (const mode of ['server', 'wasm']) {
     // Act
     // Above the bar of Jan is the empty part of its category.
     const empty = await clickMonth(page, 'Jan', 7.5);
+
+    // Assert
+    // The click handler awaits two chart calls, so the next click waits for its record: handlers of two clicks can finish
+    // in either order.
+    await expect(events(page)).toHaveText([
+      'zr-mousedown button=0',
+      'zr-mousedown button=0',
+      `zr-click Mar button=0 ctrl=True target=True x=${cover.offsetX} y=${cover.offsetY}`,
+      'zr-mousedown button=0',
+      `zr-click Jan button=0 ctrl=False target=False x=${empty.offsetX} y=${empty.offsetY}`,
+    ].join('\n'));
+
+    // Act
     const box = (await page.locator('.zrender-chart').boundingBox())!;
     await page.mouse.click(box.x + 10, box.y + 10);
 
