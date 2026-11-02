@@ -41179,7 +41179,7 @@
     {
       "name": "ChartBrushCursorOption",
       "fields": {
-        "brushType": "string|false",
+        "brushType": "polygon|rect|lineX|lineY|auto|false",
         "brushMode": "string"
       },
       "contractSources": [

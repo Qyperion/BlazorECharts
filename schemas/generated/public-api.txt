@@ -15082,7 +15082,7 @@ ChartZoomBatch : OptionObject
   EventActionValue? EndValue { get; set; } [endValue: id]
   ChartPayloadAnimation? Animation { get; set; } [animation: ChartPayloadAnimation]
 ChartBrushCursorOption : OptionObject
-  EventActionValue? BrushType { get; set; } [brushType: string|false]
+  EventActionValue? BrushType { get; set; } [brushType: polygon|rect|lineX|lineY|auto|false]
   string? BrushMode { get; set; } [brushMode: string]
 ChartTooltipBoxLayout : OptionObject
   EventActionValue? Top { get; set; } [top: id]

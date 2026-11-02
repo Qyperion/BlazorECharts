@@ -16,6 +16,11 @@ file at the release tag.
   model of another assembly names the registration of its extension. The new
   [Test options without a browser](docs/options.md#test-options-without-a-browser) section shows
   how a unit test serializes options with the built-in, WordCloud and custom data metadata.
+- `ChartBrushCursorOption.BrushType`, the brush option of `TakeGlobalCursorAction`, accepts only
+  the brush types of ECharts: `"rect"`, `"polygon"`, `"lineX"`, `"lineY"`, `"auto"` and `false`.
+  A misspelled type used to pass and failed in the browser when the user started a brush; it now
+  throws `ArgumentException` at the assignment. The error of an event or action payload field
+  shows the rejected value, such as `received "linex"`, instead of its JSON kind.
 
 ## 1.1.0
 

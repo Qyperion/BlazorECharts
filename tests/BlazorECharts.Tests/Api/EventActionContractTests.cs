@@ -12,6 +12,32 @@ namespace BlazorECharts.Tests.Api;
 public sealed class EventActionContractTests
 {
     [Fact]
+    public void TakeGlobalCursorBrushType_AcceptsTheBrushTypesOfEChartsOnly()
+    {
+        // Arrange
+        var context = GeneratedOptionMetadata.CreateContext();
+        var action = new TakeGlobalCursorAction { Key = "brush", BrushOption = new() { BrushType = "lineX", BrushMode = "single" } };
+
+        // Act
+        var json = OptionSerializer.Serialize(action, context).Json.GetRawText();
+
+        // Assert
+        Assert.Equal("""{"type":"takeGlobalCursor","key":"brush","brushOption":{"brushType":"lineX","brushMode":"single"}}""", json);
+        foreach (var type in new[] { "rect", "polygon", "lineX", "lineY", "auto" })
+            Assert.True(new ChartBrushCursorOption { BrushType = type }.BrushType!.Value.TryGetString(out _));
+
+        Assert.True(new ChartBrushCursorOption { BrushType = false }.IsAssigned("brushType"));
+
+        // Act
+        var typo = Assert.Throws<ArgumentException>(() => new ChartBrushCursorOption { BrushType = "linex" });
+        var enabled = Assert.Throws<ArgumentException>(() => new ChartBrushCursorOption { BrushType = true });
+
+        // Assert
+        Assert.Equal("Expected polygon|rect|lineX|lineY|auto|false; received \"linex\".", typo.Message);
+        Assert.Equal("Expected polygon|rect|lineX|lineY|auto|false; received true.", enabled.Message);
+    }
+
+    [Fact]
     public void DownplayPayload_CompilesAndRoundTripsTheCompleteDeclaration()
     {
         // Arrange
