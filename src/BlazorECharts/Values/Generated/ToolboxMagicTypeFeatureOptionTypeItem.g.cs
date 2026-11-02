@@ -23,7 +23,7 @@ public readonly struct ToolboxMagicTypeFeatureOptionTypeItem : IOptionValue, IJs
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ToolboxMagicTypeFeatureOptionTypeItem From(string value)
     {
-        if (!(value == "stack" || value == "line" || value == "bar")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "stack" || value == "line" || value == "bar")) throw LiteralUnion.Rejected("ToolboxMagicTypeFeatureOptionTypeItem", value, "one of \"stack\", \"line\" or \"bar\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

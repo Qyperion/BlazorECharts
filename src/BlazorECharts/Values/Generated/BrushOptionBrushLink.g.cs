@@ -31,7 +31,7 @@ public readonly struct BrushOptionBrushLink : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BrushOptionBrushLink From(string value)
     {
-        if (!(value == "none" || value == "all")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "none" || value == "all")) throw LiteralUnion.Rejected("BrushOptionBrushLink", value, "one of \"none\" or \"all\"", "an array of number", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

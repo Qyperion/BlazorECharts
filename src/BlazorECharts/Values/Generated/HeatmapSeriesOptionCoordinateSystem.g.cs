@@ -23,7 +23,7 @@ public readonly struct HeatmapSeriesOptionCoordinateSystem : IOptionValue, IJson
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static HeatmapSeriesOptionCoordinateSystem From(string value)
     {
-        if (!(value == "calendar" || value == "cartesian2d" || value == "geo" || value == "matrix")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "calendar" || value == "cartesian2d" || value == "geo" || value == "matrix")) throw LiteralUnion.Rejected("HeatmapSeriesOptionCoordinateSystem", value, "one of \"calendar\", \"cartesian2d\", \"geo\" or \"matrix\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

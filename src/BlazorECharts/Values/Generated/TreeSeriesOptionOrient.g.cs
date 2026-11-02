@@ -23,7 +23,7 @@ public readonly struct TreeSeriesOptionOrient : IOptionValue, IJsonOnSerializing
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreeSeriesOptionOrient From(string value)
     {
-        if (!(value == "TB" || value == "LR" || value == "horizontal" || value == "BT" || value == "vertical" || value == "RL")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "TB" || value == "LR" || value == "horizontal" || value == "BT" || value == "vertical" || value == "RL")) throw LiteralUnion.Rejected("TreeSeriesOptionOrient", value, "one of \"TB\", \"LR\", \"horizontal\", \"BT\", \"vertical\" or \"RL\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

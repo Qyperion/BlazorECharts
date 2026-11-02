@@ -23,7 +23,7 @@ public readonly struct CartesianOrPolarCoordinateSystem : IOptionValue, IJsonOnS
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CartesianOrPolarCoordinateSystem From(string value)
     {
-        if (!(value == "cartesian2d" || value == "polar")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cartesian2d" || value == "polar")) throw LiteralUnion.Rejected("CartesianOrPolarCoordinateSystem", value, "one of \"cartesian2d\" or \"polar\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

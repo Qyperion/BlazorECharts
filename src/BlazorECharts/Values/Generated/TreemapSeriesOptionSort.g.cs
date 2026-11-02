@@ -23,7 +23,7 @@ public readonly struct TreemapSeriesOptionSort : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreemapSeriesOptionSort From(string value)
     {
-        if (!(value == "asc" || value == "desc")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "asc" || value == "desc")) throw LiteralUnion.Rejected("TreemapSeriesOptionSort", value, "one of \"asc\" or \"desc\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct TreemapSeriesOptionSort : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static TreemapSeriesOptionSort From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("TreemapSeriesOptionSort", value, "one of false or true", "one of \"asc\" or \"desc\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

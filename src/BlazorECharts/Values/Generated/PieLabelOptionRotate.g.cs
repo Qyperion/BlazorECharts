@@ -23,7 +23,7 @@ public readonly struct PieLabelOptionRotate : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static PieLabelOptionRotate From(string value)
     {
-        if (!(value == "radial" || value == "tangential-noflip" || value == "tangential")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "radial" || value == "tangential-noflip" || value == "tangential")) throw LiteralUnion.Rejected("PieLabelOptionRotate", value, "one of \"radial\", \"tangential-noflip\" or \"tangential\"", "a number or one of false or true", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct PieLabelOptionRotate : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static PieLabelOptionRotate From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("PieLabelOptionRotate", value, "one of false or true", "a number or one of \"radial\", \"tangential-noflip\" or \"tangential\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

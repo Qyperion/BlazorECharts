@@ -23,7 +23,7 @@ public readonly struct ImagePatternRepeat : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ImagePatternRepeat From(string value)
     {
-        if (!(value == "repeat-y" || value == "no-repeat" || value == "repeat" || value == "repeat-x")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "repeat-y" || value == "no-repeat" || value == "repeat" || value == "repeat-x")) throw LiteralUnion.Rejected("ImagePatternRepeat", value, "one of \"repeat-y\", \"no-repeat\", \"repeat\" or \"repeat-x\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

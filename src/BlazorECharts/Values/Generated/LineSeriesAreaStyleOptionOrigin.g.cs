@@ -23,7 +23,7 @@ public readonly struct LineSeriesAreaStyleOptionOrigin : IOptionValue, IJsonOnSe
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LineSeriesAreaStyleOptionOrigin From(string value)
     {
-        if (!(value == "end" || value == "start" || value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "end" || value == "start" || value == "auto")) throw LiteralUnion.Rejected("LineSeriesAreaStyleOptionOrigin", value, "one of \"end\", \"start\" or \"auto\"", "a number", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

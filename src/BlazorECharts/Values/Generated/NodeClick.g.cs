@@ -23,7 +23,7 @@ public readonly struct NodeClick : IOptionValue, IJsonOnSerializing, IReadableOp
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static NodeClick From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("NodeClick", value, "false", "one of \"link\" or \"rootToNode\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct NodeClick : IOptionValue, IJsonOnSerializing, IReadableOp
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static NodeClick From(string value)
     {
-        if (!(value == "link" || value == "rootToNode")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "link" || value == "rootToNode")) throw LiteralUnion.Rejected("NodeClick", value, "one of \"link\" or \"rootToNode\"", "false", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

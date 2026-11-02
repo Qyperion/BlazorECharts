@@ -23,7 +23,7 @@ public readonly struct FilterMode : IOptionValue, IJsonOnSerializing, IReadableO
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static FilterMode From(string value)
     {
-        if (!(value == "weakFilter" || value == "empty" || value == "filter" || value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "weakFilter" || value == "empty" || value == "filter" || value == "none")) throw LiteralUnion.Rejected("FilterMode", value, "one of \"weakFilter\", \"empty\", \"filter\" or \"none\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

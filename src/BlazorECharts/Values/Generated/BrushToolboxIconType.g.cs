@@ -23,7 +23,7 @@ public readonly struct BrushToolboxIconType : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BrushToolboxIconType From(string value)
     {
-        if (!(value == "lineY" || value == "clear" || value == "rect" || value == "lineX" || value == "keep" || value == "polygon")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "lineY" || value == "clear" || value == "rect" || value == "lineX" || value == "keep" || value == "polygon")) throw LiteralUnion.Rejected("BrushToolboxIconType", value, "one of \"lineY\", \"clear\", \"rect\", \"lineX\", \"keep\" or \"polygon\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct LineSeriesOptionSmoothMonotone : IOptionValue, IJsonOnSer
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LineSeriesOptionSmoothMonotone From(string value)
     {
-        if (!(value == "x" || value == "y" || value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "x" || value == "y" || value == "none")) throw LiteralUnion.Rejected("LineSeriesOptionSmoothMonotone", value, "one of \"x\", \"y\" or \"none\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

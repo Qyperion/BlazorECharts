@@ -23,7 +23,7 @@ public readonly struct Roam : IOptionValue, IJsonOnSerializing, IReadableOptionV
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static Roam From(string value)
     {
-        if (!(value == "zoom" || value == "move" || value == "scale" || value == "pan")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "zoom" || value == "move" || value == "scale" || value == "pan")) throw LiteralUnion.Rejected("Roam", value, "one of \"zoom\", \"move\", \"scale\" or \"pan\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct Roam : IOptionValue, IJsonOnSerializing, IReadableOptionV
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static Roam From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("Roam", value, "one of false or true", "one of \"zoom\", \"move\", \"scale\" or \"pan\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

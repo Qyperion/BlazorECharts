@@ -23,7 +23,7 @@ public readonly struct GraphicLineOptionType : IOptionValue, IJsonOnSerializing,
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicLineOptionType From(string value)
     {
-        if (!(value == "line")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "line")) throw LiteralUnion.Rejected("GraphicLineOptionType", value, "\"line\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

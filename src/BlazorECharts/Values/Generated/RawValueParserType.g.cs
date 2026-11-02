@@ -23,7 +23,7 @@ public readonly struct RawValueParserType : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static RawValueParserType From(string value)
     {
-        if (!(value == "trim" || value == "time" || value == "number")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "trim" || value == "time" || value == "number")) throw LiteralUnion.Rejected("RawValueParserType", value, "one of \"trim\", \"time\" or \"number\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

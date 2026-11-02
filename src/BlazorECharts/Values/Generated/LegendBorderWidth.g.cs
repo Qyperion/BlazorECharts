@@ -23,7 +23,7 @@ public readonly struct LegendBorderWidth : IOptionValue, IJsonOnSerializing, IRe
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LegendBorderWidth From(string value)
     {
-        if (!(value == "inherit" || value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "inherit" || value == "auto")) throw LiteralUnion.Rejected("LegendBorderWidth", value, "one of \"inherit\" or \"auto\"", "a number", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

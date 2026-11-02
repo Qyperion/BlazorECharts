@@ -23,7 +23,7 @@ public readonly struct LabelLayoutOptionMoveOverlap : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LabelLayoutOptionMoveOverlap From(string value)
     {
-        if (!(value == "shiftX" || value == "shiftY" || value == "shuffleY" || value == "shuffleX")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "shiftX" || value == "shiftY" || value == "shuffleY" || value == "shuffleX")) throw LiteralUnion.Rejected("LabelLayoutOptionMoveOverlap", value, "one of \"shiftX\", \"shiftY\", \"shuffleY\" or \"shuffleX\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

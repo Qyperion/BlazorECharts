@@ -23,7 +23,7 @@ public readonly struct ToolboxDataZoomFeatureOptionTypeItem : IOptionValue, IJso
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ToolboxDataZoomFeatureOptionTypeItem From(string value)
     {
-        if (!(value == "zoom" || value == "back")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "zoom" || value == "back")) throw LiteralUnion.Rejected("ToolboxDataZoomFeatureOptionTypeItem", value, "one of \"zoom\" or \"back\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

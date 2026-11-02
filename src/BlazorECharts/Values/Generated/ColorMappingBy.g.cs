@@ -23,7 +23,7 @@ public readonly struct ColorMappingBy : IOptionValue, IJsonOnSerializing, IReada
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ColorMappingBy From(string value)
     {
-        if (!(value == "value" || value == "index" || value == "id")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "value" || value == "index" || value == "id")) throw LiteralUnion.Rejected("ColorMappingBy", value, "one of \"value\", \"index\" or \"id\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

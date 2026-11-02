@@ -23,7 +23,7 @@ public readonly struct SeriesTooltipTrigger : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SeriesTooltipTrigger From(string value)
     {
-        if (!(value == "axis" || value == "item" || value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "axis" || value == "item" || value == "none")) throw LiteralUnion.Rejected("SeriesTooltipTrigger", value, "one of \"axis\", \"item\" or \"none\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct SeriesTooltipTrigger : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static SeriesTooltipTrigger From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("SeriesTooltipTrigger", value, "one of false or true", "one of \"axis\", \"item\" or \"none\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

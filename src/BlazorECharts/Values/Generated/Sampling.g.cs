@@ -23,7 +23,7 @@ public readonly struct Sampling : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static Sampling From(string value)
     {
-        if (!(value == "lttb" || value == "max" || value == "minmax" || value == "none" || value == "min" || value == "average" || value == "sum")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "lttb" || value == "max" || value == "minmax" || value == "none" || value == "min" || value == "average" || value == "sum")) throw LiteralUnion.Rejected("Sampling", value, "one of \"lttb\", \"max\", \"minmax\", \"none\", \"min\", \"average\" or \"sum\"", "a browser callback (JsFunction<SamplingAlternativeSignature>)", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct TooltipTrigger : IOptionValue, IJsonOnSerializing, IReada
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TooltipTrigger From(string value)
     {
-        if (!(value == "axis" || value == "item" || value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "axis" || value == "item" || value == "none")) throw LiteralUnion.Rejected("TooltipTrigger", value, "one of \"axis\", \"item\" or \"none\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

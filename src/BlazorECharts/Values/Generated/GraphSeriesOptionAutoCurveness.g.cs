@@ -31,7 +31,7 @@ public readonly struct GraphSeriesOptionAutoCurveness : IOptionValue, IJsonOnSer
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static GraphSeriesOptionAutoCurveness From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("GraphSeriesOptionAutoCurveness", value, "one of false or true", "a number or an array of number");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

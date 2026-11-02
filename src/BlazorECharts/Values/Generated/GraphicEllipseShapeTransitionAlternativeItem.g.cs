@@ -23,7 +23,7 @@ public readonly struct GraphicEllipseShapeTransitionAlternativeItem : IOptionVal
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicEllipseShapeTransitionAlternativeItem From(string value)
     {
-        if (!(value == "cy" || value == "rx" || value == "ry" || value == "cx")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cy" || value == "rx" || value == "ry" || value == "cx")) throw LiteralUnion.Rejected("GraphicEllipseShapeTransitionAlternativeItem", value, "one of \"cy\", \"rx\", \"ry\" or \"cx\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

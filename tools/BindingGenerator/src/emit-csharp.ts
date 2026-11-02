@@ -1050,22 +1050,28 @@ const defaultRemark = (value?: unknown) => {
   return text && text !== '-' && text.length <= 80 ? `\n    /// <remarks>ECharts default: <c>${escapeXml(text)}</c>.</remarks>` : '';
 };
 
-/** The alternatives of a union in words: literals by value, the rest by kind or C# type. */
-function describeAlternatives(shape: Shape): string {
-  const literals = shape.alternatives!.filter(a => a.literal !== undefined).map(a => `<c>${escapeXml(JSON.stringify(a.literal))}</c>`);
+/** The literals and the other alternatives of a union in words, by kind or C# type; code formats a value or a type name. */
+function alternativeParts(alternatives: Shape[], code: (text: string) => string): { literals: string[]; others: string[] } {
+  const literals = alternatives.filter(a => a.literal !== undefined).map(a => code(JSON.stringify(a.literal)));
   const kind = (s: Shape): string => s.kind === 'number' ? 'a number' : s.kind === 'string' ? 'a string' : s.kind === 'boolean' ? 'a boolean'
     : s.kind === 'date' ? 'a date' : s.kind === 'reference' ? 'a browser object reference' : s.kind === 'dynamic' ? 'any JSON value'
       : s.kind === 'function'
-        ? `a browser callback (<c>${escapeXml(s.cs)}</c>)`
+        ? `a browser callback (${code(s.cs)})`
         : s.kind === 'array' ? `an array of ${s.element ? kind(s.element).replace(/^an? /, '') : 'values'}`
-          : `<c>${escapeXml(s.cs)}</c>`;
+          : code(s.cs);
   const order = ['number', 'string', 'boolean', 'date'];
   const others = [
-    ...new Set(shape.alternatives!
+    ...new Set(alternatives
       .filter(a => a.literal === undefined)
       .sort((a, b) => (order.indexOf(a.kind) + 1 || 9) - (order.indexOf(b.kind) + 1 || 9))
       .map(kind)),
   ];
+  return { literals, others };
+}
+
+/** The alternatives of a union in words: literals by value, the rest by kind or C# type. */
+function describeAlternatives(shape: Shape): string {
+  const { literals, others } = alternativeParts(shape.alternatives!, text => `<c>${escapeXml(text)}</c>`);
   if (!others.length)
     return literals.length === 1 ? `The value ${literals[0]}.` : `One of ${list(literals)}.`;
 
@@ -1073,6 +1079,22 @@ function describeAlternatives(shape: Shape): string {
   return parts.length === 1
     ? `${parts[0][0].toUpperCase()}${parts[0].slice(1)}.`
     : `${(parts.slice(0, -1).join(', '))[0].toUpperCase()}${parts.slice(0, -1).join(', ').slice(1)} or ${parts.at(-1)}.`;
+}
+
+/** Rejects a value outside the literals of one From overload; the error names the union, the value and the other alternatives. */
+function literalValidation(name: string, cs: string, group: Shape[], alternatives: Shape[]): string {
+  const literals = group.map(s => JSON.stringify(s.literal));
+  const rest = alternatives.filter(a => !group.includes(a));
+  const words = alternativeParts(rest, text => text);
+  const others = [...words.others, ...(words.literals.length > 1 ? [`one of ${list(words.literals)}`] : words.literals)];
+  const args = [
+    quote(name),
+    'value',
+    quote(literals.length === 1 ? literals[0] : `one of ${list(literals)}`),
+    others.length ? quote(list(others)) : 'null',
+    ...(cs === 'string' ? [String(rest.some(a => a.kind === 'number'))] : []),
+  ];
+  return `        if (!(${literals.map(l => 'value == ' + l).join(' || ')})) throw LiteralUnion.Rejected(${args.join(', ')});\n`;
 }
 
 const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} or ${items.at(-1)}`;
@@ -1286,9 +1308,7 @@ function emitValue(shape: Shape): string {
       ? ''
       : shape.alternatives!.filter(a => a.kind === 'array' || a.kind === 'many').map(a => ` && !(${matches(a, 'json')})`).join('');
     body = [...groups].map(([cs, ss]) => {
-      const validate = ss.every(s => s.literal !== undefined)
-        ? `        if (!(${ss.map(s => 'value == ' + JSON.stringify(s.literal)).join(' || ')})) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));\n`
-        : '';
+      const validate = ss.every(s => s.literal !== undefined) ? literalValidation(name, cs, ss, shape.alternatives!) : '';
       return `    /// <summary>Creates the ${cs.replaceAll('<', '&lt;')} alternative with exact literal validation.</summary>\n    public static ${name} From(${cs} value)\n    {\n${validate}        return new(value);\n    }\n    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>\n    public static implicit operator ${name}(${cs} value) => From(value);\n`;
     }).join('\n')
       + (groups.has('DateTimeOffset') ? dateConversions(name) : '')

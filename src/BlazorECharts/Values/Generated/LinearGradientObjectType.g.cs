@@ -23,7 +23,7 @@ public readonly struct LinearGradientObjectType : IOptionValue, IJsonOnSerializi
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LinearGradientObjectType From(string value)
     {
-        if (!(value == "linear")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "linear")) throw LiteralUnion.Rejected("LinearGradientObjectType", value, "\"linear\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

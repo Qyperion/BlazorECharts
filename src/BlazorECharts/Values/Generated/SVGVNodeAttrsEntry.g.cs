@@ -23,7 +23,7 @@ public readonly struct SVGVNodeAttrsEntry : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static SVGVNodeAttrsEntry From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("SVGVNodeAttrsEntry", value, "one of false or true", "a number or a string");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

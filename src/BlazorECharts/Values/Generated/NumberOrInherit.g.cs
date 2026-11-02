@@ -23,7 +23,7 @@ public readonly struct NumberOrInherit : IOptionValue, IJsonOnSerializing, IRead
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static NumberOrInherit From(string value)
     {
-        if (!(value == "inherit")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "inherit")) throw LiteralUnion.Rejected("NumberOrInherit", value, "\"inherit\"", "a number", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

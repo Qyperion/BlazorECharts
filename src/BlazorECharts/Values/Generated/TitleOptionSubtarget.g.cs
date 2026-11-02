@@ -23,7 +23,7 @@ public readonly struct TitleOptionSubtarget : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TitleOptionSubtarget From(string value)
     {
-        if (!(value == "self" || value == "blank")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "self" || value == "blank")) throw LiteralUnion.Rejected("TitleOptionSubtarget", value, "one of \"self\" or \"blank\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

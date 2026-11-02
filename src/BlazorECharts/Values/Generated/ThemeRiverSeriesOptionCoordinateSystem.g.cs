@@ -23,7 +23,7 @@ public readonly struct ThemeRiverSeriesOptionCoordinateSystem : IOptionValue, IJ
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ThemeRiverSeriesOptionCoordinateSystem From(string value)
     {
-        if (!(value == "singleAxis")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "singleAxis")) throw LiteralUnion.Rejected("ThemeRiverSeriesOptionCoordinateSystem", value, "\"singleAxis\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

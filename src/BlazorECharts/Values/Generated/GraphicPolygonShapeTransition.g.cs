@@ -23,7 +23,7 @@ public readonly struct GraphicPolygonShapeTransition : IOptionValue, IJsonOnSeri
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicPolygonShapeTransition From(string value)
     {
-        if (!(value == "smooth" || value == "all" || value == "smoothConstraint" || value == "points")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "smooth" || value == "all" || value == "smoothConstraint" || value == "points")) throw LiteralUnion.Rejected("GraphicPolygonShapeTransition", value, "one of \"smooth\", \"all\", \"smoothConstraint\" or \"points\"", "an array of GraphicPolygonShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

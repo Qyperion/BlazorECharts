@@ -23,7 +23,7 @@ public readonly struct MarkerStatisticType : IOptionValue, IJsonOnSerializing, I
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static MarkerStatisticType From(string value)
     {
-        if (!(value == "max" || value == "min" || value == "average" || value == "median")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "max" || value == "min" || value == "average" || value == "median")) throw LiteralUnion.Rejected("MarkerStatisticType", value, "one of \"max\", \"min\", \"average\" or \"median\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

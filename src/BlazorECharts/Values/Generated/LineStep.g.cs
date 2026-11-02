@@ -23,7 +23,7 @@ public readonly struct LineStep : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static LineStep From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("LineStep", value, "false", "one of \"end\", \"start\" or \"middle\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct LineStep : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LineStep From(string value)
     {
-        if (!(value == "end" || value == "start" || value == "middle")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "end" || value == "start" || value == "middle")) throw LiteralUnion.Rejected("LineStep", value, "one of \"end\", \"start\" or \"middle\"", "false", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

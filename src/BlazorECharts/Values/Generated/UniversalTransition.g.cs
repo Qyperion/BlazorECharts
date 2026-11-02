@@ -23,7 +23,7 @@ public readonly struct UniversalTransition : IOptionValue, IJsonOnSerializing, I
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static UniversalTransition From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("UniversalTransition", value, "one of false or true", "UniversalTransitionOption");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

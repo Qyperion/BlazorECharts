@@ -23,7 +23,7 @@ public readonly struct GraphicPolylineShapeTransitionAlternativeItem : IOptionVa
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicPolylineShapeTransitionAlternativeItem From(string value)
     {
-        if (!(value == "percent" || value == "smooth" || value == "smoothConstraint" || value == "points")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "percent" || value == "smooth" || value == "smoothConstraint" || value == "points")) throw LiteralUnion.Rejected("GraphicPolylineShapeTransitionAlternativeItem", value, "one of \"percent\", \"smooth\", \"smoothConstraint\" or \"points\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

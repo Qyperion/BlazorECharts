@@ -23,7 +23,7 @@ public readonly struct ElementTextConfigOrigin : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ElementTextConfigOrigin From(string value)
     {
-        if (!(value == "center")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "center")) throw LiteralUnion.Rejected("ElementTextConfigOrigin", value, "\"center\"", "an array of NumberOrString", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

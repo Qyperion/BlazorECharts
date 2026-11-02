@@ -23,7 +23,7 @@ public readonly struct PreserveAspect : IOptionValue, IJsonOnSerializing, IReada
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static PreserveAspect From(string value)
     {
-        if (!(value == "cover" || value == "contain")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cover" || value == "contain")) throw LiteralUnion.Rejected("PreserveAspect", value, "one of \"cover\" or \"contain\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct PreserveAspect : IOptionValue, IJsonOnSerializing, IReada
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static PreserveAspect From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("PreserveAspect", value, "one of false or true", "one of \"cover\" or \"contain\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

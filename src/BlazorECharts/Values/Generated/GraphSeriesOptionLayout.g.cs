@@ -23,7 +23,7 @@ public readonly struct GraphSeriesOptionLayout : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphSeriesOptionLayout From(string value)
     {
-        if (!(value == "circular" || value == "force" || value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "circular" || value == "force" || value == "none")) throw LiteralUnion.Rejected("GraphSeriesOptionLayout", value, "one of \"circular\", \"force\" or \"none\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

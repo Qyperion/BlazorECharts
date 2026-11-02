@@ -23,7 +23,7 @@ public readonly struct TextPosition : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TextPosition From(string value)
     {
-        if (!(value == "insideBottomLeft" || value == "top" || value == "insideBottom" || value == "insideLeft" || value == "bottom" || value == "left" || value == "insideBottomRight" || value == "insideTop" || value == "right" || value == "insideRight" || value == "insideTopLeft" || value == "inside" || value == "insideTopRight")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "insideBottomLeft" || value == "top" || value == "insideBottom" || value == "insideLeft" || value == "bottom" || value == "left" || value == "insideBottomRight" || value == "insideTop" || value == "right" || value == "insideRight" || value == "insideTopLeft" || value == "inside" || value == "insideTopRight")) throw LiteralUnion.Rejected("TextPosition", value, "one of \"insideBottomLeft\", \"top\", \"insideBottom\", \"insideLeft\", \"bottom\", \"left\", \"insideBottomRight\", \"insideTop\", \"right\", \"insideRight\", \"insideTopLeft\", \"inside\" or \"insideTopRight\"", "an array of NumberOrString", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

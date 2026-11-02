@@ -23,7 +23,7 @@ public readonly struct AxisPointerTriggerOn : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static AxisPointerTriggerOn From(string value)
     {
-        if (!(value == "click" || value == "none" || value == "mousemove|click" || value == "mousemove")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "click" || value == "none" || value == "mousemove|click" || value == "mousemove")) throw LiteralUnion.Rejected("AxisPointerTriggerOn", value, "one of \"click\", \"none\", \"mousemove|click\" or \"mousemove\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

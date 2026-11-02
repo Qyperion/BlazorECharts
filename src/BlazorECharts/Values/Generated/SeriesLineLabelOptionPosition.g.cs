@@ -23,7 +23,7 @@ public readonly struct SeriesLineLabelOptionPosition : IOptionValue, IJsonOnSeri
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SeriesLineLabelOptionPosition From(string value)
     {
-        if (!(value == "insideStart" || value == "insideMiddleTop" || value == "insideStartTop" || value == "insideEndTop" || value == "end" || value == "insideStartBottom" || value == "start" || value == "insideEndBottom" || value == "insideEnd" || value == "insideMiddle" || value == "insideMiddleBottom" || value == "middle")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "insideStart" || value == "insideMiddleTop" || value == "insideStartTop" || value == "insideEndTop" || value == "end" || value == "insideStartBottom" || value == "start" || value == "insideEndBottom" || value == "insideEnd" || value == "insideMiddle" || value == "insideMiddleBottom" || value == "middle")) throw LiteralUnion.Rejected("SeriesLineLabelOptionPosition", value, "one of \"insideStart\", \"insideMiddleTop\", \"insideStartTop\", \"insideEndTop\", \"end\", \"insideStartBottom\", \"start\", \"insideEndBottom\", \"insideEnd\", \"insideMiddle\", \"insideMiddleBottom\" or \"middle\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

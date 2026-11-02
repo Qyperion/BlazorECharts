@@ -1896,15 +1896,15 @@
   "files": [
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudSeriesOption.g.cs",
-      "sha256": "607bb3750a7a55e83156844a6feaa5a29e1b51e6e4522365a7e262db2a50b11b"
+      "sha256": "a321b5ff837fe3e69135556cb017d9dcce8b2a686a4a30dbfb83cd25079d0633"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudTextStyle.g.cs",
-      "sha256": "1074e5c4457790d054adf99d2800a14310c18eb61c5763ec80d4dde018fe8f40"
+      "sha256": "e803e7a4fb9843113cd224ddf7addb1561ca3f01888339dff9018272a5f54460"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudItemTextStyle.g.cs",
-      "sha256": "062b156ac022eaba9e399e6874586284d57f2f905e66f72787d68d6d8334fe4d"
+      "sha256": "24a51048773f0328a9fa9ce8b9f2d4d21e2e4aafc03d5785252e731223daf125"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudDataItem.g.cs",
@@ -1912,7 +1912,7 @@
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudState.g.cs",
-      "sha256": "b5133be3f83ffaf8e352ffa3747795322c2a264037261c3d9f4394b10499f0b1"
+      "sha256": "57ed0c5e645b4a687b6ffe297025f5255a0d2be68f4e98114517cd48d9fb48db"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudImageBackground.g.cs",
@@ -1944,7 +1944,7 @@
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudLineType.g.cs",
-      "sha256": "60694d210c91eb1db5eb0d76649990ec492d3e6444c30b1d8b62b35db1ae3e17"
+      "sha256": "b3b00c696b3143f37ecc23a67f36311d18262ec660216fd6ef69f15cbe75de1c"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudDataTooltip.g.cs",

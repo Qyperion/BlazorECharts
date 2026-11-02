@@ -375,6 +375,24 @@ public class WordCloudModelTests
     }
 
     [Fact]
+    public void WordCloudLiterals_RejectionNamesTheMemberTheValueAndTheAlternatives()
+    {
+        // Act
+        var colorBy = Assert.Throws<ArgumentException>(() => new WordCloudSeriesOption { ColorBy = "both" });
+        var lineOverflow = Assert.Throws<ArgumentException>(() => new WordCloudTextStyle { LineOverflow = "wrap" });
+        var lineType = Assert.Throws<ArgumentException>(() => WordCloudLineType.From("dash"));
+
+        // Assert
+        Assert.Equal("value", colorBy.ParamName);
+        Assert.StartsWith("WordCloudSeriesOption.ColorBy: \"both\" is not one of \"series\" or \"data\". (Parameter", colorBy.Message);
+        Assert.StartsWith("WordCloudTextStyle.LineOverflow: \"wrap\" is not \"truncate\". (Parameter", lineOverflow.Message);
+        Assert.StartsWith(
+            "WordCloudLineType: \"dash\" is not one of \"solid\", \"dotted\" or \"dashed\"."
+            + " The union also accepts a number or an array of numbers. (Parameter",
+            lineType.Message);
+    }
+
+    [Fact]
     public async Task WordCloudNativeImages_UseExistingReferenceBindingsAndPolicy()
     {
         // Arrange

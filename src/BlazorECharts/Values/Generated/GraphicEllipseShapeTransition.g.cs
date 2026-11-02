@@ -31,7 +31,7 @@ public readonly struct GraphicEllipseShapeTransition : IOptionValue, IJsonOnSeri
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicEllipseShapeTransition From(string value)
     {
-        if (!(value == "cy" || value == "rx" || value == "all" || value == "ry" || value == "cx")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cy" || value == "rx" || value == "all" || value == "ry" || value == "cx")) throw LiteralUnion.Rejected("GraphicEllipseShapeTransition", value, "one of \"cy\", \"rx\", \"all\", \"ry\" or \"cx\"", "an array of GraphicEllipseShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

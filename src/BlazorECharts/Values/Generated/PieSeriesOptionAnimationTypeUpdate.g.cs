@@ -23,7 +23,7 @@ public readonly struct PieSeriesOptionAnimationTypeUpdate : IOptionValue, IJsonO
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static PieSeriesOptionAnimationTypeUpdate From(string value)
     {
-        if (!(value == "transition" || value == "expansion")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "transition" || value == "expansion")) throw LiteralUnion.Rejected("PieSeriesOptionAnimationTypeUpdate", value, "one of \"transition\" or \"expansion\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

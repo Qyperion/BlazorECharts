@@ -31,7 +31,7 @@ public readonly struct BorderDash : IOptionValue, IJsonOnSerializing, IReadableO
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static BorderDash From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("BorderDash", value, "false", "an array of number");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

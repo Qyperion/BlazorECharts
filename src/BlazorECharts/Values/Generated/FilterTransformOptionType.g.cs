@@ -23,7 +23,7 @@ public readonly struct FilterTransformOptionType : IOptionValue, IJsonOnSerializ
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static FilterTransformOptionType From(string value)
     {
-        if (!(value == "filter")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "filter")) throw LiteralUnion.Rejected("FilterTransformOptionType", value, "\"filter\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

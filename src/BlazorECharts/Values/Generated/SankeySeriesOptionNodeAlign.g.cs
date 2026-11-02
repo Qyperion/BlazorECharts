@@ -23,7 +23,7 @@ public readonly struct SankeySeriesOptionNodeAlign : IOptionValue, IJsonOnSerial
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SankeySeriesOptionNodeAlign From(string value)
     {
-        if (!(value == "justify" || value == "left" || value == "right")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "justify" || value == "left" || value == "right")) throw LiteralUnion.Rejected("SankeySeriesOptionNodeAlign", value, "one of \"justify\", \"left\" or \"right\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

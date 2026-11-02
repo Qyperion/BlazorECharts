@@ -23,7 +23,7 @@ public readonly struct FunnelSeriesOptionFunnelAlign : IOptionValue, IJsonOnSeri
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static FunnelSeriesOptionFunnelAlign From(string value)
     {
-        if (!(value == "top" || value == "center" || value == "bottom" || value == "left" || value == "right" || value == "middle")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "top" || value == "center" || value == "bottom" || value == "left" || value == "right" || value == "middle")) throw LiteralUnion.Rejected("FunnelSeriesOptionFunnelAlign", value, "one of \"top\", \"center\", \"bottom\", \"left\", \"right\" or \"middle\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

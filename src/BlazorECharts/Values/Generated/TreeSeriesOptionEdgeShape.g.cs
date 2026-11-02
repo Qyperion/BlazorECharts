@@ -23,7 +23,7 @@ public readonly struct TreeSeriesOptionEdgeShape : IOptionValue, IJsonOnSerializ
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreeSeriesOptionEdgeShape From(string value)
     {
-        if (!(value == "curve" || value == "polyline")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "curve" || value == "polyline")) throw LiteralUnion.Rejected("TreeSeriesOptionEdgeShape", value, "one of \"curve\" or \"polyline\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

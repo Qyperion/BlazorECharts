@@ -31,7 +31,7 @@ public readonly struct StyleDecal : IOptionValue, IJsonOnSerializing, IReadableO
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static StyleDecal From(string value)
     {
-        if (!(value == "none")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "none")) throw LiteralUnion.Rejected("StyleDecal", value, "\"none\"", "DecalObject", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -47,7 +47,7 @@ public readonly struct PieSeriesOptionDataItem : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static PieSeriesOptionDataItem From(string value)
     {
-        if (!(value == "-")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "-")) throw LiteralUnion.Rejected("PieSeriesOptionDataItem", value, "\"-\"", "a number, PieDataItemOption or an array of OptionDataValueNumeric", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

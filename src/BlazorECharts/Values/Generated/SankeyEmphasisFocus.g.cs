@@ -23,7 +23,7 @@ public readonly struct SankeyEmphasisFocus : IOptionValue, IJsonOnSerializing, I
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SankeyEmphasisFocus From(string value)
     {
-        if (!(value == "series" || value == "none" || value == "self" || value == "adjacency" || value == "trajectory")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "series" || value == "none" || value == "self" || value == "adjacency" || value == "trajectory")) throw LiteralUnion.Rejected("SankeyEmphasisFocus", value, "one of \"series\", \"none\", \"self\", \"adjacency\" or \"trajectory\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

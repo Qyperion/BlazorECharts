@@ -23,7 +23,7 @@ public readonly struct RadialGradientObjectType : IOptionValue, IJsonOnSerializi
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static RadialGradientObjectType From(string value)
     {
-        if (!(value == "radial")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "radial")) throw LiteralUnion.Rejected("RadialGradientObjectType", value, "\"radial\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

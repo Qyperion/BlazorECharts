@@ -23,7 +23,7 @@ public readonly struct TooltipOptionRenderMode : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TooltipOptionRenderMode From(string value)
     {
-        if (!(value == "richText" || value == "auto" || value == "html")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "richText" || value == "auto" || value == "html")) throw LiteralUnion.Rejected("TooltipOptionRenderMode", value, "one of \"richText\", \"auto\" or \"html\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

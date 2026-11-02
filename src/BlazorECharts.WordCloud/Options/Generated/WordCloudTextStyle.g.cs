@@ -115,10 +115,10 @@ public sealed class WordCloudTextStyle : OptionObject
     public bool? RichInheritPlainLabel { get => _richInheritPlainLabel; set { SetProperty(ref _richInheritPlainLabel, value, "richInheritPlainLabel"); } }
     private string? _overflow;
     /// <summary>Gets or sets the exact upstream overflow value, preserving explicit null.</summary>
-    public string? Overflow { get => _overflow; set { if (value is not null && !(value == "break" || value == "breakAll" || value == "truncate" || value == "none")) throw new ArgumentException("Invalid overflow literal.", nameof(value)); SetProperty(ref _overflow, value, "overflow"); } }
+    public string? Overflow { get => _overflow; set { if (value is not null && !(value == "break" || value == "breakAll" || value == "truncate" || value == "none")) throw new ArgumentException($"WordCloudTextStyle.Overflow: \"{value}\" is not one of \"break\", \"breakAll\", \"truncate\" or \"none\".", nameof(value)); SetProperty(ref _overflow, value, "overflow"); } }
     private string? _lineOverflow;
     /// <summary>Gets or sets the exact upstream lineOverflow value, preserving explicit null.</summary>
-    public string? LineOverflow { get => _lineOverflow; set { if (value is not null && !(value == "truncate")) throw new ArgumentException("Invalid lineOverflow literal.", nameof(value)); SetProperty(ref _lineOverflow, value, "lineOverflow"); } }
+    public string? LineOverflow { get => _lineOverflow; set { if (value is not null && !(value == "truncate")) throw new ArgumentException($"WordCloudTextStyle.LineOverflow: \"{value}\" is not \"truncate\".", nameof(value)); SetProperty(ref _lineOverflow, value, "lineOverflow"); } }
     private string? _ellipsis;
     /// <summary>Gets or sets the exact upstream ellipsis value, preserving explicit null.</summary>
     public string? Ellipsis { get => _ellipsis; set { SetProperty(ref _ellipsis, value, "ellipsis"); } }

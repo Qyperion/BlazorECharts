@@ -23,7 +23,7 @@ public readonly struct SortTransformOptionType : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SortTransformOptionType From(string value)
     {
-        if (!(value == "sort")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "sort")) throw LiteralUnion.Rejected("SortTransformOptionType", value, "\"sort\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

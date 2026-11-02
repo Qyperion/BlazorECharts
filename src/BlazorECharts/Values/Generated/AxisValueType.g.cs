@@ -23,7 +23,7 @@ public readonly struct AxisValueType : IOptionValue, IJsonOnSerializing, IReadab
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static AxisValueType From(string value)
     {
-        if (!(value == "value")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "value")) throw LiteralUnion.Rejected("AxisValueType", value, "\"value\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

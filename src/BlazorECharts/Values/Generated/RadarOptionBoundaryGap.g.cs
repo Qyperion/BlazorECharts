@@ -23,7 +23,7 @@ public readonly struct RadarOptionBoundaryGap : IOptionValue, IJsonOnSerializing
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static RadarOptionBoundaryGap From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("RadarOptionBoundaryGap", value, "one of false or true", "NumericAxisBoundaryGapOption");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

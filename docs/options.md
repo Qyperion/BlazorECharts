@@ -116,7 +116,11 @@ var options = new ChartOptions
 ```
 
 Literal unions validate their value: `AnimationEasing` accepts only the easing names of ECharts,
-and an unknown name throws `ArgumentException`. Each union has a static `From` for every
+and an unknown name throws `ArgumentException`. The message names the union, the rejected value,
+the accepted literals and the other alternatives. A numeric alternative takes a number, not its
+text: `FontWeight = 600` works, while `FontWeight = "600"` throws, because the string alternative
+of `ZRFontWeight` accepts only `normal`, `bold`, `bolder` and `lighter`, as the ECharts type
+declarations do. Each union has a static `From` for every
 alternative, which helps when an implicit conversion is ambiguous. A browser callback alternative
 takes a [`JsFunction<TSignature>`](functions.md).
 

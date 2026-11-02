@@ -23,7 +23,7 @@ public readonly struct ProgressiveChunkMode : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ProgressiveChunkMode From(string value)
     {
-        if (!(value == "mod")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "mod")) throw LiteralUnion.Rejected("ProgressiveChunkMode", value, "\"mod\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

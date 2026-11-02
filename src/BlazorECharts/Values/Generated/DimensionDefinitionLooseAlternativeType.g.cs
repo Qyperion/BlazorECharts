@@ -23,7 +23,7 @@ public readonly struct DimensionDefinitionLooseAlternativeType : IOptionValue, I
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static DimensionDefinitionLooseAlternativeType From(string value)
     {
-        if (!(value == "int" || value == "time" || value == "number" || value == "ordinal" || value == "float")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "int" || value == "time" || value == "number" || value == "ordinal" || value == "float")) throw LiteralUnion.Rejected("DimensionDefinitionLooseAlternativeType", value, "one of \"int\", \"time\", \"number\", \"ordinal\" or \"float\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

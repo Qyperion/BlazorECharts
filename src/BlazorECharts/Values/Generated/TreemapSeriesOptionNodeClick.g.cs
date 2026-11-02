@@ -23,7 +23,7 @@ public readonly struct TreemapSeriesOptionNodeClick : IOptionValue, IJsonOnSeria
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static TreemapSeriesOptionNodeClick From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("TreemapSeriesOptionNodeClick", value, "false", "one of \"zoomToNode\" or \"link\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct TreemapSeriesOptionNodeClick : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreemapSeriesOptionNodeClick From(string value)
     {
-        if (!(value == "zoomToNode" || value == "link")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "zoomToNode" || value == "link")) throw LiteralUnion.Rejected("TreemapSeriesOptionNodeClick", value, "one of \"zoomToNode\" or \"link\"", "false", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

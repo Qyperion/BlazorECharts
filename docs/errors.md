@@ -89,7 +89,7 @@ catch (JSDisconnectedException)
 | Exception | Cause |
 |---|---|
 | `OptionSerializationException` | The options cannot be serialized: an uninitialized value, an additional field that collides with a typed property, unregistered custom data, a disabled inline function. `Path` is the JSON path, `ClrType` the rejected type. |
-| `ArgumentException` | A literal union got a value outside its alternatives, or an argument is invalid. |
+| `ArgumentException` | A literal union got a value outside its alternatives: the message names the union, the value and what it accepts. Or an argument is invalid. |
 | `JsonException` | `GetOptionAsync` read a value that does not fit its typed member. `Path` is the JSON path of the value. |
 | `InvalidOperationException` | The chart queue is full (64 pending operations). `EChart` also throws it while rendering when both `Options` and `RawOptions` are set. `SetOptionAsync(snapshot)` throws it when an edit moved or replaced a snapshot reference; the message names the path. |
 | `ObjectDisposedException` | The chart, component or runtime was disposed. |

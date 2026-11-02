@@ -23,7 +23,7 @@ public readonly struct AxisPointerType : IOptionValue, IJsonOnSerializing, IRead
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static AxisPointerType From(string value)
     {
-        if (!(value == "cross" || value == "shadow" || value == "none" || value == "line")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cross" || value == "shadow" || value == "none" || value == "line")) throw LiteralUnion.Rejected("AxisPointerType", value, "one of \"cross\", \"shadow\", \"none\" or \"line\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

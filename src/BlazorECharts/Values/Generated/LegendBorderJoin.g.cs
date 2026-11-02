@@ -23,7 +23,7 @@ public readonly struct LegendBorderJoin : IOptionValue, IJsonOnSerializing, IRea
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LegendBorderJoin From(string value)
     {
-        if (!(value == "round" || value == "inherit" || value == "miter" || value == "bevel")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "round" || value == "inherit" || value == "miter" || value == "bevel")) throw LiteralUnion.Rejected("LegendBorderJoin", value, "one of \"round\", \"inherit\", \"miter\" or \"bevel\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

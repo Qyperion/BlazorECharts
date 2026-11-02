@@ -23,7 +23,7 @@ public readonly struct GraphicSectorShapeTransitionAlternativeItem : IOptionValu
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicSectorShapeTransitionAlternativeItem From(string value)
     {
-        if (!(value == "cornerRadius" || value == "r0" || value == "clockwise" || value == "cy" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "cornerRadius" || value == "r0" || value == "clockwise" || value == "cy" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw LiteralUnion.Rejected("GraphicSectorShapeTransitionAlternativeItem", value, "one of \"cornerRadius\", \"r0\", \"clockwise\", \"cy\", \"startAngle\", \"cx\", \"endAngle\" or \"r\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

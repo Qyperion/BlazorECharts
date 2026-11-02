@@ -23,7 +23,7 @@ public readonly struct BlurScope : IOptionValue, IJsonOnSerializing, IReadableOp
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BlurScope From(string value)
     {
-        if (!(value == "series" || value == "coordinateSystem" || value == "global")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "series" || value == "coordinateSystem" || value == "global")) throw LiteralUnion.Rejected("BlurScope", value, "one of \"series\", \"coordinateSystem\" or \"global\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

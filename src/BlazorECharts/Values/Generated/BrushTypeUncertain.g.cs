@@ -23,7 +23,7 @@ public readonly struct BrushTypeUncertain : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BrushTypeUncertain From(string value)
     {
-        if (!(value == "lineY" || value == "rect" || value == "lineX" || value == "auto" || value == "polygon")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "lineY" || value == "rect" || value == "lineX" || value == "auto" || value == "polygon")) throw LiteralUnion.Rejected("BrushTypeUncertain", value, "one of \"lineY\", \"rect\", \"lineX\", \"auto\" or \"polygon\"", "false", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct BrushTypeUncertain : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static BrushTypeUncertain From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("BrushTypeUncertain", value, "false", "one of \"lineY\", \"rect\", \"lineX\", \"auto\" or \"polygon\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct GraphicArcOptionType : IOptionValue, IJsonOnSerializing, 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicArcOptionType From(string value)
     {
-        if (!(value == "arc")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "arc")) throw LiteralUnion.Rejected("GraphicArcOptionType", value, "\"arc\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

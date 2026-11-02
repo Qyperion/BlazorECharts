@@ -23,7 +23,7 @@ public readonly struct StartOrEndPosition : IOptionValue, IJsonOnSerializing, IR
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static StartOrEndPosition From(string value)
     {
-        if (!(value == "end" || value == "start")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "end" || value == "start")) throw LiteralUnion.Rejected("StartOrEndPosition", value, "one of \"end\" or \"start\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

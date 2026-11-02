@@ -23,7 +23,7 @@ public readonly struct StackStrategy : IOptionValue, IJsonOnSerializing, IReadab
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static StackStrategy From(string value)
     {
-        if (!(value == "negative" || value == "samesign" || value == "positive" || value == "all")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "negative" || value == "samesign" || value == "positive" || value == "all")) throw LiteralUnion.Rejected("StackStrategy", value, "one of \"negative\", \"samesign\", \"positive\" or \"all\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

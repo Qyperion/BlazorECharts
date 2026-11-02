@@ -23,7 +23,7 @@ public readonly struct SelectorAlternativeItem : IOptionValue, IJsonOnSerializin
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SelectorAlternativeItem From(string value)
     {
-        if (!(value == "inverse" || value == "all")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "inverse" || value == "all")) throw LiteralUnion.Rejected("SelectorAlternativeItem", value, "one of \"inverse\" or \"all\"", "LegendSelectorButtonOption", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct Progressive : IOptionValue, IJsonOnSerializing, IReadable
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static Progressive From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("Progressive", value, "false", "a number");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

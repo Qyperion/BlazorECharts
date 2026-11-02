@@ -31,7 +31,7 @@ public readonly struct ClipPath : IOptionValue, IJsonOnSerializing, IReadableOpt
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static ClipPath From(bool value)
     {
-        if (!(value == false)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false)) throw LiteralUnion.Rejected("ClipPath", value, "false", "ClipPathAlternative");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

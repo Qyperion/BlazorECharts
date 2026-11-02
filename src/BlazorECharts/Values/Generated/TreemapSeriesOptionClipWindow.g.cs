@@ -23,7 +23,7 @@ public readonly struct TreemapSeriesOptionClipWindow : IOptionValue, IJsonOnSeri
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreemapSeriesOptionClipWindow From(string value)
     {
-        if (!(value == "origin" || value == "fullscreen")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "origin" || value == "fullscreen")) throw LiteralUnion.Rejected("TreemapSeriesOptionClipWindow", value, "one of \"origin\" or \"fullscreen\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

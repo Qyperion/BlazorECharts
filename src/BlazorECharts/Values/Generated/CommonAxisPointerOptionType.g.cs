@@ -23,7 +23,7 @@ public readonly struct CommonAxisPointerOptionType : IOptionValue, IJsonOnSerial
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CommonAxisPointerOptionType From(string value)
     {
-        if (!(value == "shadow" || value == "none" || value == "line")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "shadow" || value == "none" || value == "line")) throw LiteralUnion.Rejected("CommonAxisPointerOptionType", value, "one of \"shadow\", \"none\" or \"line\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

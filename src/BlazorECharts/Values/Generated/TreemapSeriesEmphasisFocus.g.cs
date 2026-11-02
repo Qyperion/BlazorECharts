@@ -23,7 +23,7 @@ public readonly struct TreemapSeriesEmphasisFocus : IOptionValue, IJsonOnSeriali
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreemapSeriesEmphasisFocus From(string value)
     {
-        if (!(value == "series" || value == "none" || value == "ancestor" || value == "self" || value == "descendant")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "series" || value == "none" || value == "ancestor" || value == "self" || value == "descendant")) throw LiteralUnion.Rejected("TreemapSeriesEmphasisFocus", value, "one of \"series\", \"none\", \"ancestor\", \"self\" or \"descendant\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

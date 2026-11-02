@@ -23,7 +23,7 @@ public readonly struct AnimationType : IOptionValue, IJsonOnSerializing, IReadab
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static AnimationType From(string value)
     {
-        if (!(value == "scale" || value == "expansion")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "scale" || value == "expansion")) throw LiteralUnion.Rejected("AnimationType", value, "one of \"scale\" or \"expansion\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

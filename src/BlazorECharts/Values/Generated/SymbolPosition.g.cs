@@ -23,7 +23,7 @@ public readonly struct SymbolPosition : IOptionValue, IJsonOnSerializing, IReada
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SymbolPosition From(string value)
     {
-        if (!(value == "end" || value == "start" || value == "center")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "end" || value == "start" || value == "center")) throw LiteralUnion.Rejected("SymbolPosition", value, "one of \"end\", \"start\" or \"center\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

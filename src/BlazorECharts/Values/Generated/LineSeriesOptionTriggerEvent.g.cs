@@ -23,7 +23,7 @@ public readonly struct LineSeriesOptionTriggerEvent : IOptionValue, IJsonOnSeria
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static LineSeriesOptionTriggerEvent From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("LineSeriesOptionTriggerEvent", value, "one of false or true", "one of \"area\" or \"line\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct LineSeriesOptionTriggerEvent : IOptionValue, IJsonOnSeria
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static LineSeriesOptionTriggerEvent From(string value)
     {
-        if (!(value == "area" || value == "line")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "area" || value == "line")) throw LiteralUnion.Rejected("LineSeriesOptionTriggerEvent", value, "one of \"area\" or \"line\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

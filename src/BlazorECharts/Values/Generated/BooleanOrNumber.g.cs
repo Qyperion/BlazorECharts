@@ -23,7 +23,7 @@ public readonly struct BooleanOrNumber : IOptionValue, IJsonOnSerializing, IRead
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static BooleanOrNumber From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("BooleanOrNumber", value, "one of false or true", "a number");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

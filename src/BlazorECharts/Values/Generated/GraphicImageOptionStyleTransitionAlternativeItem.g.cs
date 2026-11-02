@@ -23,7 +23,7 @@ public readonly struct GraphicImageOptionStyleTransitionAlternativeItem : IOptio
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicImageOptionStyleTransitionAlternativeItem From(string value)
     {
-        if (!(value == "opacity" || value == "image" || value == "height" || value == "sWidth" || value == "blend" || value == "x" || value == "y" || value == "shadowColor" || value == "sy" || value == "shadowBlur" || value == "sx" || value == "shadowOffsetX" || value == "shadowOffsetY" || value == "width" || value == "sHeight")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "opacity" || value == "image" || value == "height" || value == "sWidth" || value == "blend" || value == "x" || value == "y" || value == "shadowColor" || value == "sy" || value == "shadowBlur" || value == "sx" || value == "shadowOffsetX" || value == "shadowOffsetY" || value == "width" || value == "sHeight")) throw LiteralUnion.Rejected("GraphicImageOptionStyleTransitionAlternativeItem", value, "one of \"opacity\", \"image\", \"height\", \"sWidth\", \"blend\", \"x\", \"y\", \"shadowColor\", \"sy\", \"shadowBlur\", \"sx\", \"shadowOffsetX\", \"shadowOffsetY\", \"width\" or \"sHeight\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

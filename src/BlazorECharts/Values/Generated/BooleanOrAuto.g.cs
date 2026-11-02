@@ -23,7 +23,7 @@ public readonly struct BooleanOrAuto : IOptionValue, IJsonOnSerializing, IReadab
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static BooleanOrAuto From(bool value)
     {
-        if (!(value == false || value == true)) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == false || value == true)) throw LiteralUnion.Rejected("BooleanOrAuto", value, "one of false or true", "\"auto\"");
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
@@ -32,7 +32,7 @@ public readonly struct BooleanOrAuto : IOptionValue, IJsonOnSerializing, IReadab
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BooleanOrAuto From(string value)
     {
-        if (!(value == "auto")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "auto")) throw LiteralUnion.Rejected("BooleanOrAuto", value, "\"auto\"", "one of false or true", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

@@ -23,7 +23,7 @@ public readonly struct EffectScatterSeriesOptionShowEffectOn : IOptionValue, IJs
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static EffectScatterSeriesOptionShowEffectOn From(string value)
     {
-        if (!(value == "emphasis" || value == "render")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "emphasis" || value == "render")) throw LiteralUnion.Rejected("EffectScatterSeriesOptionShowEffectOn", value, "one of \"emphasis\" or \"render\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

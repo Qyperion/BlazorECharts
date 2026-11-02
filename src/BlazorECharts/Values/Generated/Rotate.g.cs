@@ -23,7 +23,7 @@ public readonly struct Rotate : IOptionValue, IJsonOnSerializing, IReadableOptio
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static Rotate From(string value)
     {
-        if (!(value == "radial" || value == "tangential")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "radial" || value == "tangential")) throw LiteralUnion.Rejected("Rotate", value, "one of \"radial\" or \"tangential\"", "a number", true);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

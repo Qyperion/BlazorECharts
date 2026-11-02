@@ -23,7 +23,7 @@ public readonly struct DisplayState : IOptionValue, IJsonOnSerializing, IReadabl
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static DisplayState From(string value)
     {
-        if (!(value == "select" || value == "normal" || value == "emphasis" || value == "blur")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "select" || value == "normal" || value == "emphasis" || value == "blur")) throw LiteralUnion.Rejected("DisplayState", value, "one of \"select\", \"normal\", \"emphasis\" or \"blur\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

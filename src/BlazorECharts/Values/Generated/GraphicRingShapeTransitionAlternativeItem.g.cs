@@ -23,7 +23,7 @@ public readonly struct GraphicRingShapeTransitionAlternativeItem : IOptionValue,
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicRingShapeTransitionAlternativeItem From(string value)
     {
-        if (!(value == "r0" || value == "cy" || value == "cx" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "r0" || value == "cy" || value == "cx" || value == "r")) throw LiteralUnion.Rejected("GraphicRingShapeTransitionAlternativeItem", value, "one of \"r0\", \"cy\", \"cx\" or \"r\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

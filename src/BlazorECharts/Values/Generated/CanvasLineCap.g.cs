@@ -23,7 +23,7 @@ public readonly struct CanvasLineCap : IOptionValue, IJsonOnSerializing, IReadab
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CanvasLineCap From(string value)
     {
-        if (!(value == "round" || value == "square" || value == "butt")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "round" || value == "square" || value == "butt")) throw LiteralUnion.Rejected("CanvasLineCap", value, "one of \"round\", \"square\" or \"butt\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

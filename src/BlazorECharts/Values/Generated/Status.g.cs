@@ -23,7 +23,7 @@ public readonly struct Status : IOptionValue, IJsonOnSerializing, IReadableOptio
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static Status From(string value)
     {
-        if (!(value == "hide" || value == "show")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "hide" || value == "show")) throw LiteralUnion.Rejected("Status", value, "one of \"hide\" or \"show\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

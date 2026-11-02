@@ -23,7 +23,7 @@ public readonly struct StackOrder : IOptionValue, IJsonOnSerializing, IReadableO
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static StackOrder From(string value)
     {
-        if (!(value == "seriesAsc" || value == "seriesDesc")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "seriesAsc" || value == "seriesDesc")) throw LiteralUnion.Rejected("StackOrder", value, "one of \"seriesAsc\" or \"seriesDesc\"", null, false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>

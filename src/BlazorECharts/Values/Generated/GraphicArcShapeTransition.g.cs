@@ -23,7 +23,7 @@ public readonly struct GraphicArcShapeTransition : IOptionValue, IJsonOnSerializ
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static GraphicArcShapeTransition From(string value)
     {
-        if (!(value == "clockwise" || value == "cy" || value == "all" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw new ArgumentException("Value is outside the upstream literal union.", nameof(value));
+        if (!(value == "clockwise" || value == "cy" || value == "all" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw LiteralUnion.Rejected("GraphicArcShapeTransition", value, "one of \"clockwise\", \"cy\", \"all\", \"startAngle\", \"cx\", \"endAngle\" or \"r\"", "an array of GraphicArcShapeTransitionAlternativeItem", false);
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
