@@ -218,6 +218,18 @@ try {
     if ($warnings.Count -eq 3 -and $gate.Count -eq 2 -and $explained.Count -eq 0) { Write-Host 'PASS ExplainedFrameworkWarningPassesAotGate'; $results += $true }
     else { Write-Host "FAIL ExplainedFrameworkWarningPassesAotGate: $($warnings.Count) warnings, gate: $($gate -join ' | ')"; $results += $false }
 
+    # A release pack takes its package validation baseline from the section after its own in CHANGELOG.md.
+    $changelog = Join-Path $WorkPath 'CHANGELOG.md'
+    Set-Content -LiteralPath $changelog -Encoding UTF8 -Value @('# Changelog', '', '## Unreleased', '', '- New.', '', '## 1.1.0', '', '- Old.')
+    $results += Assert-Rejected 'UnreleasedChangelogFailsReleasePack' (Read-ChangelogRelease $changelog '1.2.0').Failures "still has '## Unreleased'"
+    Set-Content -LiteralPath $changelog -Encoding UTF8 -Value @('# Changelog', '', '## 1.1.0', '', '- Old.')
+    $results += Assert-Rejected 'MissingReleaseSectionFailsReleasePack' (Read-ChangelogRelease $changelog '1.2.0').Failures `
+        "first section of CHANGELOG\.md must be '## 1\.2\.0'"
+    Set-Content -LiteralPath $changelog -Encoding UTF8 -Value @('# Changelog', '', '## 1.2.0', '', '- New.', '', '## 1.1.0', '', '- Old.', '', '## 1.0.0')
+    $release = Read-ChangelogRelease $changelog '1.2.0'
+    if ($release.Failures.Count -eq 0 -and $release.Previous -eq '1.1.0') { Write-Host 'PASS ReleaseSectionGivesThePreviousVersionAsBaseline'; $results += $true }
+    else { Write-Host "FAIL ReleaseSectionGivesThePreviousVersionAsBaseline: previous '$($release.Previous)', $($release.Failures -join ' | ')"; $results += $false }
+
     if ($results -contains $false) { exit 1 }
     exit 0
 }

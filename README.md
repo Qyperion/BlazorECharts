@@ -158,8 +158,8 @@ Shapes, masks, rotation, fonts and colors from your own modules are described in
 
 ## 🧪 Tested like a release
 
-Every pull request and every release runs one release gate, `tools/Release/verify-local.ps1`, on a
-clean Windows runner. A release is published only when every stage passes, and only the packages
+Every push to `main`, every pull request and every release runs one release gate,
+`tools/Release/verify-local.ps1`, on a clean Windows runner. A release is published only when every stage passes, and only the packages
 that the gate verified are pushed to nuget.org.
 
 | Layer | What the gate runs |
