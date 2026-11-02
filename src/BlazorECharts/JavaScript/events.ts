@@ -8,6 +8,11 @@ export interface EventCallbacks {
   invokeMethodAsync(method: string, ...args: unknown[]): Promise<unknown>;
 }
 
+interface Eventful {
+  on?(name: string, queryOrHandler: unknown, handler?: (payload?: unknown) => void): void;
+  off?(name: string, handler: (payload?: unknown) => void): void;
+}
+
 interface Subscription {
   name: string;
   query: unknown;
@@ -15,9 +20,42 @@ interface Subscription {
   throttle: number;
   last: number;
   listener?: (payload?: unknown) => void;
+  target?: Eventful;
 }
 
 const elementEvents = new Set(['click', 'dblclick', 'mousedown', 'mousemove', 'mouseup', 'mouseover', 'mouseout', 'globalout', 'contextmenu']);
+
+// A zr:<name> subscription listens on chart.getZr(), which raises pointer events also where ECharts raises none.
+const zrPrefix = 'zr:';
+const zrEvents = new Set(['click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mousewheel', 'contextmenu']);
+
+/** The plain fields of a ZRender event; the native event and the target element stay in the browser. */
+function pointer(value: unknown): Record<string, unknown> {
+  const e = (value ?? {}) as {
+    type?: unknown;
+    offsetX?: unknown;
+    offsetY?: unknown;
+    wheelDelta?: unknown;
+    zrByTouch?: unknown;
+    target?: unknown;
+    event?: { button?: unknown; ctrlKey?: unknown; shiftKey?: unknown; altKey?: unknown; metaKey?: unknown };
+  };
+  const native = e.event ?? {};
+  const number = (v: unknown) => typeof v === 'number' && Number.isFinite(v) ? v : null;
+  return {
+    type: typeof e.type === 'string' ? e.type : null,
+    offsetX: number(e.offsetX),
+    offsetY: number(e.offsetY),
+    button: number(native.button),
+    ctrlKey: native.ctrlKey === true,
+    shiftKey: native.shiftKey === true,
+    altKey: native.altKey === true,
+    metaKey: native.metaKey === true,
+    wheelDelta: number(e.wheelDelta) ?? 0,
+    byTouch: e.zrByTouch === true,
+    hasTarget: e.target != null,
+  };
+}
 
 /** Browser-native objects stay in the existing reference protocol, never JSON.stringify(event). */
 export class ChartEvents {
@@ -76,6 +114,12 @@ export class ChartEvents {
     if (!Number.isFinite(throttle) || throttle < 0)
       throw new EChartsError('SubscriptionInvalid', 'Throttle must be a finite nonnegative duration.');
 
+    if (name.startsWith(zrPrefix) && !zrEvents.has(name.slice(zrPrefix.length)))
+      throw new EChartsError('SubscriptionInvalid', `${name} is not a supported ZRender event.`);
+
+    if (name.startsWith(zrPrefix) && query != null)
+      throw new EChartsError('SubscriptionInvalid', 'ZRender events take no query.');
+
     const entry = { name, query, callback, throttle, last: -Infinity };
     this.#subscriptions.set(id, entry);
     try {
@@ -87,8 +131,10 @@ export class ChartEvents {
   }
 
   #bind(id: string, entry: Subscription): void {
-    if (!this.native.on || !this.native.off)
-      throw new EChartsError('ChartCapabilityMissing', 'The native chart lacks on/off.');
+    const zr = entry.name.startsWith(zrPrefix);
+    const target: Eventful | undefined = zr ? this.native.getZr?.() : this.native;
+    if (!target?.on || !target.off)
+      throw new EChartsError('ChartCapabilityMissing', zr ? 'The native chart lacks getZr().on/off.' : 'The native chart lacks on/off.');
 
     const epoch = this.#epoch;
     entry.listener = payload => {
@@ -168,7 +214,7 @@ export class ChartEvents {
       };
       let json: unknown;
       try {
-        json = encode(payload ?? {}, []);
+        json = zr ? pointer(payload) : encode(payload ?? {}, []);
       } catch (error) {
         release();
         this.#error(id, entry.name, error);
@@ -208,10 +254,18 @@ export class ChartEvents {
           release();
         });
     };
-    if (entry.query == null)
-      this.native.on(entry.name, entry.listener);
+    entry.target = target;
+    if (zr)
+      target.on(entry.name.slice(zrPrefix.length), entry.listener);
+    else if (entry.query == null)
+      target.on(entry.name, entry.listener);
     else
-      this.native.on(entry.name, entry.query, entry.listener);
+      target.on(entry.name, entry.query, entry.listener);
+  }
+
+  #unbind(entry: Subscription): void {
+    if (entry.listener)
+      entry.target?.off?.(entry.name.startsWith(zrPrefix) ? entry.name.slice(zrPrefix.length) : entry.name, entry.listener);
   }
 
   // An outage was detected: deliveries sent before it never settle, so their browser references are released now.
@@ -266,15 +320,13 @@ export class ChartEvents {
       return;
 
     this.#subscriptions.delete(id);
-    if (entry.listener)
-      this.native.off?.(entry.name, entry.listener);
+    this.#unbind(entry);
   }
 
   detach(): void {
     this.#epoch++;
     for (const entry of this.#subscriptions.values())
-      if (entry.listener)
-        this.native.off?.(entry.name, entry.listener);
+      this.#unbind(entry);
 
     for (const lease of this.#pending)
       void lease.dispose();

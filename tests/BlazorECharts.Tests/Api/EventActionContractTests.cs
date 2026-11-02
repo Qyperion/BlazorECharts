@@ -1734,6 +1734,81 @@ public sealed class EventActionContractTests
         Assert.Throws<ArgumentException>(() => EventQuery.Select());
     }
 
+    [Fact]
+    public async Task ZrEvents_SubscribeByTheirZRenderNameWithAThrottleButNoQuery()
+    {
+        // Arrange
+        var transport = new Transport();
+        await using var chart = new EChartInstance("chart", transport, GeneratedOptionMetadata.CreateContext());
+
+        // Act
+        await using var click = await chart.SubscribeAsync(ZrEvents.Click, _ => Task.CompletedTask);
+        await using var move = await chart.SubscribeAsync(
+            ZrEvents.MouseMove,
+            _ => Task.CompletedTask,
+            EventQuery.Throttled(TimeSpan.FromMilliseconds(50)));
+
+        // Assert
+        Assert.Equal(["zr:click", "zr:mousemove"], transport.Names);
+        Assert.Equal(JsonValueKind.Null, transport.Queries[1].ValueKind);
+        Assert.Equal(50, move.ThrottleMilliseconds);
+        Assert.Equal(
+            ["zr:click", "zr:dblclick", "zr:mousedown", "zr:mouseup", "zr:mousemove", "zr:mousewheel", "zr:contextmenu"],
+            new[]
+            {
+                ZrEvents.Click.Name,
+                ZrEvents.DoubleClick.Name,
+                ZrEvents.MouseDown.Name,
+                ZrEvents.MouseUp.Name,
+                ZrEvents.MouseMove.Name,
+                ZrEvents.MouseWheel.Name,
+                ZrEvents.ContextMenu.Name,
+            });
+
+        // Act
+        var error = await Assert.ThrowsAsync<ArgumentException>(
+            () => chart.SubscribeAsync(ZrEvents.Click, _ => Task.CompletedTask, EventQuery.Component("series")).AsTask());
+
+        // Assert
+        Assert.Equal("query", error.ParamName);
+        Assert.StartsWith("ZRender events take no query; use EventQuery.Throttled for a throttle.", error.Message);
+        Assert.Equal(2, transport.Names.Count);
+    }
+
+    [Fact]
+    public void ZrEvent_ReadsThePointerFields()
+    {
+        // Arrange
+        using var mouse = JsonDocument.Parse(
+            """{"type":"click","offsetX":120.5,"offsetY":40,"button":2,"ctrlKey":true,"shiftKey":false,"altKey":false,"metaKey":true,"wheelDelta":0,"byTouch":false,"hasTarget":true}""");
+        using var touch = JsonDocument.Parse(
+            """{"type":"mousewheel","offsetX":1,"offsetY":2,"button":null,"ctrlKey":false,"shiftKey":true,"altKey":true,"metaKey":false,"wheelDelta":-1,"byTouch":true,"hasTarget":false}""");
+
+        // Act
+        var click = new ZrEvent(mouse.RootElement);
+        var wheel = new ZrEvent(touch.RootElement);
+
+        // Assert
+        Assert.Equal("click", click.Type);
+        Assert.Equal(120.5, click.OffsetX);
+        Assert.Equal(40, click.OffsetY);
+        Assert.Equal(2, click.Button);
+        Assert.True(click.CtrlKey);
+        Assert.False(click.ShiftKey);
+        Assert.False(click.AltKey);
+        Assert.True(click.MetaKey);
+        Assert.Equal(0, click.WheelDelta);
+        Assert.False(click.ByTouch);
+        Assert.True(click.HasTarget);
+        Assert.Equal("mousewheel", wheel.Type);
+        Assert.Null(wheel.Button);
+        Assert.True(wheel.ShiftKey);
+        Assert.True(wheel.AltKey);
+        Assert.Equal(-1, wheel.WheelDelta);
+        Assert.True(wheel.ByTouch);
+        Assert.False(wheel.HasTarget);
+    }
+
     private static string Serialized(EChartsValue value)
     {
         var options = new ChartOptions();
@@ -1747,6 +1822,7 @@ public sealed class EventActionContractTests
         internal readonly List<string> Order = [];
         internal readonly List<string> Released = [];
         internal readonly List<JsonElement> Queries = [];
+        internal readonly List<string> Names = [];
         internal JsonElement Action;
         internal bool FailUnsubscribe;
         internal bool Disposed;
@@ -1773,6 +1849,7 @@ public sealed class EventActionContractTests
 
         public async ValueTask SubscribeAsync(string id, ChartSubscription subscription, string name, JsonElement query)
         {
+            Names.Add(name);
             Queries.Add(query);
             if (RegisterBlock is not null)
                 await RegisterBlock.Task;

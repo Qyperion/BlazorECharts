@@ -114,6 +114,43 @@ var selection = await chart.SubscribeAsync(ChartEvents.BrushSelected, async e =>
 A payload over the [message size limit](render-modes.md#message-size-on-interactive-server) is not
 delivered: the container raises `EventTooLarge` instead.
 
+## ZRender events
+
+`ZrEvents` subscribes to the pointer events of the chart's ZRender surface, `chart.getZr()`:
+`Click`, `DoubleClick`, `MouseDown`, `MouseUp`, `MouseMove`, `MouseWheel` and `ContextMenu`.
+ZRender raises them anywhere on the chart, also where ECharts raises no component event: on the
+cover of a brush selection, above a bar or on the empty plot. The `ZrEvent` payload has the
+position relative to the chart container (`OffsetX`, `OffsetY`), the mouse `Button`, the modifier
+keys, `WheelDelta`, `ByTouch` and `HasTarget`, which tells whether the pointer is over a chart
+element. Map the position to data with `ContainPixelAsync` and `ConvertFromPixelAsync`:
+
+<!-- snippet: Guides.Events.Zr -->
+```csharp
+// A click anywhere on the chart: also on a brush selection or above a bar, where ECharts raises no series click.
+await using var clicks = await chart.SubscribeAsync(ZrEvents.Click, async e =>
+{
+    if (!await chart.ContainPixelAsync(ChartFinder.Select("grid", index: 0), [e.OffsetX, e.OffsetY]))
+        return;
+
+    ChartPixelValue category = await chart.ConvertFromPixelAsync(ChartFinder.Select("xAxis", index: 0), e.OffsetX);
+    Console.WriteLine($"Category {category.Scalar}");
+});
+
+// Pointer moves arrive often: throttle them.
+await using var moves = await chart.SubscribeAsync(ZrEvents.MouseMove, e => Task.CompletedTask,
+    EventQuery.Throttled(TimeSpan.FromMilliseconds(100)));
+```
+
+- ZRender drops a `Click` that ends a drag of more than 4 pixels, such as a brush selection.
+- A ZRender event takes no query: `SubscribeAsync` throws `ArgumentException` for one.
+  `EventQuery.Throttled` sets only the throttle.
+- Like other subscriptions, ZRender subscriptions move to the new chart when it is
+  [recreated](updates.md#themes-and-init-options).
+- Event names that start with `zr:` are ZRender events, also in a `ChartEvent<T>` of your own.
+
+The [brush period picker](https://qyperion.github.io/BlazorECharts/examples/brush-period-picker)
+example selects a month with a click while the brush is active.
+
 ## Payloads
 
 Payload properties are the documented fields of the event. A field that the event did not include

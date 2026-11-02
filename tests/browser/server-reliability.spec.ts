@@ -69,7 +69,7 @@ test('LostSetOptionReply_AfterReconnect_TheLatestOptionsApply', async ({ page })
   const connection = await serverConnection(page);
   await open(page, '?interopTimeout=3000');
   await page.evaluate(() => {
-    const runtime = (globalThis as any)[Symbol.for('BlazorECharts.page-runtime.v3')];
+    const runtime = (globalThis as any)[Symbol.for('BlazorECharts.page-runtime.v4')];
     const setOption = runtime.setOption;
     runtime.setOption = function(...args: unknown[]) {
       const result = setOption.apply(this, args);

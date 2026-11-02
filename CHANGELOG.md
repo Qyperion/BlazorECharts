@@ -21,6 +21,15 @@ file at the release tag.
   A misspelled type used to pass and failed in the browser when the user started a brush; it now
   throws `ArgumentException` at the assignment. The error of an event or action payload field
   shows the rejected value, such as `received "linex"`, instead of its JSON kind.
+- `ZrEvents` subscribes to the pointer events of the chart's ZRender surface: `Click`,
+  `DoubleClick`, `MouseDown`, `MouseUp`, `MouseMove`, `MouseWheel` and `ContextMenu`, with the
+  `ZrEvent` payload (position, button, modifier keys, wheel delta). They arrive also where ECharts
+  raises no component event, such as on a brush selection, and move to the new chart when
+  `InitOptions` recreate it, like other subscriptions. See
+  [ZRender events](docs/events.md#zrender-events). The brush period picker example selects a month
+  with a click.
+- The interop protocol of `runtime-loader.js` is 4: a page that kept the scripts of an earlier
+  version reports `RuntimeVersionMismatch` and asks for a reload.
 
 ## 1.1.0
 

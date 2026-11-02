@@ -57,7 +57,7 @@ test('ScriptsOfAnotherProtocolKeptByThePage_FailWithRuntimeVersionMismatch_Until
     let body = await response.text();
 
     // The bundle inlines the protocol constant into the handshake.
-    for (const [current, earlier] of [['protocol!==3?', 'protocol!==2?'], ['"BlazorECharts.page-runtime.v3"', '"BlazorECharts.page-runtime.v2"']]) {
+    for (const [current, earlier] of [['protocol!==4?', 'protocol!==3?'], ['"BlazorECharts.page-runtime.v4"', '"BlazorECharts.page-runtime.v3"']]) {
       if (!body.includes(current))
         throw new Error(`The loader bundle has no ${current}.`);
 

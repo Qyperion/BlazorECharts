@@ -131,7 +131,7 @@ public static class ExampleRegistry
             "Scenarios/MirroredTimeAreaScenario.razor", modules: [Functions]),
         Options("sankey-flow", "Conversation hand-offs", "A Sankey diagram of who ends a conversation and who restarts it.",
             ["scenario", "sankey", "flow"], SankeyScenario.Create, "Scenarios/SankeyScenario.cs"),
-        Interactive("brush-period-picker", "Brush period picker", "Drag across monthly bars to select a period; the typed brush event reports the months.",
+        Interactive("brush-period-picker", "Brush period picker", "Drag across monthly bars to select a period, or click a month; the typed brush event reports the months.",
             ["scenario", "brush", "events"], BrushPeriodScenario.CreateOptions, typeof(BrushPeriodScenario), "Scenarios/BrushPeriodScenario.razor"),
     ]);
 
