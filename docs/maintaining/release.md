@@ -289,6 +289,12 @@ that the C# constants that build the URLs match the project files. TypeScript so
 section: `package.ps1` passes it as `PackageValidationBaselineVersion`, and the pack restores that
 package from nuget.org. A local pack keeps the version `0.1.0-local`, whose assembly version is
 below any baseline (CP0003), so the [public API baseline](#public-api-baseline) guards it instead.
+A major release accepts its intended breaking changes in
+`src/<project>/CompatibilitySuppressions.<previous version>.xml`, which applies only while that
+version is the baseline: generate it with the release pack command plus
+`-p:ApiCompatGenerateSuppressionFile=true -p:ApiCompatSuppressionOutputFile=<that file>`, and review
+that it lists only the breaking changes of `CHANGELOG.md`. The next release compares with the major
+version itself and needs no file.
 Published metadata cannot be changed, so these rules are checked on every package:
 
 - The license expression names everything a package distributes:

@@ -22,6 +22,8 @@
     <!-- A release pack compares the API with the previous version of CHANGELOG.md from nuget.org: package.ps1 passes
          PackageValidationBaselineVersion. A local pack keeps 0.1.0-local, so the PublicApi baseline tests guard it instead. -->
     <EnablePackageValidation>true</EnablePackageValidation>
+    <!-- A major release accepts its intended breaking changes against the version it follows, and only that version. -->
+    <CompatibilitySuppressionFilePath Condition="'$(PackageValidationBaselineVersion)' != '' And Exists('$(MSBuildProjectDirectory)/CompatibilitySuppressions.$(PackageValidationBaselineVersion).xml')">$(MSBuildProjectDirectory)/CompatibilitySuppressions.$(PackageValidationBaselineVersion).xml</CompatibilitySuppressionFilePath>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- Marks both assemblies trimmable for consumer trimming and runs the trim, AOT and single-file analyzers on every build. -->
