@@ -79,7 +79,7 @@ example `id` or `aria-describedby` for a text summary next to the chart:
 }
 ```
 
-`Class` and `Style` are parameters, and `data-chart-state` is reserved. With labels enabled,
+`Class`, `Style`, `Width` and `Height` are parameters, and `data-chart-state` is reserved. With labels enabled,
 ECharts overwrites `role` and `aria-label` attributes of the container.
 
 ## Incremental data

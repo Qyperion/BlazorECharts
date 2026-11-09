@@ -106,7 +106,7 @@ Render a chart with a non-zero height in an interactive component:
 @using BlazorECharts.Options
 @using BlazorECharts.Values
 
-<EChart Options="_options" Style="height:360px" />
+<EChart Options="_options" Height="360px" />
 
 @code {
     private readonly ChartOptions _options = new()

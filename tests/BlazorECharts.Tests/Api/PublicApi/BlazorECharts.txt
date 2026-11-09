@@ -20,8 +20,10 @@ public sealed class BlazorECharts.EChart : ComponentBase, IAsyncDisposable
   [Parameter] SetOptionOptions UpdateOptions { get; set; }
   [Parameter] bool AutoResize { get; set; }
   [Parameter] string? Class { get; set; }
+  [Parameter] string? Height { get; set; }
   [Parameter] string? Style { get; set; }
   [Parameter] string? Theme { get; set; }
+  [Parameter] string? Width { get; set; }
   ctor()
 public sealed class BlazorECharts.Events.AxisAreaSelectedEvent : ChartEventPayload
   AxisAreaSelectedEvent[]? Batch { get; }

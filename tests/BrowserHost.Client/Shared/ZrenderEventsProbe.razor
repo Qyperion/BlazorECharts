@@ -12,7 +12,7 @@
 <button @onclick="ArmBrush">Arm brush</button>
 <button @onclick="ToggleRenderer">Toggle renderer</button>
 <button @onclick="Unsubscribe">Unsubscribe</button>
-<EChart @ref="_chart" Class="zrender-chart" Style="width:600px;height:340px" Options="_options" InitOptions="_init" OnReady="Ready" />
+<EChart @ref="_chart" Class="zrender-chart" Width="600" Height="340px" Options="_options" InitOptions="_init" OnReady="Ready" />
 <pre data-testid="events">@string.Join("\n", _events)</pre>
 
 @code {

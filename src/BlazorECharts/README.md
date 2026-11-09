@@ -28,7 +28,7 @@ builder.Services.AddECharts();
 @using BlazorECharts.Options
 @using BlazorECharts.Values
 
-<EChart Options="_options" Style="height:360px" />
+<EChart Options="_options" Height="360px" />
 
 @code {
     private readonly ChartOptions _options = new()

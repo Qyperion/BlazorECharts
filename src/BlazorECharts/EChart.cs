@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using BlazorECharts.Options;
 using BlazorECharts.Runtime;
@@ -44,6 +45,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
     private Task? _disposal;
     private Task? _allocation;
     private bool _rendered;
+    private string? _style;
     private TaskCompletionSource _inputAvailable = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
     [Inject] private EChartsRuntime Runtime { get; set; } = default!;
@@ -76,8 +78,19 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
     /// <summary>CSS classes applied to the chart container.</summary>
     [Parameter] public string? Class { get; set; }
 
-    /// <summary>CSS style applied to the chart container. Set a nonzero height.</summary>
+    /// <summary>CSS style applied to the chart container. Give the container a nonzero height here, with
+    /// <see cref="Height"/> or with <see cref="Class"/>.</summary>
     [Parameter] public string? Style { get; set; }
+
+    /// <summary>The CSS height of the chart container, such as <c>360px</c>, <c>50vh</c> or <c>calc(100vh - 4rem)</c>;
+    /// a number without a unit is pixels.</summary>
+    /// <remarks>It follows <see cref="Style"/> in the <c>style</c> attribute, so it wins over a height there.</remarks>
+    [Parameter] public string? Height { get; set; }
+
+    /// <summary>The CSS width of the chart container, such as <c>600px</c> or <c>50%</c>; a number without a unit is
+    /// pixels.</summary>
+    /// <remarks>It follows <see cref="Style"/> in the <c>style</c> attribute, so it wins over a width there.</remarks>
+    [Parameter] public string? Width { get; set; }
 
     /// <summary>Other HTML attributes of the chart container, such as <c>id</c>, <c>data-*</c> or
     /// <c>aria-describedby</c>.</summary>
@@ -117,7 +130,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
         builder.OpenElement(0, "div");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(2, "class", Class);
-        builder.AddAttribute(3, "style", Style);
+        builder.AddAttribute(3, "style", _style);
         builder.AddAttribute(4, "data-chart-state", State);
         builder.AddElementReferenceCapture(5, element => _element = element);
         builder.CloseElement();
@@ -134,6 +147,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
 
         ArgumentNullException.ThrowIfNull(InitOptions);
         ArgumentNullException.ThrowIfNull(UpdateOptions);
+        _style = ContainerStyle(Style, CssLength(nameof(Width), Width), CssLength(nameof(Height), Height));
         if (HasInput)
             _inputAvailable.TrySetResult();
         else if (_inputAvailable.Task.IsCompleted)
@@ -141,6 +155,38 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
 
         if (Instance is not null && State is ChartState.Initializing or ChartState.Ready)
             AcceptParameters();
+    }
+
+    private static string? CssLength(string parameter, string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return null;
+
+        value = value.Trim();
+        if (value.Contains(';'))
+            throw new InvalidOperationException($"EChart.{parameter} is one CSS length, such as 360px, 50vh or 100%; received \"{value}\".");
+
+        return double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var pixels) && double.IsFinite(pixels)
+            ? value + "px"
+            : value;
+    }
+
+    private static string? ContainerStyle(string? style, string? width, string? height)
+    {
+        if (width is null && height is null)
+            return style;
+
+        var declarations = new List<string>(3);
+        if (style?.Trim().TrimEnd(';') is { Length: > 0 } own)
+            declarations.Add(own);
+
+        if (width is not null)
+            declarations.Add("width:" + width);
+
+        if (height is not null)
+            declarations.Add("height:" + height);
+
+        return string.Join(';', declarations);
     }
 
     /// <inheritdoc />

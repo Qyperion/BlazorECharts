@@ -59,6 +59,44 @@ public sealed class EChartLifecycleTests : BunitContext
     }
 
     [Fact]
+    public void HeightAndWidth_SizeTheContainerAfterStyle_ANumberIsPixels()
+    {
+        // Arrange
+        SetRendererInfo(new RendererInfo("Static", false));
+
+        // Act
+        var component = Render<EChart>(p => p
+            .Add(x => x.Height, "360")
+            .Add(x => x.Width, "50%")
+            .Add(x => x.Style, "border:1px solid;height:100px;"));
+
+        // Assert
+        Assert.Equal("border:1px solid;height:100px;width:50%;height:360px", component.Find("div").GetAttribute("style"));
+
+        // Act
+        component.Render(p => p
+            .Add(x => x.Height, "calc(100vh - 2rem)")
+            .Add(x => x.Width, null)
+            .Add(x => x.Style, null));
+
+        // Assert
+        Assert.Equal("height:calc(100vh - 2rem)", component.Find("div").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void Height_OfSeveralDeclarations_IsRejected()
+    {
+        // Arrange
+        SetRendererInfo(new RendererInfo("Static", false));
+
+        // Act
+        var error = Assert.Throws<InvalidOperationException>(() => Render<EChart>(p => p.Add(x => x.Height, "300px;color:red")));
+
+        // Assert
+        Assert.Equal("EChart.Height is one CSS length, such as 360px, 50vh or 100%; received \"300px;color:red\".", error.Message);
+    }
+
+    [Fact]
     public void NullInputThenOptions_InitializesOnce()
     {
         // Arrange

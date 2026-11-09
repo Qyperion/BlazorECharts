@@ -53,7 +53,7 @@ Add the namespaces to `_Imports.razor`:
 @page "/weekly-sales"
 @rendermode InteractiveServer
 
-<EChart Options="_options" Style="height:400px" OnReady="OnReady" OnError="OnError" />
+<EChart Options="_options" Height="400px" OnReady="OnReady" OnError="OnError" />
 <p>@_status</p>
 
 @code {
@@ -77,8 +77,11 @@ Add the namespaces to `_Imports.razor`:
 }
 ```
 
-- The container needs a non-zero size. Set it with `Style` or `Class`; the chart waits until the
-  container has a width and height, for example inside a hidden tab, and then initializes once.
+- The container needs a non-zero size. Set it with `Height` and `Width` (CSS lengths such as
+  `400px`, `50vh` or `100%`; a number without a unit is pixels), `Style` or `Class`. `Height` and
+  `Width` follow `Style` in the `style` attribute and win over the same properties there. The chart
+  waits until the container has a width and height, for example inside a hidden tab, and then
+  initializes once.
 - During prerendering and static rendering the component renders only the empty container.
   The chart initializes after the component becomes interactive.
 - `OnReady` runs once per successful initialization, after the first `setOption`. It does not

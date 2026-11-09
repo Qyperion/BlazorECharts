@@ -4,6 +4,13 @@ Changes of the `Qyperion.BlazorECharts` and `Qyperion.BlazorECharts.WordCloud` p
 are released together with the same version; the release notes of each package link to this
 file at the release tag.
 
+## Unreleased
+
+- `EChart.Height` and `EChart.Width` size the chart container with a CSS length, such as `360px`,
+  `50vh` or `100%`; a number without a unit is pixels. They follow `Style` in the `style`
+  attribute and win over a height or width there. A value with `;` throws
+  `InvalidOperationException`.
+
 ## 1.2.0
 
 - The `ArgumentException` of a literal union names the union, the rejected value, the accepted
