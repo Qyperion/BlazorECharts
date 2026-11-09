@@ -35147,6 +35147,14 @@
         "reason": "The pinned shared.d.ts:7531 declares the typo childGroupdId; ECharts 6.1.0 reads encode.itemChildGroupId (lib/util/types.js:49, lib/animation/universalTransition.js:84), as echarts-doc universalTransition describes."
       }
     ],
+    "memberRemarks": [
+      {
+        "typeId": "type:033adb4deb14f0f90ae5d646",
+        "property": "color",
+        "remarks": "In the line style of the series or of a link, `\"source\"` and `\"target\"` take the color of the edge's source or target node from the series or the node's category, not from the node's own `itemStyle.color`: ECharts colors the edges before it applies the style of a data item. To color edges per node, give each node its own category.",
+        "reason": "ECharts 6.1.0 resolves source and target only in the graph edge visual (lib/chart/graph/edgeVisual.js:75-88, PRIORITY_VISUAL_CHART 3000, lib/core/echarts.js:107), which reads the node style before dataStyleTask applies data item styles (PRIORITY_VISUAL_CHART_DATA_CUSTOM 4500, lib/core/echarts.js:2433); the states of a line style do not resolve them."
+      }
+    ],
     "unionTwins": [
       {
         "typeId": "type:e68582c8430bba301dd57012",

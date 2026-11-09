@@ -568,6 +568,7 @@ export function generate(
 
               // Preserve literal restrictions in readers too.
               const summary = config.componentProperties?.find(c => c.parent === id && c.name === p.name)?.summary;
+              const remark = config.memberRemarks?.find(r => r.typeId === id && r.property === p.name)?.remarks;
               const deprecated = deprecation(p.provenance);
               shape.properties!.push({
                 name: jsonName,
@@ -576,6 +577,7 @@ export function generate(
                 sourceId,
                 defaultValue: defaultFor(id, p.name),
                 ...(summary ? { summary } : {}),
+                ...(remark ? { remarks: remark } : {}),
                 ...(deprecated !== undefined ? { deprecated } : {}),
               });
             } catch (error) {
@@ -1047,7 +1049,15 @@ const optionPage = (path: string) => 'https://echarts.apache.org/en/option.html'
 /** The echarts-doc default, written as echarts-doc gives it. */
 const defaultRemark = (value?: unknown) => {
   const text = value === undefined || value === null ? undefined : String(value).replace(/\s+/g, ' ').trim();
-  return text && text !== '-' && text.length <= 80 ? `\n    /// <remarks>ECharts default: <c>${escapeXml(text)}</c>.</remarks>` : '';
+  return text && text !== '-' && text.length <= 80 ? `ECharts default: <c>${escapeXml(text)}</c>.` : '';
+};
+
+/** A hand-written remark of csharp.memberRemarks: `code` spans become <c>. */
+const memberRemark = (text?: string) => text ? escapeXml(text).replace(/`([^`]+)`/g, '<c>$1</c>') : '';
+
+const remarks = (...texts: string[]) => {
+  const text = texts.filter(Boolean).join(' ');
+  return text ? `\n    /// <remarks>${text}</remarks>` : '';
 };
 
 /** The literals and the other alternatives of a union in words, by kind or C# type; code formats a value or a type name. */
@@ -1099,8 +1109,7 @@ function literalValidation(name: string, cs: string, group: Shape[], alternative
 
 const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} or ${items.at(-1)}`;
 
-const tsOnly =
-  '\n    /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>';
+const tsOnly = 'Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.';
 
 function emitModel(shape: Shape, documented: Map<string, MemberDoc>, paths: Map<string, number> | undefined, componentLists: string[]): string {
   // The option page of a model: the path most of its documented members are under.
@@ -1123,7 +1132,7 @@ function emitModel(shape: Shape, documented: Map<string, MemberDoc>, paths: Map<
       const obsolete = p.deprecated === undefined
         ? ''
         : `\n    [Obsolete(${quote(`Deprecated in ECharts 6.1.0${p.deprecated ? ': ' + p.deprecated : '.'}`)})]`;
-      return `    private ${nullable(p.shape)} _p${i}${p.defaultValue === undefined ? '' : ' = ' + p.defaultValue};\n    /// <summary>${summary}</summary>${documented.has(`${shape.id}/${p.name}`) ? defaultRemark(documented.get(`${shape.id}/${p.name}`)!.defaultValue) : tsOnly}${obsolete}\n    public ${nullable(p.shape)} ${p.csName} { get => _p${i}; ${variantType ? 'internal ' : ''}set => SetProperty(ref _p${i}, value, ${quote(p.name)}); }`;
+      return `    private ${nullable(p.shape)} _p${i}${p.defaultValue === undefined ? '' : ' = ' + p.defaultValue};\n    /// <summary>${summary}</summary>${remarks(documented.has(`${shape.id}/${p.name}`) ? defaultRemark(documented.get(`${shape.id}/${p.name}`)!.defaultValue) : tsOnly, memberRemark(p.remarks))}${obsolete}\n    public ${nullable(p.shape)} ${p.csName} { get => _p${i}; ${variantType ? 'internal ' : ''}set => SetProperty(ref _p${i}, value, ${quote(p.name)}); }`;
     }).join('\n') + '\n}\n';
 }
 

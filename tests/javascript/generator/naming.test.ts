@@ -454,4 +454,15 @@ describe('documentation boundary', () => {
     expect(member('BarSeriesOption', 'BarWidth')).not.toContain(remark);
     expect(member('ChartOptions', 'XAxis')).not.toContain(remark);
   });
+
+  it('Docs_MemberRemarks_FollowTheDefaultWithCodeSpans', async () => {
+    // Act
+    const { files } = (await production()).result;
+    const edge = files.get('src/BlazorECharts/Options/Generated/GraphEdgeLineStyleOption.cs')!;
+
+    // Assert
+    expect(edge).toMatch(
+      /\/\/\/ <remarks>ECharts default: <c>'#aaa'<\/c>\. In the line style of the series or of a link, <c>"source"<\/c> and <c>"target"<\/c> [^\n]*<c>itemStyle\.color<\/c>[^\n]*<\/remarks>\n {4}public ZRColor\? Color /
+    );
+  });
 });

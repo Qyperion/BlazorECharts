@@ -66,6 +66,11 @@ other zrender `ElementProps` members of their TypeScript type are not generated.
 upstream declaration carries `@deprecated` is `[Obsolete]` with the tag's replacement hint.
 `csharp.memberRenames` (`typeId`, `property`, `jsonName`, `reason`) maps a declared member to the field
 ECharts actually reads, such as the upstream typo `childGroupdId` to `itemChildGroupId`.
+`csharp.memberRemarks` (`typeId`, `property`, `remarks`, `reason`) adds a hand-written remark to the
+XML doc of a declared member, after its default: a pitfall of ECharts that neither echarts-doc nor
+the declarations state, such as graph edges colored `"source"` that ignore a node's
+`itemStyle.color`. Backticks in `remarks` become `<c>`. A remark of a member that no longer exists
+fails generation.
 
 XML documentation comes from the schema, never from content hashes: a model names the echarts-doc
 path most of its members are documented under and links its section of

@@ -50,6 +50,29 @@ it('VariantDefaults_NameAVariantModelAnAllowedCaseAndAReason', () => {
   ]);
 });
 
+it('MemberRemarks_NameADeclaredMemberOnceWithTextAndAReason', () => {
+  // Arrange
+  const config = overrides().csharp;
+  const valid = config.memberRemarks[0];
+  const member = `${valid.typeId}/${valid.property}`;
+
+  // Act
+  config.memberRemarks.push(
+    { ...valid, remarks: ' ' },
+    { ...valid, property: 'missingMember' },
+    { ...valid, typeId: 'type:000000000000000000000000', reason: '' }
+  );
+
+  // Assert
+  expect(csharpConfigurationErrors(schema, config)).toEqual([
+    `Duplicate member remark: ${member}`,
+    `Incomplete member remark: ${member}`,
+    `Stale member remark: ${valid.typeId}/missingMember`,
+    `Stale member remark: type:000000000000000000000000/${valid.property}`,
+    `Incomplete member remark: type:000000000000000000000000/${valid.property}`,
+  ]);
+});
+
 it('DynamicActionRegistrations_NeedADecision', () => {
   // Act
   const config = overrides();

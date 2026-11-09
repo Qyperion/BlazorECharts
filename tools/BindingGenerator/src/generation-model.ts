@@ -26,6 +26,9 @@ export interface CSharpConfiguration {
   /** A pinned member whose name is not the field ECharts reads: the C# member reads and writes `jsonName` instead. */
   memberRenames?: { typeId: string; property: string; jsonName: string; reason: string }[];
 
+  /** A remark that the XML doc of a declared member adds after its default, such as a pitfall of ECharts; `code` spans become <c>. */
+  memberRemarks?: { typeId: string; property: string; remarks: string; reason: string }[];
+
   optionRouteAliases?: { path: string; target: string; reason: string }[];
   graphicVariants?: import('./graphic-options.ts').GraphicVariantMapping[];
 
@@ -99,6 +102,9 @@ export interface Member {
   sourceId: string;
   defaultValue?: boolean;
   summary?: string;
+
+  /** A hand-written remark from csharp.memberRemarks. */
+  remarks?: string;
 
   /** The text of an upstream @deprecated tag, possibly empty: the member becomes [Obsolete]. */
   deprecated?: string;

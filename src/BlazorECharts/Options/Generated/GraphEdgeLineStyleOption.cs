@@ -19,7 +19,7 @@ public sealed partial class GraphEdgeLineStyleOption : OptionObject
     public CanvasLineCap? Cap { get => _p0; set => SetProperty(ref _p0, value, "cap"); }
     private ZRColor? _p1;
     /// <summary>Gets or sets <c>color</c>.</summary>
-    /// <remarks>ECharts default: <c>'#aaa'</c>.</remarks>
+    /// <remarks>ECharts default: <c>'#aaa'</c>. In the line style of the series or of a link, <c>"source"</c> and <c>"target"</c> take the color of the edge's source or target node from the series or the node's category, not from the node's own <c>itemStyle.color</c>: ECharts colors the edges before it applies the style of a data item. To color edges per node, give each node its own category.</remarks>
     public ZRColor? Color { get => _p1; set => SetProperty(ref _p1, value, "color"); }
     private double? _p2;
     /// <summary>Gets or sets <c>curveness</c>.</summary>

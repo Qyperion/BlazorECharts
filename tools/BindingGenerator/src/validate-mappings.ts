@@ -214,6 +214,20 @@ export function csharpConfigurationErrors(schema: ApiSchema, config: MappingOver
       errors.push(`Stale member rename: ${r.typeId}/${r.property}`);
   }
 
+  const remarked = new Set<string>();
+  for (const r of config.memberRemarks ?? []) {
+    const member = `${r.typeId}/${r.property}`;
+    if (remarked.has(member))
+      errors.push(`Duplicate member remark: ${member}`);
+
+    remarked.add(member);
+    if (!types.get(r.typeId)?.properties?.some(p => p.name === r.property))
+      errors.push(`Stale member remark: ${member}`);
+
+    if (!r.remarks?.trim() || !r.reason?.trim())
+      errors.push(`Incomplete member remark: ${member}`);
+  }
+
   for (const id of config.specializeGenerics ?? []) {
     if (!types.get(id)?.typeParameters?.length)
       errors.push(`Stale generic target: ${id}`);

@@ -21,6 +21,9 @@ file at the release tag.
   as `ChartBrushSelectArea.BrushMode: expected single|multiple; received "singel".`
   `ChartFinder.Select`, `ChartFinder.And`, `ChartResizeOptions` and `ChartLoadingOptions` name their
   parameter or property the same way.
+- `GraphEdgeLineStyleOption.Color` explains that `"source"` and `"target"` take the node color from
+  the series or the node's category, not from the node's own `itemStyle.color`, and that a
+  category per node colors the edges per node.
 
 ## 1.2.0
 
