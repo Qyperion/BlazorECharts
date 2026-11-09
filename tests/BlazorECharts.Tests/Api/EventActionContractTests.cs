@@ -12,29 +12,46 @@ namespace BlazorECharts.Tests.Api;
 public sealed class EventActionContractTests
 {
     [Fact]
-    public void TakeGlobalCursorBrushType_AcceptsTheBrushTypesOfEChartsOnly()
+    public void TakeGlobalCursorBrushOption_TakesTheValuesOfBrushOption()
     {
         // Arrange
         var context = GeneratedOptionMetadata.CreateContext();
-        var action = new TakeGlobalCursorAction { Key = "brush", BrushOption = new() { BrushType = "lineX", BrushMode = "single" } };
+        var brush = new BrushOption { BrushType = "lineX", BrushMode = "single" };
 
         // Act
+        var action = new TakeGlobalCursorAction { Key = "brush", BrushOption = new() { BrushType = brush.BrushType, BrushMode = brush.BrushMode } };
         var json = OptionSerializer.Serialize(action, context).Json.GetRawText();
 
         // Assert
+        Assert.Equal(typeof(BrushOption).GetProperty(nameof(BrushOption.BrushType))!.PropertyType, typeof(ChartBrushCursorOption).GetProperty(nameof(ChartBrushCursorOption.BrushType))!.PropertyType);
+        Assert.Equal(typeof(BrushOption).GetProperty(nameof(BrushOption.BrushMode))!.PropertyType, typeof(ChartBrushCursorOption).GetProperty(nameof(ChartBrushCursorOption.BrushMode))!.PropertyType);
         Assert.Equal("""{"type":"takeGlobalCursor","key":"brush","brushOption":{"brushType":"lineX","brushMode":"single"}}""", json);
-        foreach (var type in new[] { "rect", "polygon", "lineX", "lineY", "auto" })
-            Assert.True(new ChartBrushCursorOption { BrushType = type }.BrushType!.Value.TryGetString(out _));
-
-        Assert.True(new ChartBrushCursorOption { BrushType = false }.IsAssigned("brushType"));
+        Assert.True(new ChartBrushCursorOption { BrushType = false }.BrushType!.Value.TryGet(out bool enabled));
+        Assert.False(enabled);
 
         // Act
-        var typo = Assert.Throws<ArgumentException>(() => new ChartBrushCursorOption { BrushType = "linex" });
-        var enabled = Assert.Throws<ArgumentException>(() => new ChartBrushCursorOption { BrushType = true });
+        var type = Assert.Throws<ArgumentException>(() => new ChartBrushCursorOption { BrushType = "linex" });
+        var mode = Assert.Throws<ArgumentException>(() => new ChartBrushCursorOption { BrushMode = "singel" });
 
         // Assert
-        Assert.Equal("ChartBrushCursorOption.BrushType: expected polygon|rect|lineX|lineY|auto|false; received \"linex\".", typo.Message);
-        Assert.Equal("ChartBrushCursorOption.BrushType: expected polygon|rect|lineX|lineY|auto|false; received true.", enabled.Message);
+        Assert.StartsWith("BrushTypeUncertain: \"linex\" is not one of ", type.Message);
+        Assert.StartsWith("BrushMode: \"singel\" is not one of ", mode.Message);
+    }
+
+    [Fact]
+    public void GlobalCursorTaken_ReadsTheBrushOptionTypes()
+    {
+        // Arrange
+        using var json = JsonDocument.Parse("""{"type":"globalcursortaken","key":"brush","brushOption":{"brushType":"rect","brushMode":"multiple"}}""");
+
+        // Act
+        var cursor = new GlobalCursorTakenEvent(json.RootElement).BrushOption!;
+
+        // Assert
+        Assert.True(cursor.BrushType!.Value.TryGet(out string? type));
+        Assert.Equal("rect", type);
+        Assert.True(cursor.BrushMode!.Value.TryGet(out string? mode));
+        Assert.Equal("multiple", mode);
     }
 
     [Fact]

@@ -17,6 +17,8 @@
 
 @code {
     private static readonly string[] Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+    private static readonly BrushTypeUncertain CursorBrushType = "lineX";
+    private static readonly BrushMode CursorBrushMode = "single";
 
     private readonly ChartOptions _options = new()
     {
@@ -25,7 +27,7 @@
         XAxis = new XAxisCategoryOption { Data = [.. Months.Select(month => (CategoryAxisDataItemOption?)month)] },
         YAxis = new YAxisValueOption(),
         Toolbox = new ToolboxComponentOption { Show = false },
-        Brush = new BrushOption { Toolbox = [], XAxisIndex = 0, BrushType = "lineX", BrushMode = "single" },
+        Brush = new BrushOption { Toolbox = [], XAxisIndex = 0, BrushType = CursorBrushType, BrushMode = CursorBrushMode },
         Series = new BarSeriesOption { Name = "Messages", Data = [4, 8, 3, 6, 5, 7] },
     };
 
@@ -72,7 +74,7 @@
         await Chart.DispatchActionAsync(new TakeGlobalCursorAction
         {
             Key = "brush",
-            BrushOption = new() { BrushType = "lineX", BrushMode = "single" },
+            BrushOption = new() { BrushType = CursorBrushType, BrushMode = CursorBrushMode },
         });
         _events.Clear();
         _status = "armed";

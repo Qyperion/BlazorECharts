@@ -350,8 +350,8 @@ internal static partial class GeneratedOptionMetadata
         var value = new ChartBrushCursorOption();
         foreach (var p in json.EnumerateObject()) switch (p.Name)
         {
-            case "brushType": try { value.BrushType = p.Value.ValueKind == JsonValueKind.Null ? (EventActionValue?)null : EventActionValue.FromJson(p.Value); } catch (Exception error) when (context.DefersFieldErrors && OptionReadError.Is(error)) { value.DeferReadError("brushType", error); } break;
-            case "brushMode": try { value.BrushMode = p.Value.ValueKind == JsonValueKind.Null ? (string?)null : p.Value.GetString() ?? throw new JsonException("Expected string."); } catch (Exception error) when (context.DefersFieldErrors && OptionReadError.Is(error)) { value.DeferReadError("brushMode", error); } break;
+            case "brushType": try { value.BrushType = p.Value.ValueKind == JsonValueKind.Null ? (BrushTypeUncertain?)null : BrushTypeUncertain.Read(p.Value); } catch (Exception error) when (context.DefersFieldErrors && OptionReadError.Is(error)) { value.DeferReadError("brushType", error); } break;
+            case "brushMode": try { value.BrushMode = p.Value.ValueKind == JsonValueKind.Null ? (BrushMode?)null : BrushMode.Read(p.Value); } catch (Exception error) when (context.DefersFieldErrors && OptionReadError.Is(error)) { value.DeferReadError("brushMode", error); } break;
             default: value.AdditionalProperties[p.Name] = EChartsValue.FromJson(p.Value); break;
         }
         return value;

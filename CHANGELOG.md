@@ -6,6 +6,13 @@ file at the release tag.
 
 ## Unreleased
 
+- Breaking change: `ChartBrushCursorOption.BrushType` and `BrushMode`, the brush option of
+  `TakeGlobalCursorAction` and `GlobalCursorTakenEvent`, have the types of `BrushOption.BrushType`
+  and `BrushOption.BrushMode`: `BrushTypeUncertain?` and `BrushMode?` instead of
+  `EventActionValue?` and `string?`. The values of a `BrushOption` pass to the cursor as they are,
+  and a misspelled mode, such as `"singel"`, throws `ArgumentException` at the assignment.
+  Assigning a string or `false` compiles as before; code that read the value with
+  `TryGetString` uses `TryGet`.
 - `EChart.Height` and `EChart.Width` size the chart container with a CSS length, such as `360px`,
   `50vh` or `100%`; a number without a unit is pixels. They follow `Style` in the `style`
   attribute and win over a height or width there. A value with `;` throws

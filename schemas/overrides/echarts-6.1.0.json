@@ -41179,8 +41179,8 @@
     {
       "name": "ChartBrushCursorOption",
       "fields": {
-        "brushType": "polygon|rect|lineX|lineY|auto|false",
-        "brushMode": "string"
+        "brushType": "type:28051adbbf30c48bcd53924a",
+        "brushMode": "type:177fced1f77386b168fdea87"
       },
       "contractSources": [
         "source:67de5f27b01ccc6c5c06d1b4",

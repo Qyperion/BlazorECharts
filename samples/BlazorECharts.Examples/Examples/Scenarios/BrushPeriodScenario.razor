@@ -14,6 +14,8 @@
 @code {
     private static readonly DateOnly FirstMonth = new(2024, 1, 1);
     private const int MonthCount = 33;
+    private static readonly BrushTypeUncertain PeriodBrushType = "lineX";
+    private static readonly BrushMode PeriodBrushMode = "single";
     private static readonly double[] Messages = CreateMessages();
 
     private readonly List<ChartSubscription> _subscriptions = [];
@@ -42,8 +44,8 @@
         {
             Toolbox = [],
             XAxisIndex = 0,
-            BrushType = "lineX",
-            BrushMode = "single",
+            BrushType = PeriodBrushType,
+            BrushMode = PeriodBrushMode,
             BrushStyle = new() { BorderWidth = 1, Color = "rgba(47, 95, 208, 0.12)", BorderColor = "rgba(47, 95, 208, 0.6)" },
         },
         Series = new BarSeriesOption
@@ -78,7 +80,7 @@
         await chart.DispatchActionAsync(new TakeGlobalCursorAction
         {
             Key = "brush",
-            BrushOption = new() { BrushType = "lineX", BrushMode = "single" },
+            BrushOption = new() { BrushType = PeriodBrushType, BrushMode = PeriodBrushMode },
         });
         await ReadyAsync(chart);
     }

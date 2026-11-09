@@ -2343,9 +2343,9 @@ public sealed class BlazorECharts.Options.ChartBrushArea : OptionObject
   string? Id { get; set; }
   string? PanelId { get; set; }
 public sealed class BlazorECharts.Options.ChartBrushCursorOption : OptionObject
-  EventActionValue? BrushType { get; set; }
+  BrushMode? BrushMode { get; set; }
+  BrushTypeUncertain? BrushType { get; set; }
   ctor()
-  string? BrushMode { get; set; }
 public sealed class BlazorECharts.Options.ChartBrushRangeOffset : OptionObject
   EventActionValue? Offset { get; set; }
   ctor()
