@@ -58,10 +58,10 @@ partial updates.
 - Opt-in `module` (for example a CDN) and `custom` runtime providers.
 
 Tooltip formatter functions return HTML: encode data in them, and read the
-[security notes](https://github.com/Qyperion/BlazorECharts/blob/v1.2.0/docs/security.md) for links,
+[security notes](https://github.com/Qyperion/BlazorECharts/blob/v2.0.0/docs/security.md) for links,
 colors from data, SVG export, inline functions and the Content Security Policy.
 
-The [documentation](https://github.com/Qyperion/BlazorECharts/tree/v1.2.0/docs) covers getting started, options, updates,
+The [documentation](https://github.com/Qyperion/BlazorECharts/tree/v2.0.0/docs) covers getting started, options, updates,
 events, functions, exports, extensions, render modes, errors and security.
 
 Licensed under MIT. Apache ECharts, ZRender and tslib keep their own licenses; see

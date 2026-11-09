@@ -4,7 +4,7 @@ Changes of the `Qyperion.BlazorECharts` and `Qyperion.BlazorECharts.WordCloud` p
 are released together with the same version; the release notes of each package link to this
 file at the release tag.
 
-## Unreleased
+## 2.0.0
 
 - Breaking change: `ChartBrushCursorOption.BrushType` and `BrushMode`, the brush option of
   `TakeGlobalCursorAction` and `GlobalCursorTakenEvent`, have the types of `BrushOption.BrushType`
