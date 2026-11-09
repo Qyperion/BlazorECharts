@@ -182,7 +182,7 @@ export function emitEventsActions(
       + typedUsings(fields)
       + `\nnamespace BlazorECharts.Options;\n\n${discriminator ? classDoc(doc, `The <c>${discriminator}</c> action that ECharts 6.1.0 registers.`, 'Unknown fields are retained.') : '/// <summary>A part of an event or action payload. Unknown fields are retained.</summary>\n'}${remarks(classRemarks)}public sealed class ${name}${discriminator ? `() : ChartAction(${quote(discriminator)})` : ' : OptionObject'}\n{\n`
       + properties
-        .map(([field, type], i) => `    private ${typeOf(type)}? _p${i};\n    /// <summary>Gets or sets <c>${field}</c>${own(type) ? ': one payload per item of a batched dispatch' : type.startsWith('type:') ? '' : ` (${type})`}.</summary>\n    public ${typeOf(type)}? ${property(field)} { get => ${discriminator ? `_p${i}` : `Readable(_p${i}, ${quote(field)})`}; set { ${own(type) || direct(type) ? '' : `value?.Validate(${quote(type)}); `}SetProperty(ref _p${i}, value, ${quote(field)}); } }`)
+        .map(([field, type], i) => `    private ${typeOf(type)}? _p${i};\n    /// <summary>Gets or sets <c>${field}</c>${own(type) ? ': one payload per item of a batched dispatch' : type.startsWith('type:') ? '' : ` (${type})`}.</summary>\n    public ${typeOf(type)}? ${property(field)} { get => ${discriminator ? `_p${i}` : `Readable(_p${i}, ${quote(field)})`}; set { ${own(type) || direct(type) ? '' : `value?.Validate(${quote(type)}, ${quote(`${name}.${property(field)}`)}); `}SetProperty(ref _p${i}, value, ${quote(field)}); } }`)
         .join('\n')
       + '\n}\n');
     symbols.set(path, [name, ...properties.map(([field]) => `${name}.${property(field)}`)]);
@@ -315,7 +315,7 @@ export function emitEventsActions(
               : type === 'json' ? `JsonValue(${quote(field)})`
                 : sourceModel(type)?.kind === 'union' ? `ReadValue(${quote(field)}, json => ${read(type, 'json', true)})`
                   : direct(type) ? `ReadField(${quote(field)}, json => ${read(type, 'json', true)})`
-                    : type === 'boolean-map' ? `BooleanMap(${quote(field)})` : `ReadUnion(${quote(field)}, ${quote(type)})`;
+                    : type === 'boolean-map' ? `BooleanMap(${quote(field)})` : `ReadUnion(${quote(field)}, ${quote(type)}, ${quote(`${m.name}.${property(field)}`)})`;
           return `    /// <summary>Gets <c>${field}</c>${type.startsWith('type:') ? '' : ` (${type === 'self[]' ? m.name + '[]' : type})`}.</summary>\n${remarks(m.fieldRemarks?.[field], '    ')}    public ${fieldType(type)}? ${property(field)} => ${expression};`;
         }).join('\n')
         + '\n}\n');

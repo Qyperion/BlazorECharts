@@ -23,31 +23,31 @@ public sealed class ToggleAxisBreakAction() : ChartAction("toggleAxisBreak")
     public ChartPayloadAnimation? Animation { get => _p2; set { SetProperty(ref _p2, value, "animation"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>xAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? XAxisIndex { get => _p3; set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p3, value, "xAxisIndex"); } }
+    public EventActionValue? XAxisIndex { get => _p3; set { value?.Validate("number|number[]|all|none|false", "ToggleAxisBreakAction.XAxisIndex"); SetProperty(ref _p3, value, "xAxisIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>xAxisId</c> (id|id[]).</summary>
-    public EventActionValue? XAxisId { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "xAxisId"); } }
+    public EventActionValue? XAxisId { get => _p4; set { value?.Validate("id|id[]", "ToggleAxisBreakAction.XAxisId"); SetProperty(ref _p4, value, "xAxisId"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>xAxisName</c> (id|id[]).</summary>
-    public EventActionValue? XAxisName { get => _p5; set { value?.Validate("id|id[]"); SetProperty(ref _p5, value, "xAxisName"); } }
+    public EventActionValue? XAxisName { get => _p5; set { value?.Validate("id|id[]", "ToggleAxisBreakAction.XAxisName"); SetProperty(ref _p5, value, "xAxisName"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>yAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? YAxisIndex { get => _p6; set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p6, value, "yAxisIndex"); } }
+    public EventActionValue? YAxisIndex { get => _p6; set { value?.Validate("number|number[]|all|none|false", "ToggleAxisBreakAction.YAxisIndex"); SetProperty(ref _p6, value, "yAxisIndex"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>yAxisId</c> (id|id[]).</summary>
-    public EventActionValue? YAxisId { get => _p7; set { value?.Validate("id|id[]"); SetProperty(ref _p7, value, "yAxisId"); } }
+    public EventActionValue? YAxisId { get => _p7; set { value?.Validate("id|id[]", "ToggleAxisBreakAction.YAxisId"); SetProperty(ref _p7, value, "yAxisId"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>yAxisName</c> (id|id[]).</summary>
-    public EventActionValue? YAxisName { get => _p8; set { value?.Validate("id|id[]"); SetProperty(ref _p8, value, "yAxisName"); } }
+    public EventActionValue? YAxisName { get => _p8; set { value?.Validate("id|id[]", "ToggleAxisBreakAction.YAxisName"); SetProperty(ref _p8, value, "yAxisName"); } }
     private EventActionValue? _p9;
     /// <summary>Gets or sets <c>singleAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? SingleAxisIndex { get => _p9; set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p9, value, "singleAxisIndex"); } }
+    public EventActionValue? SingleAxisIndex { get => _p9; set { value?.Validate("number|number[]|all|none|false", "ToggleAxisBreakAction.SingleAxisIndex"); SetProperty(ref _p9, value, "singleAxisIndex"); } }
     private EventActionValue? _p10;
     /// <summary>Gets or sets <c>singleAxisId</c> (id|id[]).</summary>
-    public EventActionValue? SingleAxisId { get => _p10; set { value?.Validate("id|id[]"); SetProperty(ref _p10, value, "singleAxisId"); } }
+    public EventActionValue? SingleAxisId { get => _p10; set { value?.Validate("id|id[]", "ToggleAxisBreakAction.SingleAxisId"); SetProperty(ref _p10, value, "singleAxisId"); } }
     private EventActionValue? _p11;
     /// <summary>Gets or sets <c>singleAxisName</c> (id|id[]).</summary>
-    public EventActionValue? SingleAxisName { get => _p11; set { value?.Validate("id|id[]"); SetProperty(ref _p11, value, "singleAxisName"); } }
+    public EventActionValue? SingleAxisName { get => _p11; set { value?.Validate("id|id[]", "ToggleAxisBreakAction.SingleAxisName"); SetProperty(ref _p11, value, "singleAxisName"); } }
     private ChartAxisBreakIdentifier[]? _p12;
     /// <summary>Gets or sets <c>breaks</c> (ChartAxisBreakIdentifier[]).</summary>
     public ChartAxisBreakIdentifier[]? Breaks { get => _p12; set { SetProperty(ref _p12, value, "breaks"); } }

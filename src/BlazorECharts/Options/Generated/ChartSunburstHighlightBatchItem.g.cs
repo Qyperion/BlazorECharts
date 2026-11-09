@@ -16,16 +16,16 @@ public sealed class ChartSunburstHighlightBatchItem : OptionObject
     public string? Type { get => Readable(_p0, "type"); set { SetProperty(ref _p0, value, "type"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => Readable(_p1, "seriesIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p1, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => Readable(_p1, "seriesIndex"); set { value?.Validate("number|number[]", "ChartSunburstHighlightBatchItem.SeriesIndex"); SetProperty(ref _p1, value, "seriesIndex"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => Readable(_p2, "seriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => Readable(_p2, "seriesId"); set { value?.Validate("id|id[]", "ChartSunburstHighlightBatchItem.SeriesId"); SetProperty(ref _p2, value, "seriesId"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => Readable(_p3, "seriesName"); set { value?.Validate("id|id[]"); SetProperty(ref _p3, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => Readable(_p3, "seriesName"); set { value?.Validate("id|id[]", "ChartSunburstHighlightBatchItem.SeriesName"); SetProperty(ref _p3, value, "seriesName"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>excludeSeriesId</c> (id|id[]).</summary>
-    public EventActionValue? ExcludeSeriesId { get => Readable(_p4, "excludeSeriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "excludeSeriesId"); } }
+    public EventActionValue? ExcludeSeriesId { get => Readable(_p4, "excludeSeriesId"); set { value?.Validate("id|id[]", "ChartSunburstHighlightBatchItem.ExcludeSeriesId"); SetProperty(ref _p4, value, "excludeSeriesId"); } }
     private AnimationOption? _p5;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     public AnimationOption? Animation { get => Readable(_p5, "animation"); set { SetProperty(ref _p5, value, "animation"); } }
@@ -37,16 +37,16 @@ public sealed class ChartSunburstHighlightBatchItem : OptionObject
     public string? TargetNodeId { get => Readable(_p7, "targetNodeId"); set { SetProperty(ref _p7, value, "targetNodeId"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>dataIndex</c> (number|number[]).</summary>
-    public EventActionValue? DataIndex { get => Readable(_p8, "dataIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p8, value, "dataIndex"); } }
+    public EventActionValue? DataIndex { get => Readable(_p8, "dataIndex"); set { value?.Validate("number|number[]", "ChartSunburstHighlightBatchItem.DataIndex"); SetProperty(ref _p8, value, "dataIndex"); } }
     private EventActionValue? _p9;
     /// <summary>Gets or sets <c>dataIndexInside</c> (number|number[]).</summary>
-    public EventActionValue? DataIndexInside { get => Readable(_p9, "dataIndexInside"); set { value?.Validate("number|number[]"); SetProperty(ref _p9, value, "dataIndexInside"); } }
+    public EventActionValue? DataIndexInside { get => Readable(_p9, "dataIndexInside"); set { value?.Validate("number|number[]", "ChartSunburstHighlightBatchItem.DataIndexInside"); SetProperty(ref _p9, value, "dataIndexInside"); } }
     private EventActionValue? _p10;
     /// <summary>Gets or sets <c>name</c> (string|string[]).</summary>
-    public EventActionValue? Name { get => Readable(_p10, "name"); set { value?.Validate("string|string[]"); SetProperty(ref _p10, value, "name"); } }
+    public EventActionValue? Name { get => Readable(_p10, "name"); set { value?.Validate("string|string[]", "ChartSunburstHighlightBatchItem.Name"); SetProperty(ref _p10, value, "name"); } }
     private EventActionValue? _p11;
     /// <summary>Gets or sets <c>dataType</c> (main|node|edge).</summary>
-    public EventActionValue? DataType { get => Readable(_p11, "dataType"); set { value?.Validate("main|node|edge"); SetProperty(ref _p11, value, "dataType"); } }
+    public EventActionValue? DataType { get => Readable(_p11, "dataType"); set { value?.Validate("main|node|edge", "ChartSunburstHighlightBatchItem.DataType"); SetProperty(ref _p11, value, "dataType"); } }
     private bool? _p12;
     /// <summary>Gets or sets <c>notBlur</c> (boolean).</summary>
     public bool? NotBlur { get => Readable(_p12, "notBlur"); set { SetProperty(ref _p12, value, "notBlur"); } }

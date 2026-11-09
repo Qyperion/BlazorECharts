@@ -17,21 +17,21 @@ public sealed class DownplayEvent(JsonElement json) : ChartEventPayload(json)
     /// <summary>Gets <c>type</c> (string).</summary>
     public string? Type => Text("type");
     /// <summary>Gets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]");
+    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]", "DownplayEvent.SeriesIndex");
     /// <summary>Gets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]");
+    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]", "DownplayEvent.SeriesId");
     /// <summary>Gets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]");
+    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]", "DownplayEvent.SeriesName");
     /// <summary>Gets <c>dataIndex</c> (number|number[]).</summary>
-    public EventActionValue? DataIndex => ReadUnion("dataIndex", "number|number[]");
+    public EventActionValue? DataIndex => ReadUnion("dataIndex", "number|number[]", "DownplayEvent.DataIndex");
     /// <summary>Gets <c>name</c> (string|string[]).</summary>
-    public EventActionValue? Name => ReadUnion("name", "string|string[]");
+    public EventActionValue? Name => ReadUnion("name", "string|string[]", "DownplayEvent.Name");
     /// <summary>Gets <c>geoIndex</c> (number|number[]).</summary>
-    public EventActionValue? GeoIndex => ReadUnion("geoIndex", "number|number[]");
+    public EventActionValue? GeoIndex => ReadUnion("geoIndex", "number|number[]", "DownplayEvent.GeoIndex");
     /// <summary>Gets <c>geoId</c> (id|id[]).</summary>
-    public EventActionValue? GeoId => ReadUnion("geoId", "id|id[]");
+    public EventActionValue? GeoId => ReadUnion("geoId", "id|id[]", "DownplayEvent.GeoId");
     /// <summary>Gets <c>geoName</c> (id|id[]).</summary>
-    public EventActionValue? GeoName => ReadUnion("geoName", "id|id[]");
+    public EventActionValue? GeoName => ReadUnion("geoName", "id|id[]", "DownplayEvent.GeoName");
     /// <summary>Gets <c>notBlur</c> (boolean).</summary>
     public bool? NotBlur => Boolean("notBlur");
 }

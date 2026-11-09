@@ -33,13 +33,13 @@ public abstract class ChartEventPayload
     /// <summary>Reads an optional boolean field.</summary>
     protected bool? Boolean(string name) => Field(name) is { ValueKind: not JsonValueKind.Null } v ? v.GetBoolean() : null;
 
-    private protected EventActionValue? ReadUnion(string name, string alternatives)
+    private protected EventActionValue? ReadUnion(string name, string alternatives, string member)
     {
         if (Field(name) is not { } json)
             return null;
 
         var value = EventActionValue.FromJson(json);
-        value.Validate(alternatives);
+        value.Validate(alternatives, member);
         return value;
     }
 

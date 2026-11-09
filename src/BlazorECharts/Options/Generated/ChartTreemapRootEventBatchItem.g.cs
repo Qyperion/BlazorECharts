@@ -16,13 +16,13 @@ public sealed class ChartTreemapRootEventBatchItem : OptionObject
     public string? Type { get => Readable(_p0, "type"); set { SetProperty(ref _p0, value, "type"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => Readable(_p1, "seriesIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p1, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => Readable(_p1, "seriesIndex"); set { value?.Validate("number|number[]", "ChartTreemapRootEventBatchItem.SeriesIndex"); SetProperty(ref _p1, value, "seriesIndex"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => Readable(_p2, "seriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => Readable(_p2, "seriesId"); set { value?.Validate("id|id[]", "ChartTreemapRootEventBatchItem.SeriesId"); SetProperty(ref _p2, value, "seriesId"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => Readable(_p3, "seriesName"); set { value?.Validate("id|id[]"); SetProperty(ref _p3, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => Readable(_p3, "seriesName"); set { value?.Validate("id|id[]", "ChartTreemapRootEventBatchItem.SeriesName"); SetProperty(ref _p3, value, "seriesName"); } }
     private AnimationOption? _p4;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     public AnimationOption? Animation { get => Readable(_p4, "animation"); set { SetProperty(ref _p4, value, "animation"); } }
@@ -37,5 +37,5 @@ public sealed class ChartTreemapRootEventBatchItem : OptionObject
     public string? From { get => Readable(_p7, "from"); set { SetProperty(ref _p7, value, "from"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>direction</c> (rollUp|drillDown).</summary>
-    public EventActionValue? Direction { get => Readable(_p8, "direction"); set { value?.Validate("rollUp|drillDown"); SetProperty(ref _p8, value, "direction"); } }
+    public EventActionValue? Direction { get => Readable(_p8, "direction"); set { value?.Validate("rollUp|drillDown", "ChartTreemapRootEventBatchItem.Direction"); SetProperty(ref _p8, value, "direction"); } }
 }

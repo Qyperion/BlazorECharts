@@ -32,13 +32,13 @@ public sealed class ShowTipAction() : ChartAction("showTip")
     public string? Name { get => _p5; set { SetProperty(ref _p5, value, "name"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>geoIndex</c> (number|number[]).</summary>
-    public EventActionValue? GeoIndex { get => _p6; set { value?.Validate("number|number[]"); SetProperty(ref _p6, value, "geoIndex"); } }
+    public EventActionValue? GeoIndex { get => _p6; set { value?.Validate("number|number[]", "ShowTipAction.GeoIndex"); SetProperty(ref _p6, value, "geoIndex"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>geoId</c> (id|id[]).</summary>
-    public EventActionValue? GeoId { get => _p7; set { value?.Validate("id|id[]"); SetProperty(ref _p7, value, "geoId"); } }
+    public EventActionValue? GeoId { get => _p7; set { value?.Validate("id|id[]", "ShowTipAction.GeoId"); SetProperty(ref _p7, value, "geoId"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>geoName</c> (id|id[]).</summary>
-    public EventActionValue? GeoName { get => _p8; set { value?.Validate("id|id[]"); SetProperty(ref _p8, value, "geoName"); } }
+    public EventActionValue? GeoName { get => _p8; set { value?.Validate("id|id[]", "ShowTipAction.GeoName"); SetProperty(ref _p8, value, "geoName"); } }
     private double? _p9;
     /// <summary>Gets or sets <c>x</c> (number).</summary>
     public double? X { get => _p9; set { SetProperty(ref _p9, value, "x"); } }
@@ -47,5 +47,5 @@ public sealed class ShowTipAction() : ChartAction("showTip")
     public double? Y { get => _p10; set { SetProperty(ref _p10, value, "y"); } }
     private EventActionValue? _p11;
     /// <summary>Gets or sets <c>position</c> (id[]|string|object|function).</summary>
-    public EventActionValue? Position { get => _p11; set { value?.Validate("id[]|string|object|function"); SetProperty(ref _p11, value, "position"); } }
+    public EventActionValue? Position { get => _p11; set { value?.Validate("id[]|string|object|function", "ShowTipAction.Position"); SetProperty(ref _p11, value, "position"); } }
 }

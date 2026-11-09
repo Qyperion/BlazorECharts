@@ -14,7 +14,7 @@ public sealed class UpdateAxisPointerAction() : ChartAction("updateAxisPointer")
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>currTrigger</c> (click|mousemove|leave|mousewheel).</summary>
-    public EventActionValue? CurrTrigger { get => _p0; set { value?.Validate("click|mousemove|leave|mousewheel"); SetProperty(ref _p0, value, "currTrigger"); } }
+    public EventActionValue? CurrTrigger { get => _p0; set { value?.Validate("click|mousemove|leave|mousewheel", "UpdateAxisPointerAction.CurrTrigger"); SetProperty(ref _p0, value, "currTrigger"); } }
     private double? _p1;
     /// <summary>Gets or sets <c>x</c> (number).</summary>
     public double? X { get => _p1; set { SetProperty(ref _p1, value, "x"); } }

@@ -14,11 +14,11 @@ public sealed class SunburstRootToNodeEvent(JsonElement json) : ChartEventPayloa
     /// <summary>Gets <c>type</c> (string).</summary>
     public string? Type => Text("type");
     /// <summary>Gets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]");
+    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]", "SunburstRootToNodeEvent.SeriesIndex");
     /// <summary>Gets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]");
+    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]", "SunburstRootToNodeEvent.SeriesId");
     /// <summary>Gets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]");
+    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]", "SunburstRootToNodeEvent.SeriesName");
     /// <summary>Gets <c>animation</c>.</summary>
     public AnimationOption? Animation => ReadField("animation", json => GeneratedOptionMetadata.ReadAnimationOption(json, PayloadSerialization));
     /// <summary>Gets <c>targetNode</c> (tree-node-target).</summary>
@@ -28,7 +28,7 @@ public sealed class SunburstRootToNodeEvent(JsonElement json) : ChartEventPayloa
     /// <summary>Gets <c>from</c> (string).</summary>
     public string? From => Text("from");
     /// <summary>Gets <c>direction</c> (rollUp|drillDown).</summary>
-    public EventActionValue? Direction => ReadUnion("direction", "rollUp|drillDown");
+    public EventActionValue? Direction => ReadUnion("direction", "rollUp|drillDown", "SunburstRootToNodeEvent.Direction");
     /// <summary>Gets <c>escapeConnect</c> (boolean).</summary>
     public bool? EscapeConnect => Boolean("escapeConnect");
     /// <summary>Gets <c>batch</c> (ChartSunburstRootEventBatchItem[]).</summary>

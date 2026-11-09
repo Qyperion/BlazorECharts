@@ -13,19 +13,19 @@ public sealed class ChartAxisBreakChange : OptionObject
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>start</c> (id).</summary>
-    public EventActionValue? Start { get => Readable(_p0, "start"); set { value?.Validate("id"); SetProperty(ref _p0, value, "start"); } }
+    public EventActionValue? Start { get => Readable(_p0, "start"); set { value?.Validate("id", "ChartAxisBreakChange.Start"); SetProperty(ref _p0, value, "start"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>end</c> (id).</summary>
-    public EventActionValue? End { get => Readable(_p1, "end"); set { value?.Validate("id"); SetProperty(ref _p1, value, "end"); } }
+    public EventActionValue? End { get => Readable(_p1, "end"); set { value?.Validate("id", "ChartAxisBreakChange.End"); SetProperty(ref _p1, value, "end"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>xAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? XAxisIndex { get => Readable(_p2, "xAxisIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p2, value, "xAxisIndex"); } }
+    public EventActionValue? XAxisIndex { get => Readable(_p2, "xAxisIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartAxisBreakChange.XAxisIndex"); SetProperty(ref _p2, value, "xAxisIndex"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>yAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? YAxisIndex { get => Readable(_p3, "yAxisIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p3, value, "yAxisIndex"); } }
+    public EventActionValue? YAxisIndex { get => Readable(_p3, "yAxisIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartAxisBreakChange.YAxisIndex"); SetProperty(ref _p3, value, "yAxisIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>singleAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? SingleAxisIndex { get => Readable(_p4, "singleAxisIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p4, value, "singleAxisIndex"); } }
+    public EventActionValue? SingleAxisIndex { get => Readable(_p4, "singleAxisIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartAxisBreakChange.SingleAxisIndex"); SetProperty(ref _p4, value, "singleAxisIndex"); } }
     private bool? _p5;
     /// <summary>Gets or sets <c>isExpanded</c> (boolean).</summary>
     public bool? IsExpanded { get => Readable(_p5, "isExpanded"); set { SetProperty(ref _p5, value, "isExpanded"); } }

@@ -16,25 +16,25 @@ public sealed class GeoRoamAction() : ChartAction("geoRoam")
     public AnimationOption? Animation { get => _p0; set { SetProperty(ref _p0, value, "animation"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>componentType</c> (geo|series).</summary>
-    public EventActionValue? ComponentType { get => _p1; set { value?.Validate("geo|series"); SetProperty(ref _p1, value, "componentType"); } }
+    public EventActionValue? ComponentType { get => _p1; set { value?.Validate("geo|series", "GeoRoamAction.ComponentType"); SetProperty(ref _p1, value, "componentType"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>geoIndex</c> (number|number[]).</summary>
-    public EventActionValue? GeoIndex { get => _p2; set { value?.Validate("number|number[]"); SetProperty(ref _p2, value, "geoIndex"); } }
+    public EventActionValue? GeoIndex { get => _p2; set { value?.Validate("number|number[]", "GeoRoamAction.GeoIndex"); SetProperty(ref _p2, value, "geoIndex"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>geoId</c> (id|id[]).</summary>
-    public EventActionValue? GeoId { get => _p3; set { value?.Validate("id|id[]"); SetProperty(ref _p3, value, "geoId"); } }
+    public EventActionValue? GeoId { get => _p3; set { value?.Validate("id|id[]", "GeoRoamAction.GeoId"); SetProperty(ref _p3, value, "geoId"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>geoName</c> (id|id[]).</summary>
-    public EventActionValue? GeoName { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "geoName"); } }
+    public EventActionValue? GeoName { get => _p4; set { value?.Validate("id|id[]", "GeoRoamAction.GeoName"); SetProperty(ref _p4, value, "geoName"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => _p5; set { value?.Validate("number|number[]"); SetProperty(ref _p5, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => _p5; set { value?.Validate("number|number[]", "GeoRoamAction.SeriesIndex"); SetProperty(ref _p5, value, "seriesIndex"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => _p6; set { value?.Validate("id|id[]"); SetProperty(ref _p6, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => _p6; set { value?.Validate("id|id[]", "GeoRoamAction.SeriesId"); SetProperty(ref _p6, value, "seriesId"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => _p7; set { value?.Validate("id|id[]"); SetProperty(ref _p7, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => _p7; set { value?.Validate("id|id[]", "GeoRoamAction.SeriesName"); SetProperty(ref _p7, value, "seriesName"); } }
     private double? _p8;
     /// <summary>Gets or sets <c>dx</c> (number).</summary>
     public double? Dx { get => _p8; set { SetProperty(ref _p8, value, "dx"); } }

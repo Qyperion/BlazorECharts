@@ -13,7 +13,7 @@ public sealed class ChartBrushRangeOffset : OptionObject
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>offset</c> (number[]|number[][]).</summary>
-    public EventActionValue? Offset { get => Readable(_p0, "offset"); set { value?.Validate("number[]|number[][]"); SetProperty(ref _p0, value, "offset"); } }
+    public EventActionValue? Offset { get => Readable(_p0, "offset"); set { value?.Validate("number[]|number[][]", "ChartBrushRangeOffset.Offset"); SetProperty(ref _p0, value, "offset"); } }
     private double[][]? _p1;
     /// <summary>Gets or sets <c>xyMinMax</c> (number[][]).</summary>
     public double[][]? XyMinMax { get => Readable(_p1, "xyMinMax"); set { SetProperty(ref _p1, value, "xyMinMax"); } }

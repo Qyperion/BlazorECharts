@@ -13,7 +13,7 @@ public sealed class ChartBrushCursorOption : OptionObject
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>brushType</c> (polygon|rect|lineX|lineY|auto|false).</summary>
-    public EventActionValue? BrushType { get => Readable(_p0, "brushType"); set { value?.Validate("polygon|rect|lineX|lineY|auto|false"); SetProperty(ref _p0, value, "brushType"); } }
+    public EventActionValue? BrushType { get => Readable(_p0, "brushType"); set { value?.Validate("polygon|rect|lineX|lineY|auto|false", "ChartBrushCursorOption.BrushType"); SetProperty(ref _p0, value, "brushType"); } }
     private string? _p1;
     /// <summary>Gets or sets <c>brushMode</c> (string).</summary>
     public string? BrushMode { get => Readable(_p1, "brushMode"); set { SetProperty(ref _p1, value, "brushMode"); } }

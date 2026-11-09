@@ -17,7 +17,7 @@ public sealed class DataRangeSelectedEvent(JsonElement json) : ChartEventPayload
     /// <summary>Gets <c>type</c> (string).</summary>
     public string? Type => Text("type");
     /// <summary>Gets <c>selected</c> (object|number[]).</summary>
-    public EventActionValue? Selected => ReadUnion("selected", "object|number[]");
+    public EventActionValue? Selected => ReadUnion("selected", "object|number[]", "DataRangeSelectedEvent.Selected");
     /// <summary>Gets <c>visualMapId</c> (string).</summary>
     public string? VisualMapId => Text("visualMapId");
 }

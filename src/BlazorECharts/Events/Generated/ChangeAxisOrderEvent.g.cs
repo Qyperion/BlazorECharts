@@ -18,23 +18,23 @@ public sealed class ChangeAxisOrderEvent(JsonElement json) : ChartEventPayload(j
     /// <summary>Gets <c>axisId</c> (number).</summary>
     public double? AxisId => Number("axisId");
     /// <summary>Gets <c>xAxisIndex</c> (number|number[]).</summary>
-    public EventActionValue? XAxisIndex => ReadUnion("xAxisIndex", "number|number[]");
+    public EventActionValue? XAxisIndex => ReadUnion("xAxisIndex", "number|number[]", "ChangeAxisOrderEvent.XAxisIndex");
     /// <summary>Gets <c>xAxisId</c> (id|id[]).</summary>
-    public EventActionValue? XAxisId => ReadUnion("xAxisId", "id|id[]");
+    public EventActionValue? XAxisId => ReadUnion("xAxisId", "id|id[]", "ChangeAxisOrderEvent.XAxisId");
     /// <summary>Gets <c>xAxisName</c> (id|id[]).</summary>
-    public EventActionValue? XAxisName => ReadUnion("xAxisName", "id|id[]");
+    public EventActionValue? XAxisName => ReadUnion("xAxisName", "id|id[]", "ChangeAxisOrderEvent.XAxisName");
     /// <summary>Gets <c>yAxisIndex</c> (number|number[]).</summary>
-    public EventActionValue? YAxisIndex => ReadUnion("yAxisIndex", "number|number[]");
+    public EventActionValue? YAxisIndex => ReadUnion("yAxisIndex", "number|number[]", "ChangeAxisOrderEvent.YAxisIndex");
     /// <summary>Gets <c>yAxisId</c> (id|id[]).</summary>
-    public EventActionValue? YAxisId => ReadUnion("yAxisId", "id|id[]");
+    public EventActionValue? YAxisId => ReadUnion("yAxisId", "id|id[]", "ChangeAxisOrderEvent.YAxisId");
     /// <summary>Gets <c>yAxisName</c> (id|id[]).</summary>
-    public EventActionValue? YAxisName => ReadUnion("yAxisName", "id|id[]");
+    public EventActionValue? YAxisName => ReadUnion("yAxisName", "id|id[]", "ChangeAxisOrderEvent.YAxisName");
     /// <summary>Gets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]");
+    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]", "ChangeAxisOrderEvent.SeriesIndex");
     /// <summary>Gets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]");
+    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]", "ChangeAxisOrderEvent.SeriesId");
     /// <summary>Gets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]");
+    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]", "ChangeAxisOrderEvent.SeriesName");
     /// <summary>Gets <c>isInitSort</c> (boolean).</summary>
     public bool? IsInitSort => Boolean("isInitSort");
     /// <summary>Gets <c>sortInfo</c> (ChartAxisSortInfo).</summary>

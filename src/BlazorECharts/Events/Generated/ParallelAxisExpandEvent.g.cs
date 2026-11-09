@@ -14,11 +14,11 @@ public sealed class ParallelAxisExpandEvent(JsonElement json) : ChartEventPayloa
     /// <summary>Gets <c>type</c> (string).</summary>
     public string? Type => Text("type");
     /// <summary>Gets <c>parallelIndex</c> (number|number[]).</summary>
-    public EventActionValue? ParallelIndex => ReadUnion("parallelIndex", "number|number[]");
+    public EventActionValue? ParallelIndex => ReadUnion("parallelIndex", "number|number[]", "ParallelAxisExpandEvent.ParallelIndex");
     /// <summary>Gets <c>parallelId</c> (id|id[]).</summary>
-    public EventActionValue? ParallelId => ReadUnion("parallelId", "id|id[]");
+    public EventActionValue? ParallelId => ReadUnion("parallelId", "id|id[]", "ParallelAxisExpandEvent.ParallelId");
     /// <summary>Gets <c>parallelName</c> (id|id[]).</summary>
-    public EventActionValue? ParallelName => ReadUnion("parallelName", "id|id[]");
+    public EventActionValue? ParallelName => ReadUnion("parallelName", "id|id[]", "ParallelAxisExpandEvent.ParallelName");
     /// <summary>Gets <c>axisExpandable</c> (boolean).</summary>
     public bool? AxisExpandable => Boolean("axisExpandable");
     /// <summary>Gets <c>axisExpandCenter</c> (number).</summary>

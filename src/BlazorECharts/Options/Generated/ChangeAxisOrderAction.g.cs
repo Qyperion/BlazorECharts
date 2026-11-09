@@ -19,31 +19,31 @@ public sealed class ChangeAxisOrderAction() : ChartAction("changeAxisOrder")
     public double? AxisId { get => _p1; set { SetProperty(ref _p1, value, "axisId"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>xAxisIndex</c> (number|number[]).</summary>
-    public EventActionValue? XAxisIndex { get => _p2; set { value?.Validate("number|number[]"); SetProperty(ref _p2, value, "xAxisIndex"); } }
+    public EventActionValue? XAxisIndex { get => _p2; set { value?.Validate("number|number[]", "ChangeAxisOrderAction.XAxisIndex"); SetProperty(ref _p2, value, "xAxisIndex"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>xAxisId</c> (id|id[]).</summary>
-    public EventActionValue? XAxisId { get => _p3; set { value?.Validate("id|id[]"); SetProperty(ref _p3, value, "xAxisId"); } }
+    public EventActionValue? XAxisId { get => _p3; set { value?.Validate("id|id[]", "ChangeAxisOrderAction.XAxisId"); SetProperty(ref _p3, value, "xAxisId"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>xAxisName</c> (id|id[]).</summary>
-    public EventActionValue? XAxisName { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "xAxisName"); } }
+    public EventActionValue? XAxisName { get => _p4; set { value?.Validate("id|id[]", "ChangeAxisOrderAction.XAxisName"); SetProperty(ref _p4, value, "xAxisName"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>yAxisIndex</c> (number|number[]).</summary>
-    public EventActionValue? YAxisIndex { get => _p5; set { value?.Validate("number|number[]"); SetProperty(ref _p5, value, "yAxisIndex"); } }
+    public EventActionValue? YAxisIndex { get => _p5; set { value?.Validate("number|number[]", "ChangeAxisOrderAction.YAxisIndex"); SetProperty(ref _p5, value, "yAxisIndex"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>yAxisId</c> (id|id[]).</summary>
-    public EventActionValue? YAxisId { get => _p6; set { value?.Validate("id|id[]"); SetProperty(ref _p6, value, "yAxisId"); } }
+    public EventActionValue? YAxisId { get => _p6; set { value?.Validate("id|id[]", "ChangeAxisOrderAction.YAxisId"); SetProperty(ref _p6, value, "yAxisId"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>yAxisName</c> (id|id[]).</summary>
-    public EventActionValue? YAxisName { get => _p7; set { value?.Validate("id|id[]"); SetProperty(ref _p7, value, "yAxisName"); } }
+    public EventActionValue? YAxisName { get => _p7; set { value?.Validate("id|id[]", "ChangeAxisOrderAction.YAxisName"); SetProperty(ref _p7, value, "yAxisName"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => _p8; set { value?.Validate("number|number[]"); SetProperty(ref _p8, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => _p8; set { value?.Validate("number|number[]", "ChangeAxisOrderAction.SeriesIndex"); SetProperty(ref _p8, value, "seriesIndex"); } }
     private EventActionValue? _p9;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => _p9; set { value?.Validate("id|id[]"); SetProperty(ref _p9, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => _p9; set { value?.Validate("id|id[]", "ChangeAxisOrderAction.SeriesId"); SetProperty(ref _p9, value, "seriesId"); } }
     private EventActionValue? _p10;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => _p10; set { value?.Validate("id|id[]"); SetProperty(ref _p10, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => _p10; set { value?.Validate("id|id[]", "ChangeAxisOrderAction.SeriesName"); SetProperty(ref _p10, value, "seriesName"); } }
     private bool? _p11;
     /// <summary>Gets or sets <c>isInitSort</c> (boolean).</summary>
     public bool? IsInitSort { get => _p11; set { SetProperty(ref _p11, value, "isInitSort"); } }

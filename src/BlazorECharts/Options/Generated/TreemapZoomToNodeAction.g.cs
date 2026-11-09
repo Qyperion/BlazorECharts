@@ -23,13 +23,13 @@ public sealed class TreemapZoomToNodeAction() : ChartAction("treemapZoomToNode")
     public ChartPayloadAnimation? Animation { get => _p2; set { SetProperty(ref _p2, value, "animation"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => _p3; set { value?.Validate("number|number[]"); SetProperty(ref _p3, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => _p3; set { value?.Validate("number|number[]", "TreemapZoomToNodeAction.SeriesIndex"); SetProperty(ref _p3, value, "seriesIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => _p4; set { value?.Validate("id|id[]", "TreemapZoomToNodeAction.SeriesId"); SetProperty(ref _p4, value, "seriesId"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => _p5; set { value?.Validate("id|id[]"); SetProperty(ref _p5, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => _p5; set { value?.Validate("id|id[]", "TreemapZoomToNodeAction.SeriesName"); SetProperty(ref _p5, value, "seriesName"); } }
     private string? _p6;
     /// <summary>Gets or sets <c>targetNodeId</c> (string).</summary>
     public string? TargetNodeId { get => _p6; set { SetProperty(ref _p6, value, "targetNodeId"); } }

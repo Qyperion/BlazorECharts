@@ -16,13 +16,13 @@ public sealed class ChartParallelExpandBatchItem : OptionObject
     public string? Type { get => Readable(_p0, "type"); set { SetProperty(ref _p0, value, "type"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>parallelIndex</c> (number|number[]).</summary>
-    public EventActionValue? ParallelIndex { get => Readable(_p1, "parallelIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p1, value, "parallelIndex"); } }
+    public EventActionValue? ParallelIndex { get => Readable(_p1, "parallelIndex"); set { value?.Validate("number|number[]", "ChartParallelExpandBatchItem.ParallelIndex"); SetProperty(ref _p1, value, "parallelIndex"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>parallelId</c> (id|id[]).</summary>
-    public EventActionValue? ParallelId { get => Readable(_p2, "parallelId"); set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "parallelId"); } }
+    public EventActionValue? ParallelId { get => Readable(_p2, "parallelId"); set { value?.Validate("id|id[]", "ChartParallelExpandBatchItem.ParallelId"); SetProperty(ref _p2, value, "parallelId"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>parallelName</c> (id|id[]).</summary>
-    public EventActionValue? ParallelName { get => Readable(_p3, "parallelName"); set { value?.Validate("id|id[]"); SetProperty(ref _p3, value, "parallelName"); } }
+    public EventActionValue? ParallelName { get => Readable(_p3, "parallelName"); set { value?.Validate("id|id[]", "ChartParallelExpandBatchItem.ParallelName"); SetProperty(ref _p3, value, "parallelName"); } }
     private bool? _p4;
     /// <summary>Gets or sets <c>axisExpandable</c> (boolean).</summary>
     public bool? AxisExpandable { get => Readable(_p4, "axisExpandable"); set { SetProperty(ref _p4, value, "axisExpandable"); } }

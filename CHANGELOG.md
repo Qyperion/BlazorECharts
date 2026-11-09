@@ -10,6 +10,10 @@ file at the release tag.
   `50vh` or `100%`; a number without a unit is pixels. They follow `Style` in the `style`
   attribute and win over a height or width there. A value with `;` throws
   `InvalidOperationException`.
+- The `ArgumentException` of an event or action payload field names the model and property, such
+  as `ChartBrushSelectArea.BrushMode: expected single|multiple; received "singel".`
+  `ChartFinder.Select`, `ChartFinder.And`, `ChartResizeOptions` and `ChartLoadingOptions` name their
+  parameter or property the same way.
 
 ## 1.2.0
 

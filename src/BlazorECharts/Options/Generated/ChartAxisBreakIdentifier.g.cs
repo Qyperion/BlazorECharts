@@ -13,8 +13,8 @@ public sealed class ChartAxisBreakIdentifier : OptionObject
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>start</c> (id).</summary>
-    public EventActionValue? Start { get => Readable(_p0, "start"); set { value?.Validate("id"); SetProperty(ref _p0, value, "start"); } }
+    public EventActionValue? Start { get => Readable(_p0, "start"); set { value?.Validate("id", "ChartAxisBreakIdentifier.Start"); SetProperty(ref _p0, value, "start"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>end</c> (id).</summary>
-    public EventActionValue? End { get => Readable(_p1, "end"); set { value?.Validate("id"); SetProperty(ref _p1, value, "end"); } }
+    public EventActionValue? End { get => Readable(_p1, "end"); set { value?.Validate("id", "ChartAxisBreakIdentifier.End"); SetProperty(ref _p1, value, "end"); } }
 }

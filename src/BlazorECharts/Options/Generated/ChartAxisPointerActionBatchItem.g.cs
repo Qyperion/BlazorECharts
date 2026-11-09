@@ -17,7 +17,7 @@ public sealed class ChartAxisPointerActionBatchItem : OptionObject
     public string? Type { get => Readable(_p0, "type"); set { SetProperty(ref _p0, value, "type"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>currTrigger</c> (click|mousemove|leave|mousewheel).</summary>
-    public EventActionValue? CurrTrigger { get => Readable(_p1, "currTrigger"); set { value?.Validate("click|mousemove|leave|mousewheel"); SetProperty(ref _p1, value, "currTrigger"); } }
+    public EventActionValue? CurrTrigger { get => Readable(_p1, "currTrigger"); set { value?.Validate("click|mousemove|leave|mousewheel", "ChartAxisPointerActionBatchItem.CurrTrigger"); SetProperty(ref _p1, value, "currTrigger"); } }
     private double? _p2;
     /// <summary>Gets or sets <c>x</c> (number).</summary>
     public double? X { get => Readable(_p2, "x"); set { SetProperty(ref _p2, value, "x"); } }

@@ -13,13 +13,13 @@ public sealed class ParallelAxisExpandAction() : ChartAction("parallelAxisExpand
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>parallelIndex</c> (number|number[]).</summary>
-    public EventActionValue? ParallelIndex { get => _p0; set { value?.Validate("number|number[]"); SetProperty(ref _p0, value, "parallelIndex"); } }
+    public EventActionValue? ParallelIndex { get => _p0; set { value?.Validate("number|number[]", "ParallelAxisExpandAction.ParallelIndex"); SetProperty(ref _p0, value, "parallelIndex"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>parallelId</c> (id|id[]).</summary>
-    public EventActionValue? ParallelId { get => _p1; set { value?.Validate("id|id[]"); SetProperty(ref _p1, value, "parallelId"); } }
+    public EventActionValue? ParallelId { get => _p1; set { value?.Validate("id|id[]", "ParallelAxisExpandAction.ParallelId"); SetProperty(ref _p1, value, "parallelId"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>parallelName</c> (id|id[]).</summary>
-    public EventActionValue? ParallelName { get => _p2; set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "parallelName"); } }
+    public EventActionValue? ParallelName { get => _p2; set { value?.Validate("id|id[]", "ParallelAxisExpandAction.ParallelName"); SetProperty(ref _p2, value, "parallelName"); } }
     private bool? _p3;
     /// <summary>Gets or sets <c>axisExpandable</c> (boolean).</summary>
     public bool? AxisExpandable { get => _p3; set { SetProperty(ref _p3, value, "axisExpandable"); } }

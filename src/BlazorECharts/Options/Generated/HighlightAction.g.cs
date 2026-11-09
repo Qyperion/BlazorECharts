@@ -20,34 +20,34 @@ public sealed class HighlightAction() : ChartAction("highlight")
     public HighlightAction[]? Batch { get => _p1; set { SetProperty(ref _p1, value, "batch"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>excludeSeriesId</c> (id|id[]).</summary>
-    public EventActionValue? ExcludeSeriesId { get => _p2; set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "excludeSeriesId"); } }
+    public EventActionValue? ExcludeSeriesId { get => _p2; set { value?.Validate("id|id[]", "HighlightAction.ExcludeSeriesId"); SetProperty(ref _p2, value, "excludeSeriesId"); } }
     private ChartPayloadAnimation? _p3;
     /// <summary>Gets or sets <c>animation</c> (ChartPayloadAnimation).</summary>
     public ChartPayloadAnimation? Animation { get => _p3; set { SetProperty(ref _p3, value, "animation"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => _p4; set { value?.Validate("number|number[]"); SetProperty(ref _p4, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => _p4; set { value?.Validate("number|number[]", "HighlightAction.SeriesIndex"); SetProperty(ref _p4, value, "seriesIndex"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => _p5; set { value?.Validate("id|id[]"); SetProperty(ref _p5, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => _p5; set { value?.Validate("id|id[]", "HighlightAction.SeriesId"); SetProperty(ref _p5, value, "seriesId"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => _p6; set { value?.Validate("id|id[]"); SetProperty(ref _p6, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => _p6; set { value?.Validate("id|id[]", "HighlightAction.SeriesName"); SetProperty(ref _p6, value, "seriesName"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>dataIndex</c> (number|number[]).</summary>
-    public EventActionValue? DataIndex { get => _p7; set { value?.Validate("number|number[]"); SetProperty(ref _p7, value, "dataIndex"); } }
+    public EventActionValue? DataIndex { get => _p7; set { value?.Validate("number|number[]", "HighlightAction.DataIndex"); SetProperty(ref _p7, value, "dataIndex"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>name</c> (string|string[]).</summary>
-    public EventActionValue? Name { get => _p8; set { value?.Validate("string|string[]"); SetProperty(ref _p8, value, "name"); } }
+    public EventActionValue? Name { get => _p8; set { value?.Validate("string|string[]", "HighlightAction.Name"); SetProperty(ref _p8, value, "name"); } }
     private EventActionValue? _p9;
     /// <summary>Gets or sets <c>geoIndex</c> (number|number[]).</summary>
-    public EventActionValue? GeoIndex { get => _p9; set { value?.Validate("number|number[]"); SetProperty(ref _p9, value, "geoIndex"); } }
+    public EventActionValue? GeoIndex { get => _p9; set { value?.Validate("number|number[]", "HighlightAction.GeoIndex"); SetProperty(ref _p9, value, "geoIndex"); } }
     private EventActionValue? _p10;
     /// <summary>Gets or sets <c>geoId</c> (id|id[]).</summary>
-    public EventActionValue? GeoId { get => _p10; set { value?.Validate("id|id[]"); SetProperty(ref _p10, value, "geoId"); } }
+    public EventActionValue? GeoId { get => _p10; set { value?.Validate("id|id[]", "HighlightAction.GeoId"); SetProperty(ref _p10, value, "geoId"); } }
     private EventActionValue? _p11;
     /// <summary>Gets or sets <c>geoName</c> (id|id[]).</summary>
-    public EventActionValue? GeoName { get => _p11; set { value?.Validate("id|id[]"); SetProperty(ref _p11, value, "geoName"); } }
+    public EventActionValue? GeoName { get => _p11; set { value?.Validate("id|id[]", "HighlightAction.GeoName"); SetProperty(ref _p11, value, "geoName"); } }
     private bool? _p12;
     /// <summary>Gets or sets <c>notBlur</c> (boolean).</summary>
     public bool? NotBlur { get => _p12; set { SetProperty(ref _p12, value, "notBlur"); } }

@@ -35,15 +35,15 @@ public sealed class MouseOutEvent(JsonElement json) : ChartEventPayload(json)
     /// <summary>Gets <c>dataType</c> (string).</summary>
     public string? DataType => Text("dataType");
     /// <summary>Gets <c>data</c> (unknown).</summary>
-    public EventActionValue? Data => ReadUnion("data", "unknown");
+    public EventActionValue? Data => ReadUnion("data", "unknown", "MouseOutEvent.Data");
     /// <summary>Gets <c>value</c> (unknown).</summary>
-    public EventActionValue? Value => ReadUnion("value", "unknown");
+    public EventActionValue? Value => ReadUnion("value", "unknown", "MouseOutEvent.Value");
     /// <summary>Gets <c>color</c>.</summary>
     public ZRColor? Color => ReadValue("color", json => ZRColor.Read(json));
     /// <summary>Gets <c>dimensionNames</c> (string[]).</summary>
     public string[]? DimensionNames => ReadField("dimensionNames", json => ReadItems<string>(json, item0 => item0.GetString() ?? throw new JsonException("Expected string.")));
     /// <summary>Gets <c>encode</c> (object).</summary>
-    public EventActionValue? Encode => ReadUnion("encode", "object");
+    public EventActionValue? Encode => ReadUnion("encode", "object", "MouseOutEvent.Encode");
     /// <summary>Gets <c>percent</c> (number).</summary>
     public double? Percent => Number("percent");
     /// <summary>Gets <c>treePathInfo</c> (ChartTreePathItem[]).</summary>

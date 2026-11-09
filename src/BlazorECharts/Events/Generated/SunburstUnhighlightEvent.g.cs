@@ -14,23 +14,23 @@ public sealed class SunburstUnhighlightEvent(JsonElement json) : ChartEventPaylo
     /// <summary>Gets <c>type</c> (string).</summary>
     public string? Type => Text("type");
     /// <summary>Gets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]");
+    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]", "SunburstUnhighlightEvent.SeriesIndex");
     /// <summary>Gets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]");
+    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]", "SunburstUnhighlightEvent.SeriesId");
     /// <summary>Gets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]");
+    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]", "SunburstUnhighlightEvent.SeriesName");
     /// <summary>Gets <c>excludeSeriesId</c> (id|id[]).</summary>
-    public EventActionValue? ExcludeSeriesId => ReadUnion("excludeSeriesId", "id|id[]");
+    public EventActionValue? ExcludeSeriesId => ReadUnion("excludeSeriesId", "id|id[]", "SunburstUnhighlightEvent.ExcludeSeriesId");
     /// <summary>Gets <c>animation</c>.</summary>
     public AnimationOption? Animation => ReadField("animation", json => GeneratedOptionMetadata.ReadAnimationOption(json, PayloadSerialization));
     /// <summary>Gets <c>dataIndex</c> (number|number[]).</summary>
-    public EventActionValue? DataIndex => ReadUnion("dataIndex", "number|number[]");
+    public EventActionValue? DataIndex => ReadUnion("dataIndex", "number|number[]", "SunburstUnhighlightEvent.DataIndex");
     /// <summary>Gets <c>dataIndexInside</c> (number|number[]).</summary>
-    public EventActionValue? DataIndexInside => ReadUnion("dataIndexInside", "number|number[]");
+    public EventActionValue? DataIndexInside => ReadUnion("dataIndexInside", "number|number[]", "SunburstUnhighlightEvent.DataIndexInside");
     /// <summary>Gets <c>name</c> (string|string[]).</summary>
-    public EventActionValue? Name => ReadUnion("name", "string|string[]");
+    public EventActionValue? Name => ReadUnion("name", "string|string[]", "SunburstUnhighlightEvent.Name");
     /// <summary>Gets <c>dataType</c> (main|node|edge).</summary>
-    public EventActionValue? DataType => ReadUnion("dataType", "main|node|edge");
+    public EventActionValue? DataType => ReadUnion("dataType", "main|node|edge", "SunburstUnhighlightEvent.DataType");
     /// <summary>Gets <c>notBlur</c> (boolean).</summary>
     public bool? NotBlur => Boolean("notBlur");
     /// <summary>Gets <c>highlightKey</c> (number).</summary>

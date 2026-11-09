@@ -16,16 +16,16 @@ public sealed class ChartNodeAdjacencyBatchItem : OptionObject
     public string? Type { get => Readable(_p0, "type"); set { SetProperty(ref _p0, value, "type"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => Readable(_p1, "seriesIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p1, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => Readable(_p1, "seriesIndex"); set { value?.Validate("number|number[]", "ChartNodeAdjacencyBatchItem.SeriesIndex"); SetProperty(ref _p1, value, "seriesIndex"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => Readable(_p2, "seriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => Readable(_p2, "seriesId"); set { value?.Validate("id|id[]", "ChartNodeAdjacencyBatchItem.SeriesId"); SetProperty(ref _p2, value, "seriesId"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => Readable(_p3, "seriesName"); set { value?.Validate("id|id[]"); SetProperty(ref _p3, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => Readable(_p3, "seriesName"); set { value?.Validate("id|id[]", "ChartNodeAdjacencyBatchItem.SeriesName"); SetProperty(ref _p3, value, "seriesName"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>excludeSeriesId</c> (id|id[]).</summary>
-    public EventActionValue? ExcludeSeriesId { get => Readable(_p4, "excludeSeriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "excludeSeriesId"); } }
+    public EventActionValue? ExcludeSeriesId { get => Readable(_p4, "excludeSeriesId"); set { value?.Validate("id|id[]", "ChartNodeAdjacencyBatchItem.ExcludeSeriesId"); SetProperty(ref _p4, value, "excludeSeriesId"); } }
     private AnimationOption? _p5;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     public AnimationOption? Animation { get => Readable(_p5, "animation"); set { SetProperty(ref _p5, value, "animation"); } }

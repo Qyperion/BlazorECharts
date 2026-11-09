@@ -22,8 +22,8 @@ public sealed class ChartResizeOptions : IOptionValue
 
     void IOptionValue.Write(Utf8JsonWriter writer, EChartsSerializationContext context, string path)
     {
-        Width?.Validate("number|auto");
-        Height?.Validate("number|auto");
+        Width?.Validate("number|auto", "ChartResizeOptions.Width");
+        Height?.Validate("number|auto", "ChartResizeOptions.Height");
         writer.WriteStartObject();
         if (Width is { } w)
         {
@@ -105,7 +105,7 @@ public sealed class ChartLoadingOptions : IOptionValue
 
     void IOptionValue.Write(Utf8JsonWriter w, EChartsSerializationContext context, string path)
     {
-        FontWeight?.Validate("number|string");
+        FontWeight?.Validate("number|string", "ChartLoadingOptions.FontWeight");
         w.WriteStartObject();
         if (Text is not null)
             w.WriteString("text", Text);

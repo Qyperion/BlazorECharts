@@ -23,13 +23,13 @@ public sealed class GeoUnselectAction() : ChartAction("geoUnSelect")
     public ChartPayloadAnimation? Animation { get => _p2; set { SetProperty(ref _p2, value, "animation"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>geoIndex</c> (number|number[]).</summary>
-    public EventActionValue? GeoIndex { get => _p3; set { value?.Validate("number|number[]"); SetProperty(ref _p3, value, "geoIndex"); } }
+    public EventActionValue? GeoIndex { get => _p3; set { value?.Validate("number|number[]", "GeoUnselectAction.GeoIndex"); SetProperty(ref _p3, value, "geoIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>geoId</c> (id|id[]).</summary>
-    public EventActionValue? GeoId { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "geoId"); } }
+    public EventActionValue? GeoId { get => _p4; set { value?.Validate("id|id[]", "GeoUnselectAction.GeoId"); SetProperty(ref _p4, value, "geoId"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>geoName</c> (id|id[]).</summary>
-    public EventActionValue? GeoName { get => _p5; set { value?.Validate("id|id[]"); SetProperty(ref _p5, value, "geoName"); } }
+    public EventActionValue? GeoName { get => _p5; set { value?.Validate("id|id[]", "GeoUnselectAction.GeoName"); SetProperty(ref _p5, value, "geoName"); } }
     private string? _p6;
     /// <summary>Gets or sets <c>name</c> (string).</summary>
     public string? Name { get => _p6; set { SetProperty(ref _p6, value, "name"); } }

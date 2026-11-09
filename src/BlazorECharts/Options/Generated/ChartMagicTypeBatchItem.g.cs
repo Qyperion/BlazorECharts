@@ -22,7 +22,7 @@ public sealed class ChartMagicTypeBatchItem : OptionObject
     public ChartOptions? NewOption { get => Readable(_p2, "newOption"); set { SetProperty(ref _p2, value, "newOption"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>currentType</c> (line|bar|stack|tiled).</summary>
-    public EventActionValue? CurrentType { get => Readable(_p3, "currentType"); set { value?.Validate("line|bar|stack|tiled"); SetProperty(ref _p3, value, "currentType"); } }
+    public EventActionValue? CurrentType { get => Readable(_p3, "currentType"); set { value?.Validate("line|bar|stack|tiled", "ChartMagicTypeBatchItem.CurrentType"); SetProperty(ref _p3, value, "currentType"); } }
     private ChartMagicTypeTitle? _p4;
     /// <summary>Gets or sets <c>newTitle</c> (ChartMagicTypeTitle).</summary>
     public ChartMagicTypeTitle? NewTitle { get => Readable(_p4, "newTitle"); set { SetProperty(ref _p4, value, "newTitle"); } }

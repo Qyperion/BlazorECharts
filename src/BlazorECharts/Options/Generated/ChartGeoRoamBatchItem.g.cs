@@ -19,25 +19,25 @@ public sealed class ChartGeoRoamBatchItem : OptionObject
     public AnimationOption? Animation { get => Readable(_p1, "animation"); set { SetProperty(ref _p1, value, "animation"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>componentType</c> (geo|series).</summary>
-    public EventActionValue? ComponentType { get => Readable(_p2, "componentType"); set { value?.Validate("geo|series"); SetProperty(ref _p2, value, "componentType"); } }
+    public EventActionValue? ComponentType { get => Readable(_p2, "componentType"); set { value?.Validate("geo|series", "ChartGeoRoamBatchItem.ComponentType"); SetProperty(ref _p2, value, "componentType"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>geoIndex</c> (number|number[]).</summary>
-    public EventActionValue? GeoIndex { get => Readable(_p3, "geoIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p3, value, "geoIndex"); } }
+    public EventActionValue? GeoIndex { get => Readable(_p3, "geoIndex"); set { value?.Validate("number|number[]", "ChartGeoRoamBatchItem.GeoIndex"); SetProperty(ref _p3, value, "geoIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>geoId</c> (id|id[]).</summary>
-    public EventActionValue? GeoId { get => Readable(_p4, "geoId"); set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "geoId"); } }
+    public EventActionValue? GeoId { get => Readable(_p4, "geoId"); set { value?.Validate("id|id[]", "ChartGeoRoamBatchItem.GeoId"); SetProperty(ref _p4, value, "geoId"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>geoName</c> (id|id[]).</summary>
-    public EventActionValue? GeoName { get => Readable(_p5, "geoName"); set { value?.Validate("id|id[]"); SetProperty(ref _p5, value, "geoName"); } }
+    public EventActionValue? GeoName { get => Readable(_p5, "geoName"); set { value?.Validate("id|id[]", "ChartGeoRoamBatchItem.GeoName"); SetProperty(ref _p5, value, "geoName"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => Readable(_p6, "seriesIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p6, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => Readable(_p6, "seriesIndex"); set { value?.Validate("number|number[]", "ChartGeoRoamBatchItem.SeriesIndex"); SetProperty(ref _p6, value, "seriesIndex"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => Readable(_p7, "seriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p7, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => Readable(_p7, "seriesId"); set { value?.Validate("id|id[]", "ChartGeoRoamBatchItem.SeriesId"); SetProperty(ref _p7, value, "seriesId"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => Readable(_p8, "seriesName"); set { value?.Validate("id|id[]"); SetProperty(ref _p8, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => Readable(_p8, "seriesName"); set { value?.Validate("id|id[]", "ChartGeoRoamBatchItem.SeriesName"); SetProperty(ref _p8, value, "seriesName"); } }
     private double? _p9;
     /// <summary>Gets or sets <c>dx</c> (number).</summary>
     public double? Dx { get => Readable(_p9, "dx"); set { SetProperty(ref _p9, value, "dx"); } }

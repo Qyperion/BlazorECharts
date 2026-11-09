@@ -26,8 +26,8 @@ public sealed class SelectDataRangeAction() : ChartAction("selectDataRange")
     public double? VisualMapIndex { get => _p3; set { SetProperty(ref _p3, value, "visualMapIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>visualMapId</c> (id|id[]).</summary>
-    public EventActionValue? VisualMapId { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "visualMapId"); } }
+    public EventActionValue? VisualMapId { get => _p4; set { value?.Validate("id|id[]", "SelectDataRangeAction.VisualMapId"); SetProperty(ref _p4, value, "visualMapId"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>selected</c> (object|number[]).</summary>
-    public EventActionValue? Selected { get => _p5; set { value?.Validate("object|number[]"); SetProperty(ref _p5, value, "selected"); } }
+    public EventActionValue? Selected { get => _p5; set { value?.Validate("object|number[]", "SelectDataRangeAction.Selected"); SetProperty(ref _p5, value, "selected"); } }
 }

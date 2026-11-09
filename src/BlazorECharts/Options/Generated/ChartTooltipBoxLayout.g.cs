@@ -13,14 +13,14 @@ public sealed class ChartTooltipBoxLayout : OptionObject
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>top</c> (id).</summary>
-    public EventActionValue? Top { get => Readable(_p0, "top"); set { value?.Validate("id"); SetProperty(ref _p0, value, "top"); } }
+    public EventActionValue? Top { get => Readable(_p0, "top"); set { value?.Validate("id", "ChartTooltipBoxLayout.Top"); SetProperty(ref _p0, value, "top"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>left</c> (id).</summary>
-    public EventActionValue? Left { get => Readable(_p1, "left"); set { value?.Validate("id"); SetProperty(ref _p1, value, "left"); } }
+    public EventActionValue? Left { get => Readable(_p1, "left"); set { value?.Validate("id", "ChartTooltipBoxLayout.Left"); SetProperty(ref _p1, value, "left"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>bottom</c> (id).</summary>
-    public EventActionValue? Bottom { get => Readable(_p2, "bottom"); set { value?.Validate("id"); SetProperty(ref _p2, value, "bottom"); } }
+    public EventActionValue? Bottom { get => Readable(_p2, "bottom"); set { value?.Validate("id", "ChartTooltipBoxLayout.Bottom"); SetProperty(ref _p2, value, "bottom"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>right</c> (id).</summary>
-    public EventActionValue? Right { get => Readable(_p3, "right"); set { value?.Validate("id"); SetProperty(ref _p3, value, "right"); } }
+    public EventActionValue? Right { get => Readable(_p3, "right"); set { value?.Validate("id", "ChartTooltipBoxLayout.Right"); SetProperty(ref _p3, value, "right"); } }
 }

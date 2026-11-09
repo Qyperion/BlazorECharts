@@ -17,7 +17,7 @@ public sealed class SelectChangedEvent(JsonElement json) : ChartEventPayload(jso
     /// <summary>Gets <c>fromAction</c> (string).</summary>
     public string? FromAction => Text("fromAction");
     /// <summary>Gets <c>fromActionPayload</c> (object).</summary>
-    public EventActionValue? FromActionPayload => ReadUnion("fromActionPayload", "object");
+    public EventActionValue? FromActionPayload => ReadUnion("fromActionPayload", "object", "SelectChangedEvent.FromActionPayload");
     /// <summary>Gets <c>isFromClick</c> (boolean).</summary>
     public bool? IsFromClick => Boolean("isFromClick");
     /// <summary>Gets <c>selected</c> (ChartSeriesSelection[]).</summary>

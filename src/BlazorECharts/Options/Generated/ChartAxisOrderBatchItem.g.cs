@@ -22,31 +22,31 @@ public sealed class ChartAxisOrderBatchItem : OptionObject
     public double? AxisId { get => Readable(_p2, "axisId"); set { SetProperty(ref _p2, value, "axisId"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>xAxisIndex</c> (number|number[]).</summary>
-    public EventActionValue? XAxisIndex { get => Readable(_p3, "xAxisIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p3, value, "xAxisIndex"); } }
+    public EventActionValue? XAxisIndex { get => Readable(_p3, "xAxisIndex"); set { value?.Validate("number|number[]", "ChartAxisOrderBatchItem.XAxisIndex"); SetProperty(ref _p3, value, "xAxisIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>xAxisId</c> (id|id[]).</summary>
-    public EventActionValue? XAxisId { get => Readable(_p4, "xAxisId"); set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "xAxisId"); } }
+    public EventActionValue? XAxisId { get => Readable(_p4, "xAxisId"); set { value?.Validate("id|id[]", "ChartAxisOrderBatchItem.XAxisId"); SetProperty(ref _p4, value, "xAxisId"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>xAxisName</c> (id|id[]).</summary>
-    public EventActionValue? XAxisName { get => Readable(_p5, "xAxisName"); set { value?.Validate("id|id[]"); SetProperty(ref _p5, value, "xAxisName"); } }
+    public EventActionValue? XAxisName { get => Readable(_p5, "xAxisName"); set { value?.Validate("id|id[]", "ChartAxisOrderBatchItem.XAxisName"); SetProperty(ref _p5, value, "xAxisName"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>yAxisIndex</c> (number|number[]).</summary>
-    public EventActionValue? YAxisIndex { get => Readable(_p6, "yAxisIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p6, value, "yAxisIndex"); } }
+    public EventActionValue? YAxisIndex { get => Readable(_p6, "yAxisIndex"); set { value?.Validate("number|number[]", "ChartAxisOrderBatchItem.YAxisIndex"); SetProperty(ref _p6, value, "yAxisIndex"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>yAxisId</c> (id|id[]).</summary>
-    public EventActionValue? YAxisId { get => Readable(_p7, "yAxisId"); set { value?.Validate("id|id[]"); SetProperty(ref _p7, value, "yAxisId"); } }
+    public EventActionValue? YAxisId { get => Readable(_p7, "yAxisId"); set { value?.Validate("id|id[]", "ChartAxisOrderBatchItem.YAxisId"); SetProperty(ref _p7, value, "yAxisId"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>yAxisName</c> (id|id[]).</summary>
-    public EventActionValue? YAxisName { get => Readable(_p8, "yAxisName"); set { value?.Validate("id|id[]"); SetProperty(ref _p8, value, "yAxisName"); } }
+    public EventActionValue? YAxisName { get => Readable(_p8, "yAxisName"); set { value?.Validate("id|id[]", "ChartAxisOrderBatchItem.YAxisName"); SetProperty(ref _p8, value, "yAxisName"); } }
     private EventActionValue? _p9;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => Readable(_p9, "seriesIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p9, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => Readable(_p9, "seriesIndex"); set { value?.Validate("number|number[]", "ChartAxisOrderBatchItem.SeriesIndex"); SetProperty(ref _p9, value, "seriesIndex"); } }
     private EventActionValue? _p10;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => Readable(_p10, "seriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p10, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => Readable(_p10, "seriesId"); set { value?.Validate("id|id[]", "ChartAxisOrderBatchItem.SeriesId"); SetProperty(ref _p10, value, "seriesId"); } }
     private EventActionValue? _p11;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => Readable(_p11, "seriesName"); set { value?.Validate("id|id[]"); SetProperty(ref _p11, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => Readable(_p11, "seriesName"); set { value?.Validate("id|id[]", "ChartAxisOrderBatchItem.SeriesName"); SetProperty(ref _p11, value, "seriesName"); } }
     private bool? _p12;
     /// <summary>Gets or sets <c>isInitSort</c> (boolean).</summary>
     public bool? IsInitSort { get => Readable(_p12, "isInitSort"); set { SetProperty(ref _p12, value, "isInitSort"); } }

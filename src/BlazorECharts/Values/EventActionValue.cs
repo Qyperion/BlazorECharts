@@ -266,15 +266,16 @@ public readonly struct EventActionValue : IOptionValue
 
     private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, string[]> s_alternatives = new(StringComparer.Ordinal);
 
-    /// <summary>Validates every array element against the documented alternatives.</summary>
-    internal void Validate(string alternatives)
+    /// <summary>Validates every array element against the documented alternatives; an error names the member, such as
+    /// <c>ChartBrushSelectArea.BrushMode</c>.</summary>
+    internal void Validate(string alternatives, string member)
     {
         if (_function is not null)
         {
             if (s_alternatives.GetOrAdd(alternatives, static value => value.Split('|')).Contains("function", StringComparer.Ordinal))
                 return;
 
-            throw new ArgumentException($"A function is not an alternative of {alternatives}.");
+            throw new ArgumentException($"{member}: a function is not one of {alternatives}.");
         }
 
         var json = _json;
@@ -287,7 +288,7 @@ public readonly struct EventActionValue : IOptionValue
         var received = json.ValueKind is JsonValueKind.String or JsonValueKind.Number or JsonValueKind.True or JsonValueKind.False
             ? json.GetRawText()
             : json.ValueKind.ToString();
-        throw new ArgumentException($"Expected {alternatives}; received {received}.");
+        throw new ArgumentException($"{member}: expected {alternatives}; received {received}.");
     }
 
     private static bool Matches(JsonElement json, string alternative) => alternative.EndsWith("[]", StringComparison.Ordinal)

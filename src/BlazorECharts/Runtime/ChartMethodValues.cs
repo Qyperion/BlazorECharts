@@ -74,9 +74,9 @@ public sealed class ChartFinder : IOptionValue
         int? dataIndexInside = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(component);
-        index?.Validate("number|number[]|all|none|false");
-        id?.Validate("id|id[]");
-        name?.Validate("id|id[]");
+        index?.Validate("number|number[]|all|none|false", "ChartFinder.Select(index)");
+        id?.Validate("id|id[]", "ChartFinder.Select(id)");
+        name?.Validate("id|id[]", "ChartFinder.Select(name)");
         return new(MethodJson.Create(w =>
         {
             w.WriteStartObject();
@@ -119,9 +119,9 @@ public sealed class ChartFinder : IOptionValue
         if (component == "data")
             throw new ArgumentException("ECharts reserves the data prefix for data item selectors.", nameof(component));
 
-        index?.Validate("number|number[]|all|none|false");
-        id?.Validate("id|id[]");
-        name?.Validate("id|id[]");
+        index?.Validate("number|number[]|all|none|false", "ChartFinder.And(index)");
+        id?.Validate("id|id[]", "ChartFinder.And(id)");
+        name?.Validate("id|id[]", "ChartFinder.And(name)");
         var added = new List<(string Key, JsonElement? Value)>();
         if (!index.HasValue && !id.HasValue && !name.HasValue)
             added.Add((component + "Index", null));

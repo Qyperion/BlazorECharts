@@ -23,10 +23,10 @@ public sealed class DataZoomAction() : ChartAction("dataZoom")
     public ChartPayloadAnimation? Animation { get => _p2; set { SetProperty(ref _p2, value, "animation"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>dataZoomIndex</c> (number|number[]).</summary>
-    public EventActionValue? DataZoomIndex { get => _p3; set { value?.Validate("number|number[]"); SetProperty(ref _p3, value, "dataZoomIndex"); } }
+    public EventActionValue? DataZoomIndex { get => _p3; set { value?.Validate("number|number[]", "DataZoomAction.DataZoomIndex"); SetProperty(ref _p3, value, "dataZoomIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>dataZoomId</c> (id|id[]).</summary>
-    public EventActionValue? DataZoomId { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "dataZoomId"); } }
+    public EventActionValue? DataZoomId { get => _p4; set { value?.Validate("id|id[]", "DataZoomAction.DataZoomId"); SetProperty(ref _p4, value, "dataZoomId"); } }
     private double? _p5;
     /// <summary>Gets or sets <c>start</c> (number).</summary>
     public double? Start { get => _p5; set { SetProperty(ref _p5, value, "start"); } }
@@ -35,8 +35,8 @@ public sealed class DataZoomAction() : ChartAction("dataZoom")
     public double? End { get => _p6; set { SetProperty(ref _p6, value, "end"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>startValue</c> (number|string).</summary>
-    public EventActionValue? StartValue { get => _p7; set { value?.Validate("number|string"); SetProperty(ref _p7, value, "startValue"); } }
+    public EventActionValue? StartValue { get => _p7; set { value?.Validate("number|string", "DataZoomAction.StartValue"); SetProperty(ref _p7, value, "startValue"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>endValue</c> (number|string).</summary>
-    public EventActionValue? EndValue { get => _p8; set { value?.Validate("number|string"); SetProperty(ref _p8, value, "endValue"); } }
+    public EventActionValue? EndValue { get => _p8; set { value?.Validate("number|string", "DataZoomAction.EndValue"); SetProperty(ref _p8, value, "endValue"); } }
 }

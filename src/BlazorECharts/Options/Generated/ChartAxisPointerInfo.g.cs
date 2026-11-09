@@ -19,5 +19,5 @@ public sealed class ChartAxisPointerInfo : OptionObject
     public int? AxisIndex { get => Readable(_p1, "axisIndex"); set { SetProperty(ref _p1, value, "axisIndex"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>value</c> (number|string).</summary>
-    public EventActionValue? Value { get => Readable(_p2, "value"); set { value?.Validate("number|string"); SetProperty(ref _p2, value, "value"); } }
+    public EventActionValue? Value { get => Readable(_p2, "value"); set { value?.Validate("number|string", "ChartAxisPointerInfo.Value"); SetProperty(ref _p2, value, "value"); } }
 }

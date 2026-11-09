@@ -13,13 +13,13 @@ public sealed class TreeExpandAndCollapseAction() : ChartAction("treeExpandAndCo
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex { get => _p0; set { value?.Validate("number|number[]"); SetProperty(ref _p0, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => _p0; set { value?.Validate("number|number[]", "TreeExpandAndCollapseAction.SeriesIndex"); SetProperty(ref _p0, value, "seriesIndex"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => _p1; set { value?.Validate("id|id[]"); SetProperty(ref _p1, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => _p1; set { value?.Validate("id|id[]", "TreeExpandAndCollapseAction.SeriesId"); SetProperty(ref _p1, value, "seriesId"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => _p2; set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => _p2; set { value?.Validate("id|id[]", "TreeExpandAndCollapseAction.SeriesName"); SetProperty(ref _p2, value, "seriesName"); } }
     private AnimationOption? _p3;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     public AnimationOption? Animation { get => _p3; set { SetProperty(ref _p3, value, "animation"); } }

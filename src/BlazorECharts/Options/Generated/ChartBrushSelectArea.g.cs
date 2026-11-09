@@ -13,70 +13,70 @@ public sealed class ChartBrushSelectArea : OptionObject
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>seriesIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? SeriesIndex { get => Readable(_p0, "seriesIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p0, value, "seriesIndex"); } }
+    public EventActionValue? SeriesIndex { get => Readable(_p0, "seriesIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartBrushSelectArea.SeriesIndex"); SetProperty(ref _p0, value, "seriesIndex"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId { get => Readable(_p1, "seriesId"); set { value?.Validate("id|id[]"); SetProperty(ref _p1, value, "seriesId"); } }
+    public EventActionValue? SeriesId { get => Readable(_p1, "seriesId"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.SeriesId"); SetProperty(ref _p1, value, "seriesId"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName { get => Readable(_p2, "seriesName"); set { value?.Validate("id|id[]"); SetProperty(ref _p2, value, "seriesName"); } }
+    public EventActionValue? SeriesName { get => Readable(_p2, "seriesName"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.SeriesName"); SetProperty(ref _p2, value, "seriesName"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>geoIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? GeoIndex { get => Readable(_p3, "geoIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p3, value, "geoIndex"); } }
+    public EventActionValue? GeoIndex { get => Readable(_p3, "geoIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartBrushSelectArea.GeoIndex"); SetProperty(ref _p3, value, "geoIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>geoId</c> (id|id[]).</summary>
-    public EventActionValue? GeoId { get => Readable(_p4, "geoId"); set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "geoId"); } }
+    public EventActionValue? GeoId { get => Readable(_p4, "geoId"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.GeoId"); SetProperty(ref _p4, value, "geoId"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>geoName</c> (id|id[]).</summary>
-    public EventActionValue? GeoName { get => Readable(_p5, "geoName"); set { value?.Validate("id|id[]"); SetProperty(ref _p5, value, "geoName"); } }
+    public EventActionValue? GeoName { get => Readable(_p5, "geoName"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.GeoName"); SetProperty(ref _p5, value, "geoName"); } }
     private EventActionValue? _p6;
     /// <summary>Gets or sets <c>bmapIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? BmapIndex { get => Readable(_p6, "bmapIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p6, value, "bmapIndex"); } }
+    public EventActionValue? BmapIndex { get => Readable(_p6, "bmapIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartBrushSelectArea.BmapIndex"); SetProperty(ref _p6, value, "bmapIndex"); } }
     private EventActionValue? _p7;
     /// <summary>Gets or sets <c>bmapId</c> (id|id[]).</summary>
-    public EventActionValue? BmapId { get => Readable(_p7, "bmapId"); set { value?.Validate("id|id[]"); SetProperty(ref _p7, value, "bmapId"); } }
+    public EventActionValue? BmapId { get => Readable(_p7, "bmapId"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.BmapId"); SetProperty(ref _p7, value, "bmapId"); } }
     private EventActionValue? _p8;
     /// <summary>Gets or sets <c>bmapName</c> (id|id[]).</summary>
-    public EventActionValue? BmapName { get => Readable(_p8, "bmapName"); set { value?.Validate("id|id[]"); SetProperty(ref _p8, value, "bmapName"); } }
+    public EventActionValue? BmapName { get => Readable(_p8, "bmapName"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.BmapName"); SetProperty(ref _p8, value, "bmapName"); } }
     private EventActionValue? _p9;
     /// <summary>Gets or sets <c>xAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? XAxisIndex { get => Readable(_p9, "xAxisIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p9, value, "xAxisIndex"); } }
+    public EventActionValue? XAxisIndex { get => Readable(_p9, "xAxisIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartBrushSelectArea.XAxisIndex"); SetProperty(ref _p9, value, "xAxisIndex"); } }
     private EventActionValue? _p10;
     /// <summary>Gets or sets <c>xAxisId</c> (id|id[]).</summary>
-    public EventActionValue? XAxisId { get => Readable(_p10, "xAxisId"); set { value?.Validate("id|id[]"); SetProperty(ref _p10, value, "xAxisId"); } }
+    public EventActionValue? XAxisId { get => Readable(_p10, "xAxisId"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.XAxisId"); SetProperty(ref _p10, value, "xAxisId"); } }
     private EventActionValue? _p11;
     /// <summary>Gets or sets <c>xAxisName</c> (id|id[]).</summary>
-    public EventActionValue? XAxisName { get => Readable(_p11, "xAxisName"); set { value?.Validate("id|id[]"); SetProperty(ref _p11, value, "xAxisName"); } }
+    public EventActionValue? XAxisName { get => Readable(_p11, "xAxisName"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.XAxisName"); SetProperty(ref _p11, value, "xAxisName"); } }
     private EventActionValue? _p12;
     /// <summary>Gets or sets <c>yAxisIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? YAxisIndex { get => Readable(_p12, "yAxisIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p12, value, "yAxisIndex"); } }
+    public EventActionValue? YAxisIndex { get => Readable(_p12, "yAxisIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartBrushSelectArea.YAxisIndex"); SetProperty(ref _p12, value, "yAxisIndex"); } }
     private EventActionValue? _p13;
     /// <summary>Gets or sets <c>yAxisId</c> (id|id[]).</summary>
-    public EventActionValue? YAxisId { get => Readable(_p13, "yAxisId"); set { value?.Validate("id|id[]"); SetProperty(ref _p13, value, "yAxisId"); } }
+    public EventActionValue? YAxisId { get => Readable(_p13, "yAxisId"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.YAxisId"); SetProperty(ref _p13, value, "yAxisId"); } }
     private EventActionValue? _p14;
     /// <summary>Gets or sets <c>yAxisName</c> (id|id[]).</summary>
-    public EventActionValue? YAxisName { get => Readable(_p14, "yAxisName"); set { value?.Validate("id|id[]"); SetProperty(ref _p14, value, "yAxisName"); } }
+    public EventActionValue? YAxisName { get => Readable(_p14, "yAxisName"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.YAxisName"); SetProperty(ref _p14, value, "yAxisName"); } }
     private EventActionValue? _p15;
     /// <summary>Gets or sets <c>gridIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? GridIndex { get => Readable(_p15, "gridIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p15, value, "gridIndex"); } }
+    public EventActionValue? GridIndex { get => Readable(_p15, "gridIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartBrushSelectArea.GridIndex"); SetProperty(ref _p15, value, "gridIndex"); } }
     private EventActionValue? _p16;
     /// <summary>Gets or sets <c>gridId</c> (id|id[]).</summary>
-    public EventActionValue? GridId { get => Readable(_p16, "gridId"); set { value?.Validate("id|id[]"); SetProperty(ref _p16, value, "gridId"); } }
+    public EventActionValue? GridId { get => Readable(_p16, "gridId"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.GridId"); SetProperty(ref _p16, value, "gridId"); } }
     private EventActionValue? _p17;
     /// <summary>Gets or sets <c>gridName</c> (id|id[]).</summary>
-    public EventActionValue? GridName { get => Readable(_p17, "gridName"); set { value?.Validate("id|id[]"); SetProperty(ref _p17, value, "gridName"); } }
+    public EventActionValue? GridName { get => Readable(_p17, "gridName"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.GridName"); SetProperty(ref _p17, value, "gridName"); } }
     private EventActionValue? _p18;
     /// <summary>Gets or sets <c>matrixIndex</c> (number|number[]|all|none|false).</summary>
-    public EventActionValue? MatrixIndex { get => Readable(_p18, "matrixIndex"); set { value?.Validate("number|number[]|all|none|false"); SetProperty(ref _p18, value, "matrixIndex"); } }
+    public EventActionValue? MatrixIndex { get => Readable(_p18, "matrixIndex"); set { value?.Validate("number|number[]|all|none|false", "ChartBrushSelectArea.MatrixIndex"); SetProperty(ref _p18, value, "matrixIndex"); } }
     private EventActionValue? _p19;
     /// <summary>Gets or sets <c>matrixId</c> (id|id[]).</summary>
-    public EventActionValue? MatrixId { get => Readable(_p19, "matrixId"); set { value?.Validate("id|id[]"); SetProperty(ref _p19, value, "matrixId"); } }
+    public EventActionValue? MatrixId { get => Readable(_p19, "matrixId"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.MatrixId"); SetProperty(ref _p19, value, "matrixId"); } }
     private EventActionValue? _p20;
     /// <summary>Gets or sets <c>matrixName</c> (id|id[]).</summary>
-    public EventActionValue? MatrixName { get => Readable(_p20, "matrixName"); set { value?.Validate("id|id[]"); SetProperty(ref _p20, value, "matrixName"); } }
+    public EventActionValue? MatrixName { get => Readable(_p20, "matrixName"); set { value?.Validate("id|id[]", "ChartBrushSelectArea.MatrixName"); SetProperty(ref _p20, value, "matrixName"); } }
     private EventActionValue? _p21;
     /// <summary>Gets or sets <c>brushType</c> (polygon|rect|lineX|lineY).</summary>
-    public EventActionValue? BrushType { get => Readable(_p21, "brushType"); set { value?.Validate("polygon|rect|lineX|lineY"); SetProperty(ref _p21, value, "brushType"); } }
+    public EventActionValue? BrushType { get => Readable(_p21, "brushType"); set { value?.Validate("polygon|rect|lineX|lineY", "ChartBrushSelectArea.BrushType"); SetProperty(ref _p21, value, "brushType"); } }
     private string? _p22;
     /// <summary>Gets or sets <c>id</c> (string).</summary>
     public string? Id { get => Readable(_p22, "id"); set { SetProperty(ref _p22, value, "id"); } }
@@ -85,19 +85,19 @@ public sealed class ChartBrushSelectArea : OptionObject
     public string? PanelId { get => Readable(_p23, "panelId"); set { SetProperty(ref _p23, value, "panelId"); } }
     private EventActionValue? _p24;
     /// <summary>Gets or sets <c>range</c> (number[]|number[][]).</summary>
-    public EventActionValue? Range { get => Readable(_p24, "range"); set { value?.Validate("number[]|number[][]"); SetProperty(ref _p24, value, "range"); } }
+    public EventActionValue? Range { get => Readable(_p24, "range"); set { value?.Validate("number[]|number[][]", "ChartBrushSelectArea.Range"); SetProperty(ref _p24, value, "range"); } }
     private EventActionValue? _p25;
     /// <summary>Gets or sets <c>coordRange</c> (id[]|id[][]).</summary>
-    public EventActionValue? CoordRange { get => Readable(_p25, "coordRange"); set { value?.Validate("id[]|id[][]"); SetProperty(ref _p25, value, "coordRange"); } }
+    public EventActionValue? CoordRange { get => Readable(_p25, "coordRange"); set { value?.Validate("id[]|id[][]", "ChartBrushSelectArea.CoordRange"); SetProperty(ref _p25, value, "coordRange"); } }
     private EventActionValue? _p26;
     /// <summary>Gets or sets <c>coordRanges</c> (id[][]|id[][][]).</summary>
-    public EventActionValue? CoordRanges { get => Readable(_p26, "coordRanges"); set { value?.Validate("id[][]|id[][][]"); SetProperty(ref _p26, value, "coordRanges"); } }
+    public EventActionValue? CoordRanges { get => Readable(_p26, "coordRanges"); set { value?.Validate("id[][]|id[][][]", "ChartBrushSelectArea.CoordRanges"); SetProperty(ref _p26, value, "coordRanges"); } }
     private ChartBrushRangeOffset? _p27;
     /// <summary>Gets or sets <c>__rangeOffset</c> (ChartBrushRangeOffset).</summary>
     public ChartBrushRangeOffset? RangeOffset { get => Readable(_p27, "__rangeOffset"); set { SetProperty(ref _p27, value, "__rangeOffset"); } }
     private EventActionValue? _p28;
     /// <summary>Gets or sets <c>brushMode</c> (single|multiple).</summary>
-    public EventActionValue? BrushMode { get => Readable(_p28, "brushMode"); set { value?.Validate("single|multiple"); SetProperty(ref _p28, value, "brushMode"); } }
+    public EventActionValue? BrushMode { get => Readable(_p28, "brushMode"); set { value?.Validate("single|multiple", "ChartBrushSelectArea.BrushMode"); SetProperty(ref _p28, value, "brushMode"); } }
     private ChartBrushSelectStyle? _p29;
     /// <summary>Gets or sets <c>brushStyle</c> (ChartBrushSelectStyle).</summary>
     public ChartBrushSelectStyle? BrushStyle { get => Readable(_p29, "brushStyle"); set { SetProperty(ref _p29, value, "brushStyle"); } }

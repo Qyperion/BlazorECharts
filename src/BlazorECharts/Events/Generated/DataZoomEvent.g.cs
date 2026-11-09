@@ -17,15 +17,15 @@ public sealed class DataZoomEvent(JsonElement json) : ChartEventPayload(json)
     /// <summary>Gets <c>type</c> (string).</summary>
     public string? Type => Text("type");
     /// <summary>Gets <c>dataZoomIndex</c> (number|number[]).</summary>
-    public EventActionValue? DataZoomIndex => ReadUnion("dataZoomIndex", "number|number[]");
+    public EventActionValue? DataZoomIndex => ReadUnion("dataZoomIndex", "number|number[]", "DataZoomEvent.DataZoomIndex");
     /// <summary>Gets <c>dataZoomId</c> (id|id[]).</summary>
-    public EventActionValue? DataZoomId => ReadUnion("dataZoomId", "id|id[]");
+    public EventActionValue? DataZoomId => ReadUnion("dataZoomId", "id|id[]", "DataZoomEvent.DataZoomId");
     /// <summary>Gets <c>start</c> (number).</summary>
     public double? Start => Number("start");
     /// <summary>Gets <c>end</c> (number).</summary>
     public double? End => Number("end");
     /// <summary>Gets <c>startValue</c> (number|string).</summary>
-    public EventActionValue? StartValue => ReadUnion("startValue", "number|string");
+    public EventActionValue? StartValue => ReadUnion("startValue", "number|string", "DataZoomEvent.StartValue");
     /// <summary>Gets <c>endValue</c> (number|string).</summary>
-    public EventActionValue? EndValue => ReadUnion("endValue", "number|string");
+    public EventActionValue? EndValue => ReadUnion("endValue", "number|string", "DataZoomEvent.EndValue");
 }

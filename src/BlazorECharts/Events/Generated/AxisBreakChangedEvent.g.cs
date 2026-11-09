@@ -17,7 +17,7 @@ public sealed class AxisBreakChangedEvent(JsonElement json) : ChartEventPayload(
     /// <summary>Gets <c>fromAction</c> (string).</summary>
     public string? FromAction => Text("fromAction");
     /// <summary>Gets <c>fromActionPayload</c> (object).</summary>
-    public EventActionValue? FromActionPayload => ReadUnion("fromActionPayload", "object");
+    public EventActionValue? FromActionPayload => ReadUnion("fromActionPayload", "object", "AxisBreakChangedEvent.FromActionPayload");
     /// <summary>Gets <c>breaks</c> (ChartAxisBreakChange[]).</summary>
     public ChartAxisBreakChange[]? Breaks => ReadField("breaks", json => ReadItems<ChartAxisBreakChange>(json, item0 => GeneratedOptionMetadata.ReadChartAxisBreakChange(item0, PayloadSerialization)));
 }

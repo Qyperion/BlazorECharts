@@ -19,5 +19,5 @@ public sealed class ChartTreePathItem : OptionObject
     public int? DataIndex { get => Readable(_p1, "dataIndex"); set { SetProperty(ref _p1, value, "dataIndex"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>value</c> (unknown).</summary>
-    public EventActionValue? Value { get => Readable(_p2, "value"); set { value?.Validate("unknown"); SetProperty(ref _p2, value, "value"); } }
+    public EventActionValue? Value { get => Readable(_p2, "value"); set { value?.Validate("unknown", "ChartTreePathItem.Value"); SetProperty(ref _p2, value, "value"); } }
 }

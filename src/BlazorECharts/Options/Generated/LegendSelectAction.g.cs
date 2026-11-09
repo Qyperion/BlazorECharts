@@ -23,10 +23,10 @@ public sealed class LegendSelectAction() : ChartAction("legendSelect")
     public ChartPayloadAnimation? Animation { get => _p2; set { SetProperty(ref _p2, value, "animation"); } }
     private EventActionValue? _p3;
     /// <summary>Gets or sets <c>legendIndex</c> (number|number[]).</summary>
-    public EventActionValue? LegendIndex { get => _p3; set { value?.Validate("number|number[]"); SetProperty(ref _p3, value, "legendIndex"); } }
+    public EventActionValue? LegendIndex { get => _p3; set { value?.Validate("number|number[]", "LegendSelectAction.LegendIndex"); SetProperty(ref _p3, value, "legendIndex"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>legendId</c> (id|id[]).</summary>
-    public EventActionValue? LegendId { get => _p4; set { value?.Validate("id|id[]"); SetProperty(ref _p4, value, "legendId"); } }
+    public EventActionValue? LegendId { get => _p4; set { value?.Validate("id|id[]", "LegendSelectAction.LegendId"); SetProperty(ref _p4, value, "legendId"); } }
     private string? _p5;
     /// <summary>Gets or sets <c>name</c> (string).</summary>
     public string? Name { get => _p5; set { SetProperty(ref _p5, value, "name"); } }

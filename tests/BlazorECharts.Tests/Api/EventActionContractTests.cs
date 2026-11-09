@@ -33,8 +33,28 @@ public sealed class EventActionContractTests
         var enabled = Assert.Throws<ArgumentException>(() => new ChartBrushCursorOption { BrushType = true });
 
         // Assert
-        Assert.Equal("Expected polygon|rect|lineX|lineY|auto|false; received \"linex\".", typo.Message);
-        Assert.Equal("Expected polygon|rect|lineX|lineY|auto|false; received true.", enabled.Message);
+        Assert.Equal("ChartBrushCursorOption.BrushType: expected polygon|rect|lineX|lineY|auto|false; received \"linex\".", typo.Message);
+        Assert.Equal("ChartBrushCursorOption.BrushType: expected polygon|rect|lineX|lineY|auto|false; received true.", enabled.Message);
+    }
+
+    [Fact]
+    public void PayloadFieldError_NamesTheModelAndProperty()
+    {
+        // Arrange
+        using var json = JsonDocument.Parse("""{"type":"changeAxisOrder","xAxisIndex":"x"}""");
+        var changed = new ChangeAxisOrderEvent(json.RootElement);
+
+        // Act
+        var area = Assert.Throws<ArgumentException>(() => new ChartBrushSelectArea { BrushMode = "singel" });
+        var function = Assert.Throws<ArgumentException>(() => new ChartBrushSelectArea { BrushMode = EventActionValue.From(JsFunction.Module<BlazorECharts.Values.Signatures.TooltipPositionCallback>("./tooltip.js", "position")) });
+        var read = Assert.Throws<ArgumentException>(() => changed.XAxisIndex);
+        var finder = Assert.Throws<ArgumentException>(() => ChartFinder.Select("series", index: "first"));
+
+        // Assert
+        Assert.Equal("ChartBrushSelectArea.BrushMode: expected single|multiple; received \"singel\".", area.Message);
+        Assert.Equal("ChartBrushSelectArea.BrushMode: a function is not one of single|multiple.", function.Message);
+        Assert.Equal("ChangeAxisOrderEvent.XAxisIndex: expected number|number[]; received \"x\".", read.Message);
+        Assert.Equal("ChartFinder.Select(index): expected number|number[]|all|none|false; received \"first\".", finder.Message);
     }
 
     [Fact]

@@ -19,7 +19,7 @@ public sealed class ChangeMagicTypeAction() : ChartAction("changeMagicType")
     public ChartOptions? NewOption { get => _p1; set { SetProperty(ref _p1, value, "newOption"); } }
     private EventActionValue? _p2;
     /// <summary>Gets or sets <c>currentType</c> (line|bar|stack|tiled).</summary>
-    public EventActionValue? CurrentType { get => _p2; set { value?.Validate("line|bar|stack|tiled"); SetProperty(ref _p2, value, "currentType"); } }
+    public EventActionValue? CurrentType { get => _p2; set { value?.Validate("line|bar|stack|tiled", "ChangeMagicTypeAction.CurrentType"); SetProperty(ref _p2, value, "currentType"); } }
     private ChartMagicTypeTitle? _p3;
     /// <summary>Gets or sets <c>newTitle</c> (ChartMagicTypeTitle).</summary>
     public ChartMagicTypeTitle? NewTitle { get => _p3; set { SetProperty(ref _p3, value, "newTitle"); } }

@@ -14,11 +14,11 @@ public sealed class DragNodeEvent(JsonElement json) : ChartEventPayload(json)
     /// <summary>Gets <c>type</c> (string).</summary>
     public string? Type => Text("type");
     /// <summary>Gets <c>seriesIndex</c> (number|number[]).</summary>
-    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]");
+    public EventActionValue? SeriesIndex => ReadUnion("seriesIndex", "number|number[]", "DragNodeEvent.SeriesIndex");
     /// <summary>Gets <c>seriesId</c> (id|id[]).</summary>
-    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]");
+    public EventActionValue? SeriesId => ReadUnion("seriesId", "id|id[]", "DragNodeEvent.SeriesId");
     /// <summary>Gets <c>seriesName</c> (id|id[]).</summary>
-    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]");
+    public EventActionValue? SeriesName => ReadUnion("seriesName", "id|id[]", "DragNodeEvent.SeriesName");
     /// <summary>Gets <c>animation</c>.</summary>
     public AnimationOption? Animation => ReadField("animation", json => GeneratedOptionMetadata.ReadAnimationOption(json, PayloadSerialization));
     /// <summary>Gets <c>dataIndex</c> (integer).</summary>

@@ -13,10 +13,10 @@ public sealed class ChartZoomBatch : OptionObject
 {
     private EventActionValue? _p0;
     /// <summary>Gets or sets <c>dataZoomIndex</c> (number|number[]).</summary>
-    public EventActionValue? DataZoomIndex { get => Readable(_p0, "dataZoomIndex"); set { value?.Validate("number|number[]"); SetProperty(ref _p0, value, "dataZoomIndex"); } }
+    public EventActionValue? DataZoomIndex { get => Readable(_p0, "dataZoomIndex"); set { value?.Validate("number|number[]", "ChartZoomBatch.DataZoomIndex"); SetProperty(ref _p0, value, "dataZoomIndex"); } }
     private EventActionValue? _p1;
     /// <summary>Gets or sets <c>dataZoomId</c> (id|id[]).</summary>
-    public EventActionValue? DataZoomId { get => Readable(_p1, "dataZoomId"); set { value?.Validate("id|id[]"); SetProperty(ref _p1, value, "dataZoomId"); } }
+    public EventActionValue? DataZoomId { get => Readable(_p1, "dataZoomId"); set { value?.Validate("id|id[]", "ChartZoomBatch.DataZoomId"); SetProperty(ref _p1, value, "dataZoomId"); } }
     private double? _p2;
     /// <summary>Gets or sets <c>start</c> (number).</summary>
     public double? Start { get => Readable(_p2, "start"); set { SetProperty(ref _p2, value, "start"); } }
@@ -25,10 +25,10 @@ public sealed class ChartZoomBatch : OptionObject
     public double? End { get => Readable(_p3, "end"); set { SetProperty(ref _p3, value, "end"); } }
     private EventActionValue? _p4;
     /// <summary>Gets or sets <c>startValue</c> (id).</summary>
-    public EventActionValue? StartValue { get => Readable(_p4, "startValue"); set { value?.Validate("id"); SetProperty(ref _p4, value, "startValue"); } }
+    public EventActionValue? StartValue { get => Readable(_p4, "startValue"); set { value?.Validate("id", "ChartZoomBatch.StartValue"); SetProperty(ref _p4, value, "startValue"); } }
     private EventActionValue? _p5;
     /// <summary>Gets or sets <c>endValue</c> (id).</summary>
-    public EventActionValue? EndValue { get => Readable(_p5, "endValue"); set { value?.Validate("id"); SetProperty(ref _p5, value, "endValue"); } }
+    public EventActionValue? EndValue { get => Readable(_p5, "endValue"); set { value?.Validate("id", "ChartZoomBatch.EndValue"); SetProperty(ref _p5, value, "endValue"); } }
     private ChartPayloadAnimation? _p6;
     /// <summary>Gets or sets <c>animation</c> (ChartPayloadAnimation).</summary>
     public ChartPayloadAnimation? Animation { get => Readable(_p6, "animation"); set { SetProperty(ref _p6, value, "animation"); } }
