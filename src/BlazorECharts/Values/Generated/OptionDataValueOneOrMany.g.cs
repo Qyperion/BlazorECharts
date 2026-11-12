@@ -32,16 +32,16 @@ public readonly struct OptionDataValueOneOrMany : IOptionValue, IJsonOnSerializi
     public static implicit operator OptionDataValueOneOrMany(DateTimeOffset value) => One(value);
     /// <summary>Converts the double alternative to the scalar form, as <see cref="OptionDataValue"/> does.</summary>
     public static implicit operator OptionDataValueOneOrMany(double value) => One(value);
-    /// <summary>Converts the string alternative to the scalar form, as <see cref="OptionDataValue"/> does.</summary>
-    public static implicit operator OptionDataValueOneOrMany(string value) => One(value);
+    /// <summary>Converts the string alternative to the scalar form, as <see cref="OptionDataValue"/> does; null converts to a null scalar.</summary>
+    public static implicit operator OptionDataValueOneOrMany(string? value) => One(value);
     /// <summary>Converts the DateTime alternative to the scalar form, as <see cref="OptionDataValue"/> does.</summary>
     public static implicit operator OptionDataValueOneOrMany(DateTime value) => One(value);
     /// <summary>Converts the DateOnly alternative to the scalar form, as <see cref="OptionDataValue"/> does.</summary>
     public static implicit operator OptionDataValueOneOrMany(DateOnly value) => One(value);
     /// <summary>Converts a value to the scalar form, as <see cref="One"/> does.</summary>
     public static implicit operator OptionDataValueOneOrMany(OptionDataValue value) => One(value);
-    /// <summary>Converts an array to the array form, as <see cref="Many"/> does.</summary>
-    public static implicit operator OptionDataValueOneOrMany(OptionDataValue?[] values) => Many(values);
+    /// <summary>Converts an array to the array form, as <see cref="Many"/> does; null converts to a null scalar.</summary>
+    public static implicit operator OptionDataValueOneOrMany(OptionDataValue?[]? values) => values is null ? One(null) : Many(values);
     /// <summary>Gets whether this value is the array form, including a value read from JSON.</summary>
     public bool IsMany => _value.IsMany;
     /// <summary>Gets the scalar form. Returns false for an array or an uninitialized value.</summary>

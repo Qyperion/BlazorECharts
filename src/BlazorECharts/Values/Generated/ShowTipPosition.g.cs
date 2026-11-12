@@ -25,8 +25,8 @@ public readonly struct ShowTipPosition : IOptionValue, IJsonOnSerializing, IRead
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ShowTipPosition(JsFunction<ShowTipPositionAlternativeSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ShowTipPosition(JsFunction<ShowTipPositionAlternativeSignature>? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ShowTipPosition From(string value)
@@ -34,24 +34,24 @@ public readonly struct ShowTipPosition : IOptionValue, IJsonOnSerializing, IRead
         if (!(value == "top" || value == "bottom" || value == "left" || value == "right" || value == "inside")) throw LiteralUnion.Rejected("ShowTipPosition", value, "one of \"top\", \"bottom\", \"left\", \"right\" or \"inside\"", "a browser callback (JsFunction<ShowTipPositionAlternativeSignature>), ComponentTooltipPositionAlternative or an array of NumberOrString", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ShowTipPosition(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ShowTipPosition(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ComponentTooltipPositionAlternative alternative with exact literal validation.</summary>
     public static ShowTipPosition From(ComponentTooltipPositionAlternative value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ShowTipPosition(ComponentTooltipPositionAlternative value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ShowTipPosition(ComponentTooltipPositionAlternative? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the NumberOrString?[] alternative with exact literal validation.</summary>
     public static ShowTipPosition From(NumberOrString?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ShowTipPosition(NumberOrString?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ShowTipPosition(NumberOrString?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Null) || (json.ValueKind == JsonValueKind.String && json.GetString() == "top") || (GeneratedOptionMetadata.MatchesComponentTooltipPositionAlternative(json)) || (json.ValueKind == JsonValueKind.String && json.GetString() == "bottom") || (json.ValueKind == JsonValueKind.String && json.GetString() == "left") || (json.ValueKind == JsonValueKind.String && json.GetString() == "right") || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item2c8776ab => item2c8776ab.ValueKind == JsonValueKind.Null || (NumberOrString.Matches(item2c8776ab))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "inside");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

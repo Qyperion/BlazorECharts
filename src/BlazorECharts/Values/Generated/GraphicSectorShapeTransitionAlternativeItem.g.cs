@@ -26,8 +26,8 @@ public readonly struct GraphicSectorShapeTransitionAlternativeItem : IOptionValu
         if (!(value == "cornerRadius" || value == "r0" || value == "clockwise" || value == "cy" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw LiteralUnion.Rejected("GraphicSectorShapeTransitionAlternativeItem", value, "one of \"cornerRadius\", \"r0\", \"clockwise\", \"cy\", \"startAngle\", \"cx\", \"endAngle\" or \"r\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicSectorShapeTransitionAlternativeItem(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicSectorShapeTransitionAlternativeItem(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "cornerRadius") || (json.ValueKind == JsonValueKind.String && json.GetString() == "r0") || (json.ValueKind == JsonValueKind.String && json.GetString() == "clockwise") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cy") || (json.ValueKind == JsonValueKind.String && json.GetString() == "startAngle") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cx") || (json.ValueKind == JsonValueKind.String && json.GetString() == "endAngle") || (json.ValueKind == JsonValueKind.String && json.GetString() == "r");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

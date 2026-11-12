@@ -25,32 +25,32 @@ public readonly struct YAxisOption : IOptionValue, IJsonOnSerializing, IReadable
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator YAxisOption(YAxisTimeOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator YAxisOption(YAxisTimeOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the YAxisLogOption alternative with exact literal validation.</summary>
     public static YAxisOption From(YAxisLogOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator YAxisOption(YAxisLogOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator YAxisOption(YAxisLogOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the YAxisCategoryOption alternative with exact literal validation.</summary>
     public static YAxisOption From(YAxisCategoryOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator YAxisOption(YAxisCategoryOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator YAxisOption(YAxisCategoryOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the YAxisValueOption alternative with exact literal validation.</summary>
     public static YAxisOption From(YAxisValueOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator YAxisOption(YAxisValueOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator YAxisOption(YAxisValueOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesYAxisTimeOption(json)) || (GeneratedOptionMetadata.MatchesYAxisLogOption(json)) || (GeneratedOptionMetadata.MatchesYAxisCategoryOption(json)) || (GeneratedOptionMetadata.MatchesYAxisValueOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

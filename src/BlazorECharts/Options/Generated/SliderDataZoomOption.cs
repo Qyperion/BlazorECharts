@@ -16,8 +16,8 @@ public sealed partial class SliderDataZoomOption : OptionObject
     /// <summary>Creates the slider variant; it writes its type itself.</summary>
     public SliderDataZoomOption() : this(true) { }
     internal SliderDataZoomOption(bool initializeDefaults) { if (initializeDefaults) { Type = "slider"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;DataZoomOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<DataZoomOption?>(SliderDataZoomOption value) => OneOrMany<DataZoomOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;DataZoomOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<DataZoomOption?>(SliderDataZoomOption? value) => OneOrMany<DataZoomOption?>.One(value);
     private NumberOrStringOneOrMany? _p0;
     /// <summary>Gets or sets <c>angleAxisId</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>

@@ -20,8 +20,8 @@ public readonly struct WordCloudNumberOrNumbers : IOptionValue, IJsonOnSerializi
     public static implicit operator WordCloudNumberOrNumbers(double value) => From(value);
     /// <summary>Creates the double[] alternative.</summary>
     public static WordCloudNumberOrNumbers From(double[] value) { return new(value); }
-    /// <summary>Preserves the source alternative.</summary>
-    public static implicit operator WordCloudNumberOrNumbers(double[] value) => From(value);
+    /// <summary>Preserves the source alternative; null converts to a null value.</summary>
+    public static implicit operator WordCloudNumberOrNumbers(double[]? value) => value is null ? new(null) : From(value);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>, or the <see cref="EChartsValue"/> JSON of a value read from a getOption snapshot.</summary>
     public object? Value => _value;
     /// <summary>Gets the double alternative, also from a value read from JSON.</summary>

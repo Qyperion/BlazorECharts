@@ -987,7 +987,7 @@ export function generate(
           ? `  static ${s.name} Create(${s.elements!.map(nullable).join(', ')})\n  object? Value\n`
           + s.elements!.map((e, i) => `  ${nullable(e)} Item${i}`).join('\n')
           : [...new Set(s.alternatives!.map(a => a.cs))].map(
-            cs => `  static ${s.name} From(${cs})\n  static implicit operator ${s.name}(${cs})`
+            cs => `  static ${s.name} From(${cs})\n  static implicit operator ${s.name}(${cs}${isReferenceAlternative(s, cs) ? '?' : ''})`
           ).join('\n') + '\n  object? Value\n'
           + [...new Set(s.alternatives!.map(a => a.cs))]
             .map(cs => `  bool TryGet(out ${cs}${s.alternatives!.filter(a => a.cs === cs).every(isValueType) ? '' : '?'})`)
@@ -1121,7 +1121,7 @@ function emitModel(shape: Shape, documented: Map<string, MemberDoc>, paths: Map<
   return header + usings + `\nnamespace BlazorECharts.Options;\n\n/// <summary>${summary}</summary>\n${path === undefined ? '' : `/// <seealso href="${optionPage(path)}"/>\n`}public sealed partial class ${shape.name} : ${shape.discriminator ? 'SeriesOption' : 'OptionObject'}\n{\n`
     + (shape.discriminator ? `    /// <summary>Creates the ${shape.discriminator} series.</summary>\n    public ${shape.name}() : base(${quote(shape.discriminator)}) { }\n` : '')
     + (shape.initialValues ? `    /// <summary>Creates the ${escapeXml(shape.initialValues.type)} variant; it writes its type itself.</summary>\n    public ${shape.name}() : this(true) { }\n    internal ${shape.name}(bool initializeDefaults) { if (initializeDefaults) { ${Object.entries(shape.initialValues).map(([key, value]) => `${shape.properties!.find(p => p.name === key)!.csName} = ${quote(value)};`).join(' ')} } }\n` : '')
-    + componentLists.map(list => `    /// <summary>Converts the variant to a single component, as <c>${escapeXml(list)}.One</c> does.</summary>\n    public static implicit operator ${list}(${shape.name} value) => ${list}.One(value);\n`).join('')
+    + componentLists.map(list => `    /// <summary>Converts the variant to a single component, as <c>${escapeXml(list)}.One</c> does; null converts to a null component.</summary>\n    public static implicit operator ${list}(${shape.name}? value) => ${list}.One(value);\n`).join('')
     + (shape.index ? `    /// <summary>Gets typed entries allowed by the upstream string index signature.</summary>\n    public OptionDictionary<${nullable(shape.index)}> Entries { get; } = new();\n` : '')
     + shape.properties!.map((p, i) => {
       // A variant writes its own type: reading a snapshot sets it, an author cannot reset it.
@@ -1248,11 +1248,14 @@ const conversions = (union: Shape) => {
   return types.includes('DateTimeOffset') ? [...types, 'DateTime', 'DateOnly'] : types;
 };
 
+/** Whether a conversion of a union takes a reference type. It accepts null: a conditional expression with a null branch has that type. */
+const isReferenceAlternative = (union: Shape, cs: string) => union.alternatives!.some(a => a.cs === cs && !isValueType(a));
+
 function manyStructApi(shape: Shape): string {
   const name = shape.struct!;
   const item = nullable(shape.element!);
   return `${name} : IOptionValue, IJsonOnSerializing [CollectionBuilder]\n  static ${name} One(${item})\n  static ${name} Many(params ${item}[])\n  static ${name} Create(ReadOnlySpan<${item}>)\n`
-    + [...conversions(shape.element!), shape.element!.cs, item + '[]'].map(cs => `  static implicit operator ${name}(${cs})`).join('\n')
+    + [...conversions(shape.element!).map(cs => cs + (isReferenceAlternative(shape.element!, cs) ? '?' : '')), shape.element!.cs, item + '[]?'].map(cs =>`  static implicit operator ${name}(${cs})`).join('\n')
     + `\n  bool IsMany\n  bool TryGetOne(out ${item})\n  IReadOnlyList<${item}> Items\n  IEnumerator<${item}> GetEnumerator()`;
 }
 
@@ -1272,10 +1275,12 @@ function emitManyStruct(shape: Shape): string {
     + `    /// <summary>Creates the array form, copying its container and preserving order, nulls and empty arrays.</summary>\n    public static ${name} Many(params ${item}[] values) => new(OneOrMany<${item}>.Many(values));\n`
     + `    /// <summary>Creates the array form of a collection expression, also for one or no element.</summary>\n    public static ${name} Create(ReadOnlySpan<${item}> values) => new(OneOrMany.Create(values));\n`
     + conversions(element)
-      .map(cs => conversion(cs, `Converts the ${escapeXml(cs)} alternative to the scalar form, as <see cref="${union}"/> does.`))
+      .map(cs => isReferenceAlternative(element, cs)
+        ? conversion(cs + '?', `Converts the ${escapeXml(cs)} alternative to the scalar form, as <see cref="${union}"/> does; null converts to a null scalar.`)
+        : conversion(cs, `Converts the ${escapeXml(cs)} alternative to the scalar form, as <see cref="${union}"/> does.`))
       .join('')
     + conversion(union, 'Converts a value to the scalar form, as <see cref="One"/> does.')
-    + `    /// <summary>Converts an array to the array form, as <see cref="Many"/> does.</summary>\n    public static implicit operator ${name}(${item}[] values) => Many(values);\n`
+    + `    /// <summary>Converts an array to the array form, as <see cref="Many"/> does; null converts to a null scalar.</summary>\n    public static implicit operator ${name}(${item}[]? values) => values is null ? One(null) : Many(values);\n`
     + `    /// <summary>Gets whether this value is the array form, including a value read from JSON.</summary>\n    public bool IsMany => _value.IsMany;\n`
     + `    /// <summary>Gets the scalar form. Returns false for an array or an uninitialized value.</summary>\n    public bool TryGetOne(out ${item} value) => _value.TryGetOne(out value);\n`
     + `    /// <summary>Gets the array elements, or the scalar as a single item. Throws for an uninitialized value.</summary>\n    public IReadOnlyList<${item}> Items => _value.Items;\n`
@@ -1318,7 +1323,8 @@ function emitValue(shape: Shape): string {
       : shape.alternatives!.filter(a => a.kind === 'array' || a.kind === 'many').map(a => ` && !(${matches(a, 'json')})`).join('');
     body = [...groups].map(([cs, ss]) => {
       const validate = ss.every(s => s.literal !== undefined) ? literalValidation(name, cs, ss, shape.alternatives!) : '';
-      return `    /// <summary>Creates the ${cs.replaceAll('<', '&lt;')} alternative with exact literal validation.</summary>\n    public static ${name} From(${cs} value)\n    {\n${validate}        return new(value);\n    }\n    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>\n    public static implicit operator ${name}(${cs} value) => From(value);\n`;
+      const reference = isReferenceAlternative(shape, cs);
+      return `    /// <summary>Creates the ${cs.replaceAll('<', '&lt;')} alternative with exact literal validation.</summary>\n    public static ${name} From(${cs} value)\n    {\n${validate}        return new(value);\n    }\n    /// <summary>Converts a supported alternative, preserving its JSON shape${reference ? '; null converts to a null value' : ''}.</summary>\n    public static implicit operator ${name}(${cs}${reference ? '?' : ''} value) => ${reference ? 'value is null ? new(null) : ' : ''}From(value);\n`;
     }).join('\n')
       + (groups.has('DateTimeOffset') ? dateConversions(name) : '')
       + `    internal static bool Matches(JsonElement json) => ${anyOf(shape.alternatives!.map(s => matches(s, 'json')))};\n`

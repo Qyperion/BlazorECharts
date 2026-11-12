@@ -16,8 +16,8 @@ public sealed partial class SingleAxisTimeOption : OptionObject
     /// <summary>Creates the time variant; it writes its type itself.</summary>
     public SingleAxisTimeOption() : this(true) { }
     internal SingleAxisTimeOption(bool initializeDefaults) { if (initializeDefaults) { Type = "time"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;SingleAxisOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<SingleAxisOption?>(SingleAxisTimeOption value) => OneOrMany<SingleAxisOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;SingleAxisOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<SingleAxisOption?>(SingleAxisTimeOption? value) => OneOrMany<SingleAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>alignTicks</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>

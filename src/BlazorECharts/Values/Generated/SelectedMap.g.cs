@@ -25,8 +25,8 @@ public readonly struct SelectedMap : IOptionValue, IJsonOnSerializing, IReadable
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SelectedMap(OptionDictionary<bool?> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SelectedMap(OptionDictionary<bool?>? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static SelectedMap From(string value)
@@ -34,8 +34,8 @@ public readonly struct SelectedMap : IOptionValue, IJsonOnSerializing, IReadable
         if (!(value == "all")) throw LiteralUnion.Rejected("SelectedMap", value, "\"all\"", "OptionDictionary<bool?>", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SelectedMap(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SelectedMap(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => ((json.ValueKind == JsonValueKind.Object && json.EnumerateObject().All(item40ab07cd => item40ab07cd.Value.ValueKind == JsonValueKind.Null || ((item40ab07cd.Value.ValueKind is JsonValueKind.True or JsonValueKind.False))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "all");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

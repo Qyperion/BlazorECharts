@@ -25,32 +25,32 @@ public readonly struct ParallelAxisOption : IOptionValue, IJsonOnSerializing, IR
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultCategoryOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelAxisOption(ParallelAxisDefaultCategoryOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ParallelAxisDefaultTimeOption alternative with exact literal validation.</summary>
     public static ParallelAxisOption From(ParallelAxisDefaultTimeOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultTimeOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelAxisOption(ParallelAxisDefaultTimeOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ParallelAxisDefaultLogOption alternative with exact literal validation.</summary>
     public static ParallelAxisOption From(ParallelAxisDefaultLogOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultLogOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelAxisOption(ParallelAxisDefaultLogOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ParallelAxisDefaultValueOption alternative with exact literal validation.</summary>
     public static ParallelAxisOption From(ParallelAxisDefaultValueOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultValueOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelAxisOption(ParallelAxisDefaultValueOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesParallelAxisDefaultCategoryOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisDefaultTimeOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisDefaultLogOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisDefaultValueOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

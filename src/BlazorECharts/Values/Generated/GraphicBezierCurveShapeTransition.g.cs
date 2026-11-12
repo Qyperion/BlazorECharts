@@ -26,16 +26,16 @@ public readonly struct GraphicBezierCurveShapeTransition : IOptionValue, IJsonOn
         if (!(value == "percent" || value == "x1" || value == "y2" || value == "cpy1" || value == "y1" || value == "cpx1" || value == "cpy2" || value == "all" || value == "x2" || value == "cpx2")) throw LiteralUnion.Rejected("GraphicBezierCurveShapeTransition", value, "one of \"percent\", \"x1\", \"y2\", \"cpy1\", \"y1\", \"cpx1\", \"cpy2\", \"all\", \"x2\" or \"cpx2\"", "an array of GraphicBezierCurveShapeTransitionAlternativeItem", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicBezierCurveShapeTransition(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicBezierCurveShapeTransition(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicBezierCurveShapeTransitionAlternativeItem?[] alternative with exact literal validation.</summary>
     public static GraphicBezierCurveShapeTransition From(GraphicBezierCurveShapeTransitionAlternativeItem?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicBezierCurveShapeTransition(GraphicBezierCurveShapeTransitionAlternativeItem?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicBezierCurveShapeTransition(GraphicBezierCurveShapeTransitionAlternativeItem?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "percent") || (json.ValueKind == JsonValueKind.String && json.GetString() == "x1") || (json.ValueKind == JsonValueKind.String && json.GetString() == "y2") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cpy1") || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemb9587dd3 => itemb9587dd3.ValueKind == JsonValueKind.Null || (GraphicBezierCurveShapeTransitionAlternativeItem.Matches(itemb9587dd3))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "y1") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cpx1") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cpy2") || (json.ValueKind == JsonValueKind.String && json.GetString() == "all") || (json.ValueKind == JsonValueKind.String && json.GetString() == "x2") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cpx2");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

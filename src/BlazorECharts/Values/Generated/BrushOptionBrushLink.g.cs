@@ -25,8 +25,8 @@ public readonly struct BrushOptionBrushLink : IOptionValue, IJsonOnSerializing, 
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BrushOptionBrushLink(double?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BrushOptionBrushLink(double?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static BrushOptionBrushLink From(string value)
@@ -34,8 +34,8 @@ public readonly struct BrushOptionBrushLink : IOptionValue, IJsonOnSerializing, 
         if (!(value == "none" || value == "all")) throw LiteralUnion.Rejected("BrushOptionBrushLink", value, "one of \"none\" or \"all\"", "an array of number", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BrushOptionBrushLink(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BrushOptionBrushLink(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item0f1853f1 => item0f1853f1.ValueKind == JsonValueKind.Null || (item0f1853f1.ValueKind == JsonValueKind.Number)))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "none") || (json.ValueKind == JsonValueKind.String && json.GetString() == "all");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

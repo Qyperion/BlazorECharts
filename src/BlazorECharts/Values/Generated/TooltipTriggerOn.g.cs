@@ -26,8 +26,8 @@ public readonly struct TooltipTriggerOn : IOptionValue, IJsonOnSerializing, IRea
         if (!(value == "mousemove|click|mousewheel" || value == "click" || value == "none" || value == "mousewheel" || value == "mousemove")) throw LiteralUnion.Rejected("TooltipTriggerOn", value, "one of \"mousemove|click|mousewheel\", \"click\", \"none\", \"mousewheel\" or \"mousemove\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TooltipTriggerOn(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TooltipTriggerOn(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "mousemove|click|mousewheel") || (json.ValueKind == JsonValueKind.String && json.GetString() == "click") || (json.ValueKind == JsonValueKind.String && json.GetString() == "none") || (json.ValueKind == JsonValueKind.String && json.GetString() == "mousewheel") || (json.ValueKind == JsonValueKind.String && json.GetString() == "mousemove");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

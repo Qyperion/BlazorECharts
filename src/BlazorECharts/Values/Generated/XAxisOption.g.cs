@@ -25,32 +25,32 @@ public readonly struct XAxisOption : IOptionValue, IJsonOnSerializing, IReadable
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator XAxisOption(XAxisTimeOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator XAxisOption(XAxisTimeOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the XAxisCategoryOption alternative with exact literal validation.</summary>
     public static XAxisOption From(XAxisCategoryOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator XAxisOption(XAxisCategoryOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator XAxisOption(XAxisCategoryOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the XAxisLogOption alternative with exact literal validation.</summary>
     public static XAxisOption From(XAxisLogOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator XAxisOption(XAxisLogOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator XAxisOption(XAxisLogOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the XAxisValueOption alternative with exact literal validation.</summary>
     public static XAxisOption From(XAxisValueOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator XAxisOption(XAxisValueOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator XAxisOption(XAxisValueOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesXAxisTimeOption(json)) || (GeneratedOptionMetadata.MatchesXAxisCategoryOption(json)) || (GeneratedOptionMetadata.MatchesXAxisLogOption(json)) || (GeneratedOptionMetadata.MatchesXAxisValueOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

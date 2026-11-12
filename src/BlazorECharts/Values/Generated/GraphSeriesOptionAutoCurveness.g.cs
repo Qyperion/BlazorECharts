@@ -25,8 +25,8 @@ public readonly struct GraphSeriesOptionAutoCurveness : IOptionValue, IJsonOnSer
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphSeriesOptionAutoCurveness(double?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphSeriesOptionAutoCurveness(double?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static GraphSeriesOptionAutoCurveness From(bool value)

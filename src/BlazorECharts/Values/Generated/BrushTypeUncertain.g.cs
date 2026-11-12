@@ -26,8 +26,8 @@ public readonly struct BrushTypeUncertain : IOptionValue, IJsonOnSerializing, IR
         if (!(value == "lineY" || value == "rect" || value == "lineX" || value == "auto" || value == "polygon")) throw LiteralUnion.Rejected("BrushTypeUncertain", value, "one of \"lineY\", \"rect\", \"lineX\", \"auto\" or \"polygon\"", "false", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BrushTypeUncertain(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BrushTypeUncertain(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static BrushTypeUncertain From(bool value)

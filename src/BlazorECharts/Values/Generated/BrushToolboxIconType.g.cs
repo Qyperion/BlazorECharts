@@ -26,8 +26,8 @@ public readonly struct BrushToolboxIconType : IOptionValue, IJsonOnSerializing, 
         if (!(value == "lineY" || value == "clear" || value == "rect" || value == "lineX" || value == "keep" || value == "polygon")) throw LiteralUnion.Rejected("BrushToolboxIconType", value, "one of \"lineY\", \"clear\", \"rect\", \"lineX\", \"keep\" or \"polygon\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BrushToolboxIconType(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BrushToolboxIconType(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "lineY") || (json.ValueKind == JsonValueKind.String && json.GetString() == "clear") || (json.ValueKind == JsonValueKind.String && json.GetString() == "rect") || (json.ValueKind == JsonValueKind.String && json.GetString() == "lineX") || (json.ValueKind == JsonValueKind.String && json.GetString() == "keep") || (json.ValueKind == JsonValueKind.String && json.GetString() == "polygon");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

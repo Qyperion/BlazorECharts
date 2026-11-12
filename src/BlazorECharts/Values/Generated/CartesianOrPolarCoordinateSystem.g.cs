@@ -26,8 +26,8 @@ public readonly struct CartesianOrPolarCoordinateSystem : IOptionValue, IJsonOnS
         if (!(value == "cartesian2d" || value == "polar")) throw LiteralUnion.Rejected("CartesianOrPolarCoordinateSystem", value, "one of \"cartesian2d\" or \"polar\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator CartesianOrPolarCoordinateSystem(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator CartesianOrPolarCoordinateSystem(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "cartesian2d") || (json.ValueKind == JsonValueKind.String && json.GetString() == "polar");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

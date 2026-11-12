@@ -26,16 +26,16 @@ public readonly struct FunnelSeriesOptionSort : IOptionValue, IJsonOnSerializing
         if (!(value == "ascending" || value == "none" || value == "descending")) throw LiteralUnion.Rejected("FunnelSeriesOptionSort", value, "one of \"ascending\", \"none\" or \"descending\"", "a browser callback (JsFunction<FunnelSortComparatorSignature>)", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator FunnelSeriesOptionSort(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator FunnelSeriesOptionSort(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the JsFunction&lt;FunnelSortComparatorSignature> alternative with exact literal validation.</summary>
     public static FunnelSeriesOptionSort From(JsFunction<FunnelSortComparatorSignature> value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator FunnelSeriesOptionSort(JsFunction<FunnelSortComparatorSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator FunnelSeriesOptionSort(JsFunction<FunnelSortComparatorSignature>? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "ascending") || (json.ValueKind == JsonValueKind.String && json.GetString() == "none") || (json.ValueKind == JsonValueKind.String && json.GetString() == "descending") || (json.ValueKind == JsonValueKind.Null);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

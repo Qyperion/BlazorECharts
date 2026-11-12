@@ -26,8 +26,8 @@ public readonly struct SeriesTooltipTrigger : IOptionValue, IJsonOnSerializing, 
         if (!(value == "axis" || value == "item" || value == "none")) throw LiteralUnion.Rejected("SeriesTooltipTrigger", value, "one of \"axis\", \"item\" or \"none\"", "one of false or true", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SeriesTooltipTrigger(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SeriesTooltipTrigger(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static SeriesTooltipTrigger From(bool value)

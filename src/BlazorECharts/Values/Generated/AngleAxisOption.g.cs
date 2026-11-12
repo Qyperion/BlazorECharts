@@ -25,32 +25,32 @@ public readonly struct AngleAxisOption : IOptionValue, IJsonOnSerializing, IRead
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisOption(AngleAxisLogOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisOption(AngleAxisLogOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the AngleAxisTimeOption alternative with exact literal validation.</summary>
     public static AngleAxisOption From(AngleAxisTimeOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisOption(AngleAxisTimeOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisOption(AngleAxisTimeOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the AngleAxisCategoryOption alternative with exact literal validation.</summary>
     public static AngleAxisOption From(AngleAxisCategoryOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisOption(AngleAxisCategoryOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisOption(AngleAxisCategoryOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the AngleAxisValueOption alternative with exact literal validation.</summary>
     public static AngleAxisOption From(AngleAxisValueOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisOption(AngleAxisValueOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisOption(AngleAxisValueOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesAngleAxisLogOption(json)) || (GeneratedOptionMetadata.MatchesAngleAxisTimeOption(json)) || (GeneratedOptionMetadata.MatchesAngleAxisCategoryOption(json)) || (GeneratedOptionMetadata.MatchesAngleAxisValueOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

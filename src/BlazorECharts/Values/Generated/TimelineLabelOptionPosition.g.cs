@@ -26,8 +26,8 @@ public readonly struct TimelineLabelOptionPosition : IOptionValue, IJsonOnSerial
         if (!(value == "top" || value == "bottom" || value == "left" || value == "right" || value == "auto")) throw LiteralUnion.Rejected("TimelineLabelOptionPosition", value, "one of \"top\", \"bottom\", \"left\", \"right\" or \"auto\"", "a number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TimelineLabelOptionPosition(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TimelineLabelOptionPosition(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static TimelineLabelOptionPosition From(double value)

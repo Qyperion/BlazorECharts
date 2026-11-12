@@ -28,20 +28,20 @@ public readonly struct ZRColorOneOrMany : IOptionValue, IJsonOnSerializing, IRea
     public static ZRColorOneOrMany Many(params ZRColor?[] values) => new(OneOrMany<ZRColor?>.Many(values));
     /// <summary>Creates the array form of a collection expression, also for one or no element.</summary>
     public static ZRColorOneOrMany Create(ReadOnlySpan<ZRColor?> values) => new(OneOrMany.Create(values));
-    /// <summary>Converts the SVGPatternObject alternative to the scalar form, as <see cref="ZRColor"/> does.</summary>
-    public static implicit operator ZRColorOneOrMany(SVGPatternObject value) => One(value);
-    /// <summary>Converts the LinearGradientObject alternative to the scalar form, as <see cref="ZRColor"/> does.</summary>
-    public static implicit operator ZRColorOneOrMany(LinearGradientObject value) => One(value);
-    /// <summary>Converts the ImagePatternObject alternative to the scalar form, as <see cref="ZRColor"/> does.</summary>
-    public static implicit operator ZRColorOneOrMany(ImagePatternObject value) => One(value);
-    /// <summary>Converts the RadialGradientObject alternative to the scalar form, as <see cref="ZRColor"/> does.</summary>
-    public static implicit operator ZRColorOneOrMany(RadialGradientObject value) => One(value);
-    /// <summary>Converts the string alternative to the scalar form, as <see cref="ZRColor"/> does.</summary>
-    public static implicit operator ZRColorOneOrMany(string value) => One(value);
+    /// <summary>Converts the SVGPatternObject alternative to the scalar form, as <see cref="ZRColor"/> does; null converts to a null scalar.</summary>
+    public static implicit operator ZRColorOneOrMany(SVGPatternObject? value) => One(value);
+    /// <summary>Converts the LinearGradientObject alternative to the scalar form, as <see cref="ZRColor"/> does; null converts to a null scalar.</summary>
+    public static implicit operator ZRColorOneOrMany(LinearGradientObject? value) => One(value);
+    /// <summary>Converts the ImagePatternObject alternative to the scalar form, as <see cref="ZRColor"/> does; null converts to a null scalar.</summary>
+    public static implicit operator ZRColorOneOrMany(ImagePatternObject? value) => One(value);
+    /// <summary>Converts the RadialGradientObject alternative to the scalar form, as <see cref="ZRColor"/> does; null converts to a null scalar.</summary>
+    public static implicit operator ZRColorOneOrMany(RadialGradientObject? value) => One(value);
+    /// <summary>Converts the string alternative to the scalar form, as <see cref="ZRColor"/> does; null converts to a null scalar.</summary>
+    public static implicit operator ZRColorOneOrMany(string? value) => One(value);
     /// <summary>Converts a value to the scalar form, as <see cref="One"/> does.</summary>
     public static implicit operator ZRColorOneOrMany(ZRColor value) => One(value);
-    /// <summary>Converts an array to the array form, as <see cref="Many"/> does.</summary>
-    public static implicit operator ZRColorOneOrMany(ZRColor?[] values) => Many(values);
+    /// <summary>Converts an array to the array form, as <see cref="Many"/> does; null converts to a null scalar.</summary>
+    public static implicit operator ZRColorOneOrMany(ZRColor?[]? values) => values is null ? One(null) : Many(values);
     /// <summary>Gets whether this value is the array form, including a value read from JSON.</summary>
     public bool IsMany => _value.IsMany;
     /// <summary>Gets the scalar form. Returns false for an array or an uninitialized value.</summary>

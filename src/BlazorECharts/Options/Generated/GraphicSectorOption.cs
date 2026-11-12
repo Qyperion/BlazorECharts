@@ -16,8 +16,8 @@ public sealed partial class GraphicSectorOption : OptionObject
     /// <summary>Creates the sector variant; it writes its type itself.</summary>
     public GraphicSectorOption() : this(true) { }
     internal GraphicSectorOption(bool initializeDefaults) { if (initializeDefaults) { Type = "sector"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<GraphicOption?>(GraphicSectorOption value) => OneOrMany<GraphicOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<GraphicOption?>(GraphicSectorOption? value) => OneOrMany<GraphicOption?>.One(value);
     private GraphicElementAction? _p0;
     /// <summary>Gets or sets <c>$action</c>.</summary>
     /// <remarks>ECharts default: <c>'merge'</c>.</remarks>

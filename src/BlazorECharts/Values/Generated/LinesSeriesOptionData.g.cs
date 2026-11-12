@@ -34,8 +34,8 @@ public readonly struct LinesSeriesOptionData : IOptionValue, IJsonOnSerializing,
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LinesSeriesOptionData(LinesDataItemOption?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LinesSeriesOptionData(LinesDataItemOption?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => ((json.ValueKind == JsonValueKind.Null || (json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemf2b8c770 => itemf2b8c770.ValueKind == JsonValueKind.Null || (itemf2b8c770.ValueKind == JsonValueKind.Number))))) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itema8844f6b => itema8844f6b.ValueKind == JsonValueKind.Null || (GeneratedOptionMetadata.MatchesLinesDataItemOption(itema8844f6b)))));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

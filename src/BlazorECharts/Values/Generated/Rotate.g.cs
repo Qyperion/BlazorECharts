@@ -26,8 +26,8 @@ public readonly struct Rotate : IOptionValue, IJsonOnSerializing, IReadableOptio
         if (!(value == "radial" || value == "tangential")) throw LiteralUnion.Rejected("Rotate", value, "one of \"radial\" or \"tangential\"", "a number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator Rotate(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator Rotate(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static Rotate From(double value)

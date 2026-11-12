@@ -13,8 +13,8 @@ namespace BlazorECharts.Options;
 /// <seealso href="https://echarts.apache.org/en/option.html#timeline"/>
 public sealed partial class TimelineOption : OptionObject
 {
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;TimelineComponentOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<TimelineComponentOption?>(TimelineOption value) => OneOrMany<TimelineComponentOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;TimelineComponentOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<TimelineComponentOption?>(TimelineOption? value) => OneOrMany<TimelineComponentOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>autoPlay</c>.</summary>
     /// <remarks>ECharts default: <c>false</c>.</remarks>

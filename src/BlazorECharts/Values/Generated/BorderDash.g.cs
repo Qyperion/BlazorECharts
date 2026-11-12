@@ -25,8 +25,8 @@ public readonly struct BorderDash : IOptionValue, IJsonOnSerializing, IReadableO
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BorderDash(double?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BorderDash(double?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static BorderDash From(bool value)

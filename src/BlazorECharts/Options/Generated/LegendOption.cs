@@ -16,8 +16,8 @@ public sealed partial class LegendOption : OptionObject
     /// <summary>Creates the plain variant; it writes its type itself.</summary>
     public LegendOption() : this(true) { }
     internal LegendOption(bool initializeDefaults) { if (initializeDefaults) { Type = "plain"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;LegendComponentOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<LegendComponentOption?>(LegendOption value) => OneOrMany<LegendComponentOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;LegendComponentOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<LegendComponentOption?>(LegendOption? value) => OneOrMany<LegendComponentOption?>.One(value);
     private Align? _p0;
     /// <summary>Gets or sets <c>align</c>.</summary>
     /// <remarks>ECharts default: <c>'auto'</c>.</remarks>

@@ -16,8 +16,8 @@ public sealed partial class SingleAxisCategoryOption : OptionObject
     /// <summary>Creates the category variant; it writes its type itself.</summary>
     public SingleAxisCategoryOption() : this(true) { }
     internal SingleAxisCategoryOption(bool initializeDefaults) { if (initializeDefaults) { Type = "category"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;SingleAxisOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<SingleAxisOption?>(SingleAxisCategoryOption value) => OneOrMany<SingleAxisOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;SingleAxisOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<SingleAxisOption?>(SingleAxisCategoryOption? value) => OneOrMany<SingleAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     /// <remarks>ECharts default: <c>true</c>.</remarks>

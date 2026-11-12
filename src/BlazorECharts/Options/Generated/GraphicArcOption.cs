@@ -16,8 +16,8 @@ public sealed partial class GraphicArcOption : OptionObject
     /// <summary>Creates the arc variant; it writes its type itself.</summary>
     public GraphicArcOption() : this(true) { }
     internal GraphicArcOption(bool initializeDefaults) { if (initializeDefaults) { Type = "arc"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<GraphicOption?>(GraphicArcOption value) => OneOrMany<GraphicOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<GraphicOption?>(GraphicArcOption? value) => OneOrMany<GraphicOption?>.One(value);
     private GraphicElementAction? _p0;
     /// <summary>Gets or sets <c>$action</c>.</summary>
     /// <remarks>ECharts default: <c>'merge'</c>.</remarks>

@@ -25,16 +25,16 @@ public readonly struct ParallelSeriesOptionDataItem : IOptionValue, IJsonOnSeria
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesOptionDataItem(ParallelSeriesDataItemOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesOptionDataItem(ParallelSeriesDataItemOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the OptionDataValue?[] alternative with exact literal validation.</summary>
     public static ParallelSeriesOptionDataItem From(OptionDataValue?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesOptionDataItem(OptionDataValue?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesOptionDataItem(OptionDataValue?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesParallelSeriesDataItemOption(json)) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemdc03a9a8 => itemdc03a9a8.ValueKind == JsonValueKind.Null || (OptionDataValue.Matches(itemdc03a9a8)))));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

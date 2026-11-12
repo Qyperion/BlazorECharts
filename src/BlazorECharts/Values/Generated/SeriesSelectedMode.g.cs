@@ -26,8 +26,8 @@ public readonly struct SeriesSelectedMode : IOptionValue, IJsonOnSerializing, IR
         if (!(value == "series" || value == "multiple" || value == "single")) throw LiteralUnion.Rejected("SeriesSelectedMode", value, "one of \"series\", \"multiple\" or \"single\"", "one of false or true", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SeriesSelectedMode(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SeriesSelectedMode(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static SeriesSelectedMode From(bool value)

@@ -26,8 +26,8 @@ public readonly struct TreeSeriesOptionEdgeShape : IOptionValue, IJsonOnSerializ
         if (!(value == "curve" || value == "polyline")) throw LiteralUnion.Rejected("TreeSeriesOptionEdgeShape", value, "one of \"curve\" or \"polyline\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TreeSeriesOptionEdgeShape(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TreeSeriesOptionEdgeShape(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "curve") || (json.ValueKind == JsonValueKind.String && json.GetString() == "polyline");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

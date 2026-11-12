@@ -16,8 +16,8 @@ public sealed partial class SortTransformOption : OptionObject
     /// <summary>Creates the sort variant; it writes its type itself.</summary>
     public SortTransformOption() : this(true) { }
     internal SortTransformOption(bool initializeDefaults) { if (initializeDefaults) { Type = "sort"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;ComponentTransform?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<ComponentTransform?>(SortTransformOption value) => OneOrMany<ComponentTransform?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;ComponentTransform?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<ComponentTransform?>(SortTransformOption? value) => OneOrMany<ComponentTransform?>.One(value);
     private OneOrMany<SortTransformOptionConfigItem>? _p0;
     /// <summary>Gets or sets <c>config</c>.</summary>
     public OneOrMany<SortTransformOptionConfigItem>? Config { get => _p0; set => SetProperty(ref _p0, value, "config"); }

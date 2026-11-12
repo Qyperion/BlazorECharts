@@ -33,24 +33,24 @@ public readonly struct MarkLineOptionSymbolOffset : IOptionValue, IJsonOnSeriali
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MarkLineOptionSymbolOffset(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator MarkLineOptionSymbolOffset(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the NumberOrString?[]?[] alternative with exact literal validation.</summary>
     public static MarkLineOptionSymbolOffset From(NumberOrString?[]?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MarkLineOptionSymbolOffset(NumberOrString?[]?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator MarkLineOptionSymbolOffset(NumberOrString?[]?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the NumberOrString?[] alternative with exact literal validation.</summary>
     public static MarkLineOptionSymbolOffset From(NumberOrString?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MarkLineOptionSymbolOffset(NumberOrString?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator MarkLineOptionSymbolOffset(NumberOrString?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Number) || (json.ValueKind == JsonValueKind.String) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item6f2140f9 => item6f2140f9.ValueKind == JsonValueKind.Null || ((item6f2140f9.ValueKind == JsonValueKind.Array && item6f2140f9.EnumerateArray().All(item2c8776ab => item2c8776ab.ValueKind == JsonValueKind.Null || (NumberOrString.Matches(item2c8776ab)))))))) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item2c8776ab => item2c8776ab.ValueKind == JsonValueKind.Null || (NumberOrString.Matches(item2c8776ab)))));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

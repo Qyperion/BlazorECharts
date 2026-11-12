@@ -4,6 +4,14 @@ Changes of the `Qyperion.BlazorECharts` and `Qyperion.BlazorECharts.WordCloud` p
 are released together with the same version; the release notes of each package link to this
 file at the release tag.
 
+## Unreleased
+
+- The implicit conversions of union values, of `OneOrMany<T>` and of component variants accept
+  `null` for a reference type, so a conditional expression with a null branch, such as
+  `Legend = show ? new ScrollableLegendOption() : null` or `BorderColor = dense ? null : "#fff"`,
+  compiles without a nullable warning. The null is written as a JSON `null`, like an assigned
+  `null`.
+
 ## 2.0.0
 
 - Breaking change: `ChartBrushCursorOption.BrushType` and `BrushMode`, the brush option of

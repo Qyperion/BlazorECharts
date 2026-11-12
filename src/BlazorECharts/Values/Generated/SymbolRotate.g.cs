@@ -25,8 +25,8 @@ public readonly struct SymbolRotate : IOptionValue, IJsonOnSerializing, IReadabl
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SymbolRotate(JsFunction<SymbolRotateAlternativeSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SymbolRotate(JsFunction<SymbolRotateAlternativeSignature>? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static SymbolRotate From(double value)

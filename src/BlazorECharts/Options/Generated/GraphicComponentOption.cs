@@ -12,8 +12,8 @@ namespace BlazorECharts.Options;
 /// <summary>An ECharts option object that the TypeScript declarations describe.</summary>
 public sealed partial class GraphicComponentOption : OptionObject
 {
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<GraphicOption?>(GraphicComponentOption value) => OneOrMany<GraphicOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<GraphicOption?>(GraphicComponentOption? value) => OneOrMany<GraphicOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>

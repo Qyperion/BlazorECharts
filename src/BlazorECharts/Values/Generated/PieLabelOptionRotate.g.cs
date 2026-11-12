@@ -26,8 +26,8 @@ public readonly struct PieLabelOptionRotate : IOptionValue, IJsonOnSerializing, 
         if (!(value == "radial" || value == "tangential-noflip" || value == "tangential")) throw LiteralUnion.Rejected("PieLabelOptionRotate", value, "one of \"radial\", \"tangential-noflip\" or \"tangential\"", "a number or one of false or true", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator PieLabelOptionRotate(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator PieLabelOptionRotate(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static PieLabelOptionRotate From(bool value)

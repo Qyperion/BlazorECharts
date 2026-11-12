@@ -26,16 +26,16 @@ public readonly struct GraphicPolylineShapeTransition : IOptionValue, IJsonOnSer
         if (!(value == "percent" || value == "smooth" || value == "all" || value == "smoothConstraint" || value == "points")) throw LiteralUnion.Rejected("GraphicPolylineShapeTransition", value, "one of \"percent\", \"smooth\", \"all\", \"smoothConstraint\" or \"points\"", "an array of GraphicPolylineShapeTransitionAlternativeItem", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicPolylineShapeTransition(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicPolylineShapeTransition(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicPolylineShapeTransitionAlternativeItem?[] alternative with exact literal validation.</summary>
     public static GraphicPolylineShapeTransition From(GraphicPolylineShapeTransitionAlternativeItem?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicPolylineShapeTransition(GraphicPolylineShapeTransitionAlternativeItem?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicPolylineShapeTransition(GraphicPolylineShapeTransitionAlternativeItem?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "percent") || (json.ValueKind == JsonValueKind.String && json.GetString() == "smooth") || (json.ValueKind == JsonValueKind.String && json.GetString() == "all") || (json.ValueKind == JsonValueKind.String && json.GetString() == "smoothConstraint") || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item72b1a222 => item72b1a222.ValueKind == JsonValueKind.Null || (GraphicPolylineShapeTransitionAlternativeItem.Matches(item72b1a222))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "points");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

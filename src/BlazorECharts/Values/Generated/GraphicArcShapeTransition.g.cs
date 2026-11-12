@@ -26,16 +26,16 @@ public readonly struct GraphicArcShapeTransition : IOptionValue, IJsonOnSerializ
         if (!(value == "clockwise" || value == "cy" || value == "all" || value == "startAngle" || value == "cx" || value == "endAngle" || value == "r")) throw LiteralUnion.Rejected("GraphicArcShapeTransition", value, "one of \"clockwise\", \"cy\", \"all\", \"startAngle\", \"cx\", \"endAngle\" or \"r\"", "an array of GraphicArcShapeTransitionAlternativeItem", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicArcShapeTransition(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicArcShapeTransition(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicArcShapeTransitionAlternativeItem?[] alternative with exact literal validation.</summary>
     public static GraphicArcShapeTransition From(GraphicArcShapeTransitionAlternativeItem?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicArcShapeTransition(GraphicArcShapeTransitionAlternativeItem?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicArcShapeTransition(GraphicArcShapeTransitionAlternativeItem?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "clockwise") || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item52fd0638 => item52fd0638.ValueKind == JsonValueKind.Null || (GraphicArcShapeTransitionAlternativeItem.Matches(item52fd0638))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "cy") || (json.ValueKind == JsonValueKind.String && json.GetString() == "all") || (json.ValueKind == JsonValueKind.String && json.GetString() == "startAngle") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cx") || (json.ValueKind == JsonValueKind.String && json.GetString() == "endAngle") || (json.ValueKind == JsonValueKind.String && json.GetString() == "r");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

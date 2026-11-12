@@ -25,24 +25,24 @@ public readonly struct TimeAxisLabelFormatterOption : IOptionValue, IJsonOnSeria
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TimeAxisLabelFormatterOption(JsFunction<TimeAxisLabelFormatterOptionAlternativeSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TimeAxisLabelFormatterOption(JsFunction<TimeAxisLabelFormatterOptionAlternativeSignature>? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TimeAxisLabelFormatterOption From(string value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TimeAxisLabelFormatterOption(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TimeAxisLabelFormatterOption(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the TimeAxisLabelFormatterOptionAlternative alternative with exact literal validation.</summary>
     public static TimeAxisLabelFormatterOption From(TimeAxisLabelFormatterOptionAlternative value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TimeAxisLabelFormatterOption(TimeAxisLabelFormatterOptionAlternative value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TimeAxisLabelFormatterOption(TimeAxisLabelFormatterOptionAlternative? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Null) || (json.ValueKind == JsonValueKind.String) || (GeneratedOptionMetadata.MatchesTimeAxisLabelFormatterOptionAlternative(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

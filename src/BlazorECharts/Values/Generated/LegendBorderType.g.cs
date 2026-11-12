@@ -26,16 +26,16 @@ public readonly struct LegendBorderType : IOptionValue, IJsonOnSerializing, IRea
         if (!(value == "dashed" || value == "inherit" || value == "solid" || value == "dotted")) throw LiteralUnion.Rejected("LegendBorderType", value, "one of \"dashed\", \"inherit\", \"solid\" or \"dotted\"", "a number or an array of number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LegendBorderType(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LegendBorderType(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double?[] alternative with exact literal validation.</summary>
     public static LegendBorderType From(double?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LegendBorderType(double?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LegendBorderType(double?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static LegendBorderType From(double value)

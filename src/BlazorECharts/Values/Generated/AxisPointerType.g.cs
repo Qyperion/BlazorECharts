@@ -26,8 +26,8 @@ public readonly struct AxisPointerType : IOptionValue, IJsonOnSerializing, IRead
         if (!(value == "cross" || value == "shadow" || value == "none" || value == "line")) throw LiteralUnion.Rejected("AxisPointerType", value, "one of \"cross\", \"shadow\", \"none\" or \"line\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AxisPointerType(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AxisPointerType(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "cross") || (json.ValueKind == JsonValueKind.String && json.GetString() == "shadow") || (json.ValueKind == JsonValueKind.String && json.GetString() == "none") || (json.ValueKind == JsonValueKind.String && json.GetString() == "line");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

@@ -26,16 +26,16 @@ public readonly struct GraphicImageOptionStyleTransition : IOptionValue, IJsonOn
         if (!(value == "opacity" || value == "image" || value == "height" || value == "sWidth" || value == "blend" || value == "x" || value == "y" || value == "all" || value == "shadowColor" || value == "sy" || value == "shadowBlur" || value == "sx" || value == "shadowOffsetX" || value == "shadowOffsetY" || value == "width" || value == "sHeight")) throw LiteralUnion.Rejected("GraphicImageOptionStyleTransition", value, "one of \"opacity\", \"image\", \"height\", \"sWidth\", \"blend\", \"x\", \"y\", \"all\", \"shadowColor\", \"sy\", \"shadowBlur\", \"sx\", \"shadowOffsetX\", \"shadowOffsetY\", \"width\" or \"sHeight\"", "an array of GraphicImageOptionStyleTransitionAlternativeItem", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicImageOptionStyleTransition(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicImageOptionStyleTransition(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicImageOptionStyleTransitionAlternativeItem?[] alternative with exact literal validation.</summary>
     public static GraphicImageOptionStyleTransition From(GraphicImageOptionStyleTransitionAlternativeItem?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicImageOptionStyleTransition(GraphicImageOptionStyleTransitionAlternativeItem?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicImageOptionStyleTransition(GraphicImageOptionStyleTransitionAlternativeItem?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "opacity") || (json.ValueKind == JsonValueKind.String && json.GetString() == "image") || (json.ValueKind == JsonValueKind.String && json.GetString() == "height") || (json.ValueKind == JsonValueKind.String && json.GetString() == "sWidth") || (json.ValueKind == JsonValueKind.String && json.GetString() == "blend") || (json.ValueKind == JsonValueKind.String && json.GetString() == "x") || (json.ValueKind == JsonValueKind.String && json.GetString() == "y") || (json.ValueKind == JsonValueKind.String && json.GetString() == "all") || (json.ValueKind == JsonValueKind.String && json.GetString() == "shadowColor") || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item29c0e927 => item29c0e927.ValueKind == JsonValueKind.Null || (GraphicImageOptionStyleTransitionAlternativeItem.Matches(item29c0e927))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "sy") || (json.ValueKind == JsonValueKind.String && json.GetString() == "shadowBlur") || (json.ValueKind == JsonValueKind.String && json.GetString() == "sx") || (json.ValueKind == JsonValueKind.String && json.GetString() == "shadowOffsetX") || (json.ValueKind == JsonValueKind.String && json.GetString() == "shadowOffsetY") || (json.ValueKind == JsonValueKind.String && json.GetString() == "width") || (json.ValueKind == JsonValueKind.String && json.GetString() == "sHeight");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

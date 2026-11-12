@@ -26,8 +26,8 @@ public readonly struct LineSeriesAreaStyleOptionOrigin : IOptionValue, IJsonOnSe
         if (!(value == "end" || value == "start" || value == "auto")) throw LiteralUnion.Rejected("LineSeriesAreaStyleOptionOrigin", value, "one of \"end\", \"start\" or \"auto\"", "a number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LineSeriesAreaStyleOptionOrigin(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LineSeriesAreaStyleOptionOrigin(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static LineSeriesAreaStyleOptionOrigin From(double value)

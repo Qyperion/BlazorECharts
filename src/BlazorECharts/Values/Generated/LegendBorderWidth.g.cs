@@ -26,8 +26,8 @@ public readonly struct LegendBorderWidth : IOptionValue, IJsonOnSerializing, IRe
         if (!(value == "inherit" || value == "auto")) throw LiteralUnion.Rejected("LegendBorderWidth", value, "one of \"inherit\" or \"auto\"", "a number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LegendBorderWidth(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LegendBorderWidth(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static LegendBorderWidth From(double value)

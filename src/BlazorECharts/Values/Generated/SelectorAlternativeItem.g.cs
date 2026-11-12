@@ -26,16 +26,16 @@ public readonly struct SelectorAlternativeItem : IOptionValue, IJsonOnSerializin
         if (!(value == "inverse" || value == "all")) throw LiteralUnion.Rejected("SelectorAlternativeItem", value, "one of \"inverse\" or \"all\"", "LegendSelectorButtonOption", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SelectorAlternativeItem(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SelectorAlternativeItem(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the LegendSelectorButtonOption alternative with exact literal validation.</summary>
     public static SelectorAlternativeItem From(LegendSelectorButtonOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SelectorAlternativeItem(LegendSelectorButtonOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SelectorAlternativeItem(LegendSelectorButtonOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "inverse") || (json.ValueKind == JsonValueKind.String && json.GetString() == "all") || (GeneratedOptionMetadata.MatchesLegendSelectorButtonOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

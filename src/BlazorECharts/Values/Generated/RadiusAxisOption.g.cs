@@ -25,32 +25,32 @@ public readonly struct RadiusAxisOption : IOptionValue, IJsonOnSerializing, IRea
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator RadiusAxisOption(RadiusAxisValueOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator RadiusAxisOption(RadiusAxisValueOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the RadiusAxisTimeOption alternative with exact literal validation.</summary>
     public static RadiusAxisOption From(RadiusAxisTimeOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator RadiusAxisOption(RadiusAxisTimeOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator RadiusAxisOption(RadiusAxisTimeOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the RadiusAxisCategoryOption alternative with exact literal validation.</summary>
     public static RadiusAxisOption From(RadiusAxisCategoryOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator RadiusAxisOption(RadiusAxisCategoryOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator RadiusAxisOption(RadiusAxisCategoryOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the RadiusAxisLogOption alternative with exact literal validation.</summary>
     public static RadiusAxisOption From(RadiusAxisLogOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator RadiusAxisOption(RadiusAxisLogOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator RadiusAxisOption(RadiusAxisLogOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesRadiusAxisValueOption(json)) || (GeneratedOptionMetadata.MatchesRadiusAxisTimeOption(json)) || (GeneratedOptionMetadata.MatchesRadiusAxisCategoryOption(json)) || (GeneratedOptionMetadata.MatchesRadiusAxisLogOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

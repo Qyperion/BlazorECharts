@@ -16,12 +16,12 @@ public readonly struct WordCloudImage : IOptionValue, IJsonOnSerializing
     private WordCloudImage(object? value) { _value = value; _initialized = true; }
     /// <summary>Creates the string alternative.</summary>
     public static WordCloudImage From(string value) { return new(value); }
-    /// <summary>Preserves the source alternative.</summary>
-    public static implicit operator WordCloudImage(string value) => From(value);
+    /// <summary>Preserves the source alternative; null converts to a null value.</summary>
+    public static implicit operator WordCloudImage(string? value) => value is null ? new(null) : From(value);
     /// <summary>Creates the EChartsObjectReference alternative.</summary>
     public static WordCloudImage From(EChartsObjectReference value) { return new(value); }
-    /// <summary>Preserves the source alternative.</summary>
-    public static implicit operator WordCloudImage(EChartsObjectReference value) => From(value);
+    /// <summary>Preserves the source alternative; null converts to a null value.</summary>
+    public static implicit operator WordCloudImage(EChartsObjectReference? value) => value is null ? new(null) : From(value);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>, or the <see cref="EChartsValue"/> JSON of a value read from a getOption snapshot.</summary>
     public object? Value => _value;
     /// <summary>Gets the string alternative, also from a value read from JSON.</summary>

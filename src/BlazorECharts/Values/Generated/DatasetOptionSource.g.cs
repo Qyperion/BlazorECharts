@@ -41,24 +41,24 @@ public readonly struct DatasetOptionSource : IOptionValue, IJsonOnSerializing, I
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator DatasetOptionSource(OptionDataValue?[]?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator DatasetOptionSource(OptionDataValue?[]?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the OptionDictionary&lt;OptionArrayLike&lt;OptionDataValue?>?> alternative with exact literal validation.</summary>
     public static DatasetOptionSource From(OptionDictionary<OptionArrayLike<OptionDataValue?>?> value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator DatasetOptionSource(OptionDictionary<OptionArrayLike<OptionDataValue?>?> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator DatasetOptionSource(OptionDictionary<OptionArrayLike<OptionDataValue?>?>? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the OptionDictionary&lt;OptionDataValue?>?[] alternative with exact literal validation.</summary>
     public static DatasetOptionSource From(OptionDictionary<OptionDataValue?>?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator DatasetOptionSource(OptionDictionary<OptionDataValue?>?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator DatasetOptionSource(OptionDictionary<OptionDataValue?>?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => ((json.ValueKind == JsonValueKind.Null || (json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item5ff186c2 => item5ff186c2.ValueKind == JsonValueKind.Null || (DatasetOptionSourceAlternativeItem.Matches(item5ff186c2)))))) || ((json.ValueKind == JsonValueKind.Null || (json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemf2b8c770 => itemf2b8c770.ValueKind == JsonValueKind.Null || (itemf2b8c770.ValueKind == JsonValueKind.Number))))) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemb69236b4 => itemb69236b4.ValueKind == JsonValueKind.Null || ((itemb69236b4.ValueKind == JsonValueKind.Array && itemb69236b4.EnumerateArray().All(itemdc03a9a8 => itemdc03a9a8.ValueKind == JsonValueKind.Null || (OptionDataValue.Matches(itemdc03a9a8)))))))) || ((json.ValueKind == JsonValueKind.Object && json.EnumerateObject().All(itemc02b925c => itemc02b925c.Value.ValueKind == JsonValueKind.Null || ((itemc02b925c.Value.ValueKind == JsonValueKind.Null || (itemc02b925c.Value.ValueKind == JsonValueKind.Array && itemc02b925c.Value.EnumerateArray().All(item02e6def4 => item02e6def4.ValueKind == JsonValueKind.Null || (OptionDataValue.Matches(item02e6def4))))))))) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemc3e6c428 => itemc3e6c428.ValueKind == JsonValueKind.Null || ((itemc3e6c428.ValueKind == JsonValueKind.Object && itemc3e6c428.EnumerateObject().All(item264a6c33 => item264a6c33.Value.ValueKind == JsonValueKind.Null || (OptionDataValue.Matches(item264a6c33.Value))))))));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

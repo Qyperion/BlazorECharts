@@ -26,8 +26,8 @@ public readonly struct ZRFontWeight : IOptionValue, IJsonOnSerializing, IReadabl
         if (!(value == "lighter" || value == "bolder" || value == "normal" || value == "bold")) throw LiteralUnion.Rejected("ZRFontWeight", value, "one of \"lighter\", \"bolder\", \"normal\" or \"bold\"", "a number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ZRFontWeight(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ZRFontWeight(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static ZRFontWeight From(double value)

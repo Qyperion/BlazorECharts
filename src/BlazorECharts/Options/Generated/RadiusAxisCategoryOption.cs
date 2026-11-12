@@ -16,8 +16,8 @@ public sealed partial class RadiusAxisCategoryOption : OptionObject
     /// <summary>Creates the category variant; it writes its type itself.</summary>
     public RadiusAxisCategoryOption() : this(true) { }
     internal RadiusAxisCategoryOption(bool initializeDefaults) { if (initializeDefaults) { Type = "category"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;RadiusAxisOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<RadiusAxisOption?>(RadiusAxisCategoryOption value) => OneOrMany<RadiusAxisOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;RadiusAxisOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<RadiusAxisOption?>(RadiusAxisCategoryOption? value) => OneOrMany<RadiusAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     /// <remarks>ECharts default: <c>true</c>.</remarks>

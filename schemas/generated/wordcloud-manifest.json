@@ -1924,31 +1924,31 @@
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudNumberOrNumbers.g.cs",
-      "sha256": "77702c8ac69241e39d6f42dc92cc43a209528f72cdfc78c4471f7129f323ebc1"
+      "sha256": "34cceb3e4bd57c94c108882cb5c90351c295b315f4fd17ede6cefcdefe15a776"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudShape.g.cs",
-      "sha256": "394e9c8a2958bb012428dc1ea600c30f615f4c1c355eed653e4e2763b5331dc0"
+      "sha256": "624d129bee0bf9e15e96d74a06a95ea0b5805185bfc51af65dfcd1d003eaa1b5"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudColor.g.cs",
-      "sha256": "37f5405bbc8bec4736ec8764c8330ddcd8c00e0ddf85b4b98962a858cc6a41a6"
+      "sha256": "9e8f4b726597b300e99a9ef269a02807f18f6f16d2e830d0e9dc375bdd051e8f"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudImage.g.cs",
-      "sha256": "2c763ed222c5897a7f7b535dbd4002b9b6c2215e7456913afe26b7e68e537bc3"
+      "sha256": "8d1acaefdf82faf52e913ec7178c6cdc789e7c427a5e9efa26e32c89f98b7e93"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudBackground.g.cs",
-      "sha256": "9205070d5fb8619436693c74eef5d92f0a21fdc09870180db36b9094cdab2abc"
+      "sha256": "a2ff9834c82f7078b3547a62c163bf1e7da70b7b46d64eba5515953f1e92050a"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudLineType.g.cs",
-      "sha256": "b3b00c696b3143f37ecc23a67f36311d18262ec660216fd6ef69f15cbe75de1c"
+      "sha256": "48625babd1715c976b8dbe440ca60e8fef8b1edbfcf336f6b76fe9801e782e0b"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudDataTooltip.g.cs",
-      "sha256": "77779d63470c88e421a77ab4a9d3910fa3aa67bdcd902e58f8123d1bac10c697"
+      "sha256": "97f5d9101d29dd6024baaee646b691f1fc33f9c5e884041f580e13566ac5f12b"
     },
     {
       "file": "src/BlazorECharts.WordCloud/Options/Generated/WordCloudShapeSignature.g.cs",

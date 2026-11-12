@@ -26,8 +26,8 @@ public readonly struct Roam : IOptionValue, IJsonOnSerializing, IReadableOptionV
         if (!(value == "zoom" || value == "move" || value == "scale" || value == "pan")) throw LiteralUnion.Rejected("Roam", value, "one of \"zoom\", \"move\", \"scale\" or \"pan\"", "one of false or true", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator Roam(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator Roam(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static Roam From(bool value)

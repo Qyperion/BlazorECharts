@@ -26,8 +26,8 @@ public readonly struct GraphicEllipseShapeTransitionAlternativeItem : IOptionVal
         if (!(value == "cy" || value == "rx" || value == "ry" || value == "cx")) throw LiteralUnion.Rejected("GraphicEllipseShapeTransitionAlternativeItem", value, "one of \"cy\", \"rx\", \"ry\" or \"cx\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicEllipseShapeTransitionAlternativeItem(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicEllipseShapeTransitionAlternativeItem(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "cy") || (json.ValueKind == JsonValueKind.String && json.GetString() == "rx") || (json.ValueKind == JsonValueKind.String && json.GetString() == "ry") || (json.ValueKind == JsonValueKind.String && json.GetString() == "cx");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

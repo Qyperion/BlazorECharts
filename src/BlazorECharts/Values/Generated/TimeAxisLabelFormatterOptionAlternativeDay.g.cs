@@ -25,24 +25,24 @@ public readonly struct TimeAxisLabelFormatterOptionAlternativeDay : IOptionValue
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TimeAxisLabelFormatterOptionAlternativeDay(string?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TimeAxisLabelFormatterOptionAlternativeDay(string?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TimeAxisLabelFormatterOptionAlternativeDay From(string value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TimeAxisLabelFormatterOptionAlternativeDay(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TimeAxisLabelFormatterOptionAlternativeDay(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the TimeAxisLabelFormatterOptionAlternativeDayAlternative alternative with exact literal validation.</summary>
     public static TimeAxisLabelFormatterOptionAlternativeDay From(TimeAxisLabelFormatterOptionAlternativeDayAlternative value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TimeAxisLabelFormatterOptionAlternativeDay(TimeAxisLabelFormatterOptionAlternativeDayAlternative value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TimeAxisLabelFormatterOptionAlternativeDay(TimeAxisLabelFormatterOptionAlternativeDayAlternative? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemb4022e57 => itemb4022e57.ValueKind == JsonValueKind.Null || (itemb4022e57.ValueKind == JsonValueKind.String)))) || (json.ValueKind == JsonValueKind.String) || (GeneratedOptionMetadata.MatchesTimeAxisLabelFormatterOptionAlternativeDayAlternative(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

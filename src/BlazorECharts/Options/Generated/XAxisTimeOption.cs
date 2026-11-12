@@ -16,8 +16,8 @@ public sealed partial class XAxisTimeOption : OptionObject
     /// <summary>Creates the time variant; it writes its type itself.</summary>
     public XAxisTimeOption() : this(true) { }
     internal XAxisTimeOption(bool initializeDefaults) { if (initializeDefaults) { Type = "time"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;XAxisOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<XAxisOption?>(XAxisTimeOption value) => OneOrMany<XAxisOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;XAxisOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<XAxisOption?>(XAxisTimeOption? value) => OneOrMany<XAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>alignTicks</c>.</summary>
     /// <remarks>ECharts default: <c>false</c>.</remarks>

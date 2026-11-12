@@ -7,8 +7,8 @@ using BlazorECharts.Serialization;
 namespace BlazorECharts.Values;
 
 /// <summary>A scalar or an explicit array. A one-element array retains its array shape.</summary>
-/// <remarks>A value converts to <see cref="One"/>, an array or a collection expression to <see cref="Many"/>.
-/// The default struct value is uninitialized and cannot be serialized.</remarks>
+/// <remarks>A value converts to <see cref="One"/>, an array or a collection expression to <see cref="Many"/>,
+/// a null array to a value that writes a JSON null. The default struct value is uninitialized and cannot be serialized.</remarks>
 [CollectionBuilder(typeof(OneOrMany), nameof(OneOrMany.Create))]
 public readonly struct OneOrMany<T> : IOptionValue, IJsonOnSerializing
 {
@@ -26,11 +26,13 @@ public readonly struct OneOrMany<T> : IOptionValue, IJsonOnSerializing
         _one = value;
     }
 
-    private OneOrMany(T[] values)
+    private OneOrMany(T[]? values)
     {
-        _shape = 2;
+        _shape = values is null ? NullShape : (byte)2;
         _many = values;
     }
+
+    private const byte NullShape = 3;
 
     /// <summary>Creates a scalar alternative, including a null scalar if T permits it.</summary>
     public static OneOrMany<T> One(T value) => new(value);
@@ -47,8 +49,9 @@ public readonly struct OneOrMany<T> : IOptionValue, IJsonOnSerializing
     /// <summary>Converts a value to the scalar alternative, as <see cref="One"/> does.</summary>
     public static implicit operator OneOrMany<T>(T value) => new(value);
 
-    /// <summary>Converts an array to the array alternative, as <see cref="Many"/> does.</summary>
-    public static implicit operator OneOrMany<T>(T[] values) => Many(values);
+    /// <summary>Converts an array to the array alternative, as <see cref="Many"/> does. A null array, the null branch
+    /// of a conditional expression, converts to a value that writes a JSON null and has no items.</summary>
+    public static implicit operator OneOrMany<T>(T[]? values) => values is null ? new(values) : Many(values);
 
     /// <summary>Gets whether this value is the array alternative, including a value read from JSON.</summary>
     public bool IsMany => _shape == 2;
@@ -71,6 +74,7 @@ public readonly struct OneOrMany<T> : IOptionValue, IJsonOnSerializing
     {
         1 => Array.AsReadOnly<T>([(T)_one!]),
         2 => Array.AsReadOnly(_many!),
+        NullShape => Array.Empty<T>(),
         _ => throw new InvalidOperationException("Uninitialized OneOrMany; it holds neither One nor Many."),
     };
 
@@ -91,6 +95,9 @@ public readonly struct OneOrMany<T> : IOptionValue, IJsonOnSerializing
                     context.WriteArrayItem(writer, items.GetValue(i), path, i);
 
                 writer.WriteEndArray();
+                break;
+            case NullShape:
+                writer.WriteNullValue();
                 break;
             default:
                 throw new OptionSerializationException($"Uninitialized OneOrMany at {path}; select One or Many.", path, typeof(OneOrMany<T>));

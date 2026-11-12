@@ -16,8 +16,8 @@ public sealed partial class ScrollableLegendOption : OptionObject
     /// <summary>Creates the scroll variant; it writes its type itself.</summary>
     public ScrollableLegendOption() : this(true) { }
     internal ScrollableLegendOption(bool initializeDefaults) { if (initializeDefaults) { Type = "scroll"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;LegendComponentOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<LegendComponentOption?>(ScrollableLegendOption value) => OneOrMany<LegendComponentOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;LegendComponentOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<LegendComponentOption?>(ScrollableLegendOption? value) => OneOrMany<LegendComponentOption?>.One(value);
     private Align? _p0;
     /// <summary>Gets or sets <c>align</c>.</summary>
     /// <remarks>ECharts default: <c>'auto'</c>.</remarks>

@@ -26,8 +26,8 @@ public readonly struct TooltipAxisPointerOptionAxis : IOptionValue, IJsonOnSeria
         if (!(value == "radius" || value == "angle" || value == "x" || value == "y" || value == "auto")) throw LiteralUnion.Rejected("TooltipAxisPointerOptionAxis", value, "one of \"radius\", \"angle\", \"x\", \"y\" or \"auto\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TooltipAxisPointerOptionAxis(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TooltipAxisPointerOptionAxis(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "radius") || (json.ValueKind == JsonValueKind.String && json.GetString() == "angle") || (json.ValueKind == JsonValueKind.String && json.GetString() == "x") || (json.ValueKind == JsonValueKind.String && json.GetString() == "y") || (json.ValueKind == JsonValueKind.String && json.GetString() == "auto");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

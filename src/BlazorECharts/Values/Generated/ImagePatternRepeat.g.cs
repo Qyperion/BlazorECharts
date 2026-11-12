@@ -26,8 +26,8 @@ public readonly struct ImagePatternRepeat : IOptionValue, IJsonOnSerializing, IR
         if (!(value == "repeat-y" || value == "no-repeat" || value == "repeat" || value == "repeat-x")) throw LiteralUnion.Rejected("ImagePatternRepeat", value, "one of \"repeat-y\", \"no-repeat\", \"repeat\" or \"repeat-x\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ImagePatternRepeat(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ImagePatternRepeat(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "repeat-y") || (json.ValueKind == JsonValueKind.String && json.GetString() == "no-repeat") || (json.ValueKind == JsonValueKind.String && json.GetString() == "repeat") || (json.ValueKind == JsonValueKind.String && json.GetString() == "repeat-x");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

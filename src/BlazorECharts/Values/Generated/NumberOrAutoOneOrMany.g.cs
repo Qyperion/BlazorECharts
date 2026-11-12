@@ -30,12 +30,12 @@ public readonly struct NumberOrAutoOneOrMany : IOptionValue, IJsonOnSerializing,
     public static NumberOrAutoOneOrMany Create(ReadOnlySpan<NumberOrAuto?> values) => new(OneOrMany.Create(values));
     /// <summary>Converts the double alternative to the scalar form, as <see cref="NumberOrAuto"/> does.</summary>
     public static implicit operator NumberOrAutoOneOrMany(double value) => One(value);
-    /// <summary>Converts the string alternative to the scalar form, as <see cref="NumberOrAuto"/> does.</summary>
-    public static implicit operator NumberOrAutoOneOrMany(string value) => One(value);
+    /// <summary>Converts the string alternative to the scalar form, as <see cref="NumberOrAuto"/> does; null converts to a null scalar.</summary>
+    public static implicit operator NumberOrAutoOneOrMany(string? value) => One(value);
     /// <summary>Converts a value to the scalar form, as <see cref="One"/> does.</summary>
     public static implicit operator NumberOrAutoOneOrMany(NumberOrAuto value) => One(value);
-    /// <summary>Converts an array to the array form, as <see cref="Many"/> does.</summary>
-    public static implicit operator NumberOrAutoOneOrMany(NumberOrAuto?[] values) => Many(values);
+    /// <summary>Converts an array to the array form, as <see cref="Many"/> does; null converts to a null scalar.</summary>
+    public static implicit operator NumberOrAutoOneOrMany(NumberOrAuto?[]? values) => values is null ? One(null) : Many(values);
     /// <summary>Gets whether this value is the array form, including a value read from JSON.</summary>
     public bool IsMany => _value.IsMany;
     /// <summary>Gets the scalar form. Returns false for an array or an uninitialized value.</summary>

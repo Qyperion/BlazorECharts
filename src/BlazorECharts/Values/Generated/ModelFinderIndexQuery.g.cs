@@ -25,8 +25,8 @@ public readonly struct ModelFinderIndexQuery : IOptionValue, IJsonOnSerializing,
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ModelFinderIndexQuery(double?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ModelFinderIndexQuery(double?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static ModelFinderIndexQuery From(bool value)
@@ -51,8 +51,8 @@ public readonly struct ModelFinderIndexQuery : IOptionValue, IJsonOnSerializing,
         if (!(value == "none" || value == "all")) throw LiteralUnion.Rejected("ModelFinderIndexQuery", value, "one of \"none\" or \"all\"", "a number, an array of number or false", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ModelFinderIndexQuery(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ModelFinderIndexQuery(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item0f1853f1 => item0f1853f1.ValueKind == JsonValueKind.Null || (item0f1853f1.ValueKind == JsonValueKind.Number)))) || (json.ValueKind == JsonValueKind.False) || (json.ValueKind == JsonValueKind.Number) || (json.ValueKind == JsonValueKind.String && json.GetString() == "none") || (json.ValueKind == JsonValueKind.String && json.GetString() == "all");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

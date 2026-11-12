@@ -448,10 +448,11 @@ export async function generateWordCloud(input?: Mapping) {
     let code = header + `/// <summary>Exact source alternatives: ${alternatives.join(' | ').replaceAll('<', '&lt;')}.</summary>\npublic readonly struct ${name} : IOptionValue, IJsonOnSerializing\n{\n    private readonly object? _value;\n    private readonly bool _initialized;\n    private ${name}(object? value) { _value = value; _initialized = true; }\n`;
     for (const type of [...new Set(specs.map(cs))]) {
       const literal = specs.filter(s => cs(s) === type && s.startsWith('literal:'));
+      const reference = !(['double', 'bool'].includes(type) || !!config.unions[type]);
       const validation = literal.length && !specs.some(s => cs(s) === type && !s.startsWith('literal:'))
         ? `if (!(${literal.flatMap(s => s.slice(8).split(',')).map(x => `value == ${x === 'false' ? 'false' : JSON.stringify(x)}`).join(' || ')})) ${rejected(name, literal.flatMap(s => s.slice(8).split(',')), specs.filter(s => cs(s) !== type))} `
         : '';
-      code += `    /// <summary>Creates the ${type.replaceAll('<', '&lt;')} alternative.</summary>\n    public static ${name} From(${type} value) { ${validation}return new(value); }\n    /// <summary>Preserves the source alternative.</summary>\n    public static implicit operator ${name}(${type} value) => From(value);\n`;
+      code += `    /// <summary>Creates the ${type.replaceAll('<', '&lt;')} alternative.</summary>\n    public static ${name} From(${type} value) { ${validation}return new(value); }\n    /// <summary>Preserves the source alternative${reference ? '; null converts to a null value' : ''}.</summary>\n    public static implicit operator ${name}(${type}${reference ? '?' : ''} value) => ${reference ? 'value is null ? new(null) : ' : ''}From(value);\n`;
     }
 
     code += '    /// <summary>Gets the stored alternative: the value passed to <c>From</c>, or the <see cref="EChartsValue"/> JSON of a value read from a getOption snapshot.</summary>\n    public object? Value => _value;\n';

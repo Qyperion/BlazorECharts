@@ -25,48 +25,48 @@ public readonly struct ParallelSeriesLineStyleOptionColor : IOptionValue, IJsonO
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesLineStyleOptionColor(SVGPatternObject value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesLineStyleOptionColor(SVGPatternObject? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the LinearGradientObject alternative with exact literal validation.</summary>
     public static ParallelSeriesLineStyleOptionColor From(LinearGradientObject value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesLineStyleOptionColor(LinearGradientObject value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesLineStyleOptionColor(LinearGradientObject? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ImagePatternObject alternative with exact literal validation.</summary>
     public static ParallelSeriesLineStyleOptionColor From(ImagePatternObject value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesLineStyleOptionColor(ImagePatternObject value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesLineStyleOptionColor(ImagePatternObject? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the RadialGradientObject alternative with exact literal validation.</summary>
     public static ParallelSeriesLineStyleOptionColor From(RadialGradientObject value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesLineStyleOptionColor(RadialGradientObject value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesLineStyleOptionColor(RadialGradientObject? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static ParallelSeriesLineStyleOptionColor From(string value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesLineStyleOptionColor(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesLineStyleOptionColor(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the JsFunction&lt;ParallelSeriesLineStyleOptionColorAlternativeSignature> alternative with exact literal validation.</summary>
     public static ParallelSeriesLineStyleOptionColor From(JsFunction<ParallelSeriesLineStyleOptionColorAlternativeSignature> value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelSeriesLineStyleOptionColor(JsFunction<ParallelSeriesLineStyleOptionColorAlternativeSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelSeriesLineStyleOptionColor(JsFunction<ParallelSeriesLineStyleOptionColorAlternativeSignature>? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesSVGPatternObject(json)) || (GeneratedOptionMetadata.MatchesLinearGradientObject(json)) || (GeneratedOptionMetadata.MatchesImagePatternObject(json)) || (GeneratedOptionMetadata.MatchesRadialGradientObject(json)) || (json.ValueKind == JsonValueKind.String) || (json.ValueKind == JsonValueKind.Null);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

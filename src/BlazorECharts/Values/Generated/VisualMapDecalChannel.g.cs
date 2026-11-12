@@ -25,24 +25,24 @@ public readonly struct VisualMapDecalChannel : IOptionValue, IJsonOnSerializing,
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator VisualMapDecalChannel(DecalObject value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator VisualMapDecalChannel(DecalObject? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the DecalObject?[] alternative with exact literal validation.</summary>
     public static VisualMapDecalChannel From(DecalObject?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator VisualMapDecalChannel(DecalObject?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator VisualMapDecalChannel(DecalObject?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the OptionDictionary&lt;DecalObject?> alternative with exact literal validation.</summary>
     public static VisualMapDecalChannel From(OptionDictionary<DecalObject?> value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator VisualMapDecalChannel(OptionDictionary<DecalObject?> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator VisualMapDecalChannel(OptionDictionary<DecalObject?>? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesDecalObject(json)) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item2d40d025 => item2d40d025.ValueKind == JsonValueKind.Null || (GeneratedOptionMetadata.MatchesDecalObject(item2d40d025))))) || ((json.ValueKind == JsonValueKind.Object && json.EnumerateObject().All(itemal_table => itemal_table.Value.ValueKind == JsonValueKind.Null || (GeneratedOptionMetadata.MatchesDecalObject(itemal_table.Value)))));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

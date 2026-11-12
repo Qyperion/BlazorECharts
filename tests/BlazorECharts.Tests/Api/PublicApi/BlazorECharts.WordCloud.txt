@@ -4,8 +4,8 @@ public readonly struct BlazorECharts.WordCloud.WordCloudBackground : IJsonOnSeri
   object? Value { get; }
   static WordCloudBackground From(WordCloudImageBackground value)
   static WordCloudBackground From(string value)
-  static WordCloudBackground op_Implicit(WordCloudImageBackground value)
-  static WordCloudBackground op_Implicit(string value)
+  static WordCloudBackground op_Implicit(WordCloudImageBackground? value)
+  static WordCloudBackground op_Implicit(string? value)
 public static class BlazorECharts.WordCloud.WordCloudBuilderExtensions
   static EChartsBuilder AddWordCloud(this EChartsBuilder builder)
 public readonly struct BlazorECharts.WordCloud.WordCloudColor : IJsonOnSerializing, IOptionValue
@@ -14,8 +14,8 @@ public readonly struct BlazorECharts.WordCloud.WordCloudColor : IJsonOnSerializi
   object? Value { get; }
   static WordCloudColor From(JsFunction<WordCloudColorSignature> value)
   static WordCloudColor From(string value)
-  static WordCloudColor op_Implicit(JsFunction<WordCloudColorSignature> value)
-  static WordCloudColor op_Implicit(string value)
+  static WordCloudColor op_Implicit(JsFunction<WordCloudColorSignature>? value)
+  static WordCloudColor op_Implicit(string? value)
 public readonly struct BlazorECharts.WordCloud.WordCloudColorSignature : IJsFunctionSignature
   static string Id { get; }
 public sealed class BlazorECharts.WordCloud.WordCloudDataItem : OptionObject
@@ -34,8 +34,8 @@ public readonly struct BlazorECharts.WordCloud.WordCloudDataTooltip : IJsonOnSer
   object? Value { get; }
   static WordCloudDataTooltip From(SeriesTooltipOption value)
   static WordCloudDataTooltip From(string value)
-  static WordCloudDataTooltip op_Implicit(SeriesTooltipOption value)
-  static WordCloudDataTooltip op_Implicit(string value)
+  static WordCloudDataTooltip op_Implicit(SeriesTooltipOption? value)
+  static WordCloudDataTooltip op_Implicit(string? value)
 public sealed class BlazorECharts.WordCloud.WordCloudExtension : IChartExtension
   IReadOnlyList<string> Dependencies { get; }
   ctor()
@@ -49,8 +49,8 @@ public readonly struct BlazorECharts.WordCloud.WordCloudImage : IJsonOnSerializi
   object? Value { get; }
   static WordCloudImage From(EChartsObjectReference value)
   static WordCloudImage From(string value)
-  static WordCloudImage op_Implicit(EChartsObjectReference value)
-  static WordCloudImage op_Implicit(string value)
+  static WordCloudImage op_Implicit(EChartsObjectReference? value)
+  static WordCloudImage op_Implicit(string? value)
 public sealed class BlazorECharts.WordCloud.WordCloudImageBackground : OptionObject
   WordCloudImage? Image { get; set; }
   ctor()
@@ -104,8 +104,8 @@ public readonly struct BlazorECharts.WordCloud.WordCloudLineType : IJsonOnSerial
   static WordCloudLineType From(double[] value)
   static WordCloudLineType From(string value)
   static WordCloudLineType op_Implicit(double value)
-  static WordCloudLineType op_Implicit(double[] value)
-  static WordCloudLineType op_Implicit(string value)
+  static WordCloudLineType op_Implicit(double[]? value)
+  static WordCloudLineType op_Implicit(string? value)
 public readonly struct BlazorECharts.WordCloud.WordCloudNumberOrNumbers : IJsonOnSerializing, IOptionValue
   bool TryGet([NotNullWhen(true)] out double[]? value)
   bool TryGet(out double value)
@@ -113,7 +113,7 @@ public readonly struct BlazorECharts.WordCloud.WordCloudNumberOrNumbers : IJsonO
   static WordCloudNumberOrNumbers From(double value)
   static WordCloudNumberOrNumbers From(double[] value)
   static WordCloudNumberOrNumbers op_Implicit(double value)
-  static WordCloudNumberOrNumbers op_Implicit(double[] value)
+  static WordCloudNumberOrNumbers op_Implicit(double[]? value)
 public sealed class BlazorECharts.WordCloud.WordCloudRichText : IJsonOnSerializing, IOptionValue
   IReadOnlyDictionary<string, WordCloudItemTextStyle?> Styles { get; }
   WordCloudItemTextStyle? this[string name] { get; set; }
@@ -163,8 +163,8 @@ public readonly struct BlazorECharts.WordCloud.WordCloudShape : IJsonOnSerializi
   object? Value { get; }
   static WordCloudShape From(JsFunction<WordCloudShapeSignature> value)
   static WordCloudShape From(string value)
-  static WordCloudShape op_Implicit(JsFunction<WordCloudShapeSignature> value)
-  static WordCloudShape op_Implicit(string value)
+  static WordCloudShape op_Implicit(JsFunction<WordCloudShapeSignature>? value)
+  static WordCloudShape op_Implicit(string? value)
 public readonly struct BlazorECharts.WordCloud.WordCloudShapeSignature : IJsFunctionSignature
   static string Id { get; }
 public sealed class BlazorECharts.WordCloud.WordCloudState : OptionObject

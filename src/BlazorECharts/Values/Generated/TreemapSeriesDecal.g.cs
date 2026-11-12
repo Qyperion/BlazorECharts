@@ -25,8 +25,8 @@ public readonly struct TreemapSeriesDecal : IOptionValue, IJsonOnSerializing, IR
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TreemapSeriesDecal(DecalObject?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TreemapSeriesDecal(DecalObject?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static TreemapSeriesDecal From(string value)
@@ -34,8 +34,8 @@ public readonly struct TreemapSeriesDecal : IOptionValue, IJsonOnSerializing, IR
         if (!(value == "none")) throw LiteralUnion.Rejected("TreemapSeriesDecal", value, "\"none\"", "an array of DecalObject", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TreemapSeriesDecal(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TreemapSeriesDecal(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item2d40d025 => item2d40d025.ValueKind == JsonValueKind.Null || (GeneratedOptionMetadata.MatchesDecalObject(item2d40d025))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "none");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

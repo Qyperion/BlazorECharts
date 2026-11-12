@@ -26,8 +26,8 @@ public readonly struct PreserveAspect : IOptionValue, IJsonOnSerializing, IReada
         if (!(value == "cover" || value == "contain")) throw LiteralUnion.Rejected("PreserveAspect", value, "one of \"cover\" or \"contain\"", "one of false or true", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator PreserveAspect(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator PreserveAspect(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static PreserveAspect From(bool value)

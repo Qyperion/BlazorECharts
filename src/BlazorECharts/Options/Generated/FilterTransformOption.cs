@@ -16,8 +16,8 @@ public sealed partial class FilterTransformOption : OptionObject
     /// <summary>Creates the filter variant; it writes its type itself.</summary>
     public FilterTransformOption() : this(true) { }
     internal FilterTransformOption(bool initializeDefaults) { if (initializeDefaults) { Type = "filter"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;ComponentTransform?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<ComponentTransform?>(FilterTransformOption value) => OneOrMany<ComponentTransform?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;ComponentTransform?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<ComponentTransform?>(FilterTransformOption? value) => OneOrMany<ComponentTransform?>.One(value);
     private LogicalExpressionSubOption? _p0;
     /// <summary>Gets or sets <c>config</c>.</summary>
     public LogicalExpressionSubOption? Config { get => _p0; set => SetProperty(ref _p0, value, "config"); }

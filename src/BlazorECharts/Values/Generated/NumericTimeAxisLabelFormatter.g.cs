@@ -25,24 +25,24 @@ public readonly struct NumericTimeAxisLabelFormatter : IOptionValue, IJsonOnSeri
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator NumericTimeAxisLabelFormatter(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator NumericTimeAxisLabelFormatter(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the JsFunction&lt;AxisLabelValueFormatterTimeAxisLabelFormatterDictionaryOptionSignature> alternative with exact literal validation.</summary>
     public static NumericTimeAxisLabelFormatter From(JsFunction<AxisLabelValueFormatterTimeAxisLabelFormatterDictionaryOptionSignature> value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator NumericTimeAxisLabelFormatter(JsFunction<AxisLabelValueFormatterTimeAxisLabelFormatterDictionaryOptionSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator NumericTimeAxisLabelFormatter(JsFunction<AxisLabelValueFormatterTimeAxisLabelFormatterDictionaryOptionSignature>? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the JsFunction&lt;AxisLabelValueTimeFormatterSignature> alternative with exact literal validation.</summary>
     public static NumericTimeAxisLabelFormatter From(JsFunction<AxisLabelValueTimeFormatterSignature> value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator NumericTimeAxisLabelFormatter(JsFunction<AxisLabelValueTimeFormatterSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator NumericTimeAxisLabelFormatter(JsFunction<AxisLabelValueTimeFormatterSignature>? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String) || (json.ValueKind == JsonValueKind.String) || (json.ValueKind == JsonValueKind.Null) || (json.ValueKind == JsonValueKind.Null);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

@@ -33,16 +33,16 @@ public readonly struct FunnelSeriesOptionDataItem : IOptionValue, IJsonOnSeriali
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator FunnelSeriesOptionDataItem(OptionDataValueNumeric?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator FunnelSeriesOptionDataItem(OptionDataValueNumeric?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the FunnelDataItemOption alternative with exact literal validation.</summary>
     public static FunnelSeriesOptionDataItem From(FunnelDataItemOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator FunnelSeriesOptionDataItem(FunnelDataItemOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator FunnelSeriesOptionDataItem(FunnelDataItemOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static FunnelSeriesOptionDataItem From(string value)
@@ -50,8 +50,8 @@ public readonly struct FunnelSeriesOptionDataItem : IOptionValue, IJsonOnSeriali
         if (!(value == "-")) throw LiteralUnion.Rejected("FunnelSeriesOptionDataItem", value, "\"-\"", "a number, an array of OptionDataValueNumeric or FunnelDataItemOption", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator FunnelSeriesOptionDataItem(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator FunnelSeriesOptionDataItem(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Number) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item170e2f38 => item170e2f38.ValueKind == JsonValueKind.Null || (OptionDataValueNumeric.Matches(item170e2f38))))) || (GeneratedOptionMetadata.MatchesFunnelDataItemOption(json)) || (json.ValueKind == JsonValueKind.String && json.GetString() == "-");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

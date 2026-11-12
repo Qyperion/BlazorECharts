@@ -26,8 +26,8 @@ public readonly struct ParallelCoordinateSystemOptionAxisExpandTriggerOn : IOpti
         if (!(value == "click" || value == "mousemove")) throw LiteralUnion.Rejected("ParallelCoordinateSystemOptionAxisExpandTriggerOn", value, "one of \"click\" or \"mousemove\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator ParallelCoordinateSystemOptionAxisExpandTriggerOn(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator ParallelCoordinateSystemOptionAxisExpandTriggerOn(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "click") || (json.ValueKind == JsonValueKind.String && json.GetString() == "mousemove");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

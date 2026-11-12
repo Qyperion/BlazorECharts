@@ -25,32 +25,32 @@ public readonly struct AngleAxisLogOptionAxisLabel : IOptionValue, IJsonOnSerial
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisLogOptionAxisLabel(LogAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisLogOptionAxisLabel(LogAxisLabelOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the LogTimeAxisLabelOption alternative with exact literal validation.</summary>
     public static AngleAxisLogOptionAxisLabel From(LogTimeAxisLabelOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisLogOptionAxisLabel(LogTimeAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisLogOptionAxisLabel(LogTimeAxisLabelOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the LogValueAxisLabelOption alternative with exact literal validation.</summary>
     public static AngleAxisLogOptionAxisLabel From(LogValueAxisLabelOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisLogOptionAxisLabel(LogValueAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisLogOptionAxisLabel(LogValueAxisLabelOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the LogCategoryAxisLabelOption alternative with exact literal validation.</summary>
     public static AngleAxisLogOptionAxisLabel From(LogCategoryAxisLabelOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisLogOptionAxisLabel(LogCategoryAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisLogOptionAxisLabel(LogCategoryAxisLabelOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesLogAxisLabelOption(json)) || (GeneratedOptionMetadata.MatchesLogTimeAxisLabelOption(json)) || (GeneratedOptionMetadata.MatchesLogValueAxisLabelOption(json)) || (GeneratedOptionMetadata.MatchesLogCategoryAxisLabelOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

@@ -26,16 +26,16 @@ public readonly struct LineDash : IOptionValue, IJsonOnSerializing, IReadableOpt
         if (!(value == "dashed" || value == "solid" || value == "dotted")) throw LiteralUnion.Rejected("LineDash", value, "one of \"dashed\", \"solid\" or \"dotted\"", "an array of number or false", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LineDash(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LineDash(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double?[] alternative with exact literal validation.</summary>
     public static LineDash From(double?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LineDash(double?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LineDash(double?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static LineDash From(bool value)

@@ -233,17 +233,19 @@ public readonly struct EventActionValue : IOptionValue
     /// <summary>Converts a numeric alternative.</summary>
     public static implicit operator EventActionValue(double value) => From(value);
 
-    /// <summary>Converts a string alternative.</summary>
-    public static implicit operator EventActionValue(string value) => From(value);
+    /// <summary>Converts a string alternative; null converts to a JSON null.</summary>
+    public static implicit operator EventActionValue(string? value) => value is null ? Null : From(value);
 
     /// <summary>Converts a boolean alternative.</summary>
     public static implicit operator EventActionValue(bool value) => From(value);
 
-    /// <summary>Converts a numeric array alternative, such as several indices.</summary>
-    public static implicit operator EventActionValue(double[] values) => From(values);
+    /// <summary>Converts a numeric array alternative, such as several indices; null converts to a JSON null.</summary>
+    public static implicit operator EventActionValue(double[]? values) => values is null ? Null : From(values);
 
-    /// <summary>Converts a string array alternative, such as several ids or names.</summary>
-    public static implicit operator EventActionValue(string[] values) => From(values);
+    /// <summary>Converts a string array alternative, such as several ids or names; null converts to a JSON null.</summary>
+    public static implicit operator EventActionValue(string[]? values) => values is null ? Null : From(values);
+
+    private static EventActionValue Null => Create(w => w.WriteNullValue());
 
     private static EventActionValue Create(Action<Utf8JsonWriter> write)
     {

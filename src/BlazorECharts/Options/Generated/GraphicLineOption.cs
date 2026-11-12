@@ -16,8 +16,8 @@ public sealed partial class GraphicLineOption : OptionObject
     /// <summary>Creates the line variant; it writes its type itself.</summary>
     public GraphicLineOption() : this(true) { }
     internal GraphicLineOption(bool initializeDefaults) { if (initializeDefaults) { Type = "line"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<GraphicOption?>(GraphicLineOption value) => OneOrMany<GraphicOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;GraphicOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<GraphicOption?>(GraphicLineOption? value) => OneOrMany<GraphicOption?>.One(value);
     private GraphicElementAction? _p0;
     /// <summary>Gets or sets <c>$action</c>.</summary>
     /// <remarks>ECharts default: <c>'merge'</c>.</remarks>

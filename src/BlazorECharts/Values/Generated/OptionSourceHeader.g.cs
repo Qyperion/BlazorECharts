@@ -43,8 +43,8 @@ public readonly struct OptionSourceHeader : IOptionValue, IJsonOnSerializing, IR
         if (!(value == "auto")) throw LiteralUnion.Rejected("OptionSourceHeader", value, "\"auto\"", "a number or one of false or true", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator OptionSourceHeader(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator OptionSourceHeader(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.False) || (json.ValueKind == JsonValueKind.Number) || (json.ValueKind == JsonValueKind.String && json.GetString() == "auto") || (json.ValueKind == JsonValueKind.True);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

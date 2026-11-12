@@ -33,16 +33,16 @@ public readonly struct MapSeriesOptionDataItem : IOptionValue, IJsonOnSerializin
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MapSeriesOptionDataItem(OptionDataValueNumeric?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator MapSeriesOptionDataItem(OptionDataValueNumeric?[]? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the MapDataItemOption alternative with exact literal validation.</summary>
     public static MapSeriesOptionDataItem From(MapDataItemOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MapSeriesOptionDataItem(MapDataItemOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator MapSeriesOptionDataItem(MapDataItemOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static MapSeriesOptionDataItem From(string value)
@@ -50,8 +50,8 @@ public readonly struct MapSeriesOptionDataItem : IOptionValue, IJsonOnSerializin
         if (!(value == "-")) throw LiteralUnion.Rejected("MapSeriesOptionDataItem", value, "\"-\"", "a number, an array of OptionDataValueNumeric or MapDataItemOption", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MapSeriesOptionDataItem(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator MapSeriesOptionDataItem(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Number) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item170e2f38 => item170e2f38.ValueKind == JsonValueKind.Null || (OptionDataValueNumeric.Matches(item170e2f38))))) || (GeneratedOptionMetadata.MatchesMapDataItemOption(json)) || (json.ValueKind == JsonValueKind.String && json.GetString() == "-");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

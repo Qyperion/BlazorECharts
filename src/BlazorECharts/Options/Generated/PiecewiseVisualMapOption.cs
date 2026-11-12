@@ -16,8 +16,8 @@ public sealed partial class PiecewiseVisualMapOption : OptionObject
     /// <summary>Creates the piecewise variant; it writes its type itself.</summary>
     public PiecewiseVisualMapOption() : this(true) { }
     internal PiecewiseVisualMapOption(bool initializeDefaults) { if (initializeDefaults) { Type = "piecewise"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;VisualMapOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<VisualMapOption?>(PiecewiseVisualMapOption value) => OneOrMany<VisualMapOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;VisualMapOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<VisualMapOption?>(PiecewiseVisualMapOption? value) => OneOrMany<VisualMapOption?>.One(value);
     private Align? _p0;
     /// <summary>Gets or sets <c>align</c>.</summary>
     /// <remarks>ECharts default: <c>'auto'</c>.</remarks>

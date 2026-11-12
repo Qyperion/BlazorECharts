@@ -16,8 +16,8 @@ public sealed partial class RadiusAxisValueOption : OptionObject
     /// <summary>Creates the value variant; it writes its type itself.</summary>
     public RadiusAxisValueOption() : this(true) { }
     internal RadiusAxisValueOption(bool initializeDefaults) { if (initializeDefaults) { Type = "value"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;RadiusAxisOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<RadiusAxisOption?>(RadiusAxisValueOption value) => OneOrMany<RadiusAxisOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;RadiusAxisOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<RadiusAxisOption?>(RadiusAxisValueOption? value) => OneOrMany<RadiusAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>alignTicks</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>

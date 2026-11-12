@@ -26,8 +26,8 @@ public readonly struct LineSeriesOptionEmphasisLineStyleWidth : IOptionValue, IJ
         if (!(value == "bolder")) throw LiteralUnion.Rejected("LineSeriesOptionEmphasisLineStyleWidth", value, "\"bolder\"", "a number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator LineSeriesOptionEmphasisLineStyleWidth(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator LineSeriesOptionEmphasisLineStyleWidth(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static LineSeriesOptionEmphasisLineStyleWidth From(double value)

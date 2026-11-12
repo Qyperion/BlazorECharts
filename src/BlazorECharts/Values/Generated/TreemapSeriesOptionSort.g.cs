@@ -26,8 +26,8 @@ public readonly struct TreemapSeriesOptionSort : IOptionValue, IJsonOnSerializin
         if (!(value == "asc" || value == "desc")) throw LiteralUnion.Rejected("TreemapSeriesOptionSort", value, "one of \"asc\" or \"desc\"", "one of false or true", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator TreemapSeriesOptionSort(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator TreemapSeriesOptionSort(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the bool alternative with exact literal validation.</summary>
     public static TreemapSeriesOptionSort From(bool value)

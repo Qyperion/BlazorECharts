@@ -33,8 +33,8 @@ public readonly struct DecalDashArrayX : IOptionValue, IJsonOnSerializing, IRead
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator DecalDashArrayX(OneOrMany<double?>?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator DecalDashArrayX(OneOrMany<double?>?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Number) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(itemc0143522 => itemc0143522.ValueKind == JsonValueKind.Null || (((itemc0143522.ValueKind == JsonValueKind.Number) || (itemc0143522.ValueKind == JsonValueKind.Array && itemc0143522.EnumerateArray().All(item97ca7832 => item97ca7832.ValueKind == JsonValueKind.Null || (item97ca7832.ValueKind == JsonValueKind.Number))))))));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

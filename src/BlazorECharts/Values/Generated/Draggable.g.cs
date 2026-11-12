@@ -35,8 +35,8 @@ public readonly struct Draggable : IOptionValue, IJsonOnSerializing, IReadableOp
         if (!(value == "horizontal" || value == "vertical")) throw LiteralUnion.Rejected("Draggable", value, "one of \"horizontal\" or \"vertical\"", "one of false or true", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator Draggable(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator Draggable(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.False) || (json.ValueKind == JsonValueKind.String && json.GetString() == "horizontal") || (json.ValueKind == JsonValueKind.String && json.GetString() == "vertical") || (json.ValueKind == JsonValueKind.True);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

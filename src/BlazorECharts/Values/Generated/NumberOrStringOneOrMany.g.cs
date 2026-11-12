@@ -30,12 +30,12 @@ public readonly struct NumberOrStringOneOrMany : IOptionValue, IJsonOnSerializin
     public static NumberOrStringOneOrMany Create(ReadOnlySpan<NumberOrString?> values) => new(OneOrMany.Create(values));
     /// <summary>Converts the double alternative to the scalar form, as <see cref="NumberOrString"/> does.</summary>
     public static implicit operator NumberOrStringOneOrMany(double value) => One(value);
-    /// <summary>Converts the string alternative to the scalar form, as <see cref="NumberOrString"/> does.</summary>
-    public static implicit operator NumberOrStringOneOrMany(string value) => One(value);
+    /// <summary>Converts the string alternative to the scalar form, as <see cref="NumberOrString"/> does; null converts to a null scalar.</summary>
+    public static implicit operator NumberOrStringOneOrMany(string? value) => One(value);
     /// <summary>Converts a value to the scalar form, as <see cref="One"/> does.</summary>
     public static implicit operator NumberOrStringOneOrMany(NumberOrString value) => One(value);
-    /// <summary>Converts an array to the array form, as <see cref="Many"/> does.</summary>
-    public static implicit operator NumberOrStringOneOrMany(NumberOrString?[] values) => Many(values);
+    /// <summary>Converts an array to the array form, as <see cref="Many"/> does; null converts to a null scalar.</summary>
+    public static implicit operator NumberOrStringOneOrMany(NumberOrString?[]? values) => values is null ? One(null) : Many(values);
     /// <summary>Gets whether this value is the array form, including a value read from JSON.</summary>
     public bool IsMany => _value.IsMany;
     /// <summary>Gets the scalar form. Returns false for an array or an uninitialized value.</summary>

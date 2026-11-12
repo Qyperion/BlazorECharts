@@ -25,32 +25,32 @@ public readonly struct AngleAxisValueOptionAxisLabel : IOptionValue, IJsonOnSeri
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisValueOptionAxisLabel(ValueAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisValueOptionAxisLabel(ValueAxisLabelOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ValueCategoryAxisLabelOption alternative with exact literal validation.</summary>
     public static AngleAxisValueOptionAxisLabel From(ValueCategoryAxisLabelOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisValueOptionAxisLabel(ValueCategoryAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisValueOptionAxisLabel(ValueCategoryAxisLabelOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ValueTimeAxisLabelOption alternative with exact literal validation.</summary>
     public static AngleAxisValueOptionAxisLabel From(ValueTimeAxisLabelOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisValueOptionAxisLabel(ValueTimeAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisValueOptionAxisLabel(ValueTimeAxisLabelOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the ValueLogAxisLabelOption alternative with exact literal validation.</summary>
     public static AngleAxisValueOptionAxisLabel From(ValueLogAxisLabelOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AngleAxisValueOptionAxisLabel(ValueLogAxisLabelOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AngleAxisValueOptionAxisLabel(ValueLogAxisLabelOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesValueAxisLabelOption(json)) || (GeneratedOptionMetadata.MatchesValueCategoryAxisLabelOption(json)) || (GeneratedOptionMetadata.MatchesValueTimeAxisLabelOption(json)) || (GeneratedOptionMetadata.MatchesValueLogAxisLabelOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

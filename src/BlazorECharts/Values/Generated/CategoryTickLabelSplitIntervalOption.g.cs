@@ -33,8 +33,8 @@ public readonly struct CategoryTickLabelSplitIntervalOption : IOptionValue, IJso
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator CategoryTickLabelSplitIntervalOption(JsFunction<CategoryTickLabelSplitIntervalOptionAlternativeSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator CategoryTickLabelSplitIntervalOption(JsFunction<CategoryTickLabelSplitIntervalOptionAlternativeSignature>? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the string alternative with exact literal validation.</summary>
     public static CategoryTickLabelSplitIntervalOption From(string value)
@@ -42,8 +42,8 @@ public readonly struct CategoryTickLabelSplitIntervalOption : IOptionValue, IJso
         if (!(value == "auto")) throw LiteralUnion.Rejected("CategoryTickLabelSplitIntervalOption", value, "\"auto\"", "a number or a browser callback (JsFunction<CategoryTickLabelSplitIntervalOptionAlternativeSignature>)", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator CategoryTickLabelSplitIntervalOption(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator CategoryTickLabelSplitIntervalOption(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Number) || (json.ValueKind == JsonValueKind.Null) || (json.ValueKind == JsonValueKind.String && json.GetString() == "auto");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

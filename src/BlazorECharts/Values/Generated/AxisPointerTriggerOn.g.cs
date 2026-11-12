@@ -26,8 +26,8 @@ public readonly struct AxisPointerTriggerOn : IOptionValue, IJsonOnSerializing, 
         if (!(value == "click" || value == "none" || value == "mousemove|click" || value == "mousemove")) throw LiteralUnion.Rejected("AxisPointerTriggerOn", value, "one of \"click\", \"none\", \"mousemove|click\" or \"mousemove\"", null, false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator AxisPointerTriggerOn(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator AxisPointerTriggerOn(string? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "click") || (json.ValueKind == JsonValueKind.String && json.GetString() == "none") || (json.ValueKind == JsonValueKind.String && json.GetString() == "mousemove|click") || (json.ValueKind == JsonValueKind.String && json.GetString() == "mousemove");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

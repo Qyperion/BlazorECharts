@@ -16,16 +16,16 @@ public readonly struct WordCloudLineType : IOptionValue, IJsonOnSerializing
     private WordCloudLineType(object? value) { _value = value; _initialized = true; }
     /// <summary>Creates the string alternative.</summary>
     public static WordCloudLineType From(string value) { if (!(value == "solid" || value == "dotted" || value == "dashed")) throw new ArgumentException($"WordCloudLineType: \"{value}\" is not one of \"solid\", \"dotted\" or \"dashed\". The union also accepts a number or an array of numbers.", nameof(value)); return new(value); }
-    /// <summary>Preserves the source alternative.</summary>
-    public static implicit operator WordCloudLineType(string value) => From(value);
+    /// <summary>Preserves the source alternative; null converts to a null value.</summary>
+    public static implicit operator WordCloudLineType(string? value) => value is null ? new(null) : From(value);
     /// <summary>Creates the double alternative.</summary>
     public static WordCloudLineType From(double value) { return new(value); }
     /// <summary>Preserves the source alternative.</summary>
     public static implicit operator WordCloudLineType(double value) => From(value);
     /// <summary>Creates the double[] alternative.</summary>
     public static WordCloudLineType From(double[] value) { return new(value); }
-    /// <summary>Preserves the source alternative.</summary>
-    public static implicit operator WordCloudLineType(double[] value) => From(value);
+    /// <summary>Preserves the source alternative; null converts to a null value.</summary>
+    public static implicit operator WordCloudLineType(double[]? value) => value is null ? new(null) : From(value);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>, or the <see cref="EChartsValue"/> JSON of a value read from a getOption snapshot.</summary>
     public object? Value => _value;
     /// <summary>Gets the string alternative, also from a value read from JSON.</summary>

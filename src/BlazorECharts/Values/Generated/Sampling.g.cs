@@ -26,16 +26,16 @@ public readonly struct Sampling : IOptionValue, IJsonOnSerializing, IReadableOpt
         if (!(value == "lttb" || value == "max" || value == "minmax" || value == "none" || value == "min" || value == "average" || value == "sum")) throw LiteralUnion.Rejected("Sampling", value, "one of \"lttb\", \"max\", \"minmax\", \"none\", \"min\", \"average\" or \"sum\"", "a browser callback (JsFunction<SamplingAlternativeSignature>)", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator Sampling(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator Sampling(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the JsFunction&lt;SamplingAlternativeSignature> alternative with exact literal validation.</summary>
     public static Sampling From(JsFunction<SamplingAlternativeSignature> value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator Sampling(JsFunction<SamplingAlternativeSignature> value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator Sampling(JsFunction<SamplingAlternativeSignature>? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "lttb") || (json.ValueKind == JsonValueKind.String && json.GetString() == "max") || (json.ValueKind == JsonValueKind.String && json.GetString() == "minmax") || (json.ValueKind == JsonValueKind.String && json.GetString() == "none") || (json.ValueKind == JsonValueKind.String && json.GetString() == "min") || (json.ValueKind == JsonValueKind.String && json.GetString() == "average") || (json.ValueKind == JsonValueKind.String && json.GetString() == "sum") || (json.ValueKind == JsonValueKind.Null);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

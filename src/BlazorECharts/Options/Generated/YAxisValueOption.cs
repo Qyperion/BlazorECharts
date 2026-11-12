@@ -16,8 +16,8 @@ public sealed partial class YAxisValueOption : OptionObject
     /// <summary>Creates the value variant; it writes its type itself.</summary>
     public YAxisValueOption() : this(true) { }
     internal YAxisValueOption(bool initializeDefaults) { if (initializeDefaults) { Type = "value"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;YAxisOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<YAxisOption?>(YAxisValueOption value) => OneOrMany<YAxisOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;YAxisOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<YAxisOption?>(YAxisValueOption? value) => OneOrMany<YAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>alignTicks</c>.</summary>
     /// <remarks>ECharts default: <c>false</c>.</remarks>

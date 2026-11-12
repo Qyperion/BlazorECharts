@@ -28,14 +28,14 @@ public readonly struct DimensionDefinitionLooseOneOrMany : IOptionValue, IJsonOn
     public static DimensionDefinitionLooseOneOrMany Many(params DimensionDefinitionLoose?[] values) => new(OneOrMany<DimensionDefinitionLoose?>.Many(values));
     /// <summary>Creates the array form of a collection expression, also for one or no element.</summary>
     public static DimensionDefinitionLooseOneOrMany Create(ReadOnlySpan<DimensionDefinitionLoose?> values) => new(OneOrMany.Create(values));
-    /// <summary>Converts the string alternative to the scalar form, as <see cref="DimensionDefinitionLoose"/> does.</summary>
-    public static implicit operator DimensionDefinitionLooseOneOrMany(string value) => One(value);
-    /// <summary>Converts the DimensionDefinitionLooseAlternative alternative to the scalar form, as <see cref="DimensionDefinitionLoose"/> does.</summary>
-    public static implicit operator DimensionDefinitionLooseOneOrMany(DimensionDefinitionLooseAlternative value) => One(value);
+    /// <summary>Converts the string alternative to the scalar form, as <see cref="DimensionDefinitionLoose"/> does; null converts to a null scalar.</summary>
+    public static implicit operator DimensionDefinitionLooseOneOrMany(string? value) => One(value);
+    /// <summary>Converts the DimensionDefinitionLooseAlternative alternative to the scalar form, as <see cref="DimensionDefinitionLoose"/> does; null converts to a null scalar.</summary>
+    public static implicit operator DimensionDefinitionLooseOneOrMany(DimensionDefinitionLooseAlternative? value) => One(value);
     /// <summary>Converts a value to the scalar form, as <see cref="One"/> does.</summary>
     public static implicit operator DimensionDefinitionLooseOneOrMany(DimensionDefinitionLoose value) => One(value);
-    /// <summary>Converts an array to the array form, as <see cref="Many"/> does.</summary>
-    public static implicit operator DimensionDefinitionLooseOneOrMany(DimensionDefinitionLoose?[] values) => Many(values);
+    /// <summary>Converts an array to the array form, as <see cref="Many"/> does; null converts to a null scalar.</summary>
+    public static implicit operator DimensionDefinitionLooseOneOrMany(DimensionDefinitionLoose?[]? values) => values is null ? One(null) : Many(values);
     /// <summary>Gets whether this value is the array form, including a value read from JSON.</summary>
     public bool IsMany => _value.IsMany;
     /// <summary>Gets the scalar form. Returns false for an array or an uninitialized value.</summary>

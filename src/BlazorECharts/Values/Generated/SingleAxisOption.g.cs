@@ -25,32 +25,32 @@ public readonly struct SingleAxisOption : IOptionValue, IJsonOnSerializing, IRea
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SingleAxisOption(SingleAxisValueOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SingleAxisOption(SingleAxisValueOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the SingleAxisLogOption alternative with exact literal validation.</summary>
     public static SingleAxisOption From(SingleAxisLogOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SingleAxisOption(SingleAxisLogOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SingleAxisOption(SingleAxisLogOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the SingleAxisCategoryOption alternative with exact literal validation.</summary>
     public static SingleAxisOption From(SingleAxisCategoryOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SingleAxisOption(SingleAxisCategoryOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SingleAxisOption(SingleAxisCategoryOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the SingleAxisTimeOption alternative with exact literal validation.</summary>
     public static SingleAxisOption From(SingleAxisTimeOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator SingleAxisOption(SingleAxisTimeOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator SingleAxisOption(SingleAxisTimeOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesSingleAxisValueOption(json)) || (GeneratedOptionMetadata.MatchesSingleAxisLogOption(json)) || (GeneratedOptionMetadata.MatchesSingleAxisCategoryOption(json)) || (GeneratedOptionMetadata.MatchesSingleAxisTimeOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

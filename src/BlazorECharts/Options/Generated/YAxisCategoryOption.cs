@@ -16,8 +16,8 @@ public sealed partial class YAxisCategoryOption : OptionObject
     /// <summary>Creates the category variant; it writes its type itself.</summary>
     public YAxisCategoryOption() : this(true) { }
     internal YAxisCategoryOption(bool initializeDefaults) { if (initializeDefaults) { Type = "category"; } }
-    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;YAxisOption?>.One</c> does.</summary>
-    public static implicit operator OneOrMany<YAxisOption?>(YAxisCategoryOption value) => OneOrMany<YAxisOption?>.One(value);
+    /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;YAxisOption?>.One</c> does; null converts to a null component.</summary>
+    public static implicit operator OneOrMany<YAxisOption?>(YAxisCategoryOption? value) => OneOrMany<YAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>animation</c>.</summary>
     /// <remarks>ECharts default: <c>true</c>.</remarks>

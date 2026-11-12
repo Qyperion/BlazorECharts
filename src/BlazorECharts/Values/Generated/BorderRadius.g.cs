@@ -33,8 +33,8 @@ public readonly struct BorderRadius : IOptionValue, IJsonOnSerializing, IReadabl
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BorderRadius(double?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BorderRadius(double?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.Number) || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item0f1853f1 => item0f1853f1.ValueKind == JsonValueKind.Null || (item0f1853f1.ValueKind == JsonValueKind.Number))));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

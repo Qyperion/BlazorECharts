@@ -26,16 +26,16 @@ public readonly struct BarLabelOptionPosition : IOptionValue, IJsonOnSerializing
         if (!(value == "insideStart" || value == "insideBottomLeft" || value == "top" || value == "end" || value == "insideBottom" || value == "insideLeft" || value == "start" || value == "bottom" || value == "outside" || value == "insideEnd" || value == "left" || value == "insideBottomRight" || value == "insideTop" || value == "right" || value == "insideRight" || value == "insideTopLeft" || value == "middle" || value == "inside" || value == "insideTopRight")) throw LiteralUnion.Rejected("BarLabelOptionPosition", value, "one of \"insideStart\", \"insideBottomLeft\", \"top\", \"end\", \"insideBottom\", \"insideLeft\", \"start\", \"bottom\", \"outside\", \"insideEnd\", \"left\", \"insideBottomRight\", \"insideTop\", \"right\", \"insideRight\", \"insideTopLeft\", \"middle\", \"inside\" or \"insideTopRight\"", "an array of NumberOrString", false);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BarLabelOptionPosition(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BarLabelOptionPosition(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the NumberOrString?[] alternative with exact literal validation.</summary>
     public static BarLabelOptionPosition From(NumberOrString?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator BarLabelOptionPosition(NumberOrString?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator BarLabelOptionPosition(NumberOrString?[]? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (json.ValueKind == JsonValueKind.String && json.GetString() == "insideStart") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideBottomLeft") || (json.ValueKind == JsonValueKind.String && json.GetString() == "top") || (json.ValueKind == JsonValueKind.String && json.GetString() == "end") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideBottom") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideLeft") || (json.ValueKind == JsonValueKind.String && json.GetString() == "start") || (json.ValueKind == JsonValueKind.String && json.GetString() == "bottom") || (json.ValueKind == JsonValueKind.String && json.GetString() == "outside") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideEnd") || (json.ValueKind == JsonValueKind.String && json.GetString() == "left") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideBottomRight") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideTop") || (json.ValueKind == JsonValueKind.String && json.GetString() == "right") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideRight") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideTopLeft") || ((json.ValueKind == JsonValueKind.Array && json.EnumerateArray().All(item2c8776ab => item2c8776ab.ValueKind == JsonValueKind.Null || (NumberOrString.Matches(item2c8776ab))))) || (json.ValueKind == JsonValueKind.String && json.GetString() == "middle") || (json.ValueKind == JsonValueKind.String && json.GetString() == "inside") || (json.ValueKind == JsonValueKind.String && json.GetString() == "insideTopRight");
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

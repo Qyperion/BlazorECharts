@@ -25,120 +25,120 @@ public readonly struct GraphicOption : IOptionValue, IJsonOnSerializing, IReadab
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicComponentOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicComponentOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicTextOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicTextOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicTextOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicTextOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicImageOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicImageOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicImageOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicImageOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicComponentZRPathOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicComponentZRPathOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicComponentZRPathOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicComponentZRPathOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicGroupOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicGroupOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicGroupOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicGroupOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicArcOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicArcOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicArcOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicArcOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicCircleOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicCircleOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicCircleOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicCircleOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicRectOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicRectOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicRectOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicRectOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicRingOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicRingOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicRingOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicRingOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicSectorOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicSectorOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicSectorOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicSectorOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicPolygonOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicPolygonOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicPolygonOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicPolygonOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicPolylineOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicPolylineOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicPolylineOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicPolylineOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicLineOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicLineOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicLineOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicLineOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicBezierCurveOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicBezierCurveOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicBezierCurveOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicBezierCurveOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the GraphicEllipseOption alternative with exact literal validation.</summary>
     public static GraphicOption From(GraphicEllipseOption value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator GraphicOption(GraphicEllipseOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator GraphicOption(GraphicEllipseOption? value) => value is null ? new(null) : From(value);
     internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesGraphicComponentOption(json)) || (GeneratedOptionMetadata.MatchesGraphicTextOption(json)) || (GeneratedOptionMetadata.MatchesGraphicImageOption(json)) || (GeneratedOptionMetadata.MatchesGraphicComponentZRPathOption(json)) || (GeneratedOptionMetadata.MatchesGraphicGroupOption(json)) || (GeneratedOptionMetadata.MatchesGraphicArcOption(json)) || (GeneratedOptionMetadata.MatchesGraphicCircleOption(json)) || (GeneratedOptionMetadata.MatchesGraphicRectOption(json)) || (GeneratedOptionMetadata.MatchesGraphicRingOption(json)) || (GeneratedOptionMetadata.MatchesGraphicSectorOption(json)) || (GeneratedOptionMetadata.MatchesGraphicPolygonOption(json)) || (GeneratedOptionMetadata.MatchesGraphicPolylineOption(json)) || (GeneratedOptionMetadata.MatchesGraphicLineOption(json)) || (GeneratedOptionMetadata.MatchesGraphicBezierCurveOption(json)) || (GeneratedOptionMetadata.MatchesGraphicEllipseOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;

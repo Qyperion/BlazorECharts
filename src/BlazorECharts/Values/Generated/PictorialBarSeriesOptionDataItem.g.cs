@@ -33,8 +33,8 @@ public readonly struct PictorialBarSeriesOptionDataItem : IOptionValue, IJsonOnS
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator PictorialBarSeriesOptionDataItem(PictorialBarDataItemOption value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator PictorialBarSeriesOptionDataItem(PictorialBarDataItemOption? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static PictorialBarSeriesOptionDataItem From(double value)
@@ -49,16 +49,16 @@ public readonly struct PictorialBarSeriesOptionDataItem : IOptionValue, IJsonOnS
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator PictorialBarSeriesOptionDataItem(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator PictorialBarSeriesOptionDataItem(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the OptionDataValue?[] alternative with exact literal validation.</summary>
     public static PictorialBarSeriesOptionDataItem From(OptionDataValue?[] value)
     {
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator PictorialBarSeriesOptionDataItem(OptionDataValue?[] value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator PictorialBarSeriesOptionDataItem(OptionDataValue?[]? value) => value is null ? new(null) : From(value);
     /// <summary>Creates the date alternative from a DateTime. A Utc or Local value is that instant; an Unspecified value is a wall-clock time without offset, which ECharts reads in the browser's time zone.</summary>
     public static PictorialBarSeriesOptionDataItem From(DateTime value) => value.Kind == DateTimeKind.Unspecified ? new(value.ToString("yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture)) : new(new DateTimeOffset(value));
     /// <summary>Converts a DateTime as <see cref="From(DateTime)"/> does.</summary>

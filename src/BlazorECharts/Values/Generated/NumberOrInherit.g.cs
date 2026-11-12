@@ -26,8 +26,8 @@ public readonly struct NumberOrInherit : IOptionValue, IJsonOnSerializing, IRead
         if (!(value == "inherit")) throw LiteralUnion.Rejected("NumberOrInherit", value, "\"inherit\"", "a number", true);
         return new(value);
     }
-    /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator NumberOrInherit(string value) => From(value);
+    /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
+    public static implicit operator NumberOrInherit(string? value) => value is null ? new(null) : From(value);
 
     /// <summary>Creates the double alternative with exact literal validation.</summary>
     public static NumberOrInherit From(double value)

@@ -16,12 +16,12 @@ public readonly struct WordCloudBackground : IOptionValue, IJsonOnSerializing
     private WordCloudBackground(object? value) { _value = value; _initialized = true; }
     /// <summary>Creates the string alternative.</summary>
     public static WordCloudBackground From(string value) { return new(value); }
-    /// <summary>Preserves the source alternative.</summary>
-    public static implicit operator WordCloudBackground(string value) => From(value);
+    /// <summary>Preserves the source alternative; null converts to a null value.</summary>
+    public static implicit operator WordCloudBackground(string? value) => value is null ? new(null) : From(value);
     /// <summary>Creates the WordCloudImageBackground alternative.</summary>
     public static WordCloudBackground From(WordCloudImageBackground value) { return new(value); }
-    /// <summary>Preserves the source alternative.</summary>
-    public static implicit operator WordCloudBackground(WordCloudImageBackground value) => From(value);
+    /// <summary>Preserves the source alternative; null converts to a null value.</summary>
+    public static implicit operator WordCloudBackground(WordCloudImageBackground? value) => value is null ? new(null) : From(value);
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>, or the <see cref="EChartsValue"/> JSON of a value read from a getOption snapshot.</summary>
     public object? Value => _value;
     /// <summary>Gets the string alternative, also from a value read from JSON.</summary>
