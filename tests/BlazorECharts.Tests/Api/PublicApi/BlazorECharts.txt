@@ -8445,7 +8445,7 @@ public sealed class BlazorECharts.Options.OptionEncode : OptionObject
 public sealed class BlazorECharts.Options.OrdinalSortInfo : OptionObject
   ctor()
   double?[]? OrdinalNumbers { get; set; }
-public sealed class BlazorECharts.Options.ParallelAxisDefaultCategoryOption : OptionObject
+public sealed class BlazorECharts.Options.ParallelAxisCategoryOption : OptionObject
   AnimationDelay? AnimationDelay { get; set; }
   AnimationDelay? AnimationDelayUpdate { get; set; }
   AnimationDuration? AnimationDuration { get; set; }
@@ -8497,10 +8497,23 @@ public sealed class BlazorECharts.Options.ParallelAxisDefaultCategoryOption : Op
   double? StartValue { get; set; }
   double? Z { get; set; }
   double? Zlevel { get; set; }
-  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisDefaultCategoryOption? value)
+  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisCategoryOption? value)
   string? CoordinateSystem { get; set; }
   string? Name { get; set; }
-public sealed class BlazorECharts.Options.ParallelAxisDefaultLogOption : OptionObject
+public sealed class BlazorECharts.Options.ParallelAxisExpandAction : ChartAction
+  AnimationOption? Animation { get; set; }
+  ChartParallelExpandBatchItem[]? Batch { get; set; }
+  EventActionValue? ParallelId { get; set; }
+  EventActionValue? ParallelIndex { get; set; }
+  EventActionValue? ParallelName { get; set; }
+  bool? AxisExpandable { get; set; }
+  bool? EscapeConnect { get; set; }
+  ctor()
+  double? AxisExpandCenter { get; set; }
+  double? AxisExpandCount { get; set; }
+  double? AxisExpandWidth { get; set; }
+  double[]? AxisExpandWindow { get; set; }
+public sealed class BlazorECharts.Options.ParallelAxisLogOption : OptionObject
   AnimationDelay? AnimationDelay { get; set; }
   AnimationDelay? AnimationDelayUpdate { get; set; }
   AnimationDuration? AnimationDuration { get; set; }
@@ -8558,10 +8571,10 @@ public sealed class BlazorECharts.Options.ParallelAxisDefaultLogOption : OptionO
   double? StartValue { get; set; }
   double? Z { get; set; }
   double? Zlevel { get; set; }
-  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisDefaultLogOption? value)
+  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisLogOption? value)
   string? CoordinateSystem { get; set; }
   string? Name { get; set; }
-public sealed class BlazorECharts.Options.ParallelAxisDefaultTimeOption : OptionObject
+public sealed class BlazorECharts.Options.ParallelAxisTimeOption : OptionObject
   AnimationDelay? AnimationDelay { get; set; }
   AnimationDelay? AnimationDelayUpdate { get; set; }
   AnimationDuration? AnimationDuration { get; set; }
@@ -8618,10 +8631,10 @@ public sealed class BlazorECharts.Options.ParallelAxisDefaultTimeOption : Option
   double? StartValue { get; set; }
   double? Z { get; set; }
   double? Zlevel { get; set; }
-  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisDefaultTimeOption? value)
+  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisTimeOption? value)
   string? CoordinateSystem { get; set; }
   string? Name { get; set; }
-public sealed class BlazorECharts.Options.ParallelAxisDefaultValueOption : OptionObject
+public sealed class BlazorECharts.Options.ParallelAxisValueOption : OptionObject
   AnimationDelay? AnimationDelay { get; set; }
   AnimationDelay? AnimationDelayUpdate { get; set; }
   AnimationDuration? AnimationDuration { get; set; }
@@ -8679,22 +8692,9 @@ public sealed class BlazorECharts.Options.ParallelAxisDefaultValueOption : Optio
   double? StartValue { get; set; }
   double? Z { get; set; }
   double? Zlevel { get; set; }
-  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisDefaultValueOption? value)
+  static OneOrMany<ParallelAxisOption?> op_Implicit(ParallelAxisValueOption? value)
   string? CoordinateSystem { get; set; }
   string? Name { get; set; }
-public sealed class BlazorECharts.Options.ParallelAxisExpandAction : ChartAction
-  AnimationOption? Animation { get; set; }
-  ChartParallelExpandBatchItem[]? Batch { get; set; }
-  EventActionValue? ParallelId { get; set; }
-  EventActionValue? ParallelIndex { get; set; }
-  EventActionValue? ParallelName { get; set; }
-  bool? AxisExpandable { get; set; }
-  bool? EscapeConnect { get; set; }
-  ctor()
-  double? AxisExpandCenter { get; set; }
-  double? AxisExpandCount { get; set; }
-  double? AxisExpandWidth { get; set; }
-  double[]? AxisExpandWindow { get; set; }
 public sealed class BlazorECharts.Options.ParallelCoordinateSystemOption : OptionObject
   CoordinateSystemDataCoord? Coord { get; set; }
   CoordinateSystemUsageOption? CoordinateSystemUsage { get; set; }
@@ -16276,19 +16276,19 @@ public readonly struct BlazorECharts.Values.OptionSourceHeader : IJsonOnSerializ
   static OptionSourceHeader op_Implicit(double value)
   static OptionSourceHeader op_Implicit(string? value)
 public readonly struct BlazorECharts.Values.ParallelAxisOption : IJsonOnSerializing, IOptionValue, IReadableOptionValue<ParallelAxisOption>
-  bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultCategoryOption? value)
-  bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultLogOption? value)
-  bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultTimeOption? value)
-  bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultValueOption? value)
+  bool TryGet([NotNullWhen(true)] out ParallelAxisCategoryOption? value)
+  bool TryGet([NotNullWhen(true)] out ParallelAxisLogOption? value)
+  bool TryGet([NotNullWhen(true)] out ParallelAxisTimeOption? value)
+  bool TryGet([NotNullWhen(true)] out ParallelAxisValueOption? value)
   object? Value { get; }
-  static ParallelAxisOption From(ParallelAxisDefaultCategoryOption value)
-  static ParallelAxisOption From(ParallelAxisDefaultLogOption value)
-  static ParallelAxisOption From(ParallelAxisDefaultTimeOption value)
-  static ParallelAxisOption From(ParallelAxisDefaultValueOption value)
-  static ParallelAxisOption op_Implicit(ParallelAxisDefaultCategoryOption? value)
-  static ParallelAxisOption op_Implicit(ParallelAxisDefaultLogOption? value)
-  static ParallelAxisOption op_Implicit(ParallelAxisDefaultTimeOption? value)
-  static ParallelAxisOption op_Implicit(ParallelAxisDefaultValueOption? value)
+  static ParallelAxisOption From(ParallelAxisCategoryOption value)
+  static ParallelAxisOption From(ParallelAxisLogOption value)
+  static ParallelAxisOption From(ParallelAxisTimeOption value)
+  static ParallelAxisOption From(ParallelAxisValueOption value)
+  static ParallelAxisOption op_Implicit(ParallelAxisCategoryOption? value)
+  static ParallelAxisOption op_Implicit(ParallelAxisLogOption? value)
+  static ParallelAxisOption op_Implicit(ParallelAxisTimeOption? value)
+  static ParallelAxisOption op_Implicit(ParallelAxisValueOption? value)
 public readonly struct BlazorECharts.Values.ParallelCoordinateSystemOptionAxisExpandSlideTriggerArea : IJsonOnSerializing, IOptionValue, IReadableOptionValue<ParallelCoordinateSystemOptionAxisExpandSlideTriggerArea>
   double? Item0 { get; }
   double? Item1 { get; }

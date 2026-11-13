@@ -412,10 +412,10 @@ internal static partial class GeneratedOptionMetadata
         context.Register(new OptionTypeRegistration<NameTruncateOption>(WriteNameTruncateOption, ReadNameTruncateOption));
         context.Register(new OptionTypeRegistration<OptionEncode>(WriteOptionEncode, ReadOptionEncode));
         context.Register(new OptionTypeRegistration<OrdinalSortInfo>(WriteOrdinalSortInfo, ReadOrdinalSortInfo));
-        context.Register(new OptionTypeRegistration<ParallelAxisDefaultCategoryOption>(WriteParallelAxisDefaultCategoryOption, ReadParallelAxisDefaultCategoryOption));
-        context.Register(new OptionTypeRegistration<ParallelAxisDefaultLogOption>(WriteParallelAxisDefaultLogOption, ReadParallelAxisDefaultLogOption));
-        context.Register(new OptionTypeRegistration<ParallelAxisDefaultTimeOption>(WriteParallelAxisDefaultTimeOption, ReadParallelAxisDefaultTimeOption));
-        context.Register(new OptionTypeRegistration<ParallelAxisDefaultValueOption>(WriteParallelAxisDefaultValueOption, ReadParallelAxisDefaultValueOption));
+        context.Register(new OptionTypeRegistration<ParallelAxisCategoryOption>(WriteParallelAxisCategoryOption, ReadParallelAxisCategoryOption));
+        context.Register(new OptionTypeRegistration<ParallelAxisLogOption>(WriteParallelAxisLogOption, ReadParallelAxisLogOption));
+        context.Register(new OptionTypeRegistration<ParallelAxisTimeOption>(WriteParallelAxisTimeOption, ReadParallelAxisTimeOption));
+        context.Register(new OptionTypeRegistration<ParallelAxisValueOption>(WriteParallelAxisValueOption, ReadParallelAxisValueOption));
         context.Register(new OptionTypeRegistration<ParallelCoordinateSystemOption>(WriteParallelCoordinateSystemOption, ReadParallelCoordinateSystemOption));
         context.Register(new OptionTypeRegistration<ParallelSeriesDataItemOption>(WriteParallelSeriesDataItemOption, ReadParallelSeriesDataItemOption));
         context.Register(new OptionTypeRegistration<ParallelSeriesDataItemOptionBlur>(WriteParallelSeriesDataItemOptionBlur, ReadParallelSeriesDataItemOptionBlur));

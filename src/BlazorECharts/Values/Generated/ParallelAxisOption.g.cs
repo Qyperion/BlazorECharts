@@ -14,96 +14,96 @@ using static BlazorECharts.Serialization.Generated.GeneratedOptionMetadata;
 
 namespace BlazorECharts.Values;
 
-/// <summary><c>ParallelAxisDefaultCategoryOption</c>, <c>ParallelAxisDefaultTimeOption</c>, <c>ParallelAxisDefaultLogOption</c> or <c>ParallelAxisDefaultValueOption</c>.</summary>
+/// <summary><c>ParallelAxisCategoryOption</c>, <c>ParallelAxisTimeOption</c>, <c>ParallelAxisLogOption</c> or <c>ParallelAxisValueOption</c>.</summary>
 public readonly struct ParallelAxisOption : IOptionValue, IJsonOnSerializing, IReadableOptionValue<ParallelAxisOption>, IScalarOptionValue
 {
     private readonly object? _value;
     private readonly bool _initialized;
     private ParallelAxisOption(object? value) { _value = value; _initialized = true; }
-    /// <summary>Creates the ParallelAxisDefaultCategoryOption alternative with exact literal validation.</summary>
-    public static ParallelAxisOption From(ParallelAxisDefaultCategoryOption value)
+    /// <summary>Creates the ParallelAxisCategoryOption alternative with exact literal validation.</summary>
+    public static ParallelAxisOption From(ParallelAxisCategoryOption value)
     {
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultCategoryOption? value) => value is null ? new(null) : From(value);
+    public static implicit operator ParallelAxisOption(ParallelAxisCategoryOption? value) => value is null ? new(null) : From(value);
 
-    /// <summary>Creates the ParallelAxisDefaultTimeOption alternative with exact literal validation.</summary>
-    public static ParallelAxisOption From(ParallelAxisDefaultTimeOption value)
+    /// <summary>Creates the ParallelAxisTimeOption alternative with exact literal validation.</summary>
+    public static ParallelAxisOption From(ParallelAxisTimeOption value)
     {
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultTimeOption? value) => value is null ? new(null) : From(value);
+    public static implicit operator ParallelAxisOption(ParallelAxisTimeOption? value) => value is null ? new(null) : From(value);
 
-    /// <summary>Creates the ParallelAxisDefaultLogOption alternative with exact literal validation.</summary>
-    public static ParallelAxisOption From(ParallelAxisDefaultLogOption value)
+    /// <summary>Creates the ParallelAxisLogOption alternative with exact literal validation.</summary>
+    public static ParallelAxisOption From(ParallelAxisLogOption value)
     {
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultLogOption? value) => value is null ? new(null) : From(value);
+    public static implicit operator ParallelAxisOption(ParallelAxisLogOption? value) => value is null ? new(null) : From(value);
 
-    /// <summary>Creates the ParallelAxisDefaultValueOption alternative with exact literal validation.</summary>
-    public static ParallelAxisOption From(ParallelAxisDefaultValueOption value)
+    /// <summary>Creates the ParallelAxisValueOption alternative with exact literal validation.</summary>
+    public static ParallelAxisOption From(ParallelAxisValueOption value)
     {
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
-    public static implicit operator ParallelAxisOption(ParallelAxisDefaultValueOption? value) => value is null ? new(null) : From(value);
-    internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesParallelAxisDefaultCategoryOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisDefaultTimeOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisDefaultLogOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisDefaultValueOption(json));
+    public static implicit operator ParallelAxisOption(ParallelAxisValueOption? value) => value is null ? new(null) : From(value);
+    internal static bool Matches(JsonElement json) => (GeneratedOptionMetadata.MatchesParallelAxisCategoryOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisTimeOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisLogOption(json)) || (GeneratedOptionMetadata.MatchesParallelAxisValueOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;
-    /// <summary>Gets the ParallelAxisDefaultCategoryOption alternative, also from a value read from JSON.</summary>
-    public bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultCategoryOption? value)
+    /// <summary>Gets the ParallelAxisCategoryOption alternative, also from a value read from JSON.</summary>
+    public bool TryGet([NotNullWhen(true)] out ParallelAxisCategoryOption? value)
     {
-        if (_value is ParallelAxisDefaultCategoryOption typed) { value = typed; return true; }
-        if (_value is ReadValue { Decoded: ParallelAxisDefaultCategoryOption cached }) { value = cached; return true; }
-        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisDefaultCategoryOption(json)) && IsModel(json, 0))
+        if (_value is ParallelAxisCategoryOption typed) { value = typed; return true; }
+        if (_value is ReadValue { Decoded: ParallelAxisCategoryOption cached }) { value = cached; return true; }
+        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisCategoryOption(json)) && IsModel(json, 0))
         {
-            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisDefaultCategoryOption?)null : ReadParallelAxisDefaultCategoryOption(json, ReadContext))!;
+            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisCategoryOption?)null : ReadParallelAxisCategoryOption(json, ReadContext))!;
             if (_value is ReadValue read) value = read.Materialize(value);
             return true;
         }
         value = default;
         return false;
     }
-    /// <summary>Gets the ParallelAxisDefaultTimeOption alternative, also from a value read from JSON.</summary>
-    public bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultTimeOption? value)
+    /// <summary>Gets the ParallelAxisTimeOption alternative, also from a value read from JSON.</summary>
+    public bool TryGet([NotNullWhen(true)] out ParallelAxisTimeOption? value)
     {
-        if (_value is ParallelAxisDefaultTimeOption typed) { value = typed; return true; }
-        if (_value is ReadValue { Decoded: ParallelAxisDefaultTimeOption cached }) { value = cached; return true; }
-        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisDefaultTimeOption(json)) && IsModel(json, 1))
+        if (_value is ParallelAxisTimeOption typed) { value = typed; return true; }
+        if (_value is ReadValue { Decoded: ParallelAxisTimeOption cached }) { value = cached; return true; }
+        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisTimeOption(json)) && IsModel(json, 1))
         {
-            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisDefaultTimeOption?)null : ReadParallelAxisDefaultTimeOption(json, ReadContext))!;
+            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisTimeOption?)null : ReadParallelAxisTimeOption(json, ReadContext))!;
             if (_value is ReadValue read) value = read.Materialize(value);
             return true;
         }
         value = default;
         return false;
     }
-    /// <summary>Gets the ParallelAxisDefaultLogOption alternative, also from a value read from JSON.</summary>
-    public bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultLogOption? value)
+    /// <summary>Gets the ParallelAxisLogOption alternative, also from a value read from JSON.</summary>
+    public bool TryGet([NotNullWhen(true)] out ParallelAxisLogOption? value)
     {
-        if (_value is ParallelAxisDefaultLogOption typed) { value = typed; return true; }
-        if (_value is ReadValue { Decoded: ParallelAxisDefaultLogOption cached }) { value = cached; return true; }
-        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisDefaultLogOption(json)) && IsModel(json, 2))
+        if (_value is ParallelAxisLogOption typed) { value = typed; return true; }
+        if (_value is ReadValue { Decoded: ParallelAxisLogOption cached }) { value = cached; return true; }
+        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisLogOption(json)) && IsModel(json, 2))
         {
-            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisDefaultLogOption?)null : ReadParallelAxisDefaultLogOption(json, ReadContext))!;
+            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisLogOption?)null : ReadParallelAxisLogOption(json, ReadContext))!;
             if (_value is ReadValue read) value = read.Materialize(value);
             return true;
         }
         value = default;
         return false;
     }
-    /// <summary>Gets the ParallelAxisDefaultValueOption alternative, also from a value read from JSON.</summary>
-    public bool TryGet([NotNullWhen(true)] out ParallelAxisDefaultValueOption? value)
+    /// <summary>Gets the ParallelAxisValueOption alternative, also from a value read from JSON.</summary>
+    public bool TryGet([NotNullWhen(true)] out ParallelAxisValueOption? value)
     {
-        if (_value is ParallelAxisDefaultValueOption typed) { value = typed; return true; }
-        if (_value is ReadValue { Decoded: ParallelAxisDefaultValueOption cached }) { value = cached; return true; }
-        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisDefaultValueOption(json)) && IsModel(json, 3))
+        if (_value is ParallelAxisValueOption typed) { value = typed; return true; }
+        if (_value is ReadValue { Decoded: ParallelAxisValueOption cached }) { value = cached; return true; }
+        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (GeneratedOptionMetadata.MatchesParallelAxisValueOption(json)) && IsModel(json, 3))
         {
-            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisDefaultValueOption?)null : ReadParallelAxisDefaultValueOption(json, ReadContext))!;
+            value = (json.ValueKind == JsonValueKind.Null ? (ParallelAxisValueOption?)null : ReadParallelAxisValueOption(json, ReadContext))!;
             if (_value is ReadValue read) value = read.Materialize(value);
             return true;
         }
@@ -112,10 +112,10 @@ public readonly struct ParallelAxisOption : IOptionValue, IJsonOnSerializing, IR
     }
     private static readonly (Func<JsonElement, bool> Matches, bool Variant, HashSet<string> Keys)[] Models =
     [
-        (json => GeneratedOptionMetadata.MatchesParallelAxisDefaultCategoryOption(json), true, new(StringComparer.Ordinal) { "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "data", "deduplication", "dim", "id", "inverse", "jitter", "jitterMargin", "jitterOverlap", "max", "min", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "show", "silent", "splitArea", "splitLine", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
-        (json => GeneratedOptionMetadata.MatchesParallelAxisDefaultTimeOption(json), true, new(StringComparer.Ordinal) { "alignTicks", "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "dataMax", "dataMin", "dim", "id", "interval", "inverse", "jitter", "jitterMargin", "jitterOverlap", "max", "maxInterval", "min", "minInterval", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "show", "silent", "splitArea", "splitLine", "splitNumber", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
-        (json => GeneratedOptionMetadata.MatchesParallelAxisDefaultLogOption(json), true, new(StringComparer.Ordinal) { "alignTicks", "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "dataMax", "dataMin", "dim", "id", "interval", "inverse", "jitter", "jitterMargin", "jitterOverlap", "logBase", "max", "maxInterval", "min", "minInterval", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "show", "silent", "splitArea", "splitLine", "splitNumber", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
-        (json => GeneratedOptionMetadata.MatchesParallelAxisDefaultValueOption(json), true, new(StringComparer.Ordinal) { "alignTicks", "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "dataMax", "dataMin", "dim", "id", "interval", "inverse", "jitter", "jitterMargin", "jitterOverlap", "max", "maxInterval", "min", "minInterval", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "scale", "show", "silent", "splitArea", "splitLine", "splitNumber", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
+        (json => GeneratedOptionMetadata.MatchesParallelAxisCategoryOption(json), true, new(StringComparer.Ordinal) { "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "data", "deduplication", "dim", "id", "inverse", "jitter", "jitterMargin", "jitterOverlap", "max", "min", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "show", "silent", "splitArea", "splitLine", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
+        (json => GeneratedOptionMetadata.MatchesParallelAxisTimeOption(json), true, new(StringComparer.Ordinal) { "alignTicks", "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "dataMax", "dataMin", "dim", "id", "interval", "inverse", "jitter", "jitterMargin", "jitterOverlap", "max", "maxInterval", "min", "minInterval", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "show", "silent", "splitArea", "splitLine", "splitNumber", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
+        (json => GeneratedOptionMetadata.MatchesParallelAxisLogOption(json), true, new(StringComparer.Ordinal) { "alignTicks", "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "dataMax", "dataMin", "dim", "id", "interval", "inverse", "jitter", "jitterMargin", "jitterOverlap", "logBase", "max", "maxInterval", "min", "minInterval", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "show", "silent", "splitArea", "splitLine", "splitNumber", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
+        (json => GeneratedOptionMetadata.MatchesParallelAxisValueOption(json), true, new(StringComparer.Ordinal) { "alignTicks", "animation", "animationDelay", "animationDelayUpdate", "animationDuration", "animationDurationUpdate", "animationEasing", "animationEasingUpdate", "animationThreshold", "areaSelectStyle", "axisLabel", "axisLine", "axisPointer", "axisTick", "boundaryGap", "breakArea", "breakLabelLayout", "breaks", "containShape", "coord", "coordinateSystem", "coordinateSystemUsage", "dataMax", "dataMin", "dim", "id", "interval", "inverse", "jitter", "jitterMargin", "jitterOverlap", "max", "maxInterval", "min", "minInterval", "minorSplitLine", "minorTick", "name", "nameGap", "nameLocation", "nameMoveOverlap", "nameRotate", "nameTextStyle", "nameTruncate", "parallelIndex", "realtime", "scale", "show", "silent", "splitArea", "splitLine", "splitNumber", "startValue", "tooltip", "triggerEvent", "type", "z", "zlevel" }),
     ];
     private static bool IsModel(JsonElement json, int index)
     {

@@ -11,10 +11,10 @@ public static class ParallelExample
         Parallel = new ParallelCoordinateSystemOption { Left = 60, Right = 80, Top = 70, Bottom = 40 },
         ParallelAxis =
         [
-            new ParallelAxisDefaultValueOption { Dim = 0, Name = "Messages" },
-            new ParallelAxisDefaultValueOption { Dim = 1, Name = "Words" },
-            new ParallelAxisDefaultValueOption { Dim = 2, Name = "Replies" },
-            new ParallelAxisDefaultCategoryOption { Dim = 3, Name = "Role", Data = ["Member", "Moderator", "Owner"] },
+            new ParallelAxisValueOption { Dim = 0, Name = "Messages" },
+            new ParallelAxisValueOption { Dim = 1, Name = "Words" },
+            new ParallelAxisValueOption { Dim = 2, Name = "Replies" },
+            new ParallelAxisCategoryOption { Dim = 3, Name = "Role", Data = ["Member", "Moderator", "Owner"] },
         ],
         Series = new ParallelSeriesOption
         {

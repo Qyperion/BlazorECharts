@@ -31182,23 +31182,23 @@
       },
       {
         "typeId": "type:5338fc001f9fae900e6d68e7",
-        "name": "ParallelAxisDefaultCategoryOption",
-        "reason": "The category variant of parallel.parallelAxisDefault, named after the option instead of the ParallelCoordinateSystemOption context."
+        "name": "ParallelAxisCategoryOption",
+        "reason": "The category variant of an axis of parallelAxis, which parallel.parallelAxisDefault shares as the template of every axis; named after the axis instead of the ParallelCoordinateSystemOption context."
       },
       {
         "typeId": "type:e01545ac0b48d92fac9d7d65",
-        "name": "ParallelAxisDefaultValueOption",
-        "reason": "The value variant of parallel.parallelAxisDefault, named after the option instead of the ParallelCoordinateSystemOption context."
+        "name": "ParallelAxisValueOption",
+        "reason": "The value variant of an axis of parallelAxis, which parallel.parallelAxisDefault shares as the template of every axis; named after the axis instead of the ParallelCoordinateSystemOption context."
       },
       {
         "typeId": "type:bf67c2c5609e0a6359bcc000",
-        "name": "ParallelAxisDefaultTimeOption",
-        "reason": "The time variant of parallel.parallelAxisDefault, named after the option instead of the ParallelCoordinateSystemOption context."
+        "name": "ParallelAxisTimeOption",
+        "reason": "The time variant of an axis of parallelAxis, which parallel.parallelAxisDefault shares as the template of every axis; named after the axis instead of the ParallelCoordinateSystemOption context."
       },
       {
         "typeId": "type:c6a72a11e6597dd290153a6c",
-        "name": "ParallelAxisDefaultLogOption",
-        "reason": "The log variant of parallel.parallelAxisDefault, named after the option instead of the ParallelCoordinateSystemOption context."
+        "name": "ParallelAxisLogOption",
+        "reason": "The log variant of an axis of parallelAxis, which parallel.parallelAxisDefault shares as the template of every axis; named after the axis instead of the ParallelCoordinateSystemOption context."
       },
       {
         "typeId": "type:0848892ac7e47b8419f8c60e",

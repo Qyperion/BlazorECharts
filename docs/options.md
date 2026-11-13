@@ -126,7 +126,7 @@ var options = new ChartOptions
     Color = [.. palette],
     Polar = new PolarOption { Center = ["50%", "54%"], Radius = ["14%", "80%"] },
     RadiusAxis = new RadiusAxisValueOption { AxisLabel = new() { Padding = [1, 3] } },
-    ParallelAxis = [.. dimensions.Select((name, index) => new ParallelAxisDefaultValueOption { Dim = index, Name = name })],
+    ParallelAxis = [.. dimensions.Select((name, index) => new ParallelAxisValueOption { Dim = index, Name = name })],
 };
 ```
 

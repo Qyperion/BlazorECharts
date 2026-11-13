@@ -122,7 +122,7 @@ public static class StandardSeriesCatalog
             "parallel" => new ChartOptions
             {
                 Parallel = new ParallelCoordinateSystemOption(),
-                ParallelAxis = [new ParallelAxisDefaultValueOption { Dim = 0 }, new ParallelAxisDefaultValueOption { Dim = 1 }],
+                ParallelAxis = [new ParallelAxisValueOption { Dim = 0 }, new ParallelAxisValueOption { Dim = 1 }],
                 Series = new ParallelSeriesOption
                 {
                     LineStyle = new() { Width = 8 },

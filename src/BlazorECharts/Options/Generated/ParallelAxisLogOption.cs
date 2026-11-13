@@ -11,13 +11,13 @@ namespace BlazorECharts.Options;
 
 /// <summary>An ECharts option object, for example <c>parallelAxis</c>.</summary>
 /// <seealso href="https://echarts.apache.org/en/option.html#parallelAxis"/>
-public sealed partial class ParallelAxisDefaultValueOption : OptionObject
+public sealed partial class ParallelAxisLogOption : OptionObject
 {
-    /// <summary>Creates the value variant; it writes its type itself.</summary>
-    public ParallelAxisDefaultValueOption() : this(true) { }
-    internal ParallelAxisDefaultValueOption(bool initializeDefaults) { if (initializeDefaults) { Type = "value"; } }
+    /// <summary>Creates the log variant; it writes its type itself.</summary>
+    public ParallelAxisLogOption() : this(true) { }
+    internal ParallelAxisLogOption(bool initializeDefaults) { if (initializeDefaults) { Type = "log"; } }
     /// <summary>Converts the variant to a single component, as <c>OneOrMany&lt;ParallelAxisOption?>.One</c> does; null converts to a null component.</summary>
-    public static implicit operator OneOrMany<ParallelAxisOption?>(ParallelAxisDefaultValueOption? value) => OneOrMany<ParallelAxisOption?>.One(value);
+    public static implicit operator OneOrMany<ParallelAxisOption?>(ParallelAxisLogOption? value) => OneOrMany<ParallelAxisOption?>.One(value);
     private bool? _p0;
     /// <summary>Gets or sets <c>alignTicks</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>
@@ -57,9 +57,9 @@ public sealed partial class ParallelAxisDefaultValueOption : OptionObject
     private AreaSelectStyleOption? _p9;
     /// <summary>Gets or sets <c>areaSelectStyle</c>.</summary>
     public AreaSelectStyleOption? AreaSelectStyle { get => _p9; set => SetProperty(ref _p9, value, "areaSelectStyle"); }
-    private ValueAxisLabelOption? _p10;
+    private LogAxisLabelOption? _p10;
     /// <summary>Gets or sets <c>axisLabel</c>.</summary>
-    public ValueAxisLabelOption? AxisLabel { get => _p10; set => SetProperty(ref _p10, value, "axisLabel"); }
+    public LogAxisLabelOption? AxisLabel { get => _p10; set => SetProperty(ref _p10, value, "axisLabel"); }
     private AxisLineOption? _p11;
     /// <summary>Gets or sets <c>axisLine</c>.</summary>
     public AxisLineOption? AxisLine { get => _p11; set => SetProperty(ref _p11, value, "axisLine"); }
@@ -132,62 +132,62 @@ public sealed partial class ParallelAxisDefaultValueOption : OptionObject
     /// <summary>Gets or sets <c>jitterOverlap</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>
     public bool? JitterOverlap { get => _p30; set => SetProperty(ref _p30, value, "jitterOverlap"); }
-    private Max? _p31;
+    private double? _p31;
+    /// <summary>Gets or sets <c>logBase</c>.</summary>
+    /// <remarks>ECharts default: <c>10</c>.</remarks>
+    public double? LogBase { get => _p31; set => SetProperty(ref _p31, value, "logBase"); }
+    private Max? _p32;
     /// <summary>Gets or sets <c>max</c>.</summary>
-    public Max? Max { get => _p31; set => SetProperty(ref _p31, value, "max"); }
-    private double? _p32;
+    public Max? Max { get => _p32; set => SetProperty(ref _p32, value, "max"); }
+    private double? _p33;
     /// <summary>Gets or sets <c>maxInterval</c>.</summary>
-    public double? MaxInterval { get => _p32; set => SetProperty(ref _p32, value, "maxInterval"); }
-    private Min? _p33;
+    public double? MaxInterval { get => _p33; set => SetProperty(ref _p33, value, "maxInterval"); }
+    private Min? _p34;
     /// <summary>Gets or sets <c>min</c>.</summary>
-    public Min? Min { get => _p33; set => SetProperty(ref _p33, value, "min"); }
-    private double? _p34;
+    public Min? Min { get => _p34; set => SetProperty(ref _p34, value, "min"); }
+    private double? _p35;
     /// <summary>Gets or sets <c>minInterval</c>.</summary>
     /// <remarks>ECharts default: <c>0</c>.</remarks>
-    public double? MinInterval { get => _p34; set => SetProperty(ref _p34, value, "minInterval"); }
-    private MinorSplitLineOption? _p35;
+    public double? MinInterval { get => _p35; set => SetProperty(ref _p35, value, "minInterval"); }
+    private MinorSplitLineOption? _p36;
     /// <summary>Gets or sets <c>minorSplitLine</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>
-    public MinorSplitLineOption? MinorSplitLine { get => _p35; set => SetProperty(ref _p35, value, "minorSplitLine"); }
-    private MinorTickOption? _p36;
+    public MinorSplitLineOption? MinorSplitLine { get => _p36; set => SetProperty(ref _p36, value, "minorSplitLine"); }
+    private MinorTickOption? _p37;
     /// <summary>Gets or sets <c>minorTick</c>.</summary>
-    public MinorTickOption? MinorTick { get => _p36; set => SetProperty(ref _p36, value, "minorTick"); }
-    private string? _p37;
+    public MinorTickOption? MinorTick { get => _p37; set => SetProperty(ref _p37, value, "minorTick"); }
+    private string? _p38;
     /// <summary>Gets or sets <c>name</c>.</summary>
-    public string? Name { get => _p37; set => SetProperty(ref _p37, value, "name"); }
-    private double? _p38;
+    public string? Name { get => _p38; set => SetProperty(ref _p38, value, "name"); }
+    private double? _p39;
     /// <summary>Gets or sets <c>nameGap</c>.</summary>
     /// <remarks>ECharts default: <c>15</c>.</remarks>
-    public double? NameGap { get => _p38; set => SetProperty(ref _p38, value, "nameGap"); }
-    private NameLocation? _p39;
+    public double? NameGap { get => _p39; set => SetProperty(ref _p39, value, "nameGap"); }
+    private NameLocation? _p40;
     /// <summary>Gets or sets <c>nameLocation</c>.</summary>
     /// <remarks>ECharts default: <c>'end'</c>.</remarks>
-    public NameLocation? NameLocation { get => _p39; set => SetProperty(ref _p39, value, "nameLocation"); }
-    private BooleanOrAuto? _p40;
+    public NameLocation? NameLocation { get => _p40; set => SetProperty(ref _p40, value, "nameLocation"); }
+    private BooleanOrAuto? _p41;
     /// <summary>Gets or sets <c>nameMoveOverlap</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>
-    public BooleanOrAuto? NameMoveOverlap { get => _p40; set => SetProperty(ref _p40, value, "nameMoveOverlap"); }
-    private double? _p41;
+    public BooleanOrAuto? NameMoveOverlap { get => _p41; set => SetProperty(ref _p41, value, "nameMoveOverlap"); }
+    private double? _p42;
     /// <summary>Gets or sets <c>nameRotate</c>.</summary>
-    public double? NameRotate { get => _p41; set => SetProperty(ref _p41, value, "nameRotate"); }
-    private AxisNameTextStyleOption? _p42;
+    public double? NameRotate { get => _p42; set => SetProperty(ref _p42, value, "nameRotate"); }
+    private AxisNameTextStyleOption? _p43;
     /// <summary>Gets or sets <c>nameTextStyle</c>.</summary>
-    public AxisNameTextStyleOption? NameTextStyle { get => _p42; set => SetProperty(ref _p42, value, "nameTextStyle"); }
-    private NameTruncateOption? _p43;
+    public AxisNameTextStyleOption? NameTextStyle { get => _p43; set => SetProperty(ref _p43, value, "nameTextStyle"); }
+    private NameTruncateOption? _p44;
     /// <summary>Gets or sets <c>nameTruncate</c>.</summary>
-    public NameTruncateOption? NameTruncate { get => _p43; set => SetProperty(ref _p43, value, "nameTruncate"); }
-    private double? _p44;
+    public NameTruncateOption? NameTruncate { get => _p44; set => SetProperty(ref _p44, value, "nameTruncate"); }
+    private double? _p45;
     /// <summary>Gets or sets <c>parallelIndex</c>.</summary>
     /// <remarks>ECharts default: <c>0</c>.</remarks>
-    public double? ParallelIndex { get => _p44; set => SetProperty(ref _p44, value, "parallelIndex"); }
-    private bool? _p45;
+    public double? ParallelIndex { get => _p45; set => SetProperty(ref _p45, value, "parallelIndex"); }
+    private bool? _p46;
     /// <summary>Gets or sets <c>realtime</c>.</summary>
     /// <remarks>ECharts default: <c>true</c>.</remarks>
-    public bool? Realtime { get => _p45; set => SetProperty(ref _p45, value, "realtime"); }
-    private bool? _p46;
-    /// <summary>Gets or sets <c>scale</c>.</summary>
-    /// <remarks>ECharts default: <c>false</c>.</remarks>
-    public bool? Scale { get => _p46; set => SetProperty(ref _p46, value, "scale"); }
+    public bool? Realtime { get => _p46; set => SetProperty(ref _p46, value, "realtime"); }
     private bool? _p47;
     /// <summary>Gets or sets <c>show</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>
@@ -219,10 +219,10 @@ public sealed partial class ParallelAxisDefaultValueOption : OptionObject
     /// <summary>Gets or sets <c>triggerEvent</c>.</summary>
     /// <remarks>ECharts default: <c>false</c>.</remarks>
     public bool? TriggerEvent { get => _p54; set => SetProperty(ref _p54, value, "triggerEvent"); }
-    private AxisValueType? _p55;
+    private AxisLogType? _p55;
     /// <summary>Gets <c>type</c>, which the variant writes itself.</summary>
     /// <remarks>ECharts default: <c>value</c>.</remarks>
-    public AxisValueType? Type { get => _p55; internal set => SetProperty(ref _p55, value, "type"); }
+    public AxisLogType? Type { get => _p55; internal set => SetProperty(ref _p55, value, "type"); }
     private double? _p56;
     /// <summary>Gets or sets <c>z</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>

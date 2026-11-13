@@ -6,6 +6,12 @@ file at the release tag.
 
 ## Unreleased
 
+- Breaking change: the axes of `parallelAxis` are `ParallelAxisValueOption`,
+  `ParallelAxisCategoryOption`, `ParallelAxisTimeOption` and `ParallelAxisLogOption`, without
+  `Default` in the name (`ParallelAxisDefaultValueOption` and the others). The types serve both an
+  axis of `ChartOptions.ParallelAxis` and the template `ParallelCoordinateSystemOption.ParallelAxisDefault`,
+  and the old name read as the template only. Rename the type in your code; members and JSON are
+  unchanged.
 - The implicit conversions of union values, of `OneOrMany<T>` and of component variants accept
   `null` for a reference type, so a conditional expression with a null branch, such as
   `Legend = show ? new ScrollableLegendOption() : null` or `BorderColor = dense ? null : "#fff"`,

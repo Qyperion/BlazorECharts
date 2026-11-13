@@ -326,7 +326,7 @@ describe('production names', () => {
       'RadiusAxisValueOption', 'ValueAxisLabelOption', 'CategoryAxisLabelOption', 'HighlightPayloadEasingSignature', 'SeriesLabelOption',
       'ItemStyleOption', 'StaticItemStyleOption', 'LineStyleOption', 'TextAlign', 'AnimationDelay', 'AnimationDelayAlternativeSignature',
       'OptionDataValue', 'OptionDataItemValue', 'XAxisOption', 'YAxisOption', 'DataZoomOption', 'LegendComponentOption', 'VisualMapOption',
-      'ParallelAxisOption', 'ParallelAxisDefaultValueOption',
+      'ParallelAxisOption', 'ParallelAxisValueOption',
     ])
       expect(types, name).toContain(name);
 
