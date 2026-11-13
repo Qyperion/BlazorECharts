@@ -19,6 +19,8 @@ file at the release tag.
   console, as `[BlazorECharts] <code> during <operation> ...`: until now only `ILogger<EChart>` on the
   server recorded it, and the page showed an empty chart with a clean console. The message of a
   .NET exception is not sent to the browser.
+- `DecalObject.DashArrayX` takes a flat `double?[]`, as `DashArrayY` does:
+  `DashArrayX = new double?[] { 1, 0 }` instead of `new OneOrMany<double?>?[] { 1, 0 }`.
 
 ## 2.0.0
 

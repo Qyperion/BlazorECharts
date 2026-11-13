@@ -32,6 +32,19 @@ public class UnionContractsTests
     }
 
     [Fact]
+    public void Generated_ArrayOfOneOrMany_TakesAFlatArray()
+    {
+        // Act
+        var decal = Json(new DecalObject { DashArrayX = new double?[] { 1, 0 }, DashArrayY = new double?[] { 2, 4 } });
+        DecalDashArrayX missing = (double?[]?)null;
+
+        // Assert
+        Assert.Equal("[1,0]", decal.GetProperty("dashArrayX").GetRawText());
+        Assert.Equal("[2,4]", decal.GetProperty("dashArrayY").GetRawText());
+        Assert.Null(missing.Value);
+    }
+
+    [Fact]
     public void Generated_LiteralUnion_RejectionNamesTheUnionTheValueAndTheAlternatives()
     {
         // Act

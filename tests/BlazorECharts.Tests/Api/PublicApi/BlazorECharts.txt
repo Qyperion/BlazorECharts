@@ -14938,8 +14938,10 @@ public readonly struct BlazorECharts.Values.DecalDashArrayX : IJsonOnSerializing
   object? Value { get; }
   static DecalDashArrayX From(OneOrMany<double?>?[] value)
   static DecalDashArrayX From(double value)
+  static DecalDashArrayX From(double?[] value)
   static DecalDashArrayX op_Implicit(OneOrMany<double?>?[]? value)
   static DecalDashArrayX op_Implicit(double value)
+  static DecalDashArrayX op_Implicit(double?[]? value)
 public readonly struct BlazorECharts.Values.DimensionDefinitionLoose : IJsonOnSerializing, IOptionValue, IReadableOptionValue<DimensionDefinitionLoose>
   bool TryGet([NotNullWhen(true)] out DimensionDefinitionLooseAlternative? value)
   bool TryGet([NotNullWhen(true)] out string? value)

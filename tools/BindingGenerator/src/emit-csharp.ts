@@ -990,7 +990,9 @@ export function generate(
           + s.elements!.map((e, i) => `  ${nullable(e)} Item${i}`).join('\n')
           : [...new Set(s.alternatives!.map(a => a.cs))].map(
             cs => `  static ${s.name} From(${cs})\n  static implicit operator ${s.name}(${cs}${isReferenceAlternative(s, cs) ? '?' : ''})`
-          ).join('\n') + '\n  object? Value\n'
+          ).join('\n') + '\n'
+          + flatArrays(s).map(flat => `  static ${s.name} From(${flat.cs})\n  static implicit operator ${s.name}(${flat.cs}?)\n`).join('')
+          + '  object? Value\n'
           + [...new Set(s.alternatives!.map(a => a.cs))]
             .map(cs => `  bool TryGet(out ${cs}${s.alternatives!.filter(a => a.cs === cs).every(isValueType) ? '' : '?'})`)
             .join('\n')
@@ -1251,6 +1253,15 @@ const conversions = (union: Shape) => {
   return types.includes('DateTimeOffset') ? [...types, 'DateTime', 'DateOnly'] : types;
 };
 
+/**
+ * The flat array of an alternative that is an array of one-or-many values, such as number[] for (number | number[])[]:
+ * the union converts it too, each element as one value.
+ */
+const flatArrays = (union: Shape) => union.alternatives!
+  .filter(a => a.kind === 'array' && a.element!.kind === 'many' && !a.element!.struct)
+  .map(a => ({ cs: `${manyElement(a.element!.element!)}[]`, target: a.cs, item: nullable(a.element!) }))
+  .filter(flat => !union.alternatives!.some(a => a.cs === flat.cs));
+
 /** Whether a conversion of a union takes a reference type. It accepts null: a conditional expression with a null branch has that type. */
 const isReferenceAlternative = (union: Shape, cs: string) => union.alternatives!.some(a => a.cs === cs && !isValueType(a));
 
@@ -1330,6 +1341,11 @@ function emitValue(shape: Shape): string {
       return `    /// <summary>Creates the ${cs.replaceAll('<', '&lt;')} alternative with exact literal validation.</summary>\n    public static ${name} From(${cs} value)\n    {\n${validate}        return new(value);\n    }\n    /// <summary>Converts a supported alternative, preserving its JSON shape${reference ? '; null converts to a null value' : ''}.</summary>\n    public static implicit operator ${name}(${cs}${reference ? '?' : ''} value) => ${reference ? 'value is null ? new(null) : ' : ''}From(value);\n`;
     }).join('\n')
       + (groups.has('DateTimeOffset') ? dateConversions(name) : '')
+      + flatArrays(shape).map(flat =>
+        `    /// <summary>Creates the ${flat.target.replaceAll('<', '&lt;')} alternative from a flat array: each element is one value.</summary>\n`
+        + `    public static ${name} From(${flat.cs} value) => From(System.Array.ConvertAll(value, item => (${flat.item})item));\n`
+        + `    /// <summary>Converts a flat array, as <c>From</c> does; null converts to a null value.</summary>\n`
+        + `    public static implicit operator ${name}(${flat.cs}? value) => value is null ? new(null) : From(value);\n`).join('')
       + `    internal static bool Matches(JsonElement json) => ${anyOf(shape.alternatives!.map(s => matches(s, 'json')))};\n`
       + valueDoc
       + [...groups].map(

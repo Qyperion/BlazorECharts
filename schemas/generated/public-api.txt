@@ -2791,6 +2791,8 @@ DecalDashArrayX : IOptionValue, IJsonOnSerializing
   static implicit operator DecalDashArrayX(double)
   static DecalDashArrayX From(OneOrMany<double?>?[])
   static implicit operator DecalDashArrayX(OneOrMany<double?>?[]?)
+  static DecalDashArrayX From(double?[])
+  static implicit operator DecalDashArrayX(double?[]?)
   object? Value
   bool TryGet(out double)
   bool TryGet(out OneOrMany<double?>?[]?)
