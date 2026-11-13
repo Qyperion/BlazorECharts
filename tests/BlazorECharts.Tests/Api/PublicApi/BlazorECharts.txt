@@ -88,6 +88,7 @@ public abstract class BlazorECharts.Events.ChartEventPayload
   protected double? Number(string name)
   protected int? Integer(string name)
   protected static T[] ReadItems<T>(JsonElement json, Func<JsonElement, T> read)
+  protected string? ItemId(string name)
   protected string? Text(string name)
   void Write(Utf8JsonWriter writer)
 public static class BlazorECharts.Events.ChartEvents
@@ -165,6 +166,7 @@ public sealed class BlazorECharts.Events.ClickEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -191,6 +193,7 @@ public sealed class BlazorECharts.Events.ContextMenuEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -238,6 +241,7 @@ public sealed class BlazorECharts.Events.DoubleClickEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -347,6 +351,7 @@ public sealed class BlazorECharts.Events.GlobalOutEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -447,6 +452,7 @@ public sealed class BlazorECharts.Events.MouseDownEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -473,6 +479,7 @@ public sealed class BlazorECharts.Events.MouseMoveEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -499,6 +506,7 @@ public sealed class BlazorECharts.Events.MouseOutEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -525,6 +533,7 @@ public sealed class BlazorECharts.Events.MouseOverEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }
@@ -551,6 +560,7 @@ public sealed class BlazorECharts.Events.MouseUpEvent : ChartEventPayload
   int? SeriesIndex { get; }
   string? ComponentSubType { get; }
   string? ComponentType { get; }
+  string? DataId { get; }
   string? DataType { get; }
   string? Name { get; }
   string? SelfType { get; }

@@ -43,6 +43,16 @@ public abstract class ChartEventPayload
         return value;
     }
 
+    /// <summary>Reads the id of an item field written as an object: a string as it is, a number as its JSON text.</summary>
+    protected string? ItemId(string name) => Field(name) is { ValueKind: JsonValueKind.Object } item && item.TryGetProperty("id", out var id)
+        ? id.ValueKind switch
+        {
+            JsonValueKind.String => id.GetString(),
+            JsonValueKind.Number => id.GetRawText(),
+            _ => null,
+        }
+        : null;
+
     /// <summary>Reads a selection map, retaining false values.</summary>
     protected IReadOnlyDictionary<string, bool>? BooleanMap(string name) => Field(name) is { ValueKind: JsonValueKind.Object } v
         ? v.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetBoolean(), StringComparer.Ordinal) : null;

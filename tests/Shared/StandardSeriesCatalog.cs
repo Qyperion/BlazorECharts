@@ -50,7 +50,7 @@ public static class StandardSeriesCatalog
                 "parallel":{"id":"parallel"},"parallelAxis":[{"dim":0,"type":"value"},{"dim":1,"type":"value"}],
                 """, """{"type":"parallel","parallelId":"parallel","lineStyle":{"width":4},"data":[[1,2],[3,4]]}"""),
             "pictorialBar" => (CategoryAxes, """{"type":"pictorialBar","symbol":"rect","symbolRepeat":false,"data":[3,6]}"""),
-            "pie" => ("", """{"type":"pie","selectedMode":"single","radius":"65%","data":[{"name":"A","value":3,"itemStyle":{"color":"#2480cc"},"meta":{"source":"synthetic","flag":false}},{"name":"B","value":6}]}"""),
+            "pie" => ("", """{"type":"pie","selectedMode":"single","radius":"65%","data":[{"id":"slice-a","name":"A","value":3,"itemStyle":{"color":"#2480cc"},"meta":{"source":"synthetic","flag":false}},{"name":"B","value":6}]}"""),
             "radar" => ("""
                 "radar":{"id":"radar","indicator":[{"name":"A","max":10},{"name":"B","max":10},{"name":"C","max":10}]},
                 """, """{"type":"radar","radarId":"radar","data":[{"value":[2,4,6]},{"value":[3,6,4]}]}"""),

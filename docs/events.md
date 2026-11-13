@@ -178,8 +178,8 @@ await using var selected = await chart.SubscribeAsync(custom, json => Task.Compl
 `ChartEvent<T>` with your own reader subscribes to any event name, for example events of an
 extension. ECharts emits lowercase event names.
 
-To identify the item of a mouse event, read `Data`: for an item written as an object it holds
-that object, with its `id` and the
+To identify the item of a mouse event, read `DataId`, the `id` that you gave the data item. `Data`
+holds the item as it was written, with the
 [fields you added](options.md#unset-null-and-unknown-fields). `DataIndex` of a tree, treemap or
 sunburst series is the position of the node in the whole tree, where treemap and sunburst count
 their root first; it is not an index into `Data`.
@@ -188,8 +188,9 @@ their root first; it is not an index into `Data`.
 ```csharp
 await using var click = await chart.SubscribeAsync(ChartEvents.Click, e =>
 {
-    if (e.Data is { Json: { ValueKind: JsonValueKind.Object } item } && item.TryGetProperty("id", out var id))
-        Console.WriteLine($"Clicked {id}");
+    // The id of the data item; its other fields are in Data.
+    if (e.DataId is { } id && e.Data is { Json: var item } && item.TryGetProperty("note", out var note))
+        Console.WriteLine($"Clicked {id}: {note}");
 
     return Task.CompletedTask;
 });

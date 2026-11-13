@@ -34,7 +34,7 @@ $script:BrowserSpecCounts = @{
 # The exact number of passing tests of the other test stages, as in the last PASS; dotnet-test counts each test assembly.
 $script:StageTestCounts = @{
     'gate-fixtures' = 162; 'js-test' = 194; 'generator-test' = 205; 'packages' = 10; 'aot' = 14
-    'dotnet-test' = @{ 'BlazorECharts.Tests' = 649; 'BlazorECharts.ComponentTests' = 53 }
+    'dotnet-test' = @{ 'BlazorECharts.Tests' = 654; 'BlazorECharts.ComponentTests' = 53 }
 }
 # Measurements without thresholds that rewrite a tracked baseline; they are not release evidence.
 $script:UngatedBrowserSpecs = @('performance/performance.spec.ts')

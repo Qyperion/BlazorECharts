@@ -167,7 +167,7 @@ for (const mode of ['server', 'wasm']) {
     await page.mouse.click(box.x + point.x, box.y + point.y);
 
     // Assert
-    await expect(page.getByTestId('typed-event')).toHaveText('pie|pie|0|A');
+    await expect(page.getByTestId('typed-event')).toHaveText('pie|pie|0|A|slice-a');
     await expect(page.getByTestId('selection')).toHaveText('True|0');
 
     // Act

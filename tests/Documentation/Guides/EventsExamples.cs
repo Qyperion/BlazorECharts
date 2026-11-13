@@ -73,8 +73,9 @@ internal static class EventsExamples
         // snippet: Guides.Events.DataItem
         await using var click = await chart.SubscribeAsync(ChartEvents.Click, e =>
         {
-            if (e.Data is { Json: { ValueKind: JsonValueKind.Object } item } && item.TryGetProperty("id", out var id))
-                Console.WriteLine($"Clicked {id}");
+            // The id of the data item; its other fields are in Data.
+            if (e.DataId is { } id && e.Data is { Json: var item } && item.TryGetProperty("note", out var note))
+                Console.WriteLine($"Clicked {id}: {note}");
 
             return Task.CompletedTask;
         });

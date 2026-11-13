@@ -25,6 +25,26 @@ public sealed class EventIndexTests
         Assert.Equal(0, click.ComponentIndex);
     }
 
+    [Theory]
+    [InlineData("""{"type":"click","data":{"id":"slice-a","value":3}}""", "slice-a")]
+    [InlineData("""{"type":"click","data":{"id":42,"value":3}}""", "42")]
+    [InlineData("""{"type":"click","data":{"value":3}}""", null)]
+    [InlineData("""{"type":"click","data":3}""", null)]
+    [InlineData("""{"type":"click"}""", null)]
+    public void MouseEvent_DataId_IsTheIdOfTheDataItem(string payload, string? expected)
+    {
+        // Arrange
+        using var json = JsonDocument.Parse(payload);
+
+        // Act
+        var click = new ClickEvent(json.RootElement);
+        var move = new MouseMoveEvent(json.RootElement);
+
+        // Assert
+        Assert.Equal(expected, click.DataId);
+        Assert.Equal(expected, move.DataId);
+    }
+
     [Fact]
     public void NestedEventIndices_AreIntegers()
     {

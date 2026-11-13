@@ -304,6 +304,9 @@ export function emitEventsActions(
         + `\n  ${m.name}[]? Batch { get; }`);
     } else if (event) {
       const fieldType = (type: string) => type === 'self[]' ? `${m.name}[]` : clr(type);
+
+      // A mouse event carries the data item as it was written: its id identifies the item, which dataIndex and name do not always do.
+      const itemId = m.fields.data === 'unknown' && m.fields.dataId === undefined;
       files.set(path, header
         + usings
         + typedUsings(m.fields)
@@ -318,11 +321,13 @@ export function emitEventsActions(
                     : type === 'boolean-map' ? `BooleanMap(${quote(field)})` : `ReadUnion(${quote(field)}, ${quote(type)}, ${quote(`${m.name}.${property(field)}`)})`;
           return `    /// <summary>Gets <c>${field}</c>${type.startsWith('type:') ? '' : ` (${type === 'self[]' ? m.name + '[]' : type})`}.</summary>\n${remarks(m.fieldRemarks?.[field], '    ')}    public ${fieldType(type)}? ${property(field)} => ${expression};`;
         }).join('\n')
+        + (itemId ? `\n    /// <summary>Gets the <c>id</c> of the data item in <c>data</c>, a number as its text; null when the item was not written as an object with an id.</summary>\n    public string? DataId => ItemId("data");` : '')
         + '\n}\n');
-      symbols.set(path, [m.name, `${m.name}.Write`, `${m.name}.ctor`, ...Object.keys(m.fields).map(f => `${m.name}.${property(f)}`)]);
+      symbols.set(path, [m.name, `${m.name}.Write`, `${m.name}.ctor`, ...Object.keys(m.fields).map(f => `${m.name}.${property(f)}`), ...(itemId ? [`${m.name}.DataId`] : [])]);
       descriptors.push(`    /// <summary>Subscribes to ${m.runtimeName}.</summary>\n    public static ChartEvent<${m.name}> ${descriptorName(m)} { get; } = new(${quote(m.runtimeName)}, json => new ${m.name}(json));`);
       publicApi.push(`${m.name} : ChartEventPayload [${m.runtimeName}]\n`
-        + Object.entries(m.fields).map(([f, t]) => `  ${fieldType(t)}? ${property(f)} { get; } [${f}: ${t}]`).join('\n'));
+        + Object.entries(m.fields).map(([f, t]) => `  ${fieldType(t)}? ${property(f)} { get; } [${f}: ${t}]`).join('\n')
+        + (itemId ? '\n  string? DataId { get; } [data.id]' : ''));
     } else if (!alreadyEmitted)
       emitObject(m.name, m.fields, m.runtimeName, m.remarks, docOf(r));
 

@@ -60,4 +60,6 @@ public sealed class MouseOverEvent(JsonElement json) : ChartEventPayload(json)
     public double[]? Coord => ReadField("coord", json => ReadItems<double>(json, item0 => (item0.ValueKind == JsonValueKind.Null ? double.NaN : item0.GetDouble())));
     /// <summary>Gets <c>selfType</c> (string).</summary>
     public string? SelfType => Text("selfType");
+    /// <summary>Gets the <c>id</c> of the data item in <c>data</c>, a number as its text; null when the item was not written as an object with an id.</summary>
+    public string? DataId => ItemId("data");
 }

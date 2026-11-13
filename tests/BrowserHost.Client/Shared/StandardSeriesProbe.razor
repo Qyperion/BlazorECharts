@@ -53,7 +53,7 @@
             _chart = await _runtime.CreateInstanceAsync(_element);
             _click = await _chart.SubscribeAsync(ChartEvents.Click, e => InvokeAsync(() =>
             {
-                _typedEvent = $"{e.SeriesType}|{e.SeriesId}|{e.DataIndex}|{e.Name}";
+                _typedEvent = $"{e.SeriesType}|{e.SeriesId}|{e.DataIndex}|{e.Name}|{e.DataId}";
                 _event = e.Raw.GetRawText();
                 StateHasChanged();
             }));

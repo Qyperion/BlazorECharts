@@ -21,6 +21,9 @@ file at the release tag.
   .NET exception is not sent to the browser.
 - `DecalObject.DashArrayX` takes a flat `double?[]`, as `DashArrayY` does:
   `DashArrayX = new double?[] { 1, 0 }` instead of `new OneOrMany<double?>?[] { 1, 0 }`.
+- The mouse events (`ClickEvent`, `DoubleClickEvent`, `MouseMoveEvent` and the others) have `DataId`:
+  the `id` of the data item under the pointer, a number as its text. It identifies the item where
+  `DataIndex` and `Name` do not, for example in a treemap, whose indices count the root.
 
 ## 2.0.0
 
