@@ -42,4 +42,8 @@ public sealed partial class HeatmapDataItemOption : OptionObject
     private NumberOrString? _p8;
     /// <summary>Gets or sets <c>name</c>.</summary>
     public NumberOrString? Name { get => _p8; set => SetProperty(ref _p8, value, "name"); }
+    private TooltipOption? _p9;
+    /// <summary>Gets or sets <c>tooltip</c>.</summary>
+    /// <remarks>Not described by echarts-doc or the TypeScript declarations; ECharts 6.1.0 reads it at runtime.</remarks>
+    public TooltipOption? Tooltip { get => _p9; set => SetProperty(ref _p9, value, "tooltip"); }
 }

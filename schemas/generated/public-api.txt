@@ -716,6 +716,7 @@ BarDataItemOption : OptionObject
   bool? Selected [selected]
   OptionDataItemValue? Value [value]
   LabelLineOption? LabelLine [labelLine]
+  TooltipOption? Tooltip [tooltip]
 BarDataItemOptionBlur : OptionObject
   StaticBarItemStyleOption? ItemStyle [itemStyle]
   BarLabelOption? Label [label]
@@ -2021,6 +2022,7 @@ ChordEdgeItemOption : OptionObject
   NumberOrString? Source [source]
   NumberOrString? Target [target]
   double? Value [value]
+  TooltipOption? Tooltip [tooltip]
 ChordEdgeItemOptionEmphasis : OptionObject
   BlurScope? BlurScope [blurScope]
   bool? Disabled [disabled]
@@ -3438,6 +3440,7 @@ GaugeDataItemOption : OptionObject
   GaugeDataItemOptionSelect? Select [select]
   GaugeTitleOption? Title [title]
   OptionDataValueNumeric? Value [value]
+  TooltipOption? Tooltip [tooltip]
 GaugeDataItemOptionBlur : OptionObject
   ItemStyleOption? ItemStyle [itemStyle]
 GaugeDataItemOptionEmphasis : OptionObject
@@ -6393,6 +6396,7 @@ HeatmapDataItemOption : OptionObject
   NumberOrString? ChildGroupId [childGroupId]
   NumberOrString? GroupId [groupId]
   NumberOrString? Name [name]
+  TooltipOption? Tooltip [tooltip]
 HeatmapDataItemOptionBlur : OptionObject
   HeatmapDataItemStyleOption? ItemStyle [itemStyle]
   SeriesLabelOption? Label [label]
@@ -8945,6 +8949,7 @@ ParallelSeriesDataItemOption : OptionObject
   ParallelSeriesDataItemOptionSelect? Select [select]
   OptionDataValue?[]? Value [value]
   NumberOrString? Name [name]
+  TooltipOption? Tooltip [tooltip]
 ParallelSeriesDataItemOptionBlur : OptionObject
   SeriesLabelOption? Label [label]
   LineStyleOption? LineStyle [lineStyle]

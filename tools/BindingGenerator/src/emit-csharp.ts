@@ -567,7 +567,8 @@ export function generate(
               }
 
               // Preserve literal restrictions in readers too.
-              const summary = config.componentProperties?.find(c => c.parent === id && c.name === p.name)?.summary;
+              const supplement = config.componentProperties?.find(c => c.parent === id && c.name === p.name);
+              const summary = supplement?.summary;
               const remark = config.memberRemarks?.find(r => r.typeId === id && r.property === p.name)?.remarks;
               const deprecated = deprecation(p.provenance);
               shape.properties!.push({
@@ -578,6 +579,7 @@ export function generate(
                 defaultValue: defaultFor(id, p.name),
                 ...(summary ? { summary } : {}),
                 ...(remark ? { remarks: remark } : {}),
+                ...(supplement && !supplement.docs.length ? { runtimeOnly: true } : {}),
                 ...(deprecated !== undefined ? { deprecated } : {}),
               });
             } catch (error) {
@@ -1110,6 +1112,7 @@ function literalValidation(name: string, cs: string, group: Shape[], alternative
 const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} or ${items.at(-1)}`;
 
 const tsOnly = 'Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.';
+const runtimeOnly = 'Not described by echarts-doc or the TypeScript declarations; ECharts 6.1.0 reads it at runtime.';
 
 function emitModel(shape: Shape, documented: Map<string, MemberDoc>, paths: Map<string, number> | undefined, componentLists: string[]): string {
   // The option page of a model: the path most of its documented members are under.
@@ -1132,7 +1135,7 @@ function emitModel(shape: Shape, documented: Map<string, MemberDoc>, paths: Map<
       const obsolete = p.deprecated === undefined
         ? ''
         : `\n    [Obsolete(${quote(`Deprecated in ECharts 6.1.0${p.deprecated ? ': ' + p.deprecated : '.'}`)})]`;
-      return `    private ${nullable(p.shape)} _p${i}${p.defaultValue === undefined ? '' : ' = ' + p.defaultValue};\n    /// <summary>${summary}</summary>${remarks(documented.has(`${shape.id}/${p.name}`) ? defaultRemark(documented.get(`${shape.id}/${p.name}`)!.defaultValue) : tsOnly, memberRemark(p.remarks))}${obsolete}\n    public ${nullable(p.shape)} ${p.csName} { get => _p${i}; ${variantType ? 'internal ' : ''}set => SetProperty(ref _p${i}, value, ${quote(p.name)}); }`;
+      return `    private ${nullable(p.shape)} _p${i}${p.defaultValue === undefined ? '' : ' = ' + p.defaultValue};\n    /// <summary>${summary}</summary>${remarks(documented.has(`${shape.id}/${p.name}`) ? defaultRemark(documented.get(`${shape.id}/${p.name}`)!.defaultValue) : p.runtimeOnly ? runtimeOnly : tsOnly, memberRemark(p.remarks))}${obsolete}\n    public ${nullable(p.shape)} ${p.csName} { get => _p${i}; ${variantType ? 'internal ' : ''}set => SetProperty(ref _p${i}, value, ${quote(p.name)}); }`;
     }).join('\n') + '\n}\n';
 }
 

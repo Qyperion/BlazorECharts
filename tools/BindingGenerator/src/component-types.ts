@@ -7,6 +7,7 @@ import type { CSharpConfiguration } from './generation-model.ts';
 import { execFileSync } from 'node:child_process';
 import { componentRoute } from './component-routes.ts';
 import { projectGraphicVariants } from './graphic-options.ts';
+import { evidenceErrors } from './evidence.ts';
 
 const cache = new Map<string, {
   types: TypeNode[];
@@ -287,9 +288,13 @@ export function prepareComponentTypes(schema: ApiSchema, config: CSharpConfigura
       || original.properties?.some(v => v.name === p.name)
       || !types.has(p.type)
       || !p.reason.trim()
-      || !p.docs.length
+      || (p.docs.length ? p.evidence !== undefined : !p.evidence?.length)
       || p.docs.some(id => !schema.records.some(r => r.id === id && r.name === p.name && r.inventory?.category === 'option')))
       throw new Error(`Stale component supplement ${p.parent}/${p.name}`);
+
+    const unproven = p.docs.length ? [] : evidenceErrors(`Component supplement ${key}`, p.evidence!);
+    if (unproven.length)
+      throw new Error(unproven.join('; '));
 
     let target = parents.get(p.parent);
     if (!target) {

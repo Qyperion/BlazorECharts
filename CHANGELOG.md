@@ -11,6 +11,10 @@ file at the release tag.
   `Legend = show ? new ScrollableLegendOption() : null` or `BorderColor = dense ? null : "#fff"`,
   compiles without a nullable warning. The null is written as a JSON `null`, like an assigned
   `null`.
+- `BarDataItemOption`, `HeatmapDataItemOption`, `GaugeDataItemOption`, `ParallelSeriesDataItemOption`
+  and `ChordEdgeItemOption` have a `Tooltip`: the tooltip of one data item or one chord edge, which
+  replaces the tooltip of the series for it. ECharts reads it for every series, although its
+  documentation lists it only for some.
 
 ## 2.0.0
 

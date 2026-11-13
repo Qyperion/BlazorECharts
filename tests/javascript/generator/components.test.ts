@@ -78,6 +78,24 @@ it('Components_NewPublicPathAndStaleSupplementFailTheGate', () => {
   expect(() => generate(schema, stale)).toThrow(/Stale component supplement/);
 });
 
+it('Components_UndocumentedSupplementNeedsAGatedBrowserTest', () => {
+  // Arrange
+  const undocumented = (config: typeof overrides) => config.csharp.componentProperties.find((p: { evidence?: string[] }) => p.evidence);
+  const unproven = structuredClone(overrides);
+  delete undocumented(unproven).evidence;
+  const untested = structuredClone(overrides);
+  undocumented(untested).evidence = ['tests/browser/standard-series.spec.ts#NoSuchTest'];
+  const both = structuredClone(overrides);
+  both.csharp.componentProperties.find((p: { docs: string[] }) => p.docs.length).evidence = undocumented(overrides).evidence;
+
+  // Act & Assert
+  expect(() => generate(schema, unproven)).toThrow(/Stale component supplement/);
+  expect(() => generate(schema, untested)).toThrow(/declares no test NoSuchTest/);
+  expect(() => generate(schema, both)).toThrow(/Stale component supplement/);
+  expect(baseline().files.get('src/BlazorECharts/Options/Generated/BarDataItemOption.cs'))
+    .toContain('Not described by echarts-doc or the TypeScript declarations; ECharts 6.1.0 reads it at runtime.');
+});
+
 it('Components_PrimitiveWithOptionalDictionaryIsStillAnInhabitableString', () => {
   // Arrange
   const copy = structuredClone(schema);

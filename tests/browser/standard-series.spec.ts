@@ -181,4 +181,69 @@ for (const mode of ['server', 'wasm']) {
     expect(payload.data.meta).toEqual({ source: 'synthetic', flag: false });
     expect(issues).toEqual([]);
   });
+
+  // echarts-doc and the declarations omit tooltip for these items; ECharts reads it from the item model of every series.
+  test(`ItemTooltip_ReplacesTheSeriesTooltip ${mode}`, async ({ page }) => {
+    // Arrange
+    const issues: string[] = [];
+    page.on('pageerror', e => issues.push(e.message));
+    page.on('console', m => {
+      if (['warning', 'error'].includes(m.type()))
+        issues.push(m.text());
+    });
+    await page.goto(`/harness/series/${mode}`);
+    await expect(page.getByTestId('status')).toHaveText('ready:bar');
+    const chart = page.locator('.series-chart');
+
+    // A point of the canvas where the pointer hits the graphic element of the item.
+    const pointOf = (dataType: string | undefined, index: number) => chart.evaluate(async (el, [dataType, index]) => {
+      const ec = await import('/_content/BlazorECharts/js/echarts-6.1.0.js');
+      const c = ec.getInstanceByDom(el);
+      const item = c.getModel().getSeriesByIndex(0).getData(dataType).getItemGraphicEl(index);
+      const owns = (target: any) => {
+        for (; target; target = target.parent) {
+          if (target === item)
+            return true;
+        }
+
+        return false;
+      };
+      for (let y = 2; y < c.getHeight(); y += 4) {
+        for (let x = 2; x < c.getWidth(); x += 4) {
+          if (owns(c.getZr().findHover(x, y)?.target))
+            return { x, y };
+        }
+      }
+
+      throw new Error(`No pointer position hits item ${index}.`);
+    }, [dataType, index] as const);
+
+    const hover = async (dataType: string | undefined, index: number) => {
+      const point = await pointOf(dataType, index);
+      const box = (await chart.boundingBox())!;
+      await page.mouse.move(box.x + point.x - 1, box.y + point.y - 1);
+      await page.mouse.move(box.x + point.x, box.y + point.y);
+    };
+
+    for (const name of ['bar', 'heatmap', 'gauge', 'parallel', 'chord']) {
+      const dataType = name === 'chord' ? 'edge' : undefined;
+
+      // Act
+      await page.getByLabel('Item tooltip').selectOption(name);
+      await expect(page.getByTestId('status')).toHaveText(`tooltip:${name}`);
+      await hover(dataType, 0);
+
+      // Assert
+      await expect(chart, name).toContainText('item tooltip');
+
+      // Act
+      await hover(dataType, 1);
+
+      // Assert
+      await expect(chart, name).toContainText('series tooltip');
+      await expect(chart, name).not.toContainText('item tooltip');
+    }
+
+    expect(issues).toEqual([]);
+  });
 }

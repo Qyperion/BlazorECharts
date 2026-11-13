@@ -306,6 +306,21 @@ internal static class PublicContractCases
         yield return ("type:3d2d917a604712361e18de0f/type:6aa0dbf237a420195c29828a", EChartsValue.From(OptionDataItemValue.From(2d)), "2", 0);
         yield return ("type:3d2d917a604712361e18de0f/type:9d02ffb53f936112c4a8c482", EChartsValue.From(OptionDataItemValue.From("sample")), "\"sample\"", 0);
         yield return ("type:3d2d917a604712361e18de0f/type:b018abfec8b1d727dc03a9a8", EChartsValue.From(OptionDataItemValue.From(new OptionDataValue?[0])), "[]", 0);
+        yield return ("type:8254a74aebd9f0862ed64694/type:21f26544d17d55b82884181d", EChartsValue.From(TooltipOptionAppendTo.From(JsFunction.Module<TooltipOptionAppendToAlternativeSignature>("/modules/series-functions.js", "format"))), "null", 1);
+        yield return ("type:8254a74aebd9f0862ed64694/type:618dd8ebb6673e6028cd8f13", EChartsValue.From(TooltipOptionAppendTo.From((EChartsObjectReference)null!)), "null", 0);
+        yield return ("type:8254a74aebd9f0862ed64694/type:9d02ffb53f936112c4a8c482", EChartsValue.From(TooltipOptionAppendTo.From("sample")), "\"sample\"", 0);
+        yield return ("type:331244246cee154742196cb6/type:8fbb983aeecdfa075956f931", EChartsValue.From(TooltipOrderMode.From("seriesAsc")), "\"seriesAsc\"", 0);
+        yield return ("type:331244246cee154742196cb6/type:a946e0945b78f0bc10353a2c", EChartsValue.From(TooltipOrderMode.From("seriesDesc")), "\"seriesDesc\"", 0);
+        yield return ("type:331244246cee154742196cb6/type:e2416d43eda2e67c0a7e5d15", EChartsValue.From(TooltipOrderMode.From("valueDesc")), "\"valueDesc\"", 0);
+        yield return ("type:331244246cee154742196cb6/type:f87a68cb3eeec792836b313e", EChartsValue.From(TooltipOrderMode.From("valueAsc")), "\"valueAsc\"", 0);
+        yield return ("type:75dcb5a58bc078bca32420f9/type:6b9627dcf01f0cc6b3002943", EChartsValue.From(TooltipOptionRenderMode.From("richText")), "\"richText\"", 0);
+        yield return ("type:75dcb5a58bc078bca32420f9/type:e99c38c7bd1ab697a4432488", EChartsValue.From(TooltipOptionRenderMode.From("auto")), "\"auto\"", 0);
+        yield return ("type:75dcb5a58bc078bca32420f9/type:f2f481a447de90d890a256a4", EChartsValue.From(TooltipOptionRenderMode.From("html")), "\"html\"", 0);
+        yield return ("type:b353e8bd48df77f44416ca73/type:2791e9837794d27bee3a75f3", EChartsValue.From(TooltipTriggerOn.From("mousemove|click|mousewheel")), "\"mousemove|click|mousewheel\"", 0);
+        yield return ("type:b353e8bd48df77f44416ca73/type:3b0f8d67d74f84f54f553651", EChartsValue.From(TooltipTriggerOn.From("click")), "\"click\"", 0);
+        yield return ("type:b353e8bd48df77f44416ca73/type:779ea3f118248b457c0f29a4", EChartsValue.From(TooltipTriggerOn.From("none")), "\"none\"", 0);
+        yield return ("type:b353e8bd48df77f44416ca73/type:a3af2c3a337a753cc51ade7a", EChartsValue.From(TooltipTriggerOn.From("mousewheel")), "\"mousewheel\"", 0);
+        yield return ("type:b353e8bd48df77f44416ca73/type:c670fabe91d251ac1216feac", EChartsValue.From(TooltipTriggerOn.From("mousemove")), "\"mousemove\"", 0);
         yield return ("type:2a827a652f87341006dd1b78/type:16eaf2076f839f0e7da0bb9e", EChartsValue.From(ItemStyleColor.From(new SVGPatternObject())), "{\"type\":\"pattern\"}", 0);
         yield return ("type:2a827a652f87341006dd1b78/type:58167a59d0cedce1d544ccf7", EChartsValue.From(ItemStyleColor.From(new LinearGradientObject())), "{\"type\":\"linear\"}", 0);
         yield return ("type:2a827a652f87341006dd1b78/type:58db7c9ee14b0b947d10e9ad", EChartsValue.From(ItemStyleColor.From(new ImagePatternObject())), "{\"type\":\"pattern\"}", 0);
@@ -352,11 +367,6 @@ internal static class PublicContractCases
         yield return ("type:0c1c904a3ec51fcf29b0a33e/type:59cf0aa5b011beb1a0024fe9", EChartsValue.From(SeriesTooltipTrigger.From("item")), "\"item\"", 0);
         yield return ("type:0c1c904a3ec51fcf29b0a33e/type:779ea3f118248b457c0f29a4", EChartsValue.From(SeriesTooltipTrigger.From("none")), "\"none\"", 0);
         yield return ("type:0c1c904a3ec51fcf29b0a33e/type:f4baedc380f329c36062dfbd", EChartsValue.From(SeriesTooltipTrigger.From(true)), "true", 0);
-        yield return ("type:b353e8bd48df77f44416ca73/type:2791e9837794d27bee3a75f3", EChartsValue.From(TooltipTriggerOn.From("mousemove|click|mousewheel")), "\"mousemove|click|mousewheel\"", 0);
-        yield return ("type:b353e8bd48df77f44416ca73/type:3b0f8d67d74f84f54f553651", EChartsValue.From(TooltipTriggerOn.From("click")), "\"click\"", 0);
-        yield return ("type:b353e8bd48df77f44416ca73/type:779ea3f118248b457c0f29a4", EChartsValue.From(TooltipTriggerOn.From("none")), "\"none\"", 0);
-        yield return ("type:b353e8bd48df77f44416ca73/type:a3af2c3a337a753cc51ade7a", EChartsValue.From(TooltipTriggerOn.From("mousewheel")), "\"mousewheel\"", 0);
-        yield return ("type:b353e8bd48df77f44416ca73/type:c670fabe91d251ac1216feac", EChartsValue.From(TooltipTriggerOn.From("mousemove")), "\"mousemove\"", 0);
         yield return ("type:15e6b38620043decff599aba/type:0fa16c53597bb4dea8c412f9", EChartsValue.From(SeriesLineLabelOptionPosition.From("insideStart")), "\"insideStart\"", 0);
         yield return ("type:15e6b38620043decff599aba/type:107cbddbac08e07f21cf5eb1", EChartsValue.From(SeriesLineLabelOptionPosition.From("insideMiddleTop")), "\"insideMiddleTop\"", 0);
         yield return ("type:15e6b38620043decff599aba/type:3f887c9337a14e0c0986262d", EChartsValue.From(SeriesLineLabelOptionPosition.From("insideStartTop")), "\"insideStartTop\"", 0);
@@ -413,6 +423,9 @@ internal static class PublicContractCases
         yield return ("type:3e91783f34b97275d8aba523/type:f4baedc380f329c36062dfbd", EChartsValue.From(OptionSourceHeader.From(true)), "true", 0);
         yield return ("type:ce9adfd5bcfc5d6bc5885709/type:8fbb983aeecdfa075956f931", EChartsValue.From(StackOrder.From("seriesAsc")), "\"seriesAsc\"", 0);
         yield return ("type:ce9adfd5bcfc5d6bc5885709/type:a946e0945b78f0bc10353a2c", EChartsValue.From(StackOrder.From("seriesDesc")), "\"seriesDesc\"", 0);
+    }
+    private static IEnumerable<(string Id, EChartsValue Value, string Json, int Bindings)> Values3()
+    {
         yield return ("type:2487d4417fe4fbcf01ac3e8e/type:107b07f985b99264d0e5701c", EChartsValue.From(StackStrategy.From("negative")), "\"negative\"", 0);
         yield return ("type:2487d4417fe4fbcf01ac3e8e/type:40b26df404e2938052988ba9", EChartsValue.From(StackStrategy.From("samesign")), "\"samesign\"", 0);
         yield return ("type:2487d4417fe4fbcf01ac3e8e/type:793d16111df8e2646bbc6223", EChartsValue.From(StackStrategy.From("positive")), "\"positive\"", 0);
@@ -423,22 +436,9 @@ internal static class PublicContractCases
         yield return ("type:6e784498a787af21950232ef/type:c4a9c9e76fd0aa038ed7364b", EChartsValue.From(UniversalTransition.From(new UniversalTransitionOption())), "{}", 0);
         yield return ("type:6e784498a787af21950232ef/type:f4baedc380f329c36062dfbd", EChartsValue.From(UniversalTransition.From(true)), "true", 0);
         yield return ("type:a9c12a322a9febfc513a5a8e/type:4fb75a0b90512fbed98c5d34", EChartsValue.From(UniversalTransitionOptionDivideShape.From("clone")), "\"clone\"", 0);
-    }
-    private static IEnumerable<(string Id, EChartsValue Value, string Json, int Bindings)> Values3()
-    {
         yield return ("type:a9c12a322a9febfc513a5a8e/type:fa66d9f9ff659567b1323c42", EChartsValue.From(UniversalTransitionOptionDivideShape.From("split")), "\"split\"", 0);
         yield return ("type:060db9a811d4cae886b51b49/type:6aa0dbf237a420195c29828a", EChartsValue.From(OptionDataValueNumeric.From(2d)), "2", 0);
         yield return ("type:060db9a811d4cae886b51b49/type:b7e5ae5196ff925cb03292f0", EChartsValue.From(OptionDataValueNumeric.From("-")), "\"-\"", 0);
-        yield return ("type:8254a74aebd9f0862ed64694/type:21f26544d17d55b82884181d", EChartsValue.From(TooltipOptionAppendTo.From(JsFunction.Module<TooltipOptionAppendToAlternativeSignature>("/modules/series-functions.js", "format"))), "null", 1);
-        yield return ("type:8254a74aebd9f0862ed64694/type:618dd8ebb6673e6028cd8f13", EChartsValue.From(TooltipOptionAppendTo.From((EChartsObjectReference)null!)), "null", 0);
-        yield return ("type:8254a74aebd9f0862ed64694/type:9d02ffb53f936112c4a8c482", EChartsValue.From(TooltipOptionAppendTo.From("sample")), "\"sample\"", 0);
-        yield return ("type:331244246cee154742196cb6/type:8fbb983aeecdfa075956f931", EChartsValue.From(TooltipOrderMode.From("seriesAsc")), "\"seriesAsc\"", 0);
-        yield return ("type:331244246cee154742196cb6/type:a946e0945b78f0bc10353a2c", EChartsValue.From(TooltipOrderMode.From("seriesDesc")), "\"seriesDesc\"", 0);
-        yield return ("type:331244246cee154742196cb6/type:e2416d43eda2e67c0a7e5d15", EChartsValue.From(TooltipOrderMode.From("valueDesc")), "\"valueDesc\"", 0);
-        yield return ("type:331244246cee154742196cb6/type:f87a68cb3eeec792836b313e", EChartsValue.From(TooltipOrderMode.From("valueAsc")), "\"valueAsc\"", 0);
-        yield return ("type:75dcb5a58bc078bca32420f9/type:6b9627dcf01f0cc6b3002943", EChartsValue.From(TooltipOptionRenderMode.From("richText")), "\"richText\"", 0);
-        yield return ("type:75dcb5a58bc078bca32420f9/type:e99c38c7bd1ab697a4432488", EChartsValue.From(TooltipOptionRenderMode.From("auto")), "\"auto\"", 0);
-        yield return ("type:75dcb5a58bc078bca32420f9/type:f2f481a447de90d890a256a4", EChartsValue.From(TooltipOptionRenderMode.From("html")), "\"html\"", 0);
         yield return ("type:6e4db4c63f49725ce0791c4c/type:6647bfedae8bef931a635a8e", EChartsValue.From(BoxplotSeriesOptionDataItem.From(new BoxplotDataItemOption())), "{}", 0);
         yield return ("type:6e4db4c63f49725ce0791c4c/type:8ff94d91646b474c170e2f38", EChartsValue.From(BoxplotSeriesOptionDataItem.From(new OptionDataValueNumeric?[0])), "[]", 0);
         yield return ("type:29b7d576dbcefad4f3dd8d3a/type:8913800b25c8359323a5fa5b", EChartsValue.From(LayoutOrient.From("horizontal")), "\"horizontal\"", 0);
@@ -3659,6 +3659,7 @@ internal static class PublicContractCases
         yield return ("property:type:b0936941e75d181990ef4517/selected", new BarDataItemOption { Selected = false }, "selected", "false", 0, json => GeneratedOptionMetadata.ReadBarDataItemOption(json));
         yield return ("property:type:b0936941e75d181990ef4517/value", new BarDataItemOption { Value = OptionDataItemValue.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "value", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadBarDataItemOption(json));
         yield return ("property:type:b0936941e75d181990ef4517/labelLine", new BarDataItemOption { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOption(json));
+        yield return ("property:type:b0936941e75d181990ef4517/tooltip", new BarDataItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOption(json));
         yield return ("property:type:a254b0a4791e34f1fee5416e/itemStyle", new BarDataItemOptionBlur { ItemStyle = new StaticBarItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOptionBlur(json));
         yield return ("property:type:a254b0a4791e34f1fee5416e/label", new BarDataItemOptionBlur { Label = new BarLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOptionBlur(json));
         yield return ("property:type:a254b0a4791e34f1fee5416e/labelLine", new BarDataItemOptionBlur { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOptionBlur(json));
@@ -3672,10 +3673,10 @@ internal static class PublicContractCases
         yield return ("property:type:9cd9c86a7235399c0c1b2bcf/borderWidth", new StaticBarItemStyleOption { BorderWidth = 2d }, "borderWidth", "2", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
         yield return ("property:type:9cd9c86a7235399c0c1b2bcf/color", new StaticBarItemStyleOption { Color = ZRColor.From(new SVGPatternObject()) }, "color", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
         yield return ("property:type:9cd9c86a7235399c0c1b2bcf/decal", new StaticBarItemStyleOption { Decal = StyleDecal.From(new DecalObject()) }, "decal", "{}", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
-        yield return ("property:type:9cd9c86a7235399c0c1b2bcf/opacity", new StaticBarItemStyleOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties13()
     {
+        yield return ("property:type:9cd9c86a7235399c0c1b2bcf/opacity", new StaticBarItemStyleOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
         yield return ("property:type:9cd9c86a7235399c0c1b2bcf/shadowBlur", new StaticBarItemStyleOption { ShadowBlur = 2d }, "shadowBlur", "2", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
         yield return ("property:type:9cd9c86a7235399c0c1b2bcf/shadowColor", new StaticBarItemStyleOption { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
         yield return ("property:type:9cd9c86a7235399c0c1b2bcf/shadowOffsetX", new StaticBarItemStyleOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadStaticBarItemStyleOption(json));
@@ -3745,6 +3746,48 @@ internal static class PublicContractCases
         yield return ("property:type:ed7938bd7129cf576bcfd89a/itemStyle", new BarDataItemOptionSelect { ItemStyle = new StaticBarItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOptionSelect(json));
         yield return ("property:type:ed7938bd7129cf576bcfd89a/label", new BarDataItemOptionSelect { Label = new BarLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOptionSelect(json));
         yield return ("property:type:ed7938bd7129cf576bcfd89a/labelLine", new BarDataItemOptionSelect { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadBarDataItemOptionSelect(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/align", new TooltipOption { Align = TextAlign.From("center") }, "align", "\"center\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/alwaysShowContent", new TooltipOption { AlwaysShowContent = false }, "alwaysShowContent", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/appendTo", new TooltipOption { AppendTo = TooltipOptionAppendTo.From(JsFunction.Module<TooltipOptionAppendToAlternativeSignature>("/modules/series-functions.js", "format")) }, "appendTo", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/appendToBody", new TooltipOption { AppendToBody = false }, "appendToBody", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/axisPointer", new TooltipOption { AxisPointer = new TooltipAxisPointerOption() }, "axisPointer", "{}", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/backgroundColor", new TooltipOption { BackgroundColor = "sample" }, "backgroundColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/borderColor", new TooltipOption { BorderColor = "sample" }, "borderColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/borderRadius", new TooltipOption { BorderRadius = 2d }, "borderRadius", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/borderWidth", new TooltipOption { BorderWidth = 2d }, "borderWidth", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/className", new TooltipOption { ClassName = "sample" }, "className", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/confine", new TooltipOption { Confine = false }, "confine", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/coord", new TooltipOption { Coord = CoordinateSystemDataCoord.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "coord", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/coordinateSystem", new TooltipOption { CoordinateSystem = "sample" }, "coordinateSystem", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/coordinateSystemUsage", new TooltipOption { CoordinateSystemUsage = CoordinateSystemUsageOption.From("box") }, "coordinateSystemUsage", "\"box\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/defaultBorderColor", new TooltipOption { DefaultBorderColor = "sample" }, "defaultBorderColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/displayTransition", new TooltipOption { DisplayTransition = false }, "displayTransition", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/enterable", new TooltipOption { Enterable = false }, "enterable", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/extraCssText", new TooltipOption { ExtraCssText = "sample" }, "extraCssText", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/formatter", new TooltipOption { Formatter = TooltipFormatter.From(JsFunction.Module<TooltipFormatterSignature>("/modules/series-functions.js", "format")) }, "formatter", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/hideDelay", new TooltipOption { HideDelay = 2d }, "hideDelay", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/id", new TooltipOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/name", new TooltipOption { Name = NumberOrString.From(2d) }, "name", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/order", new TooltipOption { Order = TooltipOrderMode.From("seriesAsc") }, "order", "\"seriesAsc\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/padding", new TooltipOption { Padding = OneOrMany<double?>.One(2d) }, "padding", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/position", new TooltipOption { Position = TooltipPosition.From(JsFunction.Module<TooltipPositionCallback>("/modules/series-functions.js", "format")) }, "position", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/renderMode", new TooltipOption { RenderMode = TooltipOptionRenderMode.From("richText") }, "renderMode", "\"richText\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowBlur", new TooltipOption { ShadowBlur = 2d }, "shadowBlur", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowColor", new TooltipOption { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowOffsetX", new TooltipOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowOffsetY", new TooltipOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/show", new TooltipOption { Show = false }, "show", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/showContent", new TooltipOption { ShowContent = false }, "showContent", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/showDelay", new TooltipOption { ShowDelay = 2d }, "showDelay", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/textStyle", new TooltipOption { TextStyle = new AxisTooltipOptionTextStyle() }, "textStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/transitionDuration", new TooltipOption { TransitionDuration = 2d }, "transitionDuration", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/trigger", new TooltipOption { Trigger = TooltipTrigger.From("axis") }, "trigger", "\"axis\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/triggerOn", new TooltipOption { TriggerOn = TooltipTriggerOn.From("mousemove|click|mousewheel") }, "triggerOn", "\"mousemove|click|mousewheel\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/type", new TooltipOption { Type = "sample" }, "type", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/valueFormatter", new TooltipOption { ValueFormatter = JsFunction.Module<TooltipValueFormatterSignature>("/modules/series-functions.js", "format") }, "valueFormatter", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/verticalAlign", new TooltipOption { VerticalAlign = TextVerticalAlign.From("top") }, "verticalAlign", "\"top\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/z", new TooltipOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
+        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/zlevel", new TooltipOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
         yield return ("property:type:df78558f1453619dd556f891/borderCap", new BarItemStyleOption { BorderCap = CanvasLineCap.From("round") }, "borderCap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadBarItemStyleOption(json));
         yield return ("property:type:df78558f1453619dd556f891/borderColor", new BarItemStyleOption { BorderColor = ZRColor.From(new SVGPatternObject()) }, "borderColor", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadBarItemStyleOption(json));
         yield return ("property:type:df78558f1453619dd556f891/borderDashOffset", new BarItemStyleOption { BorderDashOffset = 2d }, "borderDashOffset", "2", 0, json => GeneratedOptionMetadata.ReadBarItemStyleOption(json));
@@ -3761,6 +3804,9 @@ internal static class PublicContractCases
         yield return ("property:type:df78558f1453619dd556f891/shadowOffsetX", new BarItemStyleOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadBarItemStyleOption(json));
         yield return ("property:type:df78558f1453619dd556f891/shadowOffsetY", new BarItemStyleOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadBarItemStyleOption(json));
         yield return ("property:type:ab6c97206d124746693606a0/animation", new BarSeriesOption { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties14()
+    {
         yield return ("property:type:ab6c97206d124746693606a0/animationDelay", new BarSeriesOption { AnimationDelay = AnimationDelay.From(2d) }, "animationDelay", "2", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
         yield return ("property:type:ab6c97206d124746693606a0/animationDelayUpdate", new BarSeriesOption { AnimationDelayUpdate = AnimationDelay.From(2d) }, "animationDelayUpdate", "2", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
         yield return ("property:type:ab6c97206d124746693606a0/animationDuration", new BarSeriesOption { AnimationDuration = AnimationDuration.From(2d) }, "animationDuration", "2", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
@@ -3804,9 +3850,6 @@ internal static class PublicContractCases
         yield return ("property:type:ab6c97206d124746693606a0/largeThreshold", new BarSeriesOption { LargeThreshold = 2d }, "largeThreshold", "2", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
         yield return ("property:type:ab6c97206d124746693606a0/legendHoverLink", new BarSeriesOption { LegendHoverLink = false }, "legendHoverLink", "false", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
         yield return ("property:type:ab6c97206d124746693606a0/markArea", new BarSeriesOption { MarkArea = new MarkAreaOption() }, "markArea", "{}", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties14()
-    {
         yield return ("property:type:ab6c97206d124746693606a0/markLine", new BarSeriesOption { MarkLine = new MarkLineOption() }, "markLine", "{}", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
         yield return ("property:type:ab6c97206d124746693606a0/markPoint", new BarSeriesOption { MarkPoint = new MarkPointOption() }, "markPoint", "{}", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
         yield return ("property:type:ab6c97206d124746693606a0/name", new BarSeriesOption { Name = NumberOrString.From(2d) }, "name", "2", 0, json => GeneratedOptionMetadata.ReadBarSeriesOption(json));
@@ -3892,6 +3935,9 @@ internal static class PublicContractCases
         yield return ("property:type:1ab97579a9b0bb7eae3616e9/animationDurationUpdate", new MarkAreaOption { AnimationDurationUpdate = AnimationDuration.From(2d) }, "animationDurationUpdate", "2", 0, json => GeneratedOptionMetadata.ReadMarkAreaOption(json));
         yield return ("property:type:1ab97579a9b0bb7eae3616e9/animationEasing", new MarkAreaOption { AnimationEasing = AnimationEasing.From("backIn") }, "animationEasing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadMarkAreaOption(json));
         yield return ("property:type:1ab97579a9b0bb7eae3616e9/animationEasingUpdate", new MarkAreaOption { AnimationEasingUpdate = AnimationEasing.From("backIn") }, "animationEasingUpdate", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadMarkAreaOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties15()
+    {
         yield return ("property:type:1ab97579a9b0bb7eae3616e9/animationThreshold", new MarkAreaOption { AnimationThreshold = 2d }, "animationThreshold", "2", 0, json => GeneratedOptionMetadata.ReadMarkAreaOption(json));
         yield return ("property:type:1ab97579a9b0bb7eae3616e9/blur", new MarkAreaOption { Blur = new MarkAreaStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadMarkAreaOption(json));
         yield return ("property:type:1ab97579a9b0bb7eae3616e9/coord", new MarkAreaOption { Coord = CoordinateSystemDataCoord.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "coord", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadMarkAreaOption(json));
@@ -3935,9 +3981,6 @@ internal static class PublicContractCases
         yield return ("property:type:cdd5aa89c726ac08bef29d32/lineOverflow", new SeriesLabelOption { LineOverflow = LineOverflow.From("truncate") }, "lineOverflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadSeriesLabelOption(json));
         yield return ("property:type:cdd5aa89c726ac08bef29d32/minMargin", new SeriesLabelOption { MinMargin = 2d }, "minMargin", "2", 0, json => GeneratedOptionMetadata.ReadSeriesLabelOption(json));
         yield return ("property:type:cdd5aa89c726ac08bef29d32/offset", new SeriesLabelOption { Offset = new double?[0] }, "offset", "[]", 0, json => GeneratedOptionMetadata.ReadSeriesLabelOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties15()
-    {
         yield return ("property:type:cdd5aa89c726ac08bef29d32/opacity", new SeriesLabelOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadSeriesLabelOption(json));
         yield return ("property:type:cdd5aa89c726ac08bef29d32/overflow", new SeriesLabelOption { Overflow = TextOverflow.From("truncate") }, "overflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadSeriesLabelOption(json));
         yield return ("property:type:cdd5aa89c726ac08bef29d32/padding", new SeriesLabelOption { Padding = OneOrMany<double?>.One(2d) }, "padding", "2", 0, json => GeneratedOptionMetadata.ReadSeriesLabelOption(json));
@@ -4023,6 +4066,9 @@ internal static class PublicContractCases
         yield return ("property:type:f3a784f907906cbefdc5c0b2/shadowColor", new MarkTooltipOption { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadMarkTooltipOption(json));
         yield return ("property:type:f3a784f907906cbefdc5c0b2/shadowOffsetX", new MarkTooltipOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadMarkTooltipOption(json));
         yield return ("property:type:f3a784f907906cbefdc5c0b2/shadowOffsetY", new MarkTooltipOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadMarkTooltipOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties16()
+    {
         yield return ("property:type:f3a784f907906cbefdc5c0b2/show", new MarkTooltipOption { Show = false }, "show", "false", 0, json => GeneratedOptionMetadata.ReadMarkTooltipOption(json));
         yield return ("property:type:f3a784f907906cbefdc5c0b2/showDelay", new MarkTooltipOption { ShowDelay = 2d }, "showDelay", "2", 0, json => GeneratedOptionMetadata.ReadMarkTooltipOption(json));
         yield return ("property:type:f3a784f907906cbefdc5c0b2/textStyle", new MarkTooltipOption { TextStyle = new AxisTooltipOptionTextStyle() }, "textStyle", "{}", 0, json => GeneratedOptionMetadata.ReadMarkTooltipOption(json));
@@ -4066,9 +4112,6 @@ internal static class PublicContractCases
         yield return ("property:type:b883955bb704b92b43b88cd8/label", new MarkLineStateOption { Label = new SeriesLineLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadMarkLineStateOption(json));
         yield return ("property:type:b883955bb704b92b43b88cd8/lineStyle", new MarkLineStateOption { LineStyle = new LineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadMarkLineStateOption(json));
         yield return ("property:type:b883955bb704b92b43b88cd8/z2", new MarkLineStateOption { Z2 = 2d }, "z2", "2", 0, json => GeneratedOptionMetadata.ReadMarkLineStateOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties16()
-    {
         yield return ("property:type:06f10ec7b69bcf314c5fff5c/align", new SeriesLineLabelOption { Align = TextAlign.From("center") }, "align", "\"center\"", 0, json => GeneratedOptionMetadata.ReadSeriesLineLabelOption(json));
         yield return ("property:type:06f10ec7b69bcf314c5fff5c/backgroundColor", new SeriesLineLabelOption { BackgroundColor = TextBackgroundColor.From(new TextBackgroundColorAlternative()) }, "backgroundColor", "{}", 0, json => GeneratedOptionMetadata.ReadSeriesLineLabelOption(json));
         yield return ("property:type:06f10ec7b69bcf314c5fff5c/baseline", new SeriesLineLabelOption { Baseline = TextVerticalAlign.From("top") }, "baseline", "\"top\"", 0, json => GeneratedOptionMetadata.ReadSeriesLineLabelOption(json));
@@ -4154,6 +4197,9 @@ internal static class PublicContractCases
         yield return ("property:type:5d646ead339ff7e4f6682843/lineStyle", new MarkLine2DDataItemDimOptionSelect { LineStyle = new LineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadMarkLine2DDataItemDimOptionSelect(json));
         yield return ("property:type:5d646ead339ff7e4f6682843/z2", new MarkLine2DDataItemDimOptionSelect { Z2 = 2d }, "z2", "2", 0, json => GeneratedOptionMetadata.ReadMarkLine2DDataItemDimOptionSelect(json));
         yield return ("property:type:ab792d1311f7bb2c5619bc92/blur", new MarkLine1DDataItemOption { Blur = new MarkLineStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadMarkLine1DDataItemOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties17()
+    {
         yield return ("property:type:ab792d1311f7bb2c5619bc92/emphasis", new MarkLine1DDataItemOption { Emphasis = new MarkLine2DDataItemDimOptionEmphasis() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadMarkLine1DDataItemOption(json));
         yield return ("property:type:ab792d1311f7bb2c5619bc92/itemStyle", new MarkLine1DDataItemOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadMarkLine1DDataItemOption(json));
         yield return ("property:type:ab792d1311f7bb2c5619bc92/label", new MarkLine1DDataItemOption { Label = new SeriesLineLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadMarkLine1DDataItemOption(json));
@@ -4197,9 +4243,6 @@ internal static class PublicContractCases
         yield return ("property:type:b1cd3b3a948b943d85024a11/symbolRotate", new MarkPointOption { SymbolRotate = SymbolRotate.From(JsFunction.Module<SymbolRotateAlternativeSignature>("/modules/series-functions.js", "format")) }, "symbolRotate", "null", 1, json => GeneratedOptionMetadata.ReadMarkPointOption(json));
         yield return ("property:type:b1cd3b3a948b943d85024a11/symbolSize", new MarkPointOption { SymbolSize = SymbolSize.From(new double?[0]) }, "symbolSize", "[]", 0, json => GeneratedOptionMetadata.ReadMarkPointOption(json));
         yield return ("property:type:b1cd3b3a948b943d85024a11/tooltip", new MarkPointOption { Tooltip = new MarkTooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadMarkPointOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties17()
-    {
         yield return ("property:type:b1cd3b3a948b943d85024a11/type", new MarkPointOption { Type = "sample" }, "type", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadMarkPointOption(json));
         yield return ("property:type:b1cd3b3a948b943d85024a11/z", new MarkPointOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadMarkPointOption(json));
         yield return ("property:type:b1cd3b3a948b943d85024a11/z2", new MarkPointOption { Z2 = 2d }, "z2", "2", 0, json => GeneratedOptionMetadata.ReadMarkPointOption(json));
@@ -4285,6 +4328,9 @@ internal static class PublicContractCases
         yield return ("property:type:6647bfedae8bef931a635a8e/itemStyle", new BoxplotDataItemOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOption(json));
         yield return ("property:type:6647bfedae8bef931a635a8e/label", new BoxplotDataItemOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOption(json));
         yield return ("property:type:6647bfedae8bef931a635a8e/select", new BoxplotDataItemOption { Select = new BoxplotDataItemOptionSelect() }, "select", "{}", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties18()
+    {
         yield return ("property:type:6647bfedae8bef931a635a8e/value", new BoxplotDataItemOption { Value = new OptionDataValueNumeric?[0] }, "value", "[]", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOption(json));
         yield return ("property:type:6647bfedae8bef931a635a8e/childGroupId", new BoxplotDataItemOption { ChildGroupId = NumberOrString.From(2d) }, "childGroupId", "2", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOption(json));
         yield return ("property:type:6647bfedae8bef931a635a8e/groupId", new BoxplotDataItemOption { GroupId = NumberOrString.From(2d) }, "groupId", "2", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOption(json));
@@ -4301,51 +4347,6 @@ internal static class PublicContractCases
         yield return ("property:type:c1726177eb8d0197eb1bf8f4/disabled", new BoxplotDataItemOptionSelect { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOptionSelect(json));
         yield return ("property:type:c1726177eb8d0197eb1bf8f4/itemStyle", new BoxplotDataItemOptionSelect { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOptionSelect(json));
         yield return ("property:type:c1726177eb8d0197eb1bf8f4/label", new BoxplotDataItemOptionSelect { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadBoxplotDataItemOptionSelect(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/align", new TooltipOption { Align = TextAlign.From("center") }, "align", "\"center\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/alwaysShowContent", new TooltipOption { AlwaysShowContent = false }, "alwaysShowContent", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/appendTo", new TooltipOption { AppendTo = TooltipOptionAppendTo.From(JsFunction.Module<TooltipOptionAppendToAlternativeSignature>("/modules/series-functions.js", "format")) }, "appendTo", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/appendToBody", new TooltipOption { AppendToBody = false }, "appendToBody", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/axisPointer", new TooltipOption { AxisPointer = new TooltipAxisPointerOption() }, "axisPointer", "{}", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/backgroundColor", new TooltipOption { BackgroundColor = "sample" }, "backgroundColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/borderColor", new TooltipOption { BorderColor = "sample" }, "borderColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/borderRadius", new TooltipOption { BorderRadius = 2d }, "borderRadius", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/borderWidth", new TooltipOption { BorderWidth = 2d }, "borderWidth", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/className", new TooltipOption { ClassName = "sample" }, "className", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/confine", new TooltipOption { Confine = false }, "confine", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/coord", new TooltipOption { Coord = CoordinateSystemDataCoord.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "coord", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/coordinateSystem", new TooltipOption { CoordinateSystem = "sample" }, "coordinateSystem", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/coordinateSystemUsage", new TooltipOption { CoordinateSystemUsage = CoordinateSystemUsageOption.From("box") }, "coordinateSystemUsage", "\"box\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/defaultBorderColor", new TooltipOption { DefaultBorderColor = "sample" }, "defaultBorderColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/displayTransition", new TooltipOption { DisplayTransition = false }, "displayTransition", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/enterable", new TooltipOption { Enterable = false }, "enterable", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/extraCssText", new TooltipOption { ExtraCssText = "sample" }, "extraCssText", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/formatter", new TooltipOption { Formatter = TooltipFormatter.From(JsFunction.Module<TooltipFormatterSignature>("/modules/series-functions.js", "format")) }, "formatter", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/hideDelay", new TooltipOption { HideDelay = 2d }, "hideDelay", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/id", new TooltipOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/name", new TooltipOption { Name = NumberOrString.From(2d) }, "name", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/order", new TooltipOption { Order = TooltipOrderMode.From("seriesAsc") }, "order", "\"seriesAsc\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/padding", new TooltipOption { Padding = OneOrMany<double?>.One(2d) }, "padding", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/position", new TooltipOption { Position = TooltipPosition.From(JsFunction.Module<TooltipPositionCallback>("/modules/series-functions.js", "format")) }, "position", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/renderMode", new TooltipOption { RenderMode = TooltipOptionRenderMode.From("richText") }, "renderMode", "\"richText\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowBlur", new TooltipOption { ShadowBlur = 2d }, "shadowBlur", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties18()
-    {
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowColor", new TooltipOption { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowOffsetX", new TooltipOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/shadowOffsetY", new TooltipOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/show", new TooltipOption { Show = false }, "show", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/showContent", new TooltipOption { ShowContent = false }, "showContent", "false", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/showDelay", new TooltipOption { ShowDelay = 2d }, "showDelay", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/textStyle", new TooltipOption { TextStyle = new AxisTooltipOptionTextStyle() }, "textStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/transitionDuration", new TooltipOption { TransitionDuration = 2d }, "transitionDuration", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/trigger", new TooltipOption { Trigger = TooltipTrigger.From("axis") }, "trigger", "\"axis\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/triggerOn", new TooltipOption { TriggerOn = TooltipTriggerOn.From("mousemove|click|mousewheel") }, "triggerOn", "\"mousemove|click|mousewheel\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/type", new TooltipOption { Type = "sample" }, "type", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/valueFormatter", new TooltipOption { ValueFormatter = JsFunction.Module<TooltipValueFormatterSignature>("/modules/series-functions.js", "format") }, "valueFormatter", "null", 1, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/verticalAlign", new TooltipOption { VerticalAlign = TextVerticalAlign.From("top") }, "verticalAlign", "\"top\"", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/z", new TooltipOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
-        yield return ("property:type:5c14306e0c6caa0f0fafd6b2/zlevel", new TooltipOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadTooltipOption(json));
         yield return ("property:type:292b76ca9deb9bae4a603a69/animation", new BoxplotSeriesOption { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadBoxplotSeriesOption(json));
         yield return ("property:type:292b76ca9deb9bae4a603a69/animationDelay", new BoxplotSeriesOption { AnimationDelay = AnimationDelay.From(2d) }, "animationDelay", "2", 0, json => GeneratedOptionMetadata.ReadBoxplotSeriesOption(json));
         yield return ("property:type:292b76ca9deb9bae4a603a69/animationDelayUpdate", new BoxplotSeriesOption { AnimationDelayUpdate = AnimationDelay.From(2d) }, "animationDelayUpdate", "2", 0, json => GeneratedOptionMetadata.ReadBoxplotSeriesOption(json));
@@ -4458,10 +4459,10 @@ internal static class PublicContractCases
         yield return ("property:type:68468ed22ce6ba4653bec7fd/dataIndexInside", new BrushOption { DataIndexInside = 2d }, "dataIndexInside", "2", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
         yield return ("property:type:68468ed22ce6ba4653bec7fd/defaultOutOfBrushColor", new BrushOption { DefaultOutOfBrushColor = "sample" }, "defaultOutOfBrushColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
         yield return ("property:type:68468ed22ce6ba4653bec7fd/geoId", new BrushOption { GeoId = NumberOrStringOneOrMany.One(NumberOrString.From(2d)) }, "geoId", "2", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
-        yield return ("property:type:68468ed22ce6ba4653bec7fd/geoIndex", new BrushOption { GeoIndex = ModelFinderIndexQuery.From(new double?[0]) }, "geoIndex", "[]", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties19()
     {
+        yield return ("property:type:68468ed22ce6ba4653bec7fd/geoIndex", new BrushOption { GeoIndex = ModelFinderIndexQuery.From(new double?[0]) }, "geoIndex", "[]", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
         yield return ("property:type:68468ed22ce6ba4653bec7fd/geoName", new BrushOption { GeoName = NumberOrStringOneOrMany.One(NumberOrString.From(2d)) }, "geoName", "2", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
         yield return ("property:type:68468ed22ce6ba4653bec7fd/gridId", new BrushOption { GridId = NumberOrStringOneOrMany.One(NumberOrString.From(2d)) }, "gridId", "2", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
         yield return ("property:type:68468ed22ce6ba4653bec7fd/gridIndex", new BrushOption { GridIndex = ModelFinderIndexQuery.From(new double?[0]) }, "gridIndex", "[]", 0, json => GeneratedOptionMetadata.ReadBrushOption(json));
@@ -4589,10 +4590,10 @@ internal static class PublicContractCases
         yield return ("property:type:b95d894db1e1ec3f4e6133ee/ellipsis", new CalendarOptionMonthLabel { Ellipsis = "sample" }, "ellipsis", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
         yield return ("property:type:b95d894db1e1ec3f4e6133ee/fontFamily", new CalendarOptionMonthLabel { FontFamily = "sample" }, "fontFamily", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
         yield return ("property:type:b95d894db1e1ec3f4e6133ee/fontSize", new CalendarOptionMonthLabel { FontSize = NumberOrString.From(2d) }, "fontSize", "2", 0, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
-        yield return ("property:type:b95d894db1e1ec3f4e6133ee/fontStyle", new CalendarOptionMonthLabel { FontStyle = ZRFontStyle.From("normal") }, "fontStyle", "\"normal\"", 0, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties20()
     {
+        yield return ("property:type:b95d894db1e1ec3f4e6133ee/fontStyle", new CalendarOptionMonthLabel { FontStyle = ZRFontStyle.From("normal") }, "fontStyle", "\"normal\"", 0, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
         yield return ("property:type:b95d894db1e1ec3f4e6133ee/fontWeight", new CalendarOptionMonthLabel { FontWeight = ZRFontWeight.From("lighter") }, "fontWeight", "\"lighter\"", 0, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
         yield return ("property:type:b95d894db1e1ec3f4e6133ee/formatter", new CalendarOptionMonthLabel { Formatter = CalendarOptionMonthLabelFormatter.From(JsFunction.Module<CalendarOptionMonthLabelFormatterAlternativeSignature>("/modules/series-functions.js", "format")) }, "formatter", "null", 1, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
         yield return ("property:type:b95d894db1e1ec3f4e6133ee/height", new CalendarOptionMonthLabel { Height = 2d }, "height", "2", 0, json => GeneratedOptionMetadata.ReadCalendarOptionMonthLabel(json));
@@ -4720,10 +4721,10 @@ internal static class PublicContractCases
         yield return ("property:type:8b0b39906f6ec1b1cecc6d10/disabled", new CandlestickSelectOption { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadCandlestickSelectOption(json));
         yield return ("property:type:8b0b39906f6ec1b1cecc6d10/itemStyle", new CandlestickSelectOption { ItemStyle = new CandlestickItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadCandlestickSelectOption(json));
         yield return ("property:type:8b0b39906f6ec1b1cecc6d10/label", new CandlestickSelectOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadCandlestickSelectOption(json));
-        yield return ("property:type:1c49a16991e401aca4e17f6c/animation", new CandlestickSeriesOption { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadCandlestickSeriesOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties21()
     {
+        yield return ("property:type:1c49a16991e401aca4e17f6c/animation", new CandlestickSeriesOption { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadCandlestickSeriesOption(json));
         yield return ("property:type:1c49a16991e401aca4e17f6c/animationDelay", new CandlestickSeriesOption { AnimationDelay = AnimationDelay.From(2d) }, "animationDelay", "2", 0, json => GeneratedOptionMetadata.ReadCandlestickSeriesOption(json));
         yield return ("property:type:1c49a16991e401aca4e17f6c/animationDelayUpdate", new CandlestickSeriesOption { AnimationDelayUpdate = AnimationDelay.From(2d) }, "animationDelayUpdate", "2", 0, json => GeneratedOptionMetadata.ReadCandlestickSeriesOption(json));
         yield return ("property:type:1c49a16991e401aca4e17f6c/animationDuration", new CandlestickSeriesOption { AnimationDuration = AnimationDuration.From(2d) }, "animationDuration", "2", 0, json => GeneratedOptionMetadata.ReadCandlestickSeriesOption(json));
@@ -4851,10 +4852,10 @@ internal static class PublicContractCases
         yield return ("property:type:78c00155d171417674ba66a2/dayOfWeek", new ChartLocaleOptionTime { DayOfWeek = new string?[0] }, "dayOfWeek", "[]", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionTime(json));
         yield return ("property:type:78c00155d171417674ba66a2/dayOfWeekAbbr", new ChartLocaleOptionTime { DayOfWeekAbbr = new string?[0] }, "dayOfWeekAbbr", "[]", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionTime(json));
         yield return ("property:type:78c00155d171417674ba66a2/month", new ChartLocaleOptionTime { Month = new string?[0] }, "month", "[]", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionTime(json));
-        yield return ("property:type:78c00155d171417674ba66a2/monthAbbr", new ChartLocaleOptionTime { MonthAbbr = new string?[0] }, "monthAbbr", "[]", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionTime(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties22()
     {
+        yield return ("property:type:78c00155d171417674ba66a2/monthAbbr", new ChartLocaleOptionTime { MonthAbbr = new string?[0] }, "monthAbbr", "[]", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionTime(json));
         yield return ("property:type:dc5ef72cfa7d8dab13adaa0a/brush", new ChartLocaleOptionToolbox { Brush = new ChartLocaleOptionToolboxBrush() }, "brush", "{}", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionToolbox(json));
         yield return ("property:type:dc5ef72cfa7d8dab13adaa0a/dataView", new ChartLocaleOptionToolbox { DataView = new ChartLocaleOptionToolboxDataView() }, "dataView", "{}", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionToolbox(json));
         yield return ("property:type:dc5ef72cfa7d8dab13adaa0a/dataZoom", new ChartLocaleOptionToolbox { DataZoom = new ChartLocaleOptionToolboxDataZoom() }, "dataZoom", "{}", 0, json => GeneratedOptionMetadata.ReadChartLocaleOptionToolbox(json));
@@ -4982,10 +4983,10 @@ internal static class PublicContractCases
         yield return ("property:type:1ddd861aaa8e546475e9705a/showDetail", new SliderDataZoomOption { ShowDetail = false }, "showDetail", "false", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
         yield return ("property:type:1ddd861aaa8e546475e9705a/singleAxisId", new SliderDataZoomOption { SingleAxisId = NumberOrStringOneOrMany.One(NumberOrString.From(2d)) }, "singleAxisId", "2", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
         yield return ("property:type:1ddd861aaa8e546475e9705a/singleAxisIndex", new SliderDataZoomOption { SingleAxisIndex = ModelFinderIndexQuery.From(new double?[0]) }, "singleAxisIndex", "[]", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
-        yield return ("property:type:1ddd861aaa8e546475e9705a/start", new SliderDataZoomOption { Start = 2d }, "start", "2", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties23()
     {
+        yield return ("property:type:1ddd861aaa8e546475e9705a/start", new SliderDataZoomOption { Start = 2d }, "start", "2", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
         yield return ("property:type:1ddd861aaa8e546475e9705a/startValue", new SliderDataZoomOption { StartValue = OptionDataValue.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "startValue", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
         yield return ("property:type:1ddd861aaa8e546475e9705a/textStyle", new SliderDataZoomOption { TextStyle = new LabelOption() }, "textStyle", "{}", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
         yield return ("property:type:1ddd861aaa8e546475e9705a/throttle", new SliderDataZoomOption { Throttle = 2d }, "throttle", "2", 0, json => GeneratedOptionMetadata.ReadSliderDataZoomOption(json));
@@ -5113,10 +5114,10 @@ internal static class PublicContractCases
         yield return ("property:type:e9501cbac3acb1cd415aa7ef/center", new GeoOption { Center = new NumberOrString?[0] }, "center", "[]", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
         yield return ("property:type:e9501cbac3acb1cd415aa7ef/clip", new GeoOption { Clip = false }, "clip", "false", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
         yield return ("property:type:e9501cbac3acb1cd415aa7ef/coord", new GeoOption { Coord = CoordinateSystemDataCoord.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "coord", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
-        yield return ("property:type:e9501cbac3acb1cd415aa7ef/coordinateSystem", new GeoOption { CoordinateSystem = "sample" }, "coordinateSystem", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties24()
     {
+        yield return ("property:type:e9501cbac3acb1cd415aa7ef/coordinateSystem", new GeoOption { CoordinateSystem = "sample" }, "coordinateSystem", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
         yield return ("property:type:e9501cbac3acb1cd415aa7ef/coordinateSystemUsage", new GeoOption { CoordinateSystemUsage = CoordinateSystemUsageOption.From("box") }, "coordinateSystemUsage", "\"box\"", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
         yield return ("property:type:e9501cbac3acb1cd415aa7ef/defaultItemStyleColor", new GeoOption { DefaultItemStyleColor = ZRColor.From(new SVGPatternObject()) }, "defaultItemStyleColor", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
         yield return ("property:type:e9501cbac3acb1cd415aa7ef/emphasis", new GeoOption { Emphasis = new GeoOptionEmphasis() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadGeoOption(json));
@@ -5244,10 +5245,10 @@ internal static class PublicContractCases
         yield return ("property:type:b8429c7713c7a4452c08284d/label", new RegionOptionSelect { Label = new GeoLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadRegionOptionSelect(json));
         yield return ("property:type:f8947705fa2c95f9875a2fae/align", new GeoTooltipOption { Align = TextAlign.From("center") }, "align", "\"center\"", 0, json => GeneratedOptionMetadata.ReadGeoTooltipOption(json));
         yield return ("property:type:f8947705fa2c95f9875a2fae/alwaysShowContent", new GeoTooltipOption { AlwaysShowContent = false }, "alwaysShowContent", "false", 0, json => GeneratedOptionMetadata.ReadGeoTooltipOption(json));
-        yield return ("property:type:f8947705fa2c95f9875a2fae/backgroundColor", new GeoTooltipOption { BackgroundColor = "sample" }, "backgroundColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGeoTooltipOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties25()
     {
+        yield return ("property:type:f8947705fa2c95f9875a2fae/backgroundColor", new GeoTooltipOption { BackgroundColor = "sample" }, "backgroundColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGeoTooltipOption(json));
         yield return ("property:type:f8947705fa2c95f9875a2fae/borderColor", new GeoTooltipOption { BorderColor = "sample" }, "borderColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGeoTooltipOption(json));
         yield return ("property:type:f8947705fa2c95f9875a2fae/borderRadius", new GeoTooltipOption { BorderRadius = 2d }, "borderRadius", "2", 0, json => GeneratedOptionMetadata.ReadGeoTooltipOption(json));
         yield return ("property:type:f8947705fa2c95f9875a2fae/borderWidth", new GeoTooltipOption { BorderWidth = 2d }, "borderWidth", "2", 0, json => GeneratedOptionMetadata.ReadGeoTooltipOption(json));
@@ -5375,10 +5376,10 @@ internal static class PublicContractCases
         yield return ("property:type:29ca8cf7c23e191fa6b61d94/anchorX", new ClipPathAlternative { AnchorX = 2d }, "anchorX", "2", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
         yield return ("property:type:29ca8cf7c23e191fa6b61d94/anchorY", new ClipPathAlternative { AnchorY = 2d }, "anchorY", "2", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
         yield return ("property:type:29ca8cf7c23e191fa6b61d94/bottom", new ClipPathAlternative { Bottom = NumberOrString.From(2d) }, "bottom", "2", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
-        yield return ("property:type:29ca8cf7c23e191fa6b61d94/bounding", new ClipPathAlternative { Bounding = Bounding.From("raw") }, "bounding", "\"raw\"", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties26()
     {
+        yield return ("property:type:29ca8cf7c23e191fa6b61d94/bounding", new ClipPathAlternative { Bounding = Bounding.From("raw") }, "bounding", "\"raw\"", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
         yield return ("property:type:29ca8cf7c23e191fa6b61d94/children", new ClipPathAlternative { Children = new GraphicElementItem?[0] }, "children", "[]", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
         yield return ("property:type:29ca8cf7c23e191fa6b61d94/cursor", new ClipPathAlternative { Cursor = "sample" }, "cursor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
         yield return ("property:type:29ca8cf7c23e191fa6b61d94/draggable", new ClipPathAlternative { Draggable = Draggable.From(false) }, "draggable", "false", 0, json => GeneratedOptionMetadata.ReadClipPathAlternative(json));
@@ -5506,10 +5507,10 @@ internal static class PublicContractCases
         yield return ("property:type:37eca53755af75933b5135ac/lineCap", new PathStyleOption { LineCap = CanvasLineCap.From("round") }, "lineCap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
         yield return ("property:type:37eca53755af75933b5135ac/lineDash", new PathStyleOption { LineDash = LineDash.From("dashed") }, "lineDash", "\"dashed\"", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
         yield return ("property:type:37eca53755af75933b5135ac/lineDashOffset", new PathStyleOption { LineDashOffset = 2d }, "lineDashOffset", "2", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
-        yield return ("property:type:37eca53755af75933b5135ac/lineJoin", new PathStyleOption { LineJoin = CanvasLineJoin.From("round") }, "lineJoin", "\"round\"", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties27()
     {
+        yield return ("property:type:37eca53755af75933b5135ac/lineJoin", new PathStyleOption { LineJoin = CanvasLineJoin.From("round") }, "lineJoin", "\"round\"", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
         yield return ("property:type:37eca53755af75933b5135ac/lineWidth", new PathStyleOption { LineWidth = 2d }, "lineWidth", "2", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
         yield return ("property:type:37eca53755af75933b5135ac/miterLimit", new PathStyleOption { MiterLimit = 2d }, "miterLimit", "2", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
         yield return ("property:type:37eca53755af75933b5135ac/opacity", new PathStyleOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadPathStyleOption(json));
@@ -5637,10 +5638,10 @@ internal static class PublicContractCases
         yield return ("property:type:70edd6278f022f88acfd392b/opacity", new TextStyleProps { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
         yield return ("property:type:70edd6278f022f88acfd392b/overflow", new TextStyleProps { Overflow = TextOverflow.From("truncate") }, "overflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
         yield return ("property:type:70edd6278f022f88acfd392b/padding", new TextStyleProps { Padding = OneOrMany<double?>.One(2d) }, "padding", "2", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
-        yield return ("property:type:70edd6278f022f88acfd392b/placeholder", new TextStyleProps { Placeholder = "sample" }, "placeholder", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties28()
     {
+        yield return ("property:type:70edd6278f022f88acfd392b/placeholder", new TextStyleProps { Placeholder = "sample" }, "placeholder", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
         yield return ("property:type:70edd6278f022f88acfd392b/rich", new TextStyleProps { Rich = new OptionDictionary<TextStylePropsPart?>() }, "rich", "{}", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
         yield return ("property:type:70edd6278f022f88acfd392b/shadowBlur", new TextStyleProps { ShadowBlur = 2d }, "shadowBlur", "2", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
         yield return ("property:type:70edd6278f022f88acfd392b/shadowColor", new TextStyleProps { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTextStyleProps(json));
@@ -5768,10 +5769,10 @@ internal static class PublicContractCases
         yield return ("property:type:92c9a96edb0ce64e1703424b/truncateMinChar", new GraphicTextStyleOption { TruncateMinChar = 2d }, "truncateMinChar", "2", 0, json => GeneratedOptionMetadata.ReadGraphicTextStyleOption(json));
         yield return ("property:type:92c9a96edb0ce64e1703424b/updateAnimation", new GraphicTextStyleOption { UpdateAnimation = new AnimationOption() }, "updateAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicTextStyleOption(json));
         yield return ("property:type:92c9a96edb0ce64e1703424b/verticalAlign", new GraphicTextStyleOption { VerticalAlign = TextVerticalAlign.From("top") }, "verticalAlign", "\"top\"", 0, json => GeneratedOptionMetadata.ReadGraphicTextStyleOption(json));
-        yield return ("property:type:92c9a96edb0ce64e1703424b/width", new GraphicTextStyleOption { Width = 2d }, "width", "2", 0, json => GeneratedOptionMetadata.ReadGraphicTextStyleOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties29()
     {
+        yield return ("property:type:92c9a96edb0ce64e1703424b/width", new GraphicTextStyleOption { Width = 2d }, "width", "2", 0, json => GeneratedOptionMetadata.ReadGraphicTextStyleOption(json));
         yield return ("property:type:92c9a96edb0ce64e1703424b/x", new GraphicTextStyleOption { X = 2d }, "x", "2", 0, json => GeneratedOptionMetadata.ReadGraphicTextStyleOption(json));
         yield return ("property:type:92c9a96edb0ce64e1703424b/y", new GraphicTextStyleOption { Y = 2d }, "y", "2", 0, json => GeneratedOptionMetadata.ReadGraphicTextStyleOption(json));
         yield return ("property:type:0a4c771802dd23ffa0bb6b17/align", new GraphicTextOptionTooltip { Align = TextAlign.From("center") }, "align", "\"center\"", 0, json => GeneratedOptionMetadata.ReadGraphicTextOptionTooltip(json));
@@ -5899,10 +5900,10 @@ internal static class PublicContractCases
         yield return ("property:type:42f14b9706fe6eb1cbcbf132/children", new GraphicComponentZRPathOption { Children = new GraphicElementItem?[0] }, "children", "[]", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
         yield return ("property:type:42f14b9706fe6eb1cbcbf132/clipPath", new GraphicComponentZRPathOption { ClipPath = ClipPath.From(new ClipPathAlternative()) }, "clipPath", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
         yield return ("property:type:42f14b9706fe6eb1cbcbf132/cursor", new GraphicComponentZRPathOption { Cursor = "sample" }, "cursor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
-        yield return ("property:type:42f14b9706fe6eb1cbcbf132/draggable", new GraphicComponentZRPathOption { Draggable = Draggable.From(false) }, "draggable", "false", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties30()
     {
+        yield return ("property:type:42f14b9706fe6eb1cbcbf132/draggable", new GraphicComponentZRPathOption { Draggable = Draggable.From(false) }, "draggable", "false", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
         yield return ("property:type:42f14b9706fe6eb1cbcbf132/enterAnimation", new GraphicComponentZRPathOption { EnterAnimation = new AnimationOption() }, "enterAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
         yield return ("property:type:42f14b9706fe6eb1cbcbf132/enterFrom", new GraphicComponentZRPathOption { EnterFrom = new PathProps() }, "enterFrom", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
         yield return ("property:type:42f14b9706fe6eb1cbcbf132/hv", new GraphicComponentZRPathOption { Hv = Hv.Create(false, false) }, "hv", "[false,false]", 0, json => GeneratedOptionMetadata.ReadGraphicComponentZRPathOption(json));
@@ -6030,10 +6031,10 @@ internal static class PublicContractCases
         yield return ("property:type:042d83a7345792a1422e0895/skewY", new ImageProps { SkewY = 2d }, "skewY", "2", 0, json => GeneratedOptionMetadata.ReadImageProps(json));
         yield return ("property:type:042d83a7345792a1422e0895/style", new ImageProps { Style = new ImageStyleProps() }, "style", "{}", 0, json => GeneratedOptionMetadata.ReadImageProps(json));
         yield return ("property:type:042d83a7345792a1422e0895/x", new ImageProps { X = 2d }, "x", "2", 0, json => GeneratedOptionMetadata.ReadImageProps(json));
-        yield return ("property:type:042d83a7345792a1422e0895/y", new ImageProps { Y = 2d }, "y", "2", 0, json => GeneratedOptionMetadata.ReadImageProps(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties31()
     {
+        yield return ("property:type:042d83a7345792a1422e0895/y", new ImageProps { Y = 2d }, "y", "2", 0, json => GeneratedOptionMetadata.ReadImageProps(json));
         yield return ("property:type:6bd099784f9c91691dc88eda/blend", new ImageStyleProps { Blend = "sample" }, "blend", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadImageStyleProps(json));
         yield return ("property:type:6bd099784f9c91691dc88eda/height", new ImageStyleProps { Height = 2d }, "height", "2", 0, json => GeneratedOptionMetadata.ReadImageStyleProps(json));
         yield return ("property:type:6bd099784f9c91691dc88eda/image", new ImageStyleProps { Image = Image.From((EChartsObjectReference)null!) }, "image", "null", 0, json => GeneratedOptionMetadata.ReadImageStyleProps(json));
@@ -6161,10 +6162,10 @@ internal static class PublicContractCases
         yield return ("property:type:1b3cd75fc143a100c93329b2/rotation", new GraphicArcOptionEnterFrom { Rotation = 2d }, "rotation", "2", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
         yield return ("property:type:1b3cd75fc143a100c93329b2/scaleX", new GraphicArcOptionEnterFrom { ScaleX = 2d }, "scaleX", "2", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
         yield return ("property:type:1b3cd75fc143a100c93329b2/scaleY", new GraphicArcOptionEnterFrom { ScaleY = 2d }, "scaleY", "2", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
-        yield return ("property:type:1b3cd75fc143a100c93329b2/shape", new GraphicArcOptionEnterFrom { Shape = new GraphicArcOptionShapeOption() }, "shape", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties32()
     {
+        yield return ("property:type:1b3cd75fc143a100c93329b2/shape", new GraphicArcOptionEnterFrom { Shape = new GraphicArcOptionShapeOption() }, "shape", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
         yield return ("property:type:1b3cd75fc143a100c93329b2/skewX", new GraphicArcOptionEnterFrom { SkewX = 2d }, "skewX", "2", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
         yield return ("property:type:1b3cd75fc143a100c93329b2/skewY", new GraphicArcOptionEnterFrom { SkewY = 2d }, "skewY", "2", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
         yield return ("property:type:1b3cd75fc143a100c93329b2/style", new GraphicArcOptionEnterFrom { Style = new PathStyleProps() }, "style", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicArcOptionEnterFrom(json));
@@ -6292,10 +6293,10 @@ internal static class PublicContractCases
         yield return ("property:type:ca81ed8bd99c332f949d2347/style", new GraphicCircleOptionEnterFrom { Style = new PathStyleProps() }, "style", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionEnterFrom(json));
         yield return ("property:type:ca81ed8bd99c332f949d2347/x", new GraphicCircleOptionEnterFrom { X = 2d }, "x", "2", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionEnterFrom(json));
         yield return ("property:type:ca81ed8bd99c332f949d2347/y", new GraphicCircleOptionEnterFrom { Y = 2d }, "y", "2", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionEnterFrom(json));
-        yield return ("property:type:571198196fda7339615c9df3/cx", new GraphicCircleOptionShapeOption { Cx = 2d }, "cx", "2", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionShapeOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties33()
     {
+        yield return ("property:type:571198196fda7339615c9df3/cx", new GraphicCircleOptionShapeOption { Cx = 2d }, "cx", "2", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionShapeOption(json));
         yield return ("property:type:571198196fda7339615c9df3/cy", new GraphicCircleOptionShapeOption { Cy = 2d }, "cy", "2", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionShapeOption(json));
         yield return ("property:type:571198196fda7339615c9df3/r", new GraphicCircleOptionShapeOption { R = 2d }, "r", "2", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionShapeOption(json));
         yield return ("property:type:ee01791f88391688e46e50b5/delay", new GraphicCircleOptionKeyframeAnimationItem { Delay = 2d }, "delay", "2", 0, json => GeneratedOptionMetadata.ReadGraphicCircleOptionKeyframeAnimationItem(json));
@@ -6423,10 +6424,10 @@ internal static class PublicContractCases
         yield return ("property:type:a37cc14137238da4327c7979/easing", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { Easing = AnimationEasing.From("backIn") }, "easing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:a37cc14137238da4327c7979/extra", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { Extra = new ElementExtraOption() }, "extra", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:a37cc14137238da4327c7979/originX", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { OriginX = 2d }, "originX", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
-        yield return ("property:type:a37cc14137238da4327c7979/originY", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { OriginY = 2d }, "originY", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties34()
     {
+        yield return ("property:type:a37cc14137238da4327c7979/originY", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { OriginY = 2d }, "originY", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:a37cc14137238da4327c7979/percent", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { Percent = 2d }, "percent", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:a37cc14137238da4327c7979/rotation", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { Rotation = 2d }, "rotation", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:a37cc14137238da4327c7979/scaleX", new GraphicRectOptionKeyframeAnimationItemKeyframesItem { ScaleX = 2d }, "scaleX", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRectOptionKeyframeAnimationItemKeyframesItem(json));
@@ -6554,10 +6555,10 @@ internal static class PublicContractCases
         yield return ("property:type:111cb58604cb2a39a2594fb1/skewY", new GraphicRingOptionKeyframeAnimationItemKeyframesItem { SkewY = 2d }, "skewY", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRingOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:111cb58604cb2a39a2594fb1/style", new GraphicRingOptionKeyframeAnimationItemKeyframesItem { Style = new PathStyleProps() }, "style", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicRingOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:111cb58604cb2a39a2594fb1/x", new GraphicRingOptionKeyframeAnimationItemKeyframesItem { X = 2d }, "x", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRingOptionKeyframeAnimationItemKeyframesItem(json));
-        yield return ("property:type:111cb58604cb2a39a2594fb1/y", new GraphicRingOptionKeyframeAnimationItemKeyframesItem { Y = 2d }, "y", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRingOptionKeyframeAnimationItemKeyframesItem(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties35()
     {
+        yield return ("property:type:111cb58604cb2a39a2594fb1/y", new GraphicRingOptionKeyframeAnimationItemKeyframesItem { Y = 2d }, "y", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRingOptionKeyframeAnimationItemKeyframesItem(json));
         yield return ("property:type:graphic-option-ring:shape/cx", new GraphicRingShape { Cx = 2d }, "cx", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRingShape(json));
         yield return ("property:type:graphic-option-ring:shape/cy", new GraphicRingShape { Cy = 2d }, "cy", "2", 0, json => GeneratedOptionMetadata.ReadGraphicRingShape(json));
         yield return ("property:type:graphic-option-ring:shape/enterAnimation", new GraphicRingShape { EnterAnimation = new AnimationOption() }, "enterAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicRingShape(json));
@@ -6685,10 +6686,10 @@ internal static class PublicContractCases
         yield return ("property:type:graphic-option-sector:shape/endAngle", new GraphicSectorShape { EndAngle = 2d }, "endAngle", "2", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
         yield return ("property:type:graphic-option-sector:shape/enterAnimation", new GraphicSectorShape { EnterAnimation = new AnimationOption() }, "enterAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
         yield return ("property:type:graphic-option-sector:shape/enterFrom", new GraphicSectorShape { EnterFrom = new GraphicSectorShapeEnterFrom() }, "enterFrom", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
-        yield return ("property:type:graphic-option-sector:shape/leaveAnimation", new GraphicSectorShape { LeaveAnimation = new AnimationOption() }, "leaveAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties36()
     {
+        yield return ("property:type:graphic-option-sector:shape/leaveAnimation", new GraphicSectorShape { LeaveAnimation = new AnimationOption() }, "leaveAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
         yield return ("property:type:graphic-option-sector:shape/leaveTo", new GraphicSectorShape { LeaveTo = new GraphicSectorShapeEnterFrom() }, "leaveTo", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
         yield return ("property:type:graphic-option-sector:shape/r", new GraphicSectorShape { R = 2d }, "r", "2", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
         yield return ("property:type:graphic-option-sector:shape/r0", new GraphicSectorShape { R0 = 2d }, "r0", "2", 0, json => GeneratedOptionMetadata.ReadGraphicSectorShape(json));
@@ -6816,10 +6817,10 @@ internal static class PublicContractCases
         yield return ("property:type:8ca1b41e1085ef28adeac214/points", new GraphicPolygonShapeEnterFrom { Points = new double?[]?[0] }, "points", "[]", 0, json => GeneratedOptionMetadata.ReadGraphicPolygonShapeEnterFrom(json));
         yield return ("property:type:8ca1b41e1085ef28adeac214/smooth", new GraphicPolygonShapeEnterFrom { Smooth = 2d }, "smooth", "2", 0, json => GeneratedOptionMetadata.ReadGraphicPolygonShapeEnterFrom(json));
         yield return ("property:type:8ca1b41e1085ef28adeac214/smoothConstraint", new GraphicPolygonShapeEnterFrom { SmoothConstraint = new double?[]?[0] }, "smoothConstraint", "[]", 0, json => GeneratedOptionMetadata.ReadGraphicPolygonShapeEnterFrom(json));
-        yield return ("property:type:graphic-option-polyline/$action", new GraphicPolylineOption { Action = GraphicElementAction.From("remove") }, "$action", "\"remove\"", 0, json => GeneratedOptionMetadata.ReadGraphicPolylineOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties37()
     {
+        yield return ("property:type:graphic-option-polyline/$action", new GraphicPolylineOption { Action = GraphicElementAction.From("remove") }, "$action", "\"remove\"", 0, json => GeneratedOptionMetadata.ReadGraphicPolylineOption(json));
         yield return ("property:type:graphic-option-polyline/anchorX", new GraphicPolylineOption { AnchorX = 2d }, "anchorX", "2", 0, json => GeneratedOptionMetadata.ReadGraphicPolylineOption(json));
         yield return ("property:type:graphic-option-polyline/anchorY", new GraphicPolylineOption { AnchorY = 2d }, "anchorY", "2", 0, json => GeneratedOptionMetadata.ReadGraphicPolylineOption(json));
         yield return ("property:type:graphic-option-polyline/bottom", new GraphicPolylineOption { Bottom = NumberOrString.From(2d) }, "bottom", "2", 0, json => GeneratedOptionMetadata.ReadGraphicPolylineOption(json));
@@ -6947,10 +6948,10 @@ internal static class PublicContractCases
         yield return ("property:type:graphic-option-line/enterAnimation", new GraphicLineOption { EnterAnimation = new AnimationOption() }, "enterAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
         yield return ("property:type:graphic-option-line/enterFrom", new GraphicLineOption { EnterFrom = new GraphicLineOptionEnterFrom() }, "enterFrom", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
         yield return ("property:type:graphic-option-line/hv", new GraphicLineOption { Hv = Hv.Create(false, false) }, "hv", "[false,false]", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
-        yield return ("property:type:graphic-option-line/id", new GraphicLineOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties38()
     {
+        yield return ("property:type:graphic-option-line/id", new GraphicLineOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
         yield return ("property:type:graphic-option-line/ignore", new GraphicLineOption { Ignore = false }, "ignore", "false", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
         yield return ("property:type:graphic-option-line/info", new GraphicLineOption { Info = new InfoOption() }, "info", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
         yield return ("property:type:graphic-option-line/invisible", new GraphicLineOption { Invisible = false }, "invisible", "false", 0, json => GeneratedOptionMetadata.ReadGraphicLineOption(json));
@@ -7078,10 +7079,10 @@ internal static class PublicContractCases
         yield return ("property:type:graphic-option-bezierCurve/leaveTo", new GraphicBezierCurveOption { LeaveTo = new GraphicBezierCurveOptionEnterFrom() }, "leaveTo", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
         yield return ("property:type:graphic-option-bezierCurve/left", new GraphicBezierCurveOption { Left = NumberOrString.From(2d) }, "left", "2", 0, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
         yield return ("property:type:graphic-option-bezierCurve/name", new GraphicBezierCurveOption { Name = "sample" }, "name", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
-        yield return ("property:type:graphic-option-bezierCurve/onclick", new GraphicBezierCurveOption { OnClick = JsFunction.Module<GraphicOnClickSignature>("/modules/series-functions.js", "format") }, "onclick", "null", 1, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties39()
     {
+        yield return ("property:type:graphic-option-bezierCurve/onclick", new GraphicBezierCurveOption { OnClick = JsFunction.Module<GraphicOnClickSignature>("/modules/series-functions.js", "format") }, "onclick", "null", 1, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
         yield return ("property:type:graphic-option-bezierCurve/oncontextmenu", new GraphicBezierCurveOption { OnContextMenu = JsFunction.Module<GraphicOnClickSignature>("/modules/series-functions.js", "format") }, "oncontextmenu", "null", 1, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
         yield return ("property:type:graphic-option-bezierCurve/ondblclick", new GraphicBezierCurveOption { OnDoubleClick = JsFunction.Module<GraphicOnClickSignature>("/modules/series-functions.js", "format") }, "ondblclick", "null", 1, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
         yield return ("property:type:graphic-option-bezierCurve/ondrag", new GraphicBezierCurveOption { OnDrag = JsFunction.Module<GraphicOnClickSignature>("/modules/series-functions.js", "format") }, "ondrag", "null", 1, json => GeneratedOptionMetadata.ReadGraphicBezierCurveOption(json));
@@ -7209,10 +7210,10 @@ internal static class PublicContractCases
         yield return ("property:type:graphic-option-ellipse/invisible", new GraphicEllipseOption { Invisible = false }, "invisible", "false", 0, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
         yield return ("property:type:graphic-option-ellipse/keyframeAnimation", new GraphicEllipseOption { KeyframeAnimation = OneOrMany<GraphicEllipseOptionKeyframeAnimationItem>.One(new GraphicEllipseOptionKeyframeAnimationItem()) }, "keyframeAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
         yield return ("property:type:graphic-option-ellipse/leaveAnimation", new GraphicEllipseOption { LeaveAnimation = new AnimationOption() }, "leaveAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
-        yield return ("property:type:graphic-option-ellipse/leaveTo", new GraphicEllipseOption { LeaveTo = new GraphicEllipseOptionEnterFrom() }, "leaveTo", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties40()
     {
+        yield return ("property:type:graphic-option-ellipse/leaveTo", new GraphicEllipseOption { LeaveTo = new GraphicEllipseOptionEnterFrom() }, "leaveTo", "{}", 0, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
         yield return ("property:type:graphic-option-ellipse/left", new GraphicEllipseOption { Left = NumberOrString.From(2d) }, "left", "2", 0, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
         yield return ("property:type:graphic-option-ellipse/name", new GraphicEllipseOption { Name = "sample" }, "name", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
         yield return ("property:type:graphic-option-ellipse/onclick", new GraphicEllipseOption { OnClick = JsFunction.Module<GraphicOnClickSignature>("/modules/series-functions.js", "format") }, "onclick", "null", 1, json => GeneratedOptionMetadata.ReadGraphicEllipseOption(json));
@@ -7340,10 +7341,10 @@ internal static class PublicContractCases
         yield return ("property:type:935e6e420acaae52e3331f62/tooltip", new GridOption { Tooltip = GridTooltip.From(SampleData()) }, "tooltip", "{\"value\":2}", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
         yield return ("property:type:935e6e420acaae52e3331f62/top", new GridOption { Top = NumberOrString.From(2d) }, "top", "2", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
         yield return ("property:type:935e6e420acaae52e3331f62/type", new GridOption { Type = "sample" }, "type", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
-        yield return ("property:type:935e6e420acaae52e3331f62/width", new GridOption { Width = NumberOrString.From(2d) }, "width", "2", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties41()
     {
+        yield return ("property:type:935e6e420acaae52e3331f62/width", new GridOption { Width = NumberOrString.From(2d) }, "width", "2", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
         yield return ("property:type:935e6e420acaae52e3331f62/z", new GridOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
         yield return ("property:type:935e6e420acaae52e3331f62/zlevel", new GridOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
         yield return ("property:type:935e6e420acaae52e3331f62/opacity", new GridOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadGridOption(json));
@@ -7471,10 +7472,10 @@ internal static class PublicContractCases
         yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/shadowOffsetY", new LegendTooltipOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
         yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/show", new LegendTooltipOption { Show = false }, "show", "false", 0, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
         yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/showDelay", new LegendTooltipOption { ShowDelay = 2d }, "showDelay", "2", 0, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
-        yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/textStyle", new LegendTooltipOption { TextStyle = new GeoTooltipOptionTextStyle() }, "textStyle", "{}", 0, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties42()
     {
+        yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/textStyle", new LegendTooltipOption { TextStyle = new GeoTooltipOptionTextStyle() }, "textStyle", "{}", 0, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
         yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/transitionDuration", new LegendTooltipOption { TransitionDuration = 2d }, "transitionDuration", "2", 0, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
         yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/triggerOn", new LegendTooltipOption { TriggerOn = TooltipTriggerOn.From("mousemove|click|mousewheel") }, "triggerOn", "\"mousemove|click|mousewheel\"", 0, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
         yield return ("property:type:3ae9481c3d2ce1a4db5fd0cc/valueFormatter", new LegendTooltipOption { ValueFormatter = JsFunction.Module<TooltipValueFormatterSignature>("/modules/series-functions.js", "format") }, "valueFormatter", "null", 1, json => GeneratedOptionMetadata.ReadLegendTooltipOption(json));
@@ -7602,10 +7603,10 @@ internal static class PublicContractCases
         yield return ("property:type:8eb341e5f04e24557ebac095/ellipsis", new MatrixLabelOption { Ellipsis = "sample" }, "ellipsis", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
         yield return ("property:type:8eb341e5f04e24557ebac095/fontFamily", new MatrixLabelOption { FontFamily = "sample" }, "fontFamily", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
         yield return ("property:type:8eb341e5f04e24557ebac095/fontSize", new MatrixLabelOption { FontSize = NumberOrString.From(2d) }, "fontSize", "2", 0, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
-        yield return ("property:type:8eb341e5f04e24557ebac095/fontStyle", new MatrixLabelOption { FontStyle = ZRFontStyle.From("normal") }, "fontStyle", "\"normal\"", 0, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties43()
     {
+        yield return ("property:type:8eb341e5f04e24557ebac095/fontStyle", new MatrixLabelOption { FontStyle = ZRFontStyle.From("normal") }, "fontStyle", "\"normal\"", 0, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
         yield return ("property:type:8eb341e5f04e24557ebac095/fontWeight", new MatrixLabelOption { FontWeight = ZRFontWeight.From("lighter") }, "fontWeight", "\"lighter\"", 0, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
         yield return ("property:type:8eb341e5f04e24557ebac095/formatter", new MatrixLabelOption { Formatter = MatrixLabelOptionFormatter.From(JsFunction.Module<MatrixLabelOptionFormatterAlternativeSignature>("/modules/series-functions.js", "format")) }, "formatter", "null", 1, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
         yield return ("property:type:8eb341e5f04e24557ebac095/height", new MatrixLabelOption { Height = 2d }, "height", "2", 0, json => GeneratedOptionMetadata.ReadMatrixLabelOption(json));
@@ -7733,10 +7734,10 @@ internal static class PublicContractCases
         yield return ("property:type:5338fc001f9fae900e6d68e7/animationDelay", new ParallelAxisDefaultCategoryOption { AnimationDelay = AnimationDelay.From(2d) }, "animationDelay", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
         yield return ("property:type:5338fc001f9fae900e6d68e7/animationDelayUpdate", new ParallelAxisDefaultCategoryOption { AnimationDelayUpdate = AnimationDelay.From(2d) }, "animationDelayUpdate", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
         yield return ("property:type:5338fc001f9fae900e6d68e7/animationDuration", new ParallelAxisDefaultCategoryOption { AnimationDuration = AnimationDuration.From(2d) }, "animationDuration", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
-        yield return ("property:type:5338fc001f9fae900e6d68e7/animationDurationUpdate", new ParallelAxisDefaultCategoryOption { AnimationDurationUpdate = AnimationDuration.From(2d) }, "animationDurationUpdate", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties44()
     {
+        yield return ("property:type:5338fc001f9fae900e6d68e7/animationDurationUpdate", new ParallelAxisDefaultCategoryOption { AnimationDurationUpdate = AnimationDuration.From(2d) }, "animationDurationUpdate", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
         yield return ("property:type:5338fc001f9fae900e6d68e7/animationEasing", new ParallelAxisDefaultCategoryOption { AnimationEasing = AnimationEasing.From("backIn") }, "animationEasing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
         yield return ("property:type:5338fc001f9fae900e6d68e7/animationEasingUpdate", new ParallelAxisDefaultCategoryOption { AnimationEasingUpdate = AnimationEasing.From("backIn") }, "animationEasingUpdate", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
         yield return ("property:type:5338fc001f9fae900e6d68e7/animationThreshold", new ParallelAxisDefaultCategoryOption { AnimationThreshold = 2d }, "animationThreshold", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultCategoryOption(json));
@@ -7864,10 +7865,10 @@ internal static class PublicContractCases
         yield return ("property:type:c6a72a11e6597dd290153a6c/coordinateSystem", new ParallelAxisDefaultLogOption { CoordinateSystem = "sample" }, "coordinateSystem", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
         yield return ("property:type:c6a72a11e6597dd290153a6c/coordinateSystemUsage", new ParallelAxisDefaultLogOption { CoordinateSystemUsage = CoordinateSystemUsageOption.From("box") }, "coordinateSystemUsage", "\"box\"", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
         yield return ("property:type:c6a72a11e6597dd290153a6c/dataMax", new ParallelAxisDefaultLogOption { DataMax = OptionDataValue.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "dataMax", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
-        yield return ("property:type:c6a72a11e6597dd290153a6c/dataMin", new ParallelAxisDefaultLogOption { DataMin = OptionDataValue.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "dataMin", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties45()
     {
+        yield return ("property:type:c6a72a11e6597dd290153a6c/dataMin", new ParallelAxisDefaultLogOption { DataMin = OptionDataValue.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "dataMin", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
         yield return ("property:type:c6a72a11e6597dd290153a6c/dim", new ParallelAxisDefaultLogOption { Dim = OneOrMany<double?>.One(2d) }, "dim", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
         yield return ("property:type:c6a72a11e6597dd290153a6c/id", new ParallelAxisDefaultLogOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
         yield return ("property:type:c6a72a11e6597dd290153a6c/interval", new ParallelAxisDefaultLogOption { Interval = 2d }, "interval", "2", 0, json => GeneratedOptionMetadata.ReadParallelAxisDefaultLogOption(json));
@@ -7995,10 +7996,10 @@ internal static class PublicContractCases
         yield return ("property:type:676479f24338747a80c0a3eb/name", new RadarOption { Name = NumberOrString.From(2d) }, "name", "2", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
         yield return ("property:type:676479f24338747a80c0a3eb/radius", new RadarOption { Radius = NumberOrStringOneOrMany.One(NumberOrString.From(2d)) }, "radius", "2", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
         yield return ("property:type:676479f24338747a80c0a3eb/scale", new RadarOption { Scale = false }, "scale", "false", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
-        yield return ("property:type:676479f24338747a80c0a3eb/shape", new RadarOption { Shape = RadarOptionShape.From("circle") }, "shape", "\"circle\"", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties46()
     {
+        yield return ("property:type:676479f24338747a80c0a3eb/shape", new RadarOption { Shape = RadarOptionShape.From("circle") }, "shape", "\"circle\"", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
         yield return ("property:type:676479f24338747a80c0a3eb/splitArea", new RadarOption { SplitArea = new SplitAreaOption() }, "splitArea", "{}", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
         yield return ("property:type:676479f24338747a80c0a3eb/splitLine", new RadarOption { SplitLine = new SplitLineOption() }, "splitLine", "{}", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
         yield return ("property:type:676479f24338747a80c0a3eb/splitNumber", new RadarOption { SplitNumber = 2d }, "splitNumber", "2", 0, json => GeneratedOptionMetadata.ReadRadarOption(json));
@@ -8126,10 +8127,10 @@ internal static class PublicContractCases
         yield return ("property:type:47a6139d0daa59af845ed3ee/animationDurationUpdate", new RadiusAxisTimeOption { AnimationDurationUpdate = AnimationDuration.From(2d) }, "animationDurationUpdate", "2", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
         yield return ("property:type:47a6139d0daa59af845ed3ee/animationEasing", new RadiusAxisTimeOption { AnimationEasing = AnimationEasing.From("backIn") }, "animationEasing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
         yield return ("property:type:47a6139d0daa59af845ed3ee/animationEasingUpdate", new RadiusAxisTimeOption { AnimationEasingUpdate = AnimationEasing.From("backIn") }, "animationEasingUpdate", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
-        yield return ("property:type:47a6139d0daa59af845ed3ee/animationThreshold", new RadiusAxisTimeOption { AnimationThreshold = 2d }, "animationThreshold", "2", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties47()
     {
+        yield return ("property:type:47a6139d0daa59af845ed3ee/animationThreshold", new RadiusAxisTimeOption { AnimationThreshold = 2d }, "animationThreshold", "2", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
         yield return ("property:type:47a6139d0daa59af845ed3ee/axisLabel", new RadiusAxisTimeOption { AxisLabel = new TimeAxisLabelOption() }, "axisLabel", "{}", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
         yield return ("property:type:47a6139d0daa59af845ed3ee/axisLine", new RadiusAxisTimeOption { AxisLine = new AxisLineOption() }, "axisLine", "{}", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
         yield return ("property:type:47a6139d0daa59af845ed3ee/axisPointer", new RadiusAxisTimeOption { AxisPointer = new CommonAxisPointerOption() }, "axisPointer", "{}", 0, json => GeneratedOptionMetadata.ReadRadiusAxisTimeOption(json));
@@ -8257,10 +8258,10 @@ internal static class PublicContractCases
         yield return ("property:type:d15f3387fe77b8eae8048c89/jitterOverlap", new RadiusAxisLogOption { JitterOverlap = false }, "jitterOverlap", "false", 0, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
         yield return ("property:type:d15f3387fe77b8eae8048c89/logBase", new RadiusAxisLogOption { LogBase = 2d }, "logBase", "2", 0, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
         yield return ("property:type:d15f3387fe77b8eae8048c89/max", new RadiusAxisLogOption { Max = Max.From(JsFunction.Module<MaxAlternativeSignature>("/modules/series-functions.js", "format")) }, "max", "null", 1, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
-        yield return ("property:type:d15f3387fe77b8eae8048c89/maxInterval", new RadiusAxisLogOption { MaxInterval = 2d }, "maxInterval", "2", 0, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties48()
     {
+        yield return ("property:type:d15f3387fe77b8eae8048c89/maxInterval", new RadiusAxisLogOption { MaxInterval = 2d }, "maxInterval", "2", 0, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
         yield return ("property:type:d15f3387fe77b8eae8048c89/min", new RadiusAxisLogOption { Min = Min.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "min", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
         yield return ("property:type:d15f3387fe77b8eae8048c89/minInterval", new RadiusAxisLogOption { MinInterval = 2d }, "minInterval", "2", 0, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
         yield return ("property:type:d15f3387fe77b8eae8048c89/minorSplitLine", new RadiusAxisLogOption { MinorSplitLine = new MinorSplitLineOption() }, "minorSplitLine", "{}", 0, json => GeneratedOptionMetadata.ReadRadiusAxisLogOption(json));
@@ -8388,10 +8389,10 @@ internal static class PublicContractCases
         yield return ("property:type:6f1a7ad58a0759294f513c05/logBase", new SingleAxisLogOption { LogBase = 2d }, "logBase", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
         yield return ("property:type:6f1a7ad58a0759294f513c05/matrixId", new SingleAxisLogOption { MatrixId = NumberOrString.From(2d) }, "matrixId", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
         yield return ("property:type:6f1a7ad58a0759294f513c05/matrixIndex", new SingleAxisLogOption { MatrixIndex = 2d }, "matrixIndex", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
-        yield return ("property:type:6f1a7ad58a0759294f513c05/max", new SingleAxisLogOption { Max = Max.From(JsFunction.Module<MaxAlternativeSignature>("/modules/series-functions.js", "format")) }, "max", "null", 1, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties49()
     {
+        yield return ("property:type:6f1a7ad58a0759294f513c05/max", new SingleAxisLogOption { Max = Max.From(JsFunction.Module<MaxAlternativeSignature>("/modules/series-functions.js", "format")) }, "max", "null", 1, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
         yield return ("property:type:6f1a7ad58a0759294f513c05/maxInterval", new SingleAxisLogOption { MaxInterval = 2d }, "maxInterval", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
         yield return ("property:type:6f1a7ad58a0759294f513c05/min", new SingleAxisLogOption { Min = Min.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "min", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
         yield return ("property:type:6f1a7ad58a0759294f513c05/minInterval", new SingleAxisLogOption { MinInterval = 2d }, "minInterval", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisLogOption(json));
@@ -8519,10 +8520,10 @@ internal static class PublicContractCases
         yield return ("property:type:d831b1953fdd305384bcf220/max", new SingleAxisTimeOption { Max = Max.From(JsFunction.Module<MaxAlternativeSignature>("/modules/series-functions.js", "format")) }, "max", "null", 1, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
         yield return ("property:type:d831b1953fdd305384bcf220/maxInterval", new SingleAxisTimeOption { MaxInterval = 2d }, "maxInterval", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
         yield return ("property:type:d831b1953fdd305384bcf220/min", new SingleAxisTimeOption { Min = Min.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "min", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
-        yield return ("property:type:d831b1953fdd305384bcf220/minInterval", new SingleAxisTimeOption { MinInterval = 2d }, "minInterval", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties50()
     {
+        yield return ("property:type:d831b1953fdd305384bcf220/minInterval", new SingleAxisTimeOption { MinInterval = 2d }, "minInterval", "2", 0, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
         yield return ("property:type:d831b1953fdd305384bcf220/minorSplitLine", new SingleAxisTimeOption { MinorSplitLine = new MinorSplitLineOption() }, "minorSplitLine", "{}", 0, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
         yield return ("property:type:d831b1953fdd305384bcf220/minorTick", new SingleAxisTimeOption { MinorTick = new MinorTickOption() }, "minorTick", "{}", 0, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
         yield return ("property:type:d831b1953fdd305384bcf220/name", new SingleAxisTimeOption { Name = "sample" }, "name", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadSingleAxisTimeOption(json));
@@ -8650,10 +8651,10 @@ internal static class PublicContractCases
         yield return ("property:type:a88a23104ed7d6b63d59b1e2/fontFamily", new TitleTextStyleOption { FontFamily = "sample" }, "fontFamily", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
         yield return ("property:type:a88a23104ed7d6b63d59b1e2/fontSize", new TitleTextStyleOption { FontSize = NumberOrString.From(2d) }, "fontSize", "2", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
         yield return ("property:type:a88a23104ed7d6b63d59b1e2/fontStyle", new TitleTextStyleOption { FontStyle = ZRFontStyle.From("normal") }, "fontStyle", "\"normal\"", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
-        yield return ("property:type:a88a23104ed7d6b63d59b1e2/fontWeight", new TitleTextStyleOption { FontWeight = ZRFontWeight.From("lighter") }, "fontWeight", "\"lighter\"", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties51()
     {
+        yield return ("property:type:a88a23104ed7d6b63d59b1e2/fontWeight", new TitleTextStyleOption { FontWeight = ZRFontWeight.From("lighter") }, "fontWeight", "\"lighter\"", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
         yield return ("property:type:a88a23104ed7d6b63d59b1e2/height", new TitleTextStyleOption { Height = 2d }, "height", "2", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
         yield return ("property:type:a88a23104ed7d6b63d59b1e2/lineHeight", new TitleTextStyleOption { LineHeight = 2d }, "lineHeight", "2", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
         yield return ("property:type:a88a23104ed7d6b63d59b1e2/lineOverflow", new TitleTextStyleOption { LineOverflow = LineOverflow.From("truncate") }, "lineOverflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadTitleTextStyleOption(json));
@@ -8781,10 +8782,10 @@ internal static class PublicContractCases
         yield return ("property:type:018c9fd23d913b1b4b8fdaeb/buttonColor", new ToolboxDataViewFeatureOption { ButtonColor = "sample" }, "buttonColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
         yield return ("property:type:018c9fd23d913b1b4b8fdaeb/buttonTextColor", new ToolboxDataViewFeatureOption { ButtonTextColor = "sample" }, "buttonTextColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
         yield return ("property:type:018c9fd23d913b1b4b8fdaeb/contentToOption", new ToolboxDataViewFeatureOption { ContentToOption = JsFunction.Module<ToolboxDataViewFeatureOptionContentToOptionSignature>("/modules/series-functions.js", "format") }, "contentToOption", "null", 1, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
-        yield return ("property:type:018c9fd23d913b1b4b8fdaeb/emphasis", new ToolboxDataViewFeatureOption { Emphasis = new ToolboxFeatureEmphasisOption() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties52()
     {
+        yield return ("property:type:018c9fd23d913b1b4b8fdaeb/emphasis", new ToolboxDataViewFeatureOption { Emphasis = new ToolboxFeatureEmphasisOption() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
         yield return ("property:type:018c9fd23d913b1b4b8fdaeb/icon", new ToolboxDataViewFeatureOption { Icon = "sample" }, "icon", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
         yield return ("property:type:018c9fd23d913b1b4b8fdaeb/iconStatus", new ToolboxDataViewFeatureOption { IconStatus = new OptionDictionary<DisplayState?>() }, "iconStatus", "{}", 0, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
         yield return ("property:type:018c9fd23d913b1b4b8fdaeb/iconStyle", new ToolboxDataViewFeatureOption { IconStyle = new IconStyle() }, "iconStyle", "{}", 0, json => GeneratedOptionMetadata.ReadToolboxDataViewFeatureOption(json));
@@ -8912,10 +8913,10 @@ internal static class PublicContractCases
         yield return ("property:type:554eafefa65e28e892cf0046/borderWidth", new ToolboxComponentOptionTooltip { BorderWidth = 2d }, "borderWidth", "2", 0, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
         yield return ("property:type:554eafefa65e28e892cf0046/confine", new ToolboxComponentOptionTooltip { Confine = false }, "confine", "false", 0, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
         yield return ("property:type:554eafefa65e28e892cf0046/displayTransition", new ToolboxComponentOptionTooltip { DisplayTransition = false }, "displayTransition", "false", 0, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
-        yield return ("property:type:554eafefa65e28e892cf0046/enterable", new ToolboxComponentOptionTooltip { Enterable = false }, "enterable", "false", 0, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties53()
     {
+        yield return ("property:type:554eafefa65e28e892cf0046/enterable", new ToolboxComponentOptionTooltip { Enterable = false }, "enterable", "false", 0, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
         yield return ("property:type:554eafefa65e28e892cf0046/extraCssText", new ToolboxComponentOptionTooltip { ExtraCssText = "sample" }, "extraCssText", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
         yield return ("property:type:554eafefa65e28e892cf0046/formatter", new ToolboxComponentOptionTooltip { Formatter = ToolboxComponentOptionTooltipFormatter.From(JsFunction.Module<ToolboxComponentOptionTooltipFormatterAlternativeSignature>("/modules/series-functions.js", "format")) }, "formatter", "null", 1, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
         yield return ("property:type:554eafefa65e28e892cf0046/hideDelay", new ToolboxComponentOptionTooltip { HideDelay = 2d }, "hideDelay", "2", 0, json => GeneratedOptionMetadata.ReadToolboxComponentOptionTooltip(json));
@@ -9043,10 +9044,10 @@ internal static class PublicContractCases
         yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/inRange", new PiecewiseVisualMapOption { InRange = new VisualMapChannelsOption() }, "inRange", "{}", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
         yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/inactiveColor", new PiecewiseVisualMapOption { InactiveColor = ZRColor.From(new SVGPatternObject()) }, "inactiveColor", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
         yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/inverse", new PiecewiseVisualMapOption { Inverse = false }, "inverse", "false", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
-        yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/itemGap", new PiecewiseVisualMapOption { ItemGap = 2d }, "itemGap", "2", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties54()
     {
+        yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/itemGap", new PiecewiseVisualMapOption { ItemGap = 2d }, "itemGap", "2", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
         yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/itemHeight", new PiecewiseVisualMapOption { ItemHeight = 2d }, "itemHeight", "2", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
         yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/itemSymbol", new PiecewiseVisualMapOption { ItemSymbol = "sample" }, "itemSymbol", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
         yield return ("property:type:b4fd5bba5fd7c1cc39d490f5/itemWidth", new PiecewiseVisualMapOption { ItemWidth = 2d }, "itemWidth", "2", 0, json => GeneratedOptionMetadata.ReadPiecewiseVisualMapOption(json));
@@ -9174,10 +9175,10 @@ internal static class PublicContractCases
         yield return ("property:type:423430a62133ef04a1677dc4/boundaryGap", new XAxisCategoryOption { BoundaryGap = false }, "boundaryGap", "false", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
         yield return ("property:type:423430a62133ef04a1677dc4/breakArea", new XAxisCategoryOption { BreakArea = new BreakAreaOption() }, "breakArea", "{}", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
         yield return ("property:type:423430a62133ef04a1677dc4/breakLabelLayout", new XAxisCategoryOption { BreakLabelLayout = new BreakLabelLayoutOption() }, "breakLabelLayout", "{}", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
-        yield return ("property:type:423430a62133ef04a1677dc4/breaks", new XAxisCategoryOption { Breaks = new AxisBreakOption?[0] }, "breaks", "[]", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties55()
     {
+        yield return ("property:type:423430a62133ef04a1677dc4/breaks", new XAxisCategoryOption { Breaks = new AxisBreakOption?[0] }, "breaks", "[]", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
         yield return ("property:type:423430a62133ef04a1677dc4/categorySortInfo", new XAxisCategoryOption { CategorySortInfo = new OrdinalSortInfo() }, "categorySortInfo", "{}", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
         yield return ("property:type:423430a62133ef04a1677dc4/containShape", new XAxisCategoryOption { ContainShape = false }, "containShape", "false", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
         yield return ("property:type:423430a62133ef04a1677dc4/coord", new XAxisCategoryOption { Coord = CoordinateSystemDataCoord.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "coord", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadXAxisCategoryOption(json));
@@ -9305,10 +9306,10 @@ internal static class PublicContractCases
         yield return ("property:type:c7be3154b2df2738aa9f5589/inverse", new XAxisValueOption { Inverse = false }, "inverse", "false", 0, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
         yield return ("property:type:c7be3154b2df2738aa9f5589/jitter", new XAxisValueOption { Jitter = 2d }, "jitter", "2", 0, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
         yield return ("property:type:c7be3154b2df2738aa9f5589/jitterMargin", new XAxisValueOption { JitterMargin = 2d }, "jitterMargin", "2", 0, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
-        yield return ("property:type:c7be3154b2df2738aa9f5589/jitterOverlap", new XAxisValueOption { JitterOverlap = false }, "jitterOverlap", "false", 0, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties56()
     {
+        yield return ("property:type:c7be3154b2df2738aa9f5589/jitterOverlap", new XAxisValueOption { JitterOverlap = false }, "jitterOverlap", "false", 0, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
         yield return ("property:type:c7be3154b2df2738aa9f5589/max", new XAxisValueOption { Max = Max.From(JsFunction.Module<MaxAlternativeSignature>("/modules/series-functions.js", "format")) }, "max", "null", 1, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
         yield return ("property:type:c7be3154b2df2738aa9f5589/maxInterval", new XAxisValueOption { MaxInterval = 2d }, "maxInterval", "2", 0, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
         yield return ("property:type:c7be3154b2df2738aa9f5589/min", new XAxisValueOption { Min = Min.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "min", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadXAxisValueOption(json));
@@ -9436,10 +9437,10 @@ internal static class PublicContractCases
         yield return ("property:type:763e163d721882fb9da2fdbd/name", new YAxisLogOption { Name = "sample" }, "name", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
         yield return ("property:type:763e163d721882fb9da2fdbd/nameGap", new YAxisLogOption { NameGap = 2d }, "nameGap", "2", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
         yield return ("property:type:763e163d721882fb9da2fdbd/nameLocation", new YAxisLogOption { NameLocation = NameLocation.From("end") }, "nameLocation", "\"end\"", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
-        yield return ("property:type:763e163d721882fb9da2fdbd/nameMoveOverlap", new YAxisLogOption { NameMoveOverlap = BooleanOrAuto.From(false) }, "nameMoveOverlap", "false", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties57()
     {
+        yield return ("property:type:763e163d721882fb9da2fdbd/nameMoveOverlap", new YAxisLogOption { NameMoveOverlap = BooleanOrAuto.From(false) }, "nameMoveOverlap", "false", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
         yield return ("property:type:763e163d721882fb9da2fdbd/nameRotate", new YAxisLogOption { NameRotate = 2d }, "nameRotate", "2", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
         yield return ("property:type:763e163d721882fb9da2fdbd/nameTextStyle", new YAxisLogOption { NameTextStyle = new AxisNameTextStyleOption() }, "nameTextStyle", "{}", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
         yield return ("property:type:763e163d721882fb9da2fdbd/nameTruncate", new YAxisLogOption { NameTruncate = new NameTruncateOption() }, "nameTruncate", "{}", 0, json => GeneratedOptionMetadata.ReadYAxisLogOption(json));
@@ -9567,10 +9568,10 @@ internal static class PublicContractCases
         yield return ("property:type:f57f0ee1651299cc4d0543f0/triggerEvent", new YAxisValueOption { TriggerEvent = false }, "triggerEvent", "false", 0, json => GeneratedOptionMetadata.ReadYAxisValueOption(json));
         yield return ("property:type:f57f0ee1651299cc4d0543f0/type", new YAxisValueOption { Type = AxisValueType.From("value") }, "type", "\"value\"", 0, json => GeneratedOptionMetadata.ReadYAxisValueOption(json));
         yield return ("property:type:f57f0ee1651299cc4d0543f0/z", new YAxisValueOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadYAxisValueOption(json));
-        yield return ("property:type:f57f0ee1651299cc4d0543f0/zlevel", new YAxisValueOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadYAxisValueOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties58()
     {
+        yield return ("property:type:f57f0ee1651299cc4d0543f0/zlevel", new YAxisValueOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadYAxisValueOption(json));
         yield return ("property:type:46424c913abe69e9f1388169/blur", new ChordEdgeItemOption { Blur = new ChordEdgeStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadChordEdgeItemOption(json));
         yield return ("property:type:46424c913abe69e9f1388169/childGroupId", new ChordEdgeItemOption { ChildGroupId = NumberOrString.From(2d) }, "childGroupId", "2", 0, json => GeneratedOptionMetadata.ReadChordEdgeItemOption(json));
         yield return ("property:type:46424c913abe69e9f1388169/emphasis", new ChordEdgeItemOption { Emphasis = new ChordEdgeItemOptionEmphasis() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadChordEdgeItemOption(json));
@@ -9584,6 +9585,7 @@ internal static class PublicContractCases
         yield return ("property:type:46424c913abe69e9f1388169/source", new ChordEdgeItemOption { Source = NumberOrString.From(2d) }, "source", "2", 0, json => GeneratedOptionMetadata.ReadChordEdgeItemOption(json));
         yield return ("property:type:46424c913abe69e9f1388169/target", new ChordEdgeItemOption { Target = NumberOrString.From(2d) }, "target", "2", 0, json => GeneratedOptionMetadata.ReadChordEdgeItemOption(json));
         yield return ("property:type:46424c913abe69e9f1388169/value", new ChordEdgeItemOption { Value = 2d }, "value", "2", 0, json => GeneratedOptionMetadata.ReadChordEdgeItemOption(json));
+        yield return ("property:type:46424c913abe69e9f1388169/tooltip", new ChordEdgeItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadChordEdgeItemOption(json));
         yield return ("property:type:af9f33361b8fb2b2b2fa7284/label", new ChordEdgeStateOption { Label = new SeriesLineLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadChordEdgeStateOption(json));
         yield return ("property:type:af9f33361b8fb2b2b2fa7284/lineStyle", new ChordEdgeStateOption { LineStyle = new ChordEdgeLineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadChordEdgeStateOption(json));
         yield return ("property:type:3f53a44bb5f5beed68c7928f/cap", new ChordEdgeLineStyleOption { Cap = CanvasLineCap.From("round") }, "cap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadChordEdgeLineStyleOption(json));
@@ -9697,11 +9699,11 @@ internal static class PublicContractCases
         yield return ("property:type:bb7132553f87b4b23e83f38a/animationEasing", new ChordSeriesOption { AnimationEasing = AnimationEasing.From("backIn") }, "animationEasing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
         yield return ("property:type:bb7132553f87b4b23e83f38a/animationEasingUpdate", new ChordSeriesOption { AnimationEasingUpdate = AnimationEasing.From("backIn") }, "animationEasingUpdate", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
         yield return ("property:type:bb7132553f87b4b23e83f38a/animationThreshold", new ChordSeriesOption { AnimationThreshold = 2d }, "animationThreshold", "2", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
-        yield return ("property:type:bb7132553f87b4b23e83f38a/blendMode", new ChordSeriesOption { BlendMode = "sample" }, "blendMode", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
-        yield return ("property:type:bb7132553f87b4b23e83f38a/blur", new ChordSeriesOption { Blur = new ChordSeriesOptionBlur() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties59()
     {
+        yield return ("property:type:bb7132553f87b4b23e83f38a/blendMode", new ChordSeriesOption { BlendMode = "sample" }, "blendMode", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
+        yield return ("property:type:bb7132553f87b4b23e83f38a/blur", new ChordSeriesOption { Blur = new ChordSeriesOptionBlur() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
         yield return ("property:type:bb7132553f87b4b23e83f38a/bottom", new ChordSeriesOption { Bottom = NumberOrString.From(2d) }, "bottom", "2", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
         yield return ("property:type:bb7132553f87b4b23e83f38a/calendarId", new ChordSeriesOption { CalendarId = NumberOrString.From(2d) }, "calendarId", "2", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
         yield return ("property:type:bb7132553f87b4b23e83f38a/calendarIndex", new ChordSeriesOption { CalendarIndex = 2d }, "calendarIndex", "2", 0, json => GeneratedOptionMetadata.ReadChordSeriesOption(json));
@@ -9828,11 +9830,11 @@ internal static class PublicContractCases
         yield return ("property:type:b47d528edc1e2924a26ea9b3/value", new CustomDataItemOption { Value = OptionDataItemValue.From(new DateTimeOffset(2026, 10, 19, 14, 0, 0, 500, new TimeSpan(5, 30, 0))) }, "value", "\"2026-10-19T08:30:00.500Z\"", 0, json => GeneratedOptionMetadata.ReadCustomDataItemOption(json));
         yield return ("property:type:b47d528edc1e2924a26ea9b3/emphasis", new CustomDataItemOption { Emphasis = new CustomEmphasisOption() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadCustomDataItemOption(json));
         yield return ("property:type:b47d528edc1e2924a26ea9b3/itemStyle", new CustomDataItemOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadCustomDataItemOption(json));
-        yield return ("property:type:b47d528edc1e2924a26ea9b3/tooltip", new CustomDataItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadCustomDataItemOption(json));
-        yield return ("property:type:4319bc524f064ea43e826433/itemStyle", new CustomEmphasisOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadCustomEmphasisOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties60()
     {
+        yield return ("property:type:b47d528edc1e2924a26ea9b3/tooltip", new CustomDataItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadCustomDataItemOption(json));
+        yield return ("property:type:4319bc524f064ea43e826433/itemStyle", new CustomEmphasisOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadCustomEmphasisOption(json));
         yield return ("property:type:4319bc524f064ea43e826433/label", new CustomEmphasisOption { Label = new LabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadCustomEmphasisOption(json));
         yield return ("property:type:dbecac9f99aefc5812184c46/animation", new CustomSeriesOption { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadCustomSeriesOption(json));
         yield return ("property:type:dbecac9f99aefc5812184c46/animationDelay", new CustomSeriesOption { AnimationDelay = AnimationDelay.From(2d) }, "animationDelay", "2", 0, json => GeneratedOptionMetadata.ReadCustomSeriesOption(json));
@@ -9959,11 +9961,11 @@ internal static class PublicContractCases
         yield return ("property:type:4bedb90801562c829b49e4c5/textBorderWidth", new DetailOption { TextBorderWidth = 2d }, "textBorderWidth", "2", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
         yield return ("property:type:4bedb90801562c829b49e4c5/textMargin", new DetailOption { TextMargin = OneOrMany<double?>.One(2d) }, "textMargin", "2", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
         yield return ("property:type:4bedb90801562c829b49e4c5/textShadowBlur", new DetailOption { TextShadowBlur = 2d }, "textShadowBlur", "2", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
-        yield return ("property:type:4bedb90801562c829b49e4c5/textShadowColor", new DetailOption { TextShadowColor = "sample" }, "textShadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
-        yield return ("property:type:4bedb90801562c829b49e4c5/textShadowOffsetX", new DetailOption { TextShadowOffsetX = 2d }, "textShadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties61()
     {
+        yield return ("property:type:4bedb90801562c829b49e4c5/textShadowColor", new DetailOption { TextShadowColor = "sample" }, "textShadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
+        yield return ("property:type:4bedb90801562c829b49e4c5/textShadowOffsetX", new DetailOption { TextShadowOffsetX = 2d }, "textShadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
         yield return ("property:type:4bedb90801562c829b49e4c5/textShadowOffsetY", new DetailOption { TextShadowOffsetY = 2d }, "textShadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
         yield return ("property:type:4bedb90801562c829b49e4c5/valueAnimation", new DetailOption { ValueAnimation = false }, "valueAnimation", "false", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
         yield return ("property:type:4bedb90801562c829b49e4c5/verticalAlign", new DetailOption { VerticalAlign = TextVerticalAlign.From("top") }, "verticalAlign", "\"top\"", 0, json => GeneratedOptionMetadata.ReadDetailOption(json));
@@ -10090,11 +10092,11 @@ internal static class PublicContractCases
         yield return ("property:type:7c45cd560626d5bcc5367237/label", new EffectScatterSeriesOptionBlur { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionBlur(json));
         yield return ("property:type:7c45cd560626d5bcc5367237/labelLine", new EffectScatterSeriesOptionBlur { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionBlur(json));
         yield return ("property:type:7c9b58bee65131375ae016e4/blurScope", new EffectScatterSeriesOptionEmphasis { BlurScope = BlurScope.From("series") }, "blurScope", "\"series\"", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
-        yield return ("property:type:7c9b58bee65131375ae016e4/disabled", new EffectScatterSeriesOptionEmphasis { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
-        yield return ("property:type:7c9b58bee65131375ae016e4/focus", new EffectScatterSeriesOptionEmphasis { Focus = EmphasisFocus.From("series") }, "focus", "\"series\"", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties62()
     {
+        yield return ("property:type:7c9b58bee65131375ae016e4/disabled", new EffectScatterSeriesOptionEmphasis { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
+        yield return ("property:type:7c9b58bee65131375ae016e4/focus", new EffectScatterSeriesOptionEmphasis { Focus = EmphasisFocus.From("series") }, "focus", "\"series\"", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
         yield return ("property:type:7c9b58bee65131375ae016e4/itemStyle", new EffectScatterSeriesOptionEmphasis { ItemStyle = new ItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
         yield return ("property:type:7c9b58bee65131375ae016e4/label", new EffectScatterSeriesOptionEmphasis { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
         yield return ("property:type:7c9b58bee65131375ae016e4/scale", new EffectScatterSeriesOptionEmphasis { Scale = BooleanOrNumber.From(false) }, "scale", "false", 0, json => GeneratedOptionMetadata.ReadEffectScatterSeriesOptionEmphasis(json));
@@ -10221,11 +10223,11 @@ internal static class PublicContractCases
         yield return ("property:type:1da4db168a898e55919fdf7c/verticalAlign", new FunnelDataItemOptionEmphasisLabel { VerticalAlign = TextVerticalAlign.From("top") }, "verticalAlign", "\"top\"", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionEmphasisLabel(json));
         yield return ("property:type:1da4db168a898e55919fdf7c/width", new FunnelDataItemOptionEmphasisLabel { Width = NumberOrString.From(2d) }, "width", "2", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionEmphasisLabel(json));
         yield return ("property:type:1da4db168a898e55919fdf7c/richInheritPlainLabel", new FunnelDataItemOptionEmphasisLabel { RichInheritPlainLabel = false }, "richInheritPlainLabel", "false", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionEmphasisLabel(json));
-        yield return ("property:type:32f6e02b95f7666a8298f278/borderCap", new FunnelDataItemOptionItemStyle { BorderCap = CanvasLineCap.From("round") }, "borderCap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionItemStyle(json));
-        yield return ("property:type:32f6e02b95f7666a8298f278/borderColor", new FunnelDataItemOptionItemStyle { BorderColor = ZRColor.From(new SVGPatternObject()) }, "borderColor", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionItemStyle(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties63()
     {
+        yield return ("property:type:32f6e02b95f7666a8298f278/borderCap", new FunnelDataItemOptionItemStyle { BorderCap = CanvasLineCap.From("round") }, "borderCap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionItemStyle(json));
+        yield return ("property:type:32f6e02b95f7666a8298f278/borderColor", new FunnelDataItemOptionItemStyle { BorderColor = ZRColor.From(new SVGPatternObject()) }, "borderColor", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionItemStyle(json));
         yield return ("property:type:32f6e02b95f7666a8298f278/borderDashOffset", new FunnelDataItemOptionItemStyle { BorderDashOffset = 2d }, "borderDashOffset", "2", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionItemStyle(json));
         yield return ("property:type:32f6e02b95f7666a8298f278/borderJoin", new FunnelDataItemOptionItemStyle { BorderJoin = CanvasLineJoin.From("round") }, "borderJoin", "\"round\"", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionItemStyle(json));
         yield return ("property:type:32f6e02b95f7666a8298f278/borderMiterLimit", new FunnelDataItemOptionItemStyle { BorderMiterLimit = 2d }, "borderMiterLimit", "2", 0, json => GeneratedOptionMetadata.ReadFunnelDataItemOptionItemStyle(json));
@@ -10350,13 +10352,14 @@ internal static class PublicContractCases
         yield return ("property:type:61c1b99a2a110b3c9d6a4b41/select", new GaugeDataItemOption { Select = new GaugeDataItemOptionSelect() }, "select", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOption(json));
         yield return ("property:type:61c1b99a2a110b3c9d6a4b41/title", new GaugeDataItemOption { Title = new GaugeTitleOption() }, "title", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOption(json));
         yield return ("property:type:61c1b99a2a110b3c9d6a4b41/value", new GaugeDataItemOption { Value = OptionDataValueNumeric.From(2d) }, "value", "2", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOption(json));
+        yield return ("property:type:61c1b99a2a110b3c9d6a4b41/tooltip", new GaugeDataItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOption(json));
         yield return ("property:type:ece0708254e87877c419744e/itemStyle", new GaugeDataItemOptionBlur { ItemStyle = new ItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionBlur(json));
-        yield return ("property:type:0de703204d74789381366adc/blurScope", new GaugeDataItemOptionEmphasis { BlurScope = BlurScope.From("series") }, "blurScope", "\"series\"", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionEmphasis(json));
-        yield return ("property:type:0de703204d74789381366adc/disabled", new GaugeDataItemOptionEmphasis { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionEmphasis(json));
-        yield return ("property:type:0de703204d74789381366adc/focus", new GaugeDataItemOptionEmphasis { Focus = EmphasisFocus.From("series") }, "focus", "\"series\"", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionEmphasis(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties64()
     {
+        yield return ("property:type:0de703204d74789381366adc/blurScope", new GaugeDataItemOptionEmphasis { BlurScope = BlurScope.From("series") }, "blurScope", "\"series\"", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionEmphasis(json));
+        yield return ("property:type:0de703204d74789381366adc/disabled", new GaugeDataItemOptionEmphasis { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionEmphasis(json));
+        yield return ("property:type:0de703204d74789381366adc/focus", new GaugeDataItemOptionEmphasis { Focus = EmphasisFocus.From("series") }, "focus", "\"series\"", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionEmphasis(json));
         yield return ("property:type:0de703204d74789381366adc/itemStyle", new GaugeDataItemOptionEmphasis { ItemStyle = new ItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeDataItemOptionEmphasis(json));
         yield return ("property:type:715009e6159020b6f3111145/icon", new PointerOption { Icon = "sample" }, "icon", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadPointerOption(json));
         yield return ("property:type:715009e6159020b6f3111145/itemStyle", new PointerOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadPointerOption(json));
@@ -10482,12 +10485,12 @@ internal static class PublicContractCases
         yield return ("property:type:8b739bb24d0d76fce87eb0ff/selectedMode", new GaugeSeriesOption { SelectedMode = SeriesSelectedMode.From("series") }, "selectedMode", "\"series\"", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
         yield return ("property:type:8b739bb24d0d76fce87eb0ff/seriesLayoutBy", new GaugeSeriesOption { SeriesLayoutBy = SeriesLayoutBy.From("column") }, "seriesLayoutBy", "\"column\"", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
         yield return ("property:type:8b739bb24d0d76fce87eb0ff/silent", new GaugeSeriesOption { Silent = false }, "silent", "false", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
-        yield return ("property:type:8b739bb24d0d76fce87eb0ff/sourceHeader", new GaugeSeriesOption { SourceHeader = OptionSourceHeader.From(false) }, "sourceHeader", "false", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
-        yield return ("property:type:8b739bb24d0d76fce87eb0ff/splitLine", new GaugeSeriesOption { SplitLine = new GaugeSeriesOptionSplitLine() }, "splitLine", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
-        yield return ("property:type:8b739bb24d0d76fce87eb0ff/splitNumber", new GaugeSeriesOption { SplitNumber = 2d }, "splitNumber", "2", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties65()
     {
+        yield return ("property:type:8b739bb24d0d76fce87eb0ff/sourceHeader", new GaugeSeriesOption { SourceHeader = OptionSourceHeader.From(false) }, "sourceHeader", "false", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
+        yield return ("property:type:8b739bb24d0d76fce87eb0ff/splitLine", new GaugeSeriesOption { SplitLine = new GaugeSeriesOptionSplitLine() }, "splitLine", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
+        yield return ("property:type:8b739bb24d0d76fce87eb0ff/splitNumber", new GaugeSeriesOption { SplitNumber = 2d }, "splitNumber", "2", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
         yield return ("property:type:8b739bb24d0d76fce87eb0ff/startAngle", new GaugeSeriesOption { StartAngle = 2d }, "startAngle", "2", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
         yield return ("property:type:8b739bb24d0d76fce87eb0ff/stateAnimation", new GaugeSeriesOption { StateAnimation = new AnimationOption() }, "stateAnimation", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
         yield return ("property:type:8b739bb24d0d76fce87eb0ff/title", new GaugeSeriesOption { Title = new GaugeTitleOption() }, "title", "{}", 0, json => GeneratedOptionMetadata.ReadGaugeSeriesOption(json));
@@ -10613,12 +10616,12 @@ internal static class PublicContractCases
         yield return ("property:type:7c7ad8ccbdc210feef6f1a22/itemStyle", new GraphItemSelectOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadGraphItemSelectOption(json));
         yield return ("property:type:7c7ad8ccbdc210feef6f1a22/label", new GraphItemSelectOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadGraphItemSelectOption(json));
         yield return ("property:type:7ab0232c44521fd8ea9e594e/blur", new GraphEdgeItemOption { Blur = new GraphEdgeStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
-        yield return ("property:type:7ab0232c44521fd8ea9e594e/childGroupId", new GraphEdgeItemOption { ChildGroupId = NumberOrString.From(2d) }, "childGroupId", "2", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
-        yield return ("property:type:7ab0232c44521fd8ea9e594e/emphasis", new GraphEdgeItemOption { Emphasis = new GraphEdgeItemOptionEmphasis() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
-        yield return ("property:type:7ab0232c44521fd8ea9e594e/groupId", new GraphEdgeItemOption { GroupId = NumberOrString.From(2d) }, "groupId", "2", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties66()
     {
+        yield return ("property:type:7ab0232c44521fd8ea9e594e/childGroupId", new GraphEdgeItemOption { ChildGroupId = NumberOrString.From(2d) }, "childGroupId", "2", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
+        yield return ("property:type:7ab0232c44521fd8ea9e594e/emphasis", new GraphEdgeItemOption { Emphasis = new GraphEdgeItemOptionEmphasis() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
+        yield return ("property:type:7ab0232c44521fd8ea9e594e/groupId", new GraphEdgeItemOption { GroupId = NumberOrString.From(2d) }, "groupId", "2", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
         yield return ("property:type:7ab0232c44521fd8ea9e594e/id", new GraphEdgeItemOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
         yield return ("property:type:7ab0232c44521fd8ea9e594e/ignoreForceLayout", new GraphEdgeItemOption { IgnoreForceLayout = false }, "ignoreForceLayout", "false", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
         yield return ("property:type:7ab0232c44521fd8ea9e594e/label", new GraphEdgeItemOption { Label = new SeriesLineLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadGraphEdgeItemOption(json));
@@ -10744,12 +10747,12 @@ internal static class PublicContractCases
         yield return ("property:type:e77c801192e7212a42f89284/roamTrigger", new GraphSeriesOption { RoamTrigger = RoamTrigger.From("selfRect") }, "roamTrigger", "\"selfRect\"", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
         yield return ("property:type:e77c801192e7212a42f89284/scaleLimit", new GraphSeriesOption { ScaleLimit = new ScaleLimitOption() }, "scaleLimit", "{}", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
         yield return ("property:type:e77c801192e7212a42f89284/select", new GraphSeriesOption { Select = new GraphSeriesOptionSelect() }, "select", "{}", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
-        yield return ("property:type:e77c801192e7212a42f89284/selectedMap", new GraphSeriesOption { SelectedMap = SelectedMap.From(new OptionDictionary<bool?>()) }, "selectedMap", "{}", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
-        yield return ("property:type:e77c801192e7212a42f89284/selectedMode", new GraphSeriesOption { SelectedMode = SeriesSelectedMode.From("series") }, "selectedMode", "\"series\"", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
-        yield return ("property:type:e77c801192e7212a42f89284/seriesLayoutBy", new GraphSeriesOption { SeriesLayoutBy = SeriesLayoutBy.From("column") }, "seriesLayoutBy", "\"column\"", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
     }
     private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties67()
     {
+        yield return ("property:type:e77c801192e7212a42f89284/selectedMap", new GraphSeriesOption { SelectedMap = SelectedMap.From(new OptionDictionary<bool?>()) }, "selectedMap", "{}", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
+        yield return ("property:type:e77c801192e7212a42f89284/selectedMode", new GraphSeriesOption { SelectedMode = SeriesSelectedMode.From("series") }, "selectedMode", "\"series\"", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
+        yield return ("property:type:e77c801192e7212a42f89284/seriesLayoutBy", new GraphSeriesOption { SeriesLayoutBy = SeriesLayoutBy.From("column") }, "seriesLayoutBy", "\"column\"", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
         yield return ("property:type:e77c801192e7212a42f89284/silent", new GraphSeriesOption { Silent = false }, "silent", "false", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
         yield return ("property:type:e77c801192e7212a42f89284/singleAxisId", new GraphSeriesOption { SingleAxisId = NumberOrString.From(2d) }, "singleAxisId", "2", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
         yield return ("property:type:e77c801192e7212a42f89284/singleAxisIndex", new GraphSeriesOption { SingleAxisIndex = 2d }, "singleAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadGraphSeriesOption(json));
@@ -10803,6 +10806,7 @@ internal static class PublicContractCases
         yield return ("property:type:cbd58b179425901a3affc540/childGroupId", new HeatmapDataItemOption { ChildGroupId = NumberOrString.From(2d) }, "childGroupId", "2", 0, json => GeneratedOptionMetadata.ReadHeatmapDataItemOption(json));
         yield return ("property:type:cbd58b179425901a3affc540/groupId", new HeatmapDataItemOption { GroupId = NumberOrString.From(2d) }, "groupId", "2", 0, json => GeneratedOptionMetadata.ReadHeatmapDataItemOption(json));
         yield return ("property:type:cbd58b179425901a3affc540/name", new HeatmapDataItemOption { Name = NumberOrString.From(2d) }, "name", "2", 0, json => GeneratedOptionMetadata.ReadHeatmapDataItemOption(json));
+        yield return ("property:type:cbd58b179425901a3affc540/tooltip", new HeatmapDataItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapDataItemOption(json));
         yield return ("property:type:69cfc1122b5e93deebf80558/itemStyle", new HeatmapDataItemOptionBlur { ItemStyle = new HeatmapDataItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapDataItemOptionBlur(json));
         yield return ("property:type:69cfc1122b5e93deebf80558/label", new HeatmapDataItemOptionBlur { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapDataItemOptionBlur(json));
         yield return ("property:type:ee2a39de1cead30f3193e8b6/borderCap", new HeatmapDataItemStyleOption { BorderCap = CanvasLineCap.From("round") }, "borderCap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadHeatmapDataItemStyleOption(json));
@@ -10874,13 +10878,13 @@ internal static class PublicContractCases
         yield return ("property:type:f427af57f77999a63cfc406e/geoIndex", new HeatmapSeriesOption { GeoIndex = 2d }, "geoIndex", "2", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
         yield return ("property:type:f427af57f77999a63cfc406e/hoverLayerThreshold", new HeatmapSeriesOption { HoverLayerThreshold = 2d }, "hoverLayerThreshold", "2", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
         yield return ("property:type:f427af57f77999a63cfc406e/id", new HeatmapSeriesOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties68()
+    {
         yield return ("property:type:f427af57f77999a63cfc406e/itemStyle", new HeatmapSeriesOption { ItemStyle = new HeatmapSeriesItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
         yield return ("property:type:f427af57f77999a63cfc406e/label", new HeatmapSeriesOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
         yield return ("property:type:f427af57f77999a63cfc406e/labelLayout", new HeatmapSeriesOption { LabelLayout = LabelLayout.From(new LabelLayoutOption()) }, "labelLayout", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
         yield return ("property:type:f427af57f77999a63cfc406e/labelLine", new HeatmapSeriesOption { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties68()
-    {
         yield return ("property:type:f427af57f77999a63cfc406e/legendHoverLink", new HeatmapSeriesOption { LegendHoverLink = false }, "legendHoverLink", "false", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
         yield return ("property:type:f427af57f77999a63cfc406e/markArea", new HeatmapSeriesOption { MarkArea = new MarkAreaOption() }, "markArea", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
         yield return ("property:type:f427af57f77999a63cfc406e/markLine", new HeatmapSeriesOption { MarkLine = new MarkLineOption() }, "markLine", "{}", 0, json => GeneratedOptionMetadata.ReadHeatmapSeriesOption(json));
@@ -11005,13 +11009,13 @@ internal static class PublicContractCases
         yield return ("property:type:cdaebb720aed2395f8deb31b/itemStyle", new LineDataItemOptionSelect { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadLineDataItemOptionSelect(json));
         yield return ("property:type:cdaebb720aed2395f8deb31b/label", new LineDataItemOptionSelect { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadLineDataItemOptionSelect(json));
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/blur", new LinesDataItemOption { Blur = new LinesStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties69()
+    {
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/coords", new LinesDataItemOption { Coords = new double?[]?[0] }, "coords", "[]", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/effect", new LinesDataItemOption { Effect = new LinesDataItemOptionEffect() }, "effect", "{}", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/emphasis", new LinesDataItemOption { Emphasis = new LinesEmphasisOption() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/fromName", new LinesDataItemOption { FromName = "sample" }, "fromName", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties69()
-    {
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/label", new LinesDataItemOption { Label = new SeriesLineLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/lineStyle", new LinesDataItemOption { LineStyle = new LinesLineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
         yield return ("property:type:1032c3b0fa2ffa3df2b46b8f/name", new LinesDataItemOption { Name = "sample" }, "name", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadLinesDataItemOption(json));
@@ -11136,13 +11140,13 @@ internal static class PublicContractCases
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/xAxisId", new LineSeriesOption { XAxisId = NumberOrString.From(2d) }, "xAxisId", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/xAxisIndex", new LineSeriesOption { XAxisIndex = 2d }, "xAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/yAxisId", new LineSeriesOption { YAxisId = NumberOrString.From(2d) }, "yAxisId", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties70()
+    {
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/yAxisIndex", new LineSeriesOption { YAxisIndex = 2d }, "yAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/z", new LineSeriesOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/zlevel", new LineSeriesOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/singleAxisId", new LineSeriesOption { SingleAxisId = NumberOrString.From(2d) }, "singleAxisId", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties70()
-    {
         yield return ("property:type:fa4bdd6bea5088eaabec8e0d/singleAxisIndex", new LineSeriesOption { SingleAxisIndex = 2d }, "singleAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadLineSeriesOption(json));
         yield return ("property:type:b6b6ff00aed37d9a291e3e60/areaStyle", new LineSeriesOptionBlur { AreaStyle = new AreaStyleOption() }, "areaStyle", "{}", 0, json => GeneratedOptionMetadata.ReadLineSeriesOptionBlur(json));
         yield return ("property:type:b6b6ff00aed37d9a291e3e60/endLabel", new LineSeriesOptionBlur { EndLabel = new LineEndLabelOption() }, "endLabel", "{}", 0, json => GeneratedOptionMetadata.ReadLineSeriesOptionBlur(json));
@@ -11267,13 +11271,13 @@ internal static class PublicContractCases
         yield return ("property:type:90701ce6717c96323e67f318/itemStyle", new MapDataItemOption { ItemStyle = new StaticGeoItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
         yield return ("property:type:90701ce6717c96323e67f318/label", new MapDataItemOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
         yield return ("property:type:90701ce6717c96323e67f318/name", new MapDataItemOption { Name = NumberOrString.From(2d) }, "name", "2", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties71()
+    {
         yield return ("property:type:90701ce6717c96323e67f318/select", new MapDataItemOption { Select = new MapDataItemOptionSelect() }, "select", "{}", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
         yield return ("property:type:90701ce6717c96323e67f318/selected", new MapDataItemOption { Selected = false }, "selected", "false", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
         yield return ("property:type:90701ce6717c96323e67f318/silent", new MapDataItemOption { Silent = false }, "silent", "false", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
         yield return ("property:type:90701ce6717c96323e67f318/value", new MapDataItemOption { Value = OptionDataValueNumericOneOrMany.One(OptionDataValueNumeric.From(2d)) }, "value", "2", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties71()
-    {
         yield return ("property:type:90701ce6717c96323e67f318/labelLine", new MapDataItemOption { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
         yield return ("property:type:90701ce6717c96323e67f318/tooltip", new MapDataItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadMapDataItemOption(json));
         yield return ("property:type:1d361bd91b6f805e34e9b149/itemStyle", new MapDataItemOptionBlur { ItemStyle = new StaticGeoItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadMapDataItemOptionBlur(json));
@@ -11385,6 +11389,7 @@ internal static class PublicContractCases
         yield return ("property:type:15447439ee9880c8d41c2543/select", new ParallelSeriesDataItemOption { Select = new ParallelSeriesDataItemOptionSelect() }, "select", "{}", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOption(json));
         yield return ("property:type:15447439ee9880c8d41c2543/value", new ParallelSeriesDataItemOption { Value = new OptionDataValue?[0] }, "value", "[]", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOption(json));
         yield return ("property:type:15447439ee9880c8d41c2543/name", new ParallelSeriesDataItemOption { Name = NumberOrString.From(2d) }, "name", "2", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOption(json));
+        yield return ("property:type:15447439ee9880c8d41c2543/tooltip", new ParallelSeriesDataItemOption { Tooltip = new TooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOption(json));
         yield return ("property:type:052b821d52fea8ec89e87eb3/label", new ParallelSeriesDataItemOptionBlur { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOptionBlur(json));
         yield return ("property:type:052b821d52fea8ec89e87eb3/lineStyle", new ParallelSeriesDataItemOptionBlur { LineStyle = new LineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOptionBlur(json));
         yield return ("property:type:8be92afb895aafd6b5894270/blurScope", new ParallelSeriesDataItemOptionEmphasis { BlurScope = BlurScope.From("series") }, "blurScope", "\"series\"", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOptionEmphasis(json));
@@ -11397,14 +11402,14 @@ internal static class PublicContractCases
         yield return ("property:type:b346ae80d34b7e22b0a0b077/lineStyle", new ParallelSeriesDataItemOptionSelect { LineStyle = new LineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadParallelSeriesDataItemOptionSelect(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/cap", new ParallelSeriesLineStyleOption { Cap = CanvasLineCap.From("round") }, "cap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/color", new ParallelSeriesLineStyleOption { Color = ParallelSeriesLineStyleOptionColor.From(new SVGPatternObject()) }, "color", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties72()
+    {
         yield return ("property:type:1292e62a3d658232f682a9b1/dashOffset", new ParallelSeriesLineStyleOption { DashOffset = 2d }, "dashOffset", "2", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/join", new ParallelSeriesLineStyleOption { Join = CanvasLineJoin.From("round") }, "join", "\"round\"", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/miterLimit", new ParallelSeriesLineStyleOption { MiterLimit = 2d }, "miterLimit", "2", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/opacity", new ParallelSeriesLineStyleOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/shadowBlur", new ParallelSeriesLineStyleOption { ShadowBlur = 2d }, "shadowBlur", "2", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties72()
-    {
         yield return ("property:type:1292e62a3d658232f682a9b1/shadowColor", new ParallelSeriesLineStyleOption { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/shadowOffsetX", new ParallelSeriesLineStyleOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
         yield return ("property:type:1292e62a3d658232f682a9b1/shadowOffsetY", new ParallelSeriesLineStyleOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadParallelSeriesLineStyleOption(json));
@@ -11528,14 +11533,14 @@ internal static class PublicContractCases
         yield return ("property:type:e732a751a262e69dd46a934a/borderColor", new PictorialBarLabelOption { BorderColor = "sample" }, "borderColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/borderDashOffset", new PictorialBarLabelOption { BorderDashOffset = 2d }, "borderDashOffset", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/borderRadius", new PictorialBarLabelOption { BorderRadius = OneOrMany<double?>.One(2d) }, "borderRadius", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties73()
+    {
         yield return ("property:type:e732a751a262e69dd46a934a/borderType", new PictorialBarLabelOption { BorderType = ZRLineType.From("dashed") }, "borderType", "\"dashed\"", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/borderWidth", new PictorialBarLabelOption { BorderWidth = 2d }, "borderWidth", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/color", new PictorialBarLabelOption { Color = "sample" }, "color", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/distance", new PictorialBarLabelOption { Distance = 2d }, "distance", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/ellipsis", new PictorialBarLabelOption { Ellipsis = "sample" }, "ellipsis", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties73()
-    {
         yield return ("property:type:e732a751a262e69dd46a934a/fontFamily", new PictorialBarLabelOption { FontFamily = "sample" }, "fontFamily", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/fontSize", new PictorialBarLabelOption { FontSize = NumberOrString.From(2d) }, "fontSize", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
         yield return ("property:type:e732a751a262e69dd46a934a/fontStyle", new PictorialBarLabelOption { FontStyle = ZRFontStyle.From("normal") }, "fontStyle", "\"normal\"", 0, json => GeneratedOptionMetadata.ReadPictorialBarLabelOption(json));
@@ -11659,14 +11664,14 @@ internal static class PublicContractCases
         yield return ("property:type:75654442835c0ae7f60ee293/tooltip", new PictorialBarSeriesOption { Tooltip = new SeriesTooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
         yield return ("property:type:75654442835c0ae7f60ee293/universalTransition", new PictorialBarSeriesOption { UniversalTransition = UniversalTransition.From(false) }, "universalTransition", "false", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
         yield return ("property:type:75654442835c0ae7f60ee293/xAxisId", new PictorialBarSeriesOption { XAxisId = NumberOrString.From(2d) }, "xAxisId", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties74()
+    {
         yield return ("property:type:75654442835c0ae7f60ee293/xAxisIndex", new PictorialBarSeriesOption { XAxisIndex = 2d }, "xAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
         yield return ("property:type:75654442835c0ae7f60ee293/yAxisId", new PictorialBarSeriesOption { YAxisId = NumberOrString.From(2d) }, "yAxisId", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
         yield return ("property:type:75654442835c0ae7f60ee293/yAxisIndex", new PictorialBarSeriesOption { YAxisIndex = 2d }, "yAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
         yield return ("property:type:75654442835c0ae7f60ee293/z", new PictorialBarSeriesOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
         yield return ("property:type:75654442835c0ae7f60ee293/zlevel", new PictorialBarSeriesOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadPictorialBarSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties74()
-    {
         yield return ("property:type:3af7d5b935a8fc6fcaa3020a/blur", new PieDataItemOption { Blur = new PieDataItemOptionBlur() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadPieDataItemOption(json));
         yield return ("property:type:3af7d5b935a8fc6fcaa3020a/childGroupId", new PieDataItemOption { ChildGroupId = NumberOrString.From(2d) }, "childGroupId", "2", 0, json => GeneratedOptionMetadata.ReadPieDataItemOption(json));
         yield return ("property:type:3af7d5b935a8fc6fcaa3020a/cursor", new PieDataItemOption { Cursor = "sample" }, "cursor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadPieDataItemOption(json));
@@ -11790,14 +11795,14 @@ internal static class PublicContractCases
         yield return ("property:type:7ac68997aed311474c284882/animation", new PieSeriesOption { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/animationDelay", new PieSeriesOption { AnimationDelay = AnimationDelay.From(2d) }, "animationDelay", "2", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/animationDelayUpdate", new PieSeriesOption { AnimationDelayUpdate = AnimationDelay.From(2d) }, "animationDelayUpdate", "2", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties75()
+    {
         yield return ("property:type:7ac68997aed311474c284882/animationDuration", new PieSeriesOption { AnimationDuration = AnimationDuration.From(2d) }, "animationDuration", "2", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/animationDurationUpdate", new PieSeriesOption { AnimationDurationUpdate = AnimationDuration.From(2d) }, "animationDurationUpdate", "2", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/animationEasing", new PieSeriesOption { AnimationEasing = AnimationEasing.From("backIn") }, "animationEasing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/animationEasingUpdate", new PieSeriesOption { AnimationEasingUpdate = AnimationEasing.From("backIn") }, "animationEasingUpdate", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/animationThreshold", new PieSeriesOption { AnimationThreshold = 2d }, "animationThreshold", "2", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties75()
-    {
         yield return ("property:type:7ac68997aed311474c284882/animationType", new PieSeriesOption { AnimationType = AnimationType.From("scale") }, "animationType", "\"scale\"", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/animationTypeUpdate", new PieSeriesOption { AnimationTypeUpdate = PieSeriesOptionAnimationTypeUpdate.From("transition") }, "animationTypeUpdate", "\"transition\"", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
         yield return ("property:type:7ac68997aed311474c284882/avoidLabelOverlap", new PieSeriesOption { AvoidLabelOverlap = false }, "avoidLabelOverlap", "false", 0, json => GeneratedOptionMetadata.ReadPieSeriesOption(json));
@@ -11921,14 +11926,14 @@ internal static class PublicContractCases
         yield return ("property:type:4edd4b9d8050028f1cc08a59/disabled", new RadarSeriesDataItemOptionSelect { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadRadarSeriesDataItemOptionSelect(json));
         yield return ("property:type:4edd4b9d8050028f1cc08a59/itemStyle", new RadarSeriesDataItemOptionSelect { ItemStyle = new ItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadRadarSeriesDataItemOptionSelect(json));
         yield return ("property:type:4edd4b9d8050028f1cc08a59/label", new RadarSeriesDataItemOptionSelect { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadRadarSeriesDataItemOptionSelect(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties76()
+    {
         yield return ("property:type:4edd4b9d8050028f1cc08a59/lineStyle", new RadarSeriesDataItemOptionSelect { LineStyle = new LineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadRadarSeriesDataItemOptionSelect(json));
         yield return ("property:type:894c7a475eb459e2825d8e81/animation", new RadarSeriesOption { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadRadarSeriesOption(json));
         yield return ("property:type:894c7a475eb459e2825d8e81/animationDelay", new RadarSeriesOption { AnimationDelay = AnimationDelay.From(2d) }, "animationDelay", "2", 0, json => GeneratedOptionMetadata.ReadRadarSeriesOption(json));
         yield return ("property:type:894c7a475eb459e2825d8e81/animationDelayUpdate", new RadarSeriesOption { AnimationDelayUpdate = AnimationDelay.From(2d) }, "animationDelayUpdate", "2", 0, json => GeneratedOptionMetadata.ReadRadarSeriesOption(json));
         yield return ("property:type:894c7a475eb459e2825d8e81/animationDuration", new RadarSeriesOption { AnimationDuration = AnimationDuration.From(2d) }, "animationDuration", "2", 0, json => GeneratedOptionMetadata.ReadRadarSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties76()
-    {
         yield return ("property:type:894c7a475eb459e2825d8e81/animationDurationUpdate", new RadarSeriesOption { AnimationDurationUpdate = AnimationDuration.From(2d) }, "animationDurationUpdate", "2", 0, json => GeneratedOptionMetadata.ReadRadarSeriesOption(json));
         yield return ("property:type:894c7a475eb459e2825d8e81/animationEasing", new RadarSeriesOption { AnimationEasing = AnimationEasing.From("backIn") }, "animationEasing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadRadarSeriesOption(json));
         yield return ("property:type:894c7a475eb459e2825d8e81/animationEasingUpdate", new RadarSeriesOption { AnimationEasingUpdate = AnimationEasing.From("backIn") }, "animationEasingUpdate", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadRadarSeriesOption(json));
@@ -12052,14 +12057,14 @@ internal static class PublicContractCases
         yield return ("property:type:4969f6aa3feb2e467e9f973a/itemStyle", new SankeyLevelOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadSankeyLevelOption(json));
         yield return ("property:type:4969f6aa3feb2e467e9f973a/label", new SankeyLevelOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadSankeyLevelOption(json));
         yield return ("property:type:4969f6aa3feb2e467e9f973a/lineStyle", new SankeyLevelOption { LineStyle = new SankeyEdgeStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadSankeyLevelOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties77()
+    {
         yield return ("property:type:4969f6aa3feb2e467e9f973a/edgeLabel", new SankeyLevelOption { EdgeLabel = new SeriesLabelOption() }, "edgeLabel", "{}", 0, json => GeneratedOptionMetadata.ReadSankeyLevelOption(json));
         yield return ("property:type:4969f6aa3feb2e467e9f973a/blur", new SankeyLevelOption { Blur = new SankeyBothStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadSankeyLevelOption(json));
         yield return ("property:type:4969f6aa3feb2e467e9f973a/emphasis", new SankeyLevelOption { Emphasis = new SankeyEmphasisOption() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadSankeyLevelOption(json));
         yield return ("property:type:4969f6aa3feb2e467e9f973a/select", new SankeyLevelOption { Select = new SankeySelectOption() }, "select", "{}", 0, json => GeneratedOptionMetadata.ReadSankeyLevelOption(json));
         yield return ("property:type:eaf13be4af3f2831e28dbde5/disabled", new SankeySelectOption { Disabled = false }, "disabled", "false", 0, json => GeneratedOptionMetadata.ReadSankeySelectOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties77()
-    {
         yield return ("property:type:eaf13be4af3f2831e28dbde5/itemStyle", new SankeySelectOption { ItemStyle = new ItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadSankeySelectOption(json));
         yield return ("property:type:eaf13be4af3f2831e28dbde5/label", new SankeySelectOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadSankeySelectOption(json));
         yield return ("property:type:eaf13be4af3f2831e28dbde5/lineStyle", new SankeySelectOption { LineStyle = new SankeyEdgeStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadSankeySelectOption(json));
@@ -12183,14 +12188,14 @@ internal static class PublicContractCases
         yield return ("property:type:26a07c4b92aae92ccbcdb363/height", new SankeySeriesOptionEdgeLabel { Height = 2d }, "height", "2", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/lineHeight", new SankeySeriesOptionEdgeLabel { LineHeight = 2d }, "lineHeight", "2", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/lineOverflow", new SankeySeriesOptionEdgeLabel { LineOverflow = LineOverflow.From("truncate") }, "lineOverflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties78()
+    {
         yield return ("property:type:26a07c4b92aae92ccbcdb363/minMargin", new SankeySeriesOptionEdgeLabel { MinMargin = 2d }, "minMargin", "2", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/offset", new SankeySeriesOptionEdgeLabel { Offset = new double?[0] }, "offset", "[]", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/opacity", new SankeySeriesOptionEdgeLabel { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/overflow", new SankeySeriesOptionEdgeLabel { Overflow = TextOverflow.From("truncate") }, "overflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/padding", new SankeySeriesOptionEdgeLabel { Padding = OneOrMany<double?>.One(2d) }, "padding", "2", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties78()
-    {
         yield return ("property:type:26a07c4b92aae92ccbcdb363/position", new SankeySeriesOptionEdgeLabel { Position = SankeySeriesOptionEdgeLabelPosition.From("inside") }, "position", "\"inside\"", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/precision", new SankeySeriesOptionEdgeLabel { Precision = NumberOrAuto.From(2d) }, "precision", "2", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
         yield return ("property:type:26a07c4b92aae92ccbcdb363/rich", new SankeySeriesOptionEdgeLabel { Rich = new OptionDictionary<TextCommonOption?>() }, "rich", "{}", 0, json => GeneratedOptionMetadata.ReadSankeySeriesOptionEdgeLabel(json));
@@ -12314,14 +12319,14 @@ internal static class PublicContractCases
         yield return ("property:type:754f931821f05008d2209a9d/symbolRotate", new ScatterSeriesOption { SymbolRotate = SymbolRotate.From(JsFunction.Module<SymbolRotateAlternativeSignature>("/modules/series-functions.js", "format")) }, "symbolRotate", "null", 1, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:754f931821f05008d2209a9d/symbolSize", new ScatterSeriesOption { SymbolSize = SymbolSize.From(new double?[0]) }, "symbolSize", "[]", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:754f931821f05008d2209a9d/tooltip", new ScatterSeriesOption { Tooltip = new SeriesTooltipOption() }, "tooltip", "{}", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties79()
+    {
         yield return ("property:type:754f931821f05008d2209a9d/universalTransition", new ScatterSeriesOption { UniversalTransition = UniversalTransition.From(false) }, "universalTransition", "false", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:754f931821f05008d2209a9d/xAxisId", new ScatterSeriesOption { XAxisId = NumberOrString.From(2d) }, "xAxisId", "2", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:754f931821f05008d2209a9d/xAxisIndex", new ScatterSeriesOption { XAxisIndex = 2d }, "xAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:754f931821f05008d2209a9d/yAxisId", new ScatterSeriesOption { YAxisId = NumberOrString.From(2d) }, "yAxisId", "2", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:754f931821f05008d2209a9d/yAxisIndex", new ScatterSeriesOption { YAxisIndex = 2d }, "yAxisIndex", "2", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties79()
-    {
         yield return ("property:type:754f931821f05008d2209a9d/z", new ScatterSeriesOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:754f931821f05008d2209a9d/zlevel", new ScatterSeriesOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOption(json));
         yield return ("property:type:bda817fb339448b99b0a1582/itemStyle", new ScatterSeriesOptionBlur { ItemStyle = new ItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadScatterSeriesOptionBlur(json));
@@ -12445,14 +12450,14 @@ internal static class PublicContractCases
         yield return ("property:type:2abb630ad9b5a03dac30bda5/zlevel", new SliderTimelineOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadSliderTimelineOption(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/animation", new TimelineCheckpointStyle { Animation = false }, "animation", "false", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/animationDuration", new TimelineCheckpointStyle { AnimationDuration = 2d }, "animationDuration", "2", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties80()
+    {
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/animationEasing", new TimelineCheckpointStyle { AnimationEasing = AnimationEasing.From("backIn") }, "animationEasing", "\"backIn\"", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/borderCap", new TimelineCheckpointStyle { BorderCap = CanvasLineCap.From("round") }, "borderCap", "\"round\"", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/borderColor", new TimelineCheckpointStyle { BorderColor = ZRColor.From(new SVGPatternObject()) }, "borderColor", "{\"type\":\"pattern\"}", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/borderDashOffset", new TimelineCheckpointStyle { BorderDashOffset = 2d }, "borderDashOffset", "2", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/borderJoin", new TimelineCheckpointStyle { BorderJoin = CanvasLineJoin.From("round") }, "borderJoin", "\"round\"", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties80()
-    {
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/borderMiterLimit", new TimelineCheckpointStyle { BorderMiterLimit = 2d }, "borderMiterLimit", "2", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/borderRadius", new TimelineCheckpointStyle { BorderRadius = NumberOrStringOneOrMany.One(NumberOrString.From(2d)) }, "borderRadius", "2", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
         yield return ("property:type:6ea4b3cf2dec59b36f7df0c4/borderType", new TimelineCheckpointStyle { BorderType = ZRLineType.From("dashed") }, "borderType", "\"dashed\"", 0, json => GeneratedOptionMetadata.ReadTimelineCheckpointStyle(json));
@@ -12576,14 +12581,14 @@ internal static class PublicContractCases
         yield return ("property:type:16ec0868a1e3bd74192a51b2/shadowColor", new TimelineLineStyleOption { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTimelineLineStyleOption(json));
         yield return ("property:type:16ec0868a1e3bd74192a51b2/shadowOffsetX", new TimelineLineStyleOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadTimelineLineStyleOption(json));
         yield return ("property:type:16ec0868a1e3bd74192a51b2/shadowOffsetY", new TimelineLineStyleOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadTimelineLineStyleOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties81()
+    {
         yield return ("property:type:16ec0868a1e3bd74192a51b2/show", new TimelineLineStyleOption { Show = false }, "show", "false", 0, json => GeneratedOptionMetadata.ReadTimelineLineStyleOption(json));
         yield return ("property:type:16ec0868a1e3bd74192a51b2/type", new TimelineLineStyleOption { Type = ZRLineType.From("dashed") }, "type", "\"dashed\"", 0, json => GeneratedOptionMetadata.ReadTimelineLineStyleOption(json));
         yield return ("property:type:16ec0868a1e3bd74192a51b2/width", new TimelineLineStyleOption { Width = 2d }, "width", "2", 0, json => GeneratedOptionMetadata.ReadTimelineLineStyleOption(json));
         yield return ("property:type:0b22536a6685a940138a0b83/checkpointStyle", new TimelineEmphasisOption { CheckpointStyle = new TimelineCheckpointStyle() }, "checkpointStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTimelineEmphasisOption(json));
         yield return ("property:type:0b22536a6685a940138a0b83/controlStyle", new TimelineEmphasisOption { ControlStyle = new TimelineControlStyle() }, "controlStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTimelineEmphasisOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties81()
-    {
         yield return ("property:type:0b22536a6685a940138a0b83/itemStyle", new TimelineEmphasisOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTimelineEmphasisOption(json));
         yield return ("property:type:0b22536a6685a940138a0b83/label", new TimelineEmphasisOption { Label = new TimelineLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadTimelineEmphasisOption(json));
         yield return ("property:type:0b22536a6685a940138a0b83/lineStyle", new TimelineEmphasisOption { LineStyle = new TimelineLineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTimelineEmphasisOption(json));
@@ -12707,14 +12712,14 @@ internal static class PublicContractCases
         yield return ("property:type:5d8daa6abf986ec48219d9c8/labelLine", new SunburstSeriesEmphasisOption { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesEmphasisOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/blur", new SunburstSeriesLevelOption { Blur = new SunburstStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/emphasis", new SunburstSeriesLevelOption { Emphasis = new SunburstSeriesEmphasisOption() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties82()
+    {
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/highlight", new SunburstSeriesLevelOption { Highlight = new SunburstSeriesLevelOptionHighlight() }, "highlight", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/itemStyle", new SunburstSeriesLevelOption { ItemStyle = new SunburstItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/label", new SunburstSeriesLevelOption { Label = new SunburstLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/r", new SunburstSeriesLevelOption { R = NumberOrString.From(2d) }, "r", "2", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/r0", new SunburstSeriesLevelOption { R0 = NumberOrString.From(2d) }, "r0", "2", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties82()
-    {
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/radius", new SunburstSeriesLevelOption { Radius = new NumberOrString?[0] }, "radius", "[]", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/select", new SunburstSeriesLevelOption { Select = new SunburstSeriesSelectOption() }, "select", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
         yield return ("property:type:9d57b94ad1b6ef2f2a35c145/labelLine", new SunburstSeriesLevelOption { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadSunburstSeriesLevelOption(json));
@@ -12838,14 +12843,14 @@ internal static class PublicContractCases
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/formatter", new ThemeRiverSeriesLabelOption { Formatter = SeriesLabelFormatter.From("sample") }, "formatter", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/height", new ThemeRiverSeriesLabelOption { Height = 2d }, "height", "2", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/lineHeight", new ThemeRiverSeriesLabelOption { LineHeight = 2d }, "lineHeight", "2", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties83()
+    {
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/lineOverflow", new ThemeRiverSeriesLabelOption { LineOverflow = LineOverflow.From("truncate") }, "lineOverflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/margin", new ThemeRiverSeriesLabelOption { Margin = 2d }, "margin", "2", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/minMargin", new ThemeRiverSeriesLabelOption { MinMargin = 2d }, "minMargin", "2", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/offset", new ThemeRiverSeriesLabelOption { Offset = new double?[0] }, "offset", "[]", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/opacity", new ThemeRiverSeriesLabelOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties83()
-    {
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/overflow", new ThemeRiverSeriesLabelOption { Overflow = TextOverflow.From("truncate") }, "overflow", "\"truncate\"", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/padding", new ThemeRiverSeriesLabelOption { Padding = OneOrMany<double?>.One(2d) }, "padding", "2", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
         yield return ("property:type:aee8c6abb7addd8c6f7cdbcc/position", new ThemeRiverSeriesLabelOption { Position = TextPosition.From("insideBottomLeft") }, "position", "\"insideBottomLeft\"", 0, json => GeneratedOptionMetadata.ReadThemeRiverSeriesLabelOption(json));
@@ -12969,14 +12974,14 @@ internal static class PublicContractCases
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/orient", new TimelineOption { Orient = LayoutOrient.From("horizontal") }, "orient", "\"horizontal\"", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/padding", new TimelineOption { Padding = OneOrMany<double?>.One(2d) }, "padding", "2", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/playInterval", new TimelineOption { PlayInterval = 2d }, "playInterval", "2", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties84()
+    {
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/progress", new TimelineOption { Progress = new TimelineProgressOption() }, "progress", "{}", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/realtime", new TimelineOption { Realtime = false }, "realtime", "false", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/replaceMerge", new TimelineOption { ReplaceMerge = OneOrMany<string>.One("sample") }, "replaceMerge", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/rewind", new TimelineOption { Rewind = false }, "rewind", "false", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/right", new TimelineOption { Right = NumberOrString.From(2d) }, "right", "2", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties84()
-    {
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/show", new TimelineOption { Show = false }, "show", "false", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/symbol", new TimelineOption { Symbol = "sample" }, "symbol", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
         yield return ("property:type:e75510d1dc783b4d1a75e1c2/symbolKeepAspect", new TimelineOption { SymbolKeepAspect = false }, "symbolKeepAspect", "false", 0, json => GeneratedOptionMetadata.ReadTimelineOption(json));
@@ -13100,14 +13105,14 @@ internal static class PublicContractCases
         yield return ("property:type:fe50013992901d5f64efd786/gapWidth", new TreemapSeriesItemStyleOption { GapWidth = 2d }, "gapWidth", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesItemStyleOption(json));
         yield return ("property:type:fe50013992901d5f64efd786/opacity", new TreemapSeriesItemStyleOption { Opacity = 2d }, "opacity", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesItemStyleOption(json));
         yield return ("property:type:fe50013992901d5f64efd786/shadowBlur", new TreemapSeriesItemStyleOption { ShadowBlur = 2d }, "shadowBlur", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesItemStyleOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties85()
+    {
         yield return ("property:type:fe50013992901d5f64efd786/shadowColor", new TreemapSeriesItemStyleOption { ShadowColor = "sample" }, "shadowColor", "\"sample\"", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesItemStyleOption(json));
         yield return ("property:type:fe50013992901d5f64efd786/shadowOffsetX", new TreemapSeriesItemStyleOption { ShadowOffsetX = 2d }, "shadowOffsetX", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesItemStyleOption(json));
         yield return ("property:type:fe50013992901d5f64efd786/shadowOffsetY", new TreemapSeriesItemStyleOption { ShadowOffsetY = 2d }, "shadowOffsetY", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesItemStyleOption(json));
         yield return ("property:type:7124a8b2da4de1405b746bef/blur", new TreemapSeriesLevelOption { Blur = new TreemapStateOption() }, "blur", "{}", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesLevelOption(json));
         yield return ("property:type:7124a8b2da4de1405b746bef/childrenVisibleMin", new TreemapSeriesLevelOption { ChildrenVisibleMin = 2d }, "childrenVisibleMin", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesLevelOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties85()
-    {
         yield return ("property:type:7124a8b2da4de1405b746bef/color", new TreemapSeriesLevelOption { Color = TreemapColorList.From("none") }, "color", "\"none\"", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesLevelOption(json));
         yield return ("property:type:7124a8b2da4de1405b746bef/colorAlpha", new TreemapSeriesLevelOption { ColorAlpha = TreemapVisualRange.From(new double?[0]) }, "colorAlpha", "[]", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesLevelOption(json));
         yield return ("property:type:7124a8b2da4de1405b746bef/colorMappingBy", new TreemapSeriesLevelOption { ColorMappingBy = ColorMappingBy.From("value") }, "colorMappingBy", "\"value\"", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesLevelOption(json));
@@ -13231,14 +13236,14 @@ internal static class PublicContractCases
         yield return ("property:type:535c0e0861d3f0fa88b64889/width", new TreemapSeriesOption { Width = NumberOrString.From(2d) }, "width", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOption(json));
         yield return ("property:type:535c0e0861d3f0fa88b64889/z", new TreemapSeriesOption { Z = 2d }, "z", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOption(json));
         yield return ("property:type:535c0e0861d3f0fa88b64889/zlevel", new TreemapSeriesOption { Zlevel = 2d }, "zlevel", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties86()
+    {
         yield return ("property:type:535c0e0861d3f0fa88b64889/zoom", new TreemapSeriesOption { Zoom = 2d }, "zoom", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOption(json));
         yield return ("property:type:535c0e0861d3f0fa88b64889/zoomToNodeRatio", new TreemapSeriesOption { ZoomToNodeRatio = 2d }, "zoomToNodeRatio", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOption(json));
         yield return ("property:type:27527e1bb4b91780b64edfc8/itemStyle", new TreemapSeriesOptionBlur { ItemStyle = new TreemapSeriesItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOptionBlur(json));
         yield return ("property:type:27527e1bb4b91780b64edfc8/label", new TreemapSeriesOptionBlur { Label = new TreemapSeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOptionBlur(json));
         yield return ("property:type:27527e1bb4b91780b64edfc8/upperLabel", new TreemapSeriesOptionBlur { UpperLabel = new TreemapSeriesLabelOption() }, "upperLabel", "{}", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOptionBlur(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties86()
-    {
         yield return ("property:type:27527e1bb4b91780b64edfc8/labelLine", new TreemapSeriesOptionBlur { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOptionBlur(json));
         yield return ("property:type:87a5f70f0df41de39f4cbd73/bottom", new TreemapSeriesOptionBreadcrumb { Bottom = NumberOrString.From(2d) }, "bottom", "2", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOptionBreadcrumb(json));
         yield return ("property:type:87a5f70f0df41de39f4cbd73/emphasis", new TreemapSeriesOptionBreadcrumb { Emphasis = new TreemapSeriesOptionBreadcrumbEmphasis() }, "emphasis", "{}", 0, json => GeneratedOptionMetadata.ReadTreemapSeriesOptionBreadcrumb(json));
@@ -13362,14 +13367,14 @@ internal static class PublicContractCases
         yield return ("property:type:34f50fb655921a49a2595c8d/id", new TreeSeriesOption { Id = NumberOrString.From(2d) }, "id", "2", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/initialTreeDepth", new TreeSeriesOption { InitialTreeDepth = 2d }, "initialTreeDepth", "2", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/itemStyle", new TreeSeriesOption { ItemStyle = new StaticItemStyleOption() }, "itemStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
+    }
+    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties87()
+    {
         yield return ("property:type:34f50fb655921a49a2595c8d/label", new TreeSeriesOption { Label = new SeriesLabelOption() }, "label", "{}", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/labelLayout", new TreeSeriesOption { LabelLayout = LabelLayout.From(new LabelLayoutOption()) }, "labelLayout", "{}", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/labelLine", new TreeSeriesOption { LabelLine = new LabelLineOption() }, "labelLine", "{}", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/layout", new TreeSeriesOption { Layout = TreeSeriesOptionLayout.From("radial") }, "layout", "\"radial\"", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/leaves", new TreeSeriesOption { Leaves = new TreeSeriesLeavesOption() }, "leaves", "{}", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
-    }
-    private static IEnumerable<(string Id, OptionObject Value, string Key, string Json, int Bindings, Func<JsonElement, OptionObject> Read)> Properties87()
-    {
         yield return ("property:type:34f50fb655921a49a2595c8d/left", new TreeSeriesOption { Left = NumberOrString.From(2d) }, "left", "2", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/legendHoverLink", new TreeSeriesOption { LegendHoverLink = false }, "legendHoverLink", "false", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));
         yield return ("property:type:34f50fb655921a49a2595c8d/lineStyle", new TreeSeriesOption { LineStyle = new CurveLineStyleOption() }, "lineStyle", "{}", 0, json => GeneratedOptionMetadata.ReadTreeSeriesOption(json));

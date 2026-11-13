@@ -55,4 +55,8 @@ public sealed partial class BarDataItemOption : OptionObject
     private LabelLineOption? _p12;
     /// <summary>Gets or sets <c>labelLine</c>.</summary>
     public LabelLineOption? LabelLine { get => _p12; set => SetProperty(ref _p12, value, "labelLine"); }
+    private TooltipOption? _p13;
+    /// <summary>Gets or sets <c>tooltip</c>.</summary>
+    /// <remarks>Not described by echarts-doc or the TypeScript declarations; ECharts 6.1.0 reads it at runtime.</remarks>
+    public TooltipOption? Tooltip { get => _p13; set => SetProperty(ref _p13, value, "tooltip"); }
 }

@@ -62,4 +62,8 @@ public sealed partial class ChordEdgeItemOption : OptionObject
     private double? _p12;
     /// <summary>Gets or sets <c>value</c>.</summary>
     public double? Value { get => _p12; set => SetProperty(ref _p12, value, "value"); }
+    private TooltipOption? _p13;
+    /// <summary>Gets or sets <c>tooltip</c>.</summary>
+    /// <remarks>Not described by echarts-doc or the TypeScript declarations; ECharts 6.1.0 reads it at runtime.</remarks>
+    public TooltipOption? Tooltip { get => _p13; set => SetProperty(ref _p13, value, "tooltip"); }
 }

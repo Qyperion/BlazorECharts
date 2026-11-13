@@ -34529,6 +34529,61 @@
         "reason": "Pinned docs option.series.treemap.data.tooltip; per-item tooltip reads the shared TooltipOption. Reuse the exact source-defined contract and preserve presence."
       },
       {
+        "parent": "type:b0936941e75d181990ef4517",
+        "name": "tooltip",
+        "type": "type:5c14306e0c6caa0f0fafd6b2",
+        "sha256": "46b44daa777c3b8312bcb1e685ae9ef6df69116b0f8ae3f389f9b0b16c024127",
+        "docs": [],
+        "evidence": [
+          "tests/browser/standard-series.spec.ts#ItemTooltip_ReplacesTheSeriesTooltip"
+        ],
+        "reason": "echarts-doc and the pinned declarations omit tooltip for a bar data item. ECharts 6.1.0 lib/component/tooltip/TooltipView.js:461 (_showSeriesItemTooltip) builds the tooltip model from data.getItemModel(dataIndex) first, for every series and data type. Reuse the source-defined TooltipOption and preserve presence."
+      },
+      {
+        "parent": "type:cbd58b179425901a3affc540",
+        "name": "tooltip",
+        "type": "type:5c14306e0c6caa0f0fafd6b2",
+        "sha256": "5e69de523a83cd6c45fa69a04ff8d638594404f0b93c9be0b5a0f71abeb0086e",
+        "docs": [],
+        "evidence": [
+          "tests/browser/standard-series.spec.ts#ItemTooltip_ReplacesTheSeriesTooltip"
+        ],
+        "reason": "echarts-doc and the pinned declarations omit tooltip for a heatmap data item. ECharts 6.1.0 lib/component/tooltip/TooltipView.js:461 (_showSeriesItemTooltip) builds the tooltip model from data.getItemModel(dataIndex) first, for every series and data type. Reuse the source-defined TooltipOption and preserve presence."
+      },
+      {
+        "parent": "type:61c1b99a2a110b3c9d6a4b41",
+        "name": "tooltip",
+        "type": "type:5c14306e0c6caa0f0fafd6b2",
+        "sha256": "a00cb2f5c6b56fde956ef9fe9ec079dddb480fe218e52a71e403b756ccfdb188",
+        "docs": [],
+        "evidence": [
+          "tests/browser/standard-series.spec.ts#ItemTooltip_ReplacesTheSeriesTooltip"
+        ],
+        "reason": "echarts-doc and the pinned declarations omit tooltip for a gauge data item. ECharts 6.1.0 lib/component/tooltip/TooltipView.js:461 (_showSeriesItemTooltip) builds the tooltip model from data.getItemModel(dataIndex) first, for every series and data type. Reuse the source-defined TooltipOption and preserve presence."
+      },
+      {
+        "parent": "type:15447439ee9880c8d41c2543",
+        "name": "tooltip",
+        "type": "type:5c14306e0c6caa0f0fafd6b2",
+        "sha256": "be17aff14e25ab015670600c968d1a1ac54f6edd7ff0d5d5c51b92f9cf4784ec",
+        "docs": [],
+        "evidence": [
+          "tests/browser/standard-series.spec.ts#ItemTooltip_ReplacesTheSeriesTooltip"
+        ],
+        "reason": "echarts-doc and the pinned declarations omit tooltip for a parallel data item. ECharts 6.1.0 lib/component/tooltip/TooltipView.js:461 (_showSeriesItemTooltip) builds the tooltip model from data.getItemModel(dataIndex) first, for every series and data type. Reuse the source-defined TooltipOption and preserve presence."
+      },
+      {
+        "parent": "type:46424c913abe69e9f1388169",
+        "name": "tooltip",
+        "type": "type:5c14306e0c6caa0f0fafd6b2",
+        "sha256": "352a4b306e2cff2e1cfb3da87e849b77e401232f09f200013adcff1131e4a067",
+        "docs": [],
+        "evidence": [
+          "tests/browser/standard-series.spec.ts#ItemTooltip_ReplacesTheSeriesTooltip"
+        ],
+        "reason": "echarts-doc and the pinned declarations omit tooltip for a chord edge. ECharts 6.1.0 lib/component/tooltip/TooltipView.js:461 (_showSeriesItemTooltip) builds the tooltip model from data.getItemModel(dataIndex) first, for every series and data type. Reuse the source-defined TooltipOption and preserve presence."
+      },
+      {
         "parent": "type:0b7156f1f42235bc5ad7e1e7",
         "name": "labelLine",
         "type": "type:f3d7acc0f595025b10d62fe3",

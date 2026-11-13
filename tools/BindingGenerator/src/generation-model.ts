@@ -16,8 +16,21 @@ export interface CSharpConfiguration {
   valueTypes?: { typeId: string; kind: 'date' | 'reference' | 'data'; reason: string; sha256: string }[];
   componentVariants?: Record<string, string[]>;
 
-  /** Source-backed members missing from a pinned declaration; `summary` replaces the generic XML doc. */
-  componentProperties?: { parent: string; name: string; type: string; sha256: string; docs: string[]; reason: string; summary?: string }[];
+  /**
+   * Source-backed members missing from a pinned declaration; `summary` replaces the generic XML doc. A member that
+   * echarts-doc does not describe either has no `docs`: its `reason` cites the runtime source that reads it, and
+   * `evidence` names the gated browser test that shows ECharts honoring it.
+   */
+  componentProperties?: {
+    parent: string;
+    name: string;
+    type: string;
+    sha256: string;
+    docs: string[];
+    evidence?: string[];
+    reason: string;
+    summary?: string;
+  }[];
 
   projectedRoots?: { typeId: string; name: string }[];
   componentNodes?: import('./schema.ts').TypeNode[];
@@ -105,6 +118,9 @@ export interface Member {
 
   /** A hand-written remark from csharp.memberRemarks. */
   remarks?: string;
+
+  /** A member that neither echarts-doc nor the declarations describe: ECharts reads it at runtime (csharp.componentProperties without docs). */
+  runtimeOnly?: boolean;
 
   /** The text of an upstream @deprecated tag, possibly empty: the member becomes [Obsolete]. */
   deprecated?: string;

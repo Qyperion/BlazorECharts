@@ -1265,6 +1265,7 @@ public sealed class BlazorECharts.Options.BarDataItemOption : OptionObject
   NumberOrString? Name { get; set; }
   OptionDataItemValue? Value { get; set; }
   StaticBarItemStyleOption? ItemStyle { get; set; }
+  TooltipOption? Tooltip { get; set; }
   bool? Selected { get; set; }
   ctor()
   string? Cursor { get; set; }
@@ -2807,6 +2808,7 @@ public sealed class BlazorECharts.Options.ChordEdgeItemOption : OptionObject
   NumberOrString? Source { get; set; }
   NumberOrString? Target { get; set; }
   SeriesLineLabelOption? Label { get; set; }
+  TooltipOption? Tooltip { get; set; }
   bool? Selected { get; set; }
   ctor()
   double? Value { get; set; }
@@ -4017,6 +4019,7 @@ public sealed class BlazorECharts.Options.GaugeDataItemOption : OptionObject
   PointerOption? Pointer { get; set; }
   ProgressOption? Progress { get; set; }
   StaticItemStyleOption? ItemStyle { get; set; }
+  TooltipOption? Tooltip { get; set; }
   ctor()
   string? Name { get; set; }
 public sealed class BlazorECharts.Options.GaugeDataItemOptionBlur : OptionObject
@@ -6648,6 +6651,7 @@ public sealed class BlazorECharts.Options.HeatmapDataItemOption : OptionObject
   NumberOrString? Name { get; set; }
   OptionDataValue?[]? Value { get; set; }
   SeriesLabelOption? Label { get; set; }
+  TooltipOption? Tooltip { get; set; }
   ctor()
 public sealed class BlazorECharts.Options.HeatmapDataItemOptionBlur : OptionObject
   HeatmapDataItemStyleOption? ItemStyle { get; set; }
@@ -8718,6 +8722,7 @@ public sealed class BlazorECharts.Options.ParallelSeriesDataItemOption : OptionO
   ParallelSeriesDataItemOptionEmphasis? Emphasis { get; set; }
   ParallelSeriesDataItemOptionSelect? Select { get; set; }
   SeriesLabelOption? Label { get; set; }
+  TooltipOption? Tooltip { get; set; }
   ctor()
 public sealed class BlazorECharts.Options.ParallelSeriesDataItemOptionBlur : OptionObject
   LineStyleOption? LineStyle { get; set; }

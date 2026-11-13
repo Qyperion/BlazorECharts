@@ -23,7 +23,7 @@ foreach ($stage in (Read-Json (Join-Path $PSScriptRoot 'browser-stages.json')).s
 # The matrix counts each required browser project: its seven scenarios (five Interactive Server, two
 # WebAssembly) pass or are skipped because the browser cannot start, which the matrix check blocks.
 $script:BrowserSpecCounts = @{
-    'series-catalog.spec.ts' = 8; 'standard-series.spec.ts' = 36; 'advanced-series.spec.ts' = 18
+    'series-catalog.spec.ts' = 8; 'standard-series.spec.ts' = 38; 'advanced-series.spec.ts' = 18
     'components.spec.ts' = 18; 'coordinates.spec.ts' = 18; 'dates.spec.ts' = 4; 'graphics.spec.ts' = 10; 'demo/demo.spec.ts' = 24; 'demo/app-scenarios.spec.ts' = 16
     'demo/accessibility.spec.ts' = 3; 'demo/components.spec.ts' = 24; 'functions.spec.ts' = 27; 'events.spec.ts' = 34; 'event-conformance.spec.ts' = 1; 'methods.spec.ts' = 20
     'globals.spec.ts' = 14; 'runtime.spec.ts' = 6; 'extensions.spec.ts' = 4; 'updates.spec.ts' = 4; 'interaction-events.spec.ts' = 24; 'zrender-events.spec.ts' = 4; 'lifecycle.spec.ts' = 12; 'recreate.spec.ts' = 8
@@ -33,8 +33,8 @@ $script:BrowserSpecCounts = @{
 }
 # The exact number of passing tests of the other test stages, as in the last PASS; dotnet-test counts each test assembly.
 $script:StageTestCounts = @{
-    'gate-fixtures' = 162; 'js-test' = 194; 'generator-test' = 204; 'packages' = 10; 'aot' = 14
-    'dotnet-test' = @{ 'BlazorECharts.Tests' = 640; 'BlazorECharts.ComponentTests' = 53 }
+    'gate-fixtures' = 162; 'js-test' = 194; 'generator-test' = 205; 'packages' = 10; 'aot' = 14
+    'dotnet-test' = @{ 'BlazorECharts.Tests' = 645; 'BlazorECharts.ComponentTests' = 53 }
 }
 # Measurements without thresholds that rewrite a tracked baseline; they are not release evidence.
 $script:UngatedBrowserSpecs = @('performance/performance.spec.ts')

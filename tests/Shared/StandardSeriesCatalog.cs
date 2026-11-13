@@ -88,6 +88,66 @@ public static class StandardSeriesCatalog
         ? """{"animation":false,"dataset":{"id":"rows","source":[["category","amount"],["A",3],["B",5]]},"series":[{"id":"trend","type":"line","xAxisId":"category","yAxisIndex":0,"data":[4,6]},{"id":"bars","type":"bar","datasetId":"rows","xAxisId":"category","yAxisId":"value","encode":{"x":"category","y":"amount"}}]}"""
         : """{"animation":false,"xAxis":[{"id":"category","type":"category","data":["A","B"]},{"id":"numeric","type":"value"}],"yAxis":{"id":"value","type":"value"},"dataset":{"id":"rows","source":[["category","amount"],["A",2],["B",4]]},"series":[{"id":"trend","type":"line","datasetIndex":0,"xAxisId":"category","yAxisIndex":0,"encode":{"x":"category","y":"amount"}},{"id":"bars","type":"bar","datasetId":"rows","xAxisIndex":0,"yAxisId":"value","encode":{"x":"category","y":"amount"}},{"id":"points","type":"scatter","xAxisId":"numeric","yAxisIndex":0,"data":[[1,3],[3,5]]}]}""");
 
+    public static readonly IReadOnlyList<string> ItemTooltipCases = ["bar", "heatmap", "gauge", "parallel", "chord"];
+
+    /// <summary>A chart whose first item, for chord its first edge, has a tooltip of its own; the series tooltip covers the second.</summary>
+    public static ChartOptions ItemTooltip(string name)
+    {
+        var item = new TooltipOption { Formatter = "item tooltip" };
+        var options = name switch
+        {
+            "bar" => new ChartOptions
+            {
+                XAxis = new XAxisCategoryOption { Data = ["A", "B"] },
+                YAxis = new YAxisValueOption(),
+                Series = new BarSeriesOption { Data = [new BarDataItemOption { Value = 3, Tooltip = item }, new BarDataItemOption { Value = 5 }] },
+            },
+            "heatmap" => new ChartOptions
+            {
+                XAxis = new XAxisCategoryOption { Data = ["A", "B"] },
+                YAxis = new YAxisCategoryOption { Data = ["X"] },
+                VisualMap = new ContinuousVisualMapOption { Min = 0, Max = 5, Show = false },
+                Series = new HeatmapSeriesOption
+                {
+                    Data = [new HeatmapDataItemOption { Value = [0, 0, 3], Tooltip = item }, new HeatmapDataItemOption { Value = [1, 0, 5] }],
+                },
+            },
+            "gauge" => new ChartOptions
+            {
+                Series = new GaugeSeriesOption
+                {
+                    Data = [new GaugeDataItemOption { Name = "A", Value = 30, Tooltip = item }, new GaugeDataItemOption { Name = "B", Value = 70 }],
+                },
+            },
+            "parallel" => new ChartOptions
+            {
+                Parallel = new ParallelCoordinateSystemOption(),
+                ParallelAxis = [new ParallelAxisDefaultValueOption { Dim = 0 }, new ParallelAxisDefaultValueOption { Dim = 1 }],
+                Series = new ParallelSeriesOption
+                {
+                    LineStyle = new() { Width = 8 },
+                    Data = [new ParallelSeriesDataItemOption { Value = [1, 4], Tooltip = item }, new ParallelSeriesDataItemOption { Value = [4, 1] }],
+                },
+            },
+            "chord" => new ChartOptions
+            {
+                Series = new ChordSeriesOption
+                {
+                    Data = [new ChordNodeItemOption { Name = "A" }, new ChordNodeItemOption { Name = "B" }, new ChordNodeItemOption { Name = "C" }],
+                    Links =
+                    [
+                        new ChordEdgeItemOption { Source = "A", Target = "B", Value = 5, Tooltip = item },
+                        new ChordEdgeItemOption { Source = "B", Target = "C", Value = 3 },
+                    ],
+                },
+            },
+            _ => throw new ArgumentOutOfRangeException(nameof(name), name, null),
+        };
+        options.Animation = false;
+        options.Tooltip = new TooltipOption { Formatter = "series tooltip" };
+        return options;
+    }
+
     public const string Map = """{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"name":"A"},"geometry":{"type":"Polygon","coordinates":[[[0,0],[4,0],[4,8],[0,8],[0,0]]]}},{"type":"Feature","properties":{"name":"B"},"geometry":{"type":"Polygon","coordinates":[[[4,0],[8,0],[8,8],[4,8],[4,0]]]}}]}""";
 
     private const string CategoryAxes = """

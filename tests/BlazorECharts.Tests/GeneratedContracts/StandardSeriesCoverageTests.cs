@@ -2,6 +2,7 @@ using System.Text.Json;
 using BlazorECharts.Options;
 using BlazorECharts.Serialization;
 using BlazorECharts.Serialization.Generated;
+using BlazorECharts.Testing;
 using BlazorECharts.Values;
 using Xunit;
 
@@ -53,4 +54,21 @@ public class StandardSeriesCoverageTests
     }
 
     internal static JsonElement Json(ChartOptions options) => OptionSerializer.Serialize(options, GeneratedOptionMetadata.CreateContext()).Json;
+
+    [Theory]
+    [InlineData("bar", "data")]
+    [InlineData("heatmap", "data")]
+    [InlineData("gauge", "data")]
+    [InlineData("parallel", "data")]
+    [InlineData("chord", "links")]
+    public void ItemTooltip_IsWrittenOnTheItemOnly(string name, string collection)
+    {
+        // Act
+        var json = OptionSerializer.Serialize(StandardSeriesCatalog.ItemTooltip(name), GeneratedOptionMetadata.CreateContext()).Json;
+        var items = json.GetProperty("series").GetProperty(collection);
+
+        // Assert
+        Assert.Equal("item tooltip", items[0].GetProperty("tooltip").GetProperty("formatter").GetString());
+        Assert.False(items[1].TryGetProperty("tooltip", out _));
+    }
 }

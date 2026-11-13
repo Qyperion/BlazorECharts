@@ -37,4 +37,8 @@ public sealed partial class ParallelSeriesDataItemOption : OptionObject
     private NumberOrString? _p6;
     /// <summary>Gets or sets <c>name</c>.</summary>
     public NumberOrString? Name { get => _p6; set => SetProperty(ref _p6, value, "name"); }
+    private TooltipOption? _p7;
+    /// <summary>Gets or sets <c>tooltip</c>.</summary>
+    /// <remarks>Not described by echarts-doc or the TypeScript declarations; ECharts 6.1.0 reads it at runtime.</remarks>
+    public TooltipOption? Tooltip { get => _p7; set => SetProperty(ref _p7, value, "tooltip"); }
 }

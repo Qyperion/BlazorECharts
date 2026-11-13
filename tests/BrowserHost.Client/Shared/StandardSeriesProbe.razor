@@ -13,6 +13,10 @@
 <select aria-label="Series" @onchange="SelectSeries">
     @foreach (var name in StandardSeriesCatalog.Cases.Keys) { <option value="@name">@name</option> }
 </select>
+<select aria-label="Item tooltip" @onchange="SelectItemTooltip">
+    <option value="">none</option>
+    @foreach (var name in StandardSeriesCatalog.ItemTooltipCases) { <option value="@name">@name</option> }
+</select>
 <button @onclick="() => Run(Mixed)">Mixed</button>
 <button @onclick="() => Run(UpdateMixed)">Update mixed</button>
 <button @onclick="() => Run(Snapshot)">Snapshot</button>
@@ -88,6 +92,19 @@
     {
         if (e.Value is string name)
             await Run(() => Apply(name));
+    }
+
+    private async Task SelectItemTooltip(ChangeEventArgs e)
+    {
+        if (e.Value is not string { Length: > 0 } name)
+            return;
+
+        await Run(async () =>
+        {
+            await _chart!.SetOptionAsync(StandardSeriesCatalog.ItemTooltip(name), new SetOptionOptions { NotMerge = true });
+            await _chart.AwaitStableAsync();
+            _status = "tooltip:" + name;
+        });
     }
 
     private async Task Mixed()

@@ -48,4 +48,8 @@ public sealed partial class GaugeDataItemOption : OptionObject
     private OptionDataValueNumeric? _p9;
     /// <summary>Gets or sets <c>value</c>.</summary>
     public OptionDataValueNumeric? Value { get => _p9; set => SetProperty(ref _p9, value, "value"); }
+    private TooltipOption? _p10;
+    /// <summary>Gets or sets <c>tooltip</c>.</summary>
+    /// <remarks>Not described by echarts-doc or the TypeScript declarations; ECharts 6.1.0 reads it at runtime.</remarks>
+    public TooltipOption? Tooltip { get => _p10; set => SetProperty(ref _p10, value, "tooltip"); }
 }
