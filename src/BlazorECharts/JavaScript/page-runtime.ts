@@ -4,7 +4,7 @@ import { createNativeValue } from './native-values.ts';
 import { invokeNativeGraphic } from './graphic.ts';
 import { NativeRegistrations } from './native-registrations.ts';
 import { GraphicMutations, type GraphicMutationState } from './graphic-mutations.ts';
-import type { PreparedOptionTransport, ReferenceHandle } from './binding-contracts.ts';
+import type { JsBinding, PreparedOptionTransport, ReferenceHandle } from './binding-contracts.ts';
 import { EChartsError } from './errors.ts';
 import { ExtensionRegistry, type ExtensionDescriptor } from './extension-registry.ts';
 import { ChartInstance } from './chart-instance.ts';
@@ -12,7 +12,7 @@ import { GroupCoordinator } from './group-coordinator.ts';
 import { stableCapture, validateTimeout } from './exports.ts';
 import { waitForLifetime } from './async-lifetime.ts';
 import { invokeGlobal } from './global-methods.ts';
-import type { EventCallbacks } from './events.ts';
+import type { BrowserEventHandler, EventCallbacks } from './events.ts';
 import { ReferenceRegistry, type ReferenceLease } from './reference-registry.ts';
 import { extractSnapshot } from './option-snapshot.ts';
 import { ChartObservers, type ManagedChartCallbacks } from './chart-observers.ts';
@@ -287,6 +287,32 @@ export class PageRuntime {
 
   subscribe(ownerId: string, chartId: string, id: string, name: string, query: unknown, callback: EventCallbacks, throttle = 0): void {
     this.#chart(ownerId, chartId).events.subscribe(id, name, query, this.#managed(callback), throttle);
+  }
+
+  /** The handler is a function binding like those of an option: the same module policy and inline opt-in apply. */
+  async subscribeBrowser(
+    ownerId: string,
+    chartId: string,
+    id: string,
+    name: string,
+    query: unknown,
+    binding: JsBinding,
+    throttle = 0
+  ): Promise<void> {
+    const chart = this.#chart(ownerId, chartId);
+    const hydrated = await hydrateBindings(
+      { json: { handler: null }, bindings: [{ ...binding, path: ['handler'] }] },
+      { runtimeId: this.id, allowInlineJavaScript: this.#configuration?.allowInlineJavaScript },
+      this.#references,
+      this.importer,
+      this.baseURI,
+      () => {
+        if (this.#facades.get(ownerId)?.charts.get(chartId) !== chart)
+          throw new EChartsError('ChartDisposed', 'The chart was disposed while its event handler loaded.');
+      },
+      chart.hydrationSignal
+    );
+    chart.events.subscribeBrowser(id, name, query, hydrated.value.handler as BrowserEventHandler, throttle);
   }
 
   unsubscribe(ownerId: string, chartId: string, id: string): void {

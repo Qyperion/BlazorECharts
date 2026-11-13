@@ -13,10 +13,14 @@ interface Eventful {
   off?(name: string, handler: (payload?: unknown) => void): void;
 }
 
+/** A handler that stays in the browser: it receives the native event and the native chart, and .NET is not called. */
+export type BrowserEventHandler = (event: unknown, chart: ChartObject) => unknown;
+
 interface Subscription {
   name: string;
   query: unknown;
-  callback: EventCallbacks;
+  callback?: EventCallbacks;
+  handler?: BrowserEventHandler;
   throttle: number;
   last: number;
   listener?: (payload?: unknown) => void;
@@ -105,6 +109,15 @@ export class ChartEvents {
   }
 
   subscribe(id: string, name: string, query: unknown, callback: EventCallbacks, throttle = 0): void {
+    this.#register(id, { name, query, callback, throttle, last: -Infinity });
+  }
+
+  subscribeBrowser(id: string, name: string, query: unknown, handler: BrowserEventHandler, throttle = 0): void {
+    this.#register(id, { name, query, handler, throttle, last: -Infinity });
+  }
+
+  #register(id: string, entry: Subscription): void {
+    const { name, query, throttle } = entry;
     if (!this.#active)
       throw new EChartsError('ChartDisposed', 'The chart is disposed.');
 
@@ -120,7 +133,6 @@ export class ChartEvents {
     if (name.startsWith(zrPrefix) && query != null)
       throw new EChartsError('SubscriptionInvalid', 'ZRender events take no query.');
 
-    const entry = { name, query, callback, throttle, last: -Infinity };
     this.#subscriptions.set(id, entry);
     try {
       this.#bind(id, entry);
@@ -137,7 +149,27 @@ export class ChartEvents {
       throw new EChartsError('ChartCapabilityMissing', zr ? 'The native chart lacks getZr().on/off.' : 'The native chart lacks on/off.');
 
     const epoch = this.#epoch;
-    entry.listener = payload => {
+    const callback = entry.callback;
+    const handler = entry.handler;
+    entry.listener = handler ? payload => {
+      if (!this.#active || epoch !== this.#epoch || this.#subscriptions.get(id) !== entry)
+        return;
+
+      const now = performance.now();
+      if (entry.throttle && now - entry.last < entry.throttle)
+        return;
+
+      entry.last = now;
+
+      // The handler runs inside the native dispatch, as a listener of chart.on does; its failure must not break that dispatch.
+      try {
+        const result = handler(payload, this.native);
+        if (result instanceof Promise)
+          result.catch(error => this.#error(id, entry.name, error));
+      } catch (error) {
+        this.#error(id, entry.name, error);
+      }
+    } : payload => {
       if (!this.#active || epoch !== this.#epoch || this.#subscriptions.get(id) !== entry)
         return;
 
@@ -238,7 +270,7 @@ export class ChartEvents {
           if (!this.#active || epoch !== this.#epoch || this.#subscriptions.get(id) !== entry)
             return;
 
-          await entry.callback.invokeMethodAsync('Deliver', id, epoch, json, references);
+          await callback!.invokeMethodAsync('Deliver', id, epoch, json, references);
         })
         .catch(error => {
           if (!this.#active || epoch !== this.#epoch || this.#subscriptions.get(id) !== entry)

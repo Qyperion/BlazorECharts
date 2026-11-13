@@ -114,6 +114,40 @@ var selection = await chart.SubscribeAsync(ChartEvents.BrushSelected, async e =>
 A payload over the [message size limit](render-modes.md#message-size-on-interactive-server) is not
 delivered: the container raises `EventTooLarge` instead.
 
+## Handle an event in the browser
+
+A .NET handler costs one call from the browser per event, and with Interactive Server that call
+crosses the network. A browser function handles the event where it happens: it receives the native
+ECharts event and the native chart, and no call reaches .NET. Use it where the round trip is too
+slow or the handler needs the chart at once.
+
+<!-- snippet: Guides.Events.BrowserHandler -->
+```csharp
+await using var restart = await chart.SubscribeAsync(
+    ChartEvents.TimelinePlayChanged,
+    JsFunction.Module<ChartEventHandlerSignature>("js/chart-handlers.js", "restartAtEnd"));
+```
+
+```js
+// wwwroot/js/chart-handlers.js
+// Play on the last step of a timeline without a loop starts again from the first step.
+export function restartAtEnd(event, chart) {
+  const timeline = chart.getOption().timeline[0];
+  if (event.playState && timeline.currentIndex >= timeline.data.length - 1) {
+    chart.dispatchAction({ type: 'timelineChange', currentIndex: 0 });
+    chart.dispatchAction({ type: 'timelinePlayChange', playState: true });
+  }
+}
+```
+
+The function is a [module export](functions.md) under the same rules as an option callback; an
+inline function needs `AllowInlineJavaScript`. It runs inside the native event dispatch, like a
+listener of `chart.on`, and outside the command queue of the chart: what it changes on the native
+chart is not ordered with your .NET calls. A query and a throttle apply as for a .NET handler.
+Its exception, or the rejection of a promise it returns, raises `EventHandlerFailed` on the
+[browser error event](errors.md#browser-error-event). Dispose the subscription to remove the
+listener; it follows the chart through a recreation.
+
 ## ZRender events
 
 `ZrEvents` subscribes to the pointer events of the chart's ZRender surface, `chart.getZr()`:

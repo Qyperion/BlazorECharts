@@ -3,6 +3,7 @@ using BlazorECharts.Events;
 using BlazorECharts.Options;
 using BlazorECharts.Runtime;
 using BlazorECharts.Values;
+using BlazorECharts.Values.Signatures;
 
 namespace DocumentationExamples.Guides;
 
@@ -79,6 +80,15 @@ internal static class EventsExamples
 
             return Task.CompletedTask;
         });
+        // endsnippet
+    }
+
+    internal static async Task BrowserHandler(EChartInstance chart)
+    {
+        // snippet: Guides.Events.BrowserHandler
+        await using var restart = await chart.SubscribeAsync(
+            ChartEvents.TimelinePlayChanged,
+            JsFunction.Module<ChartEventHandlerSignature>("js/chart-handlers.js", "restartAtEnd"));
         // endsnippet
     }
 

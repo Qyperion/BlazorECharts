@@ -30,6 +30,12 @@ file at the release tag.
   timeline, take the defaults there. An application no longer writes shared options into the
   `ChartOptions` of each chart.
 - `EChart.FailedContent` shows content inside the container while the chart is `Failed`.
+- `EChartInstance.SubscribeAsync` takes a browser function,
+  `JsFunction.Module<ChartEventHandlerSignature>(url, export)`: it handles the event in the browser
+  with the native event and the native chart, and no call reaches .NET. A handler that has to react
+  at once, such as restarting a timeline that ended, no longer waits for a round trip.
+- The interop protocol of the browser scripts is 5: a page that kept the scripts of an earlier
+  version reports `RuntimeVersionMismatch` and asks for a reload.
 
 ## 2.0.0
 

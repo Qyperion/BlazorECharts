@@ -40,7 +40,7 @@ public sealed partial class EChartsRuntime
     internal ILoggerFactory? Loggers { get; init; }
 
     // The .NET interop protocol of runtime-loader.js (runtime-protocol.ts): openFacade receives it first and rejects another one.
-    internal const int RuntimeProtocol = 4;
+    internal const int RuntimeProtocol = 5;
 
     private ResourceAssetCollection? _assets;
 
@@ -386,7 +386,17 @@ public sealed partial class EChartsRuntime
         InvokeChartAsync("setTheme", cancellationToken, [_ownerId, id, theme, revision.Generation, revision.Revision, revision.Sequence]);
 
     ValueTask IChartEventTransport.SubscribeAsync(string id, ChartSubscription subscription, string name, JsonElement query) =>
-        _module!.InvokeVoidAsync("subscribe", _ownerId, id, subscription.Id, name, query, subscription.Reference, subscription.ThrottleMilliseconds);
+        subscription.BrowserHandler is { } handler
+            ? _module!.InvokeVoidAsync(
+                "subscribeBrowser",
+                _ownerId,
+                id,
+                subscription.Id,
+                name,
+                query,
+                JsonSerializer.SerializeToElement(handler, EChartsTransportJsonContext.Default.JsBinding),
+                subscription.ThrottleMilliseconds)
+            : _module!.InvokeVoidAsync("subscribe", _ownerId, id, subscription.Id, name, query, subscription.Reference, subscription.ThrottleMilliseconds);
 
     async ValueTask IChartEventTransport.UnsubscribeAsync(string id, string subscription)
     {

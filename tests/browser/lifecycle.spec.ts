@@ -371,7 +371,7 @@ test('SizeLostBetweenReadyAndAllocation_KeepsWaitingInSameGeneration', async ({ 
 
   // Act
   await page.evaluate(() => {
-    const runtime = (globalThis as any)[Symbol.for('BlazorECharts.page-runtime.v4')];
+    const runtime = (globalThis as any)[Symbol.for('BlazorECharts.page-runtime.v5')];
     const original = runtime.createChart;
     runtime.createChart = function(...args: any[]) {
       if (!(window as any).sizeLostBeforeAllocation) {

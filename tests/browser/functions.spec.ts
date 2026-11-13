@@ -207,6 +207,43 @@ for (const mode of ['server', 'wasm']) {
     expect(errors).toEqual([]);
   });
 
+  test(`BrowserEventHandler_RunsWithoutACallToDotNet_${mode}`, async ({ page }) => {
+    // Arrange
+    const errors: string[] = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.goto(`/harness/functions/${mode}`);
+    await expect(page.getByTestId('status')).toHaveText('ready');
+    const chart = page.locator('.functions-chart');
+    const highlight = (dataIndex: number) => chart.evaluate(async (element: HTMLElement, dataIndex: number) => {
+      const ec = await import(new URL('_content/BlazorECharts/js/echarts-6.1.0.js', document.baseURI).href);
+      const loader = await import(new URL('_content/BlazorECharts/js/runtime-loader.js', document.baseURI).href);
+      ec.getInstanceByDom(element).dispatchAction({ type: 'highlight', seriesIndex: 0, dataIndex });
+      return { handled: element.dataset.browserHandled, deliveries: loader.resourceStatistics().toDotNet.Deliver ?? 0 };
+    }, dataIndex);
+
+    // Act
+    await page.getByRole('button', { name: 'Browser handler', exact: true }).click();
+
+    // Assert
+    await expect(page.getByTestId('status')).toHaveText('browser handler');
+
+    // Act: the handler has run by the time dispatchAction returns.
+    const first = await highlight(1);
+    const second = await highlight(0);
+
+    // Assert
+    expect(first).toEqual({ handled: '1:highlight:1:1', deliveries: 0 });
+    expect(second).toEqual({ handled: '2:highlight:0:1', deliveries: 0 });
+
+    // Act
+    await page.getByRole('button', { name: 'Drop browser handler', exact: true }).click();
+
+    // Assert
+    await expect(page.getByTestId('status')).toHaveText('browser handler dropped');
+    expect((await highlight(1)).handled).toBe('2:highlight:0:1');
+    expect(errors).toEqual([]);
+  });
+
   test(`GetOption_FunctionDomRoundTrip_${mode}`, async ({ page }) => {
     // Arrange
     await page.goto(`/harness/functions/${mode}`);

@@ -1,5 +1,6 @@
 @using System.Text.Json
 @using BlazorECharts.Options
+@using BlazorECharts.Events
 @using BlazorECharts.Runtime
 @using BlazorECharts.Serialization
 @using BlazorECharts.Serialization.Generated
@@ -25,6 +26,8 @@
 <button @onclick="() => Run(Inline)">Inline</button>
 <button @onclick="() => Run(Failure)">Import failure</button>
 <button @onclick="() => Run(DecodeFailure)">Decode failure</button>
+<button @onclick="() => Run(BrowserHandler)">Browser handler</button>
+<button @onclick="() => Run(DropBrowserHandler)">Drop browser handler</button>
 <button @onclick="() => Run(Dispose)">Dispose</button>
 <div class="functions-chart" style="width:640px;height:360px" @ref="_element"></div>
 @code {
@@ -277,6 +280,29 @@
     private async Task DecodeFailure()
     {
         await using var image = await _runtime!.CreateImageAsync(new Uri(new Uri(Navigation.BaseUri), "modules/missing-image.png").AbsoluteUri);
+    }
+
+    private ChartSubscription? _browserHandler;
+
+    private async Task BrowserHandler()
+    {
+        await _chart!.SetOptionAsync(
+            new ChartOptions
+            {
+                Animation = false,
+                XAxis = new XAxisCategoryOption { Data = ["A", "B"] },
+                YAxis = new YAxisValueOption(),
+                Series = new BarSeriesOption { Data = [3, 7] },
+            },
+            new SetOptionOptions { NotMerge = true });
+        _browserHandler = await _chart.SubscribeAsync(ChartEvents.Highlight, JsFunction.Module<ChartEventHandlerSignature>(Functions, "markHighlight"));
+        _status = "browser handler";
+    }
+
+    private async Task DropBrowserHandler()
+    {
+        await _browserHandler!.DisposeAsync();
+        _status = "browser handler dropped";
     }
 
     private async Task Dispose()

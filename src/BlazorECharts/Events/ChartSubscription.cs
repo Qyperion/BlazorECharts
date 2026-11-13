@@ -1,4 +1,5 @@
 using System.Text.Json;
+using BlazorECharts.Serialization;
 using Microsoft.JSInterop;
 
 namespace BlazorECharts.Events;
@@ -26,6 +27,9 @@ public abstract class ChartSubscription : IAsyncDisposable
     public string Id { get; } = Guid.NewGuid().ToString("N");
 
     internal DotNetObjectReference<Delivery> Reference { get; }
+
+    // A handler that stays in the browser: the listener calls it there and delivers nothing to .NET.
+    internal JsBinding? BrowserHandler { get; init; }
     internal int ThrottleMilliseconds { get; init; }
 
     private protected void Replace(Func<JsonElement, JsonElement, Task> handler)
@@ -110,6 +114,10 @@ public abstract class ChartSubscription : IAsyncDisposable
         public Task Deliver(string id, long epoch, JsonElement json, JsonElement references) => subscription.Deliver(id, epoch, json, references);
     }
 }
+
+/// <summary>A subscription whose handler is a browser function.</summary>
+internal sealed class BrowserChartSubscription(Func<ChartSubscription, ValueTask> release, long epoch)
+    : ChartSubscription(static (_, _) => Task.CompletedTask, release, epoch);
 
 /// <summary>A subscription whose handler receives typed <typeparamref name="TEvent"/> payloads.</summary>
 public sealed class ChartSubscription<TEvent> : ChartSubscription

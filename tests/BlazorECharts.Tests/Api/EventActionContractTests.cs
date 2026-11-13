@@ -5,6 +5,7 @@ using BlazorECharts.Runtime;
 using BlazorECharts.Serialization;
 using BlazorECharts.Serialization.Generated;
 using BlazorECharts.Values;
+using BlazorECharts.Values.Signatures;
 using Xunit;
 
 namespace BlazorECharts.Tests.Api;
@@ -1769,6 +1770,29 @@ public sealed class EventActionContractTests
         Assert.Throws<ArgumentException>(() => EventQuery.Select("data", index: 0));
         Assert.Throws<ArgumentException>(() => EventQuery.Select(" ", index: 0));
         Assert.Throws<ArgumentException>(() => EventQuery.Select());
+    }
+
+    [Fact]
+    public async Task BrowserHandler_IsSubscribedAsAFunctionBinding_AndInlineNeedsTheOptIn()
+    {
+        // Arrange
+        var transport = new Transport();
+        await using var chart = new EChartInstance("chart", transport, GeneratedOptionMetadata.CreateContext());
+
+        // Act
+        await using var subscription = await chart.SubscribeAsync(
+            ChartEvents.TimelinePlayChanged,
+            JsFunction.Module<ChartEventHandlerSignature>("js/handlers.js", "restart"),
+            EventQuery.Throttled(TimeSpan.FromMilliseconds(50)));
+
+        // Assert
+        Assert.Equal(["timelineplaychanged"], transport.Names);
+        Assert.Equal(50, subscription.ThrottleMilliseconds);
+        Assert.Equal(
+            ("js/handlers.js", "restart", "runtime:chart-event-handler"),
+            (subscription.BrowserHandler!.ModuleUrl, subscription.BrowserHandler.ExportName, subscription.BrowserHandler.Signature));
+        await Assert.ThrowsAsync<InvalidOperationException>(
+            async () => await chart.SubscribeAsync(ChartEvents.Click, JsFunction.Inline<ChartEventHandlerSignature>("event => {}")));
     }
 
     [Fact]

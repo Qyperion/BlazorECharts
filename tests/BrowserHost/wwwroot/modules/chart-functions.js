@@ -24,3 +24,9 @@ export function renderItem(params, api) {
   state.renders.push({ index: params.dataIndex, point, width: api.getWidth(), height: api.getHeight(), series: api.currentSeriesIndices(), ratio: api.getDevicePixelRatio() });
   return shape && { type: 'rect', shape, style: { fill: '#4f46e5' } };
 }
+
+// A browser event handler: the native event and the native chart, no call to .NET.
+export function markHighlight(event, chart) {
+  const dom = chart.getDom();
+  dom.dataset.browserHandled = `${Number((dom.dataset.browserHandled ?? '0:').split(':')[0]) + 1}:${event.type}:${event.dataIndex}:${chart.getOption().series.length}`;
+}

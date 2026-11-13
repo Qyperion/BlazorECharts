@@ -1,7 +1,7 @@
 import { getECharts, stabilityParticipant } from '../_content/BlazorECharts/js/blazor-echarts.js';
 import { referenceStatistics } from '../_content/BlazorECharts/js/runtime-loader.js';
 // The group coordinator is internal: the fixture reads it from the page runtime, as blockMemberRead reads the runtime.
-const groupMembership = () => window[Symbol.for('BlazorECharts.page-runtime.v4')].groups;
+const groupMembership = () => window[Symbol.for('BlazorECharts.page-runtime.v5')].groups;
 const states = new Map();
 function chart(selector) { return getECharts().getInstanceByDom(document.querySelector(selector)); }
 function state(selector) { let value = states.get(selector); if (!value) { value = { captures: 0 }; states.set(selector, value); } return value; }
@@ -36,7 +36,7 @@ export function statistics(selector) {
   return { ...referenceStatistics(), handlers: Object.values(zr._$handlers ?? {}).reduce((n, list) => n + list.length, 0) };
 }
 export function blockMemberRead(selector) {
-  const runtime = window[Symbol.for('BlazorECharts.page-runtime.v4')], native = chart(selector), value = state(selector);
+  const runtime = window[Symbol.for('BlazorECharts.page-runtime.v5')], native = chart(selector), value = state(selector);
   const id = groupMembership().members(native.group).find(c => c.native === native).events.chartId;
   const original = runtime.invokeMethod.bind(runtime);
   runtime.invokeMethod = function (owner, chartId, method, ...rest) {

@@ -14135,6 +14135,7 @@ public sealed class BlazorECharts.Runtime.EChartInstance : IAsyncDisposable
   ValueTask<ChartPixelValue> ConvertFromPixelAsync(ChartFinder finder, double[] value, ChartConvertOptions? options = null, CancellationToken cancellationToken = default)
   ValueTask<ChartPixelValue> ConvertToPixelAsync(ChartFinder finder, CoordinateValue value, ChartConvertOptions? options = null, CancellationToken cancellationToken = default)
   ValueTask<ChartSubscription<TEvent>> SubscribeAsync<TEvent>(ChartEvent<TEvent> descriptor, Func<TEvent, Task> handler, EventQuery? query = null, CancellationToken cancellationToken = default)
+  ValueTask<ChartSubscription> SubscribeAsync<TEvent>(ChartEvent<TEvent> descriptor, JsFunction<ChartEventHandlerSignature> handler, EventQuery? query = null, CancellationToken cancellationToken = default)
   ValueTask<ChartVisual> GetVisualAsync(ChartFinder finder, string visualType, CancellationToken cancellationToken = default)
   ValueTask<EChartsObjectReference> GetDomAsync(CancellationToken cancellationToken = default)
   ValueTask<EChartsObjectReference> GetRenderedCanvasAsync(ChartCanvasExportOptions? options = null, ChartStabilityOptions? stability = null, CancellationToken cancellationToken = default)
@@ -16845,6 +16846,8 @@ public readonly struct BlazorECharts.Values.Signatures.CategoryAxisLabelOptionFo
 public readonly struct BlazorECharts.Values.Signatures.CategoryNumericAxisLabelFormatterAlternativeSignature : IJsFunctionSignature
   static string Id { get; }
 public readonly struct BlazorECharts.Values.Signatures.CategoryTickLabelSplitIntervalOptionAlternativeSignature : IJsFunctionSignature
+  static string Id { get; }
+public readonly struct BlazorECharts.Values.Signatures.ChartEventHandlerSignature : IJsFunctionSignature
   static string Id { get; }
 public readonly struct BlazorECharts.Values.Signatures.CustomRenderItemSignature : IJsFunctionSignature
   static string Id { get; }

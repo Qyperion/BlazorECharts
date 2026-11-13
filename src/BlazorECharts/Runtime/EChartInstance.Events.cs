@@ -1,5 +1,8 @@
 using System.Text.Json;
 using BlazorECharts.Events;
+using BlazorECharts.Serialization;
+using BlazorECharts.Values;
+using BlazorECharts.Values.Signatures;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -51,6 +54,63 @@ public partial class EChartInstance
             }
         };
 
+        await RegisterAsync(
+            transport,
+            descriptor.Name,
+            query,
+            epoch => subscription = new(handler, Wrap, ReleaseSubscriptionAsync, epoch) { ThrottleMilliseconds = query?.ThrottleMilliseconds ?? 0 },
+            cancellationToken).ConfigureAwait(false);
+        return subscription!;
+    }
+
+    /// <summary>Subscribes a browser function to an event. It runs in the browser with the native event and the
+    /// native chart, and no call reaches .NET: use it where a round trip is too slow or the handler needs the chart at
+    /// once, for example to restart a timeline that ended.</summary>
+    /// <remarks>The function runs inside the native event dispatch and outside the chart command queue. Its exception,
+    /// or the rejection of a promise it returns, raises <c>EventHandlerFailed</c> on the browser error event. An inline
+    /// function requires <c>AllowInlineJavaScript</c>. The subscription follows the chart through a recreation.</remarks>
+    public async ValueTask<ChartSubscription> SubscribeAsync<TEvent>(
+        ChartEvent<TEvent> descriptor,
+        JsFunction<ChartEventHandlerSignature> handler,
+        EventQuery? query = null,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(descriptor);
+        ArgumentNullException.ThrowIfNull(handler);
+        if (descriptor.Name.StartsWith(ZrEvents.Prefix, StringComparison.Ordinal) && query is { Json.ValueKind: not JsonValueKind.Null })
+            throw new ArgumentException("ZRender events take no query; use EventQuery.Throttled for a throttle.", nameof(query));
+
+        if (handler.Kind == JsBindingKind.Inline && !_serialization.AllowInlineJavaScript)
+            throw new InvalidOperationException("An inline event handler requires AllowInlineJavaScript=true. Use JsFunction.Module for the default module policy.");
+
+        EnsureActive();
+        cancellationToken.ThrowIfCancellationRequested();
+        if (_transport is not IChartEventTransport transport)
+            throw new NotSupportedException("The transport does not support events.");
+
+        var binding = new JsBinding(JsBindingPath.Root.Append("handler"), "handler", handler);
+        ChartSubscription? subscription = null;
+        await RegisterAsync(
+            transport,
+            descriptor.Name,
+            query,
+            epoch => subscription = new BrowserChartSubscription(ReleaseSubscriptionAsync, epoch)
+            {
+                ThrottleMilliseconds = query?.ThrottleMilliseconds ?? 0,
+                BrowserHandler = binding,
+            },
+            cancellationToken).ConfigureAwait(false);
+        return subscription!;
+    }
+
+    private async ValueTask RegisterAsync(
+        IChartEventTransport transport,
+        string name,
+        EventQuery? query,
+        Func<long, ChartSubscription> create,
+        CancellationToken cancellationToken)
+    {
+        ChartSubscription? subscription = null;
         try
         {
             // Subscription acceptance is a barrier with option/recreate commands.
@@ -64,16 +124,13 @@ public partial class EChartInstance
                 lock (_gate)
                 {
                     EnsureActive();
-                    subscription = new(handler, Wrap, ReleaseSubscriptionAsync, _eventEpoch)
-                    {
-                        ThrottleMilliseconds = query?.ThrottleMilliseconds ?? 0,
-                    };
+                    subscription = create(_eventEpoch);
                     _subscriptions.Add(subscription.Id, subscription);
                 }
 
                 try
                 {
-                    await transport.SubscribeAsync(Id, subscription, descriptor.Name, query?.Json ?? NullJson).ConfigureAwait(false);
+                    await transport.SubscribeAsync(Id, subscription, name, query?.Json ?? NullJson).ConfigureAwait(false);
                 }
                 finally
                 {
@@ -81,7 +138,6 @@ public partial class EChartInstance
                 }
             }, renders: false).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
-            return subscription!;
         }
         catch
         {

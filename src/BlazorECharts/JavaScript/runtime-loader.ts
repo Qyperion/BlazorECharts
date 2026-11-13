@@ -110,6 +110,16 @@ export const releaseFacade = (ownerId: string) => page().bridged('releaseFacade'
 export const subscribe = (ownerId: string, chartId: string, id: string, name: string, query: unknown, callback: EventCallbacks, throttle = 0) =>
   page().bridged('subscribe').subscribe(ownerId, chartId, id, name, query, callback, throttle);
 
+export const subscribeBrowser = (
+  ownerId: string,
+  chartId: string,
+  id: string,
+  name: string,
+  query: unknown,
+  binding: JsBinding,
+  throttle = 0
+) => page().bridged('subscribeBrowser').subscribeBrowser(ownerId, chartId, id, name, query, binding, throttle);
+
 export const unsubscribe = (ownerId: string, chartId: string, id: string) => page().bridged('unsubscribe').unsubscribe(ownerId, chartId, id);
 
 export const dispatchAction = (

@@ -71,13 +71,46 @@ function fixture() {
       return native;
     },
   };
-  const page = new PageRuntime(async () => runtime, 'https://example.test/', 'https://example.test/ec.js');
-  return { page, natives };
+  const modules: Record<string, unknown> = {};
+  const page = new PageRuntime(async url => modules[url] ?? runtime, 'https://example.test/', 'https://example.test/ec.js');
+  return { page, natives, modules };
 }
 
 const tick = () => new Promise(resolve => setTimeout(resolve, 0));
 
 describe('event subscriptions', () => {
+  it('BrowserHandler_ReceivesTheNativeEventAndChart_WithoutADelivery', async () => {
+    // Arrange
+    const { page, natives, modules } = fixture();
+    const seen: unknown[] = [];
+    modules['https://example.test/js/handlers.js'] = {
+      select(event: { name: string }, chart: unknown) {
+        seen.push([event.name, chart === natives[0]]);
+        if (event.name === 'broken')
+          throw Error('handler failed');
+      },
+    };
+    await page.openFacade('a');
+    const errors: string[] = [];
+    const element = { dispatchEvent: (event: { detail: { code: string } }) => errors.push(event.detail.code) } as unknown as HTMLElement;
+    const id = page.createChart('a', element, null, {})!;
+    const binding = { path: ['handler'], kind: 'module', token: 'handler', signature: 'runtime:chart-event-handler', moduleUrl: 'js/handlers.js' } as const;
+
+    // Act
+    await page.subscribeBrowser('a', id, 'one', 'click', null, { ...binding, exportName: 'select' });
+    await page.subscribeBrowser('a', id, 'limited', 'click', null, { ...binding, exportName: 'select' }, 10_000);
+    natives[0].emit('click', { name: 'A' });
+    natives[0].emit('click', { name: 'broken' });
+    page.unsubscribe('a', id, 'one');
+    natives[0].emit('click', { name: 'C' });
+
+    // Assert: the throttled subscription takes only the first event; a failure reaches the error event, not the dispatch.
+    expect(seen).toEqual([['A', true], ['A', true], ['broken', true]]);
+    expect(errors).toEqual(['EventHandlerFailed']);
+    expect(page.resourceStatistics().toDotNet).toEqual({});
+    await expect(page.subscribeBrowser('a', id, 'missing', 'click', null, { ...binding, exportName: 'absent' })).rejects.toThrow(/Export must be a browser function/);
+  });
+
   it('CustomEvent_PreservesSerializableRootEventField', async () => {
     // Arrange
     const { page, natives } = fixture();
