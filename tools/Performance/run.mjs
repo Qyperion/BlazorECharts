@@ -267,7 +267,7 @@ const dirty = command('git', ['status', '--porcelain', '--untracked-files=no']) 
 const first = summaries[0];
 
 // The dev host serves the WebAssembly build output: its interpreter must run as optimized as a published app.
-const bootSource = await readFile(join(root, 'tests/BrowserHost.Client/bin/Release/net10.0/wwwroot/_framework/dotnet.js'), 'utf8');
+const bootSource = await readFile(join(root, 'tests/BrowserHost.Client/bin/Release/net11.0/wwwroot/_framework/dotnet.js'), 'utf8');
 const debugLevel = Number(/"debugLevel":\s*(-?\d+)/.exec(bootSource)?.[1]);
 if (debugLevel !== 0)
   throw new Error(`The WebAssembly build has debugLevel ${debugLevel}; build tests/BrowserHost.Client in Release with WasmDebugLevel=0.`);

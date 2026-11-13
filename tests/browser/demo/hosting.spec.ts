@@ -198,13 +198,14 @@ test('Auto_StartsOnServerThenUsesDownloadedWebAssembly', async ({ browser, baseU
   try {
     const page = await context.newPage();
     const local = watchIssues(page);
-    const runtime = page.waitForResponse(response => /_framework\/dotnet\.native\.[^/]*\.wasm/.test(response.url()) && response.ok(), {
+    const client = page.waitForResponse(response => /_framework\/BlazorECharts\.Demo\.Client\.[^/]*\.wasm/.test(response.url()) && response.ok(), {
       timeout: 60_000,
     });
     await open(page, 'auto', 'bar', 'Server');
 
-    // Auto downloads the WebAssembly runtime in the background while the Server circuit renders.
-    await runtime;
+    // Auto downloads the WebAssembly application in the background while the Server circuit renders; .NET 11 leaves
+    // the native runtime to the first WebAssembly start.
+    await client;
     await page.waitForLoadState('networkidle');
 
     // Act

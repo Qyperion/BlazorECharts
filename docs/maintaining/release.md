@@ -190,7 +190,8 @@ another commit or version, a failed report and changed evidence must stop a publ
 
 `.github/workflows/verify.yml` runs the same tools on a GitHub-hosted Windows runner, for every pull
 request and every push to `main` (the status badge of the README): it installs
-the `wasm-tools` workload from the pinned workload set (`--version 10.0.403`; `Test-VerifyWorkflow`
+the SDK of `global.json` and the .NET 10 SDK, whose runtime the `net10.0` package consumers run on,
+the `wasm-tools` workload from the pinned workload set (`--version 11.0.100`; `Test-VerifyWorkflow`
 rejects a floating install) and the Playwright browsers, then runs `verify-local.ps1`. It uploads the reports, the logs, every
 file a stage records (test results, fixtures, browser results) and the verified packages, so a
 downloaded `verification` artifact can be rechecked with `Get-GateVerdict` of
@@ -261,7 +262,9 @@ implemented, so only `Qyperion.BlazorECharts`, `Qyperion.BlazorECharts.WordCloud
 ## Packages
 
 Two packages are built from `src`: `Qyperion.BlazorECharts` and
-`Qyperion.BlazorECharts.WordCloud` (net10.0 only). The ids carry the owner prefix because nuget.org
+`Qyperion.BlazorECharts.WordCloud`, each for `net10.0` and `net11.0`
+(`TargetFrameworks` in `src/Directory.Build.props`; every other project of the repository runs on
+`net11.0`). The ids carry the owner prefix because nuget.org
 ids ignore case and `BlazorEcharts` belongs to another owner; the projects, assemblies
 (`BlazorECharts.dll`, `BlazorECharts.WordCloud.dll`), namespaces and `_content` paths keep the
 library name. `PackageId` is set in each project file, and `tools/Release/ReleaseTools.psm1` holds
@@ -304,9 +307,10 @@ Published metadata cannot be changed, so these rules are checked on every packag
 - The core ships the minified `dist/echarts.esm.min.mjs` of the locked archive as
   `js/echarts-<version>.js`. Only the test host serves the development build
   ([testing](testing.md#browser-test-harness)).
-- The core depends on `Microsoft.AspNetCore.Components.Web` 10.0.0, the lowest patch, so an
-  application or library pinned to an older patch restores without NU1605 or NU1109. The
-  repository's tests and samples build against the central version 10.0.14.
+- Each package holds an assembly and a dependency group per target framework. The core depends on
+  the lowest patch of `Microsoft.AspNetCore.Components.Web` of that framework, 10.0.0 for `net10.0`
+  and 11.0.0 for `net11.0`, so an application or library pinned to an older patch restores without
+  NU1605 or NU1109. The repository's tests and samples build against the central version.
 - WordCloud depends on exactly the core package of the same version (`[<version>]`, set by a
   target after `_GetProjectReferenceVersions`): its installer runs only on that ECharts runtime.
   An application that references another core version directly gets NU1608. WordCloud contains
@@ -380,6 +384,13 @@ stop the upward search, and the projects use `PackageReference` with
 | `Library` | Interactive Server; the application references only its own Razor class library | WordCloud only, through the library, on `Microsoft.AspNetCore.Components.Web` 10.0.0; core transitively |
 | `Standalone` | Standalone WebAssembly on a static file host, published trimmed and AOT by `test-aot.ps1` only | core + WordCloud |
 
+A consumer builds for the framework that `-p:ConsumerFramework` names, `net11.0` without it.
+`test-packages.ps1` publishes `Server`, `Wasm` and `CoreOnly` for `net11.0`, `Library` for `net10.0`,
+and `Server` and `Wasm` once more for `net10.0` (`server-net10`, `wasm-net10`). For each output it
+checks that `runtimeconfig.json` names that framework and that `BlazorECharts.dll` is the assembly
+of that `lib` folder of the package (`Test-ConsumerFramework`), so a consumer cannot pass on another
+framework than the one it stands for. `test-aot.ps1` publishes `Standalone` for `net11.0`.
+
 `test-packages.ps1` copies them without `bin`/`obj` to `<WorkPath>/src`, writes a
 `nuget.config` that maps exactly the two package ids to the local feed, and restores with the
 private cache `<WorkPath>/nuget-packages`, from which their entries are removed first. It checks
@@ -392,7 +403,7 @@ the browser checks block every request that leaves localhost.
 
 | Check | Instance |
 |---|---|
-| `OfflineDefaultLoading` | Server and WASM: chart, module formatter, WordCloud layout, PNG/SVG export, ECharts 6.1.0 |
+| `OfflineDefaultLoading` | Server and WASM, each on `net11.0` and `net10.0`: chart, module formatter, WordCloud layout, PNG/SVG export, ECharts 6.1.0 |
 | `PackagedAssetsRespectBasePath` | the same under `/charts-test` |
 | `LazyNestedRouteLoadsRuntimeOnDemand` | no asset before navigation; `nested/lazy` resolves modules against the base |
 | `CoreOnlyDoesNotRequestWordCloud` | no WordCloud request or asset |
@@ -402,7 +413,7 @@ the browser checks block every request that leaves localhost.
 `-SdkVersion <version>` writes a `global.json` into `<WorkPath>/src`, so the consumers restore and
 publish with that SDK, for example the oldest installed feature band; `logs/sdk.log` records it.
 
-The consumers listen on eight consecutive ports, 5201-5208 by default; `BLAZOR_ECHARTS_CONSUMER_PORT`
+The consumers listen on ten consecutive ports, 5201-5210 by default; `BLAZOR_ECHARTS_CONSUMER_PORT`
 sets the first of them. The browser checks need `npm ci` (Playwright) and Google Chrome in the
 source root; the consumers themselves use no npm.
 
@@ -513,10 +524,11 @@ pack or push. To preview the site locally, run `publish-demo.ps1` and serve
 
 ### Vulnerable dependencies
 
-The core depends on `Microsoft.AspNetCore.Components.Web` 10.0.0, the lowest patch. Restore runs
-NuGetAudit with warnings as errors, so an advisory for that version fails the build of the core.
-Then release a patch that raises the lower bound to the first fixed version (`VersionOverride` in
-`src/BlazorECharts/BlazorECharts.csproj` and `$script:ComponentsWebMinimum` in
-`ReleaseTools.psm1`), so that no consumer resolves a vulnerable version through the library.
+The core depends on the lowest patch of `Microsoft.AspNetCore.Components.Web` of each target
+framework, 10.0.0 and 11.0.0. Restore runs NuGetAudit with warnings as errors, so an advisory for
+one of them fails the build of the core. Then release a patch that raises that lower bound to the
+first fixed version (`VersionOverride` in `src/BlazorECharts/BlazorECharts.csproj` and
+`$script:Frameworks` in `ReleaseTools.psm1`), so that no consumer resolves a vulnerable version
+through the library.
 Suppress the advisory with `NuGetAuditSuppress` instead only when it cannot affect any
 application that uses the library, and give the reason next to it.

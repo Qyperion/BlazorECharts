@@ -8,6 +8,10 @@
     <Description>Typed Blazor components and C# API for Apache ECharts 6.1.0. The pinned ECharts runtime is included as static web assets.</Description>
     <!-- The package distributes ECharts (Apache-2.0) with the bundled ZRender (BSD-3-Clause) and tslib (0BSD). -->
     <PackageLicenseExpression>MIT AND Apache-2.0 AND BSD-3-Clause AND 0BSD</PackageLicenseExpression>
+
+    <!-- The .NET 11 analyzer BL0016 asks for a try/catch around every JS interop call. The runtime is the interop seam:
+         a failed call reaches its caller, where the component reports an EChartsError and an application handles its own calls. -->
+    <NoWarn>$(NoWarn);BL0016</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,8 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- The lowest patch keeps applications on older patches restorable; the tests and samples run on the central version. -->
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="10.0.0" />
+    <!-- The lowest patch of each framework keeps applications on older patches restorable; the tests and samples run on the central version. -->
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="10.0.0" Condition="'$(TargetFramework)' == 'net10.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="11.0.0" Condition="'$(TargetFramework)' == 'net11.0'" />
   </ItemGroup>
 
   <ItemGroup>

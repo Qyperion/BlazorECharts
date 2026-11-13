@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 import { aotPorts, consumerPorts } from '../../PackageConsumer/ports.ts';
 
-test('ConsumerPorts_DefaultToEightPortsFrom5201', () => {
+test('ConsumerPorts_DefaultToTenPortsFrom5201', () => {
   // Act & Assert
   expect(consumerPorts({})).toEqual({
     server: 5201,
@@ -12,13 +12,15 @@ test('ConsumerPorts_DefaultToEightPortsFrom5201', () => {
     wasmSubpath: 5206,
     coreOnly: 5207,
     library: 5208,
+    serverNet10: 5209,
+    wasmNet10: 5210,
   });
   expect(aotPorts({})).toEqual({ trimmed: 5211, aot: 5212 });
 });
 
 test('ConsumerPorts_StartAtTheConfiguredPort', () => {
   // Act & Assert
-  expect(Object.values(consumerPorts({ BLAZOR_ECHARTS_CONSUMER_PORT: '15201' }))).toEqual([15201, 15202, 15203, 15204, 15205, 15206, 15207, 15208]);
+  expect(Object.values(consumerPorts({ BLAZOR_ECHARTS_CONSUMER_PORT: '15201' }))).toEqual([15201, 15202, 15203, 15204, 15205, 15206, 15207, 15208, 15209, 15210]);
   expect(aotPorts({ BLAZOR_ECHARTS_AOT_PORT: '15211' })).toEqual({ trimmed: 15211, aot: 15212 });
 });
 

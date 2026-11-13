@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <StaticWebAssetBasePath>_content/BlazorECharts.Examples</StaticWebAssetBasePath>
+
+    <!-- BL0016 asks for a try/catch around every JS interop call. An example reports a failure where its operation starts
+         (ExampleBase), and a failed page script of the demo reaches the Blazor error UI. -->
+    <NoWarn>$(NoWarn);BL0016</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

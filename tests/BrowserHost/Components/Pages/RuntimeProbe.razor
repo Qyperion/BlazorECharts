@@ -29,7 +29,15 @@
     private string _status = "Prerendered";
     private string _evidence = "";
 
-    protected override Task OnAfterRenderAsync(bool firstRender) => firstRender ? InitializeProbe() : Task.CompletedTask;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        // The retry button renders after its handler; nothing renders after this method.
+        await InitializeProbe();
+        StateHasChanged();
+    }
 
     private async Task InitializeProbe()
     {
@@ -54,8 +62,6 @@
         {
             _status = "Failed: " + error.Message;
         }
-
-        StateHasChanged();
     }
 
     private async Task DisposeFirst()

@@ -1,8 +1,12 @@
 # Hosting and browser compatibility
 
-BlazorECharts targets net10.0, Apache ECharts 6.1.0 and @qyperion/echarts-wordcloud 3.0.0.
+BlazorECharts targets net10.0 and net11.0, Apache ECharts 6.1.0 and @qyperion/echarts-wordcloud 3.0.0.
 The `EChart` component does not choose a render mode; the host does. This page
 records what is verified for each host and browser, and how to repeat it.
+
+The hosts and tests of this page run on .NET 11. On .NET 10 the packages are verified with
+Interactive Server and WebAssembly applications built from them
+([package consumers](../maintaining/release.md#consumers)).
 
 ## Hosts
 

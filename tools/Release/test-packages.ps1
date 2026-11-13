@@ -53,27 +53,34 @@ try {
     Write-ConsumerNuGetConfig -Path $config -FeedPath $FeedPath -CachePath $cache
     $environment = @{ NUGET_PACKAGES = $cache; DOTNET_CLI_TELEMETRY_OPTOUT = '1'; DOTNET_NOLOGO = '1' }
     $consumers = @(
-        @{ Name = 'server'; Project = 'Server/Server.csproj'; Assets = 'Server/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Server' },
-        @{ Name = 'wasm'; Project = 'Wasm/Host/Host.csproj'; Assets = 'Wasm/Client/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Wasm' },
-        @{ Name = 'core-only'; Project = 'CoreOnly/CoreOnly.csproj'; Assets = 'CoreOnly/obj/project.assets.json'; WordCloud = $false; Assembly = 'PackageConsumer.CoreOnly' },
+        @{ Name = 'server'; Project = 'Server/Server.csproj'; Assets = 'Server/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Server'; Framework = 'net11.0' },
+        @{ Name = 'wasm'; Project = 'Wasm/Host/Host.csproj'; Assets = 'Wasm/Client/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Wasm'; Framework = 'net11.0' },
+        @{ Name = 'core-only'; Project = 'CoreOnly/CoreOnly.csproj'; Assets = 'CoreOnly/obj/project.assets.json'; WordCloud = $false; Assembly = 'PackageConsumer.CoreOnly'; Framework = 'net11.0' },
         # The application references its own component library, which references only WordCloud on the lowest Components.Web patch.
-        @{ Name = 'library'; Project = 'Library/App/App.csproj'; Assets = 'Library/Charts/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Library'; ComponentsWeb = '10.0.0' }
+        @{ Name = 'library'; Project = 'Library/App/App.csproj'; Assets = 'Library/Charts/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Library'; Framework = 'net10.0'
+            ComponentsWeb = '10.0.0' },
+        # The Server and Wasm applications again, built for and running on the other framework of the packages.
+        @{ Name = 'server-net10'; Project = 'Server/Server.csproj'; Assets = 'Server/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Server'; Framework = 'net10.0' },
+        @{ Name = 'wasm-net10'; Project = 'Wasm/Host/Host.csproj'; Assets = 'Wasm/Client/obj/project.assets.json'; WordCloud = $true; Assembly = 'PackageConsumer.Wasm'; Framework = 'net10.0' }
     )
+    $corePackage = Join-Path $FeedPath "$(Get-PackageId Core).$Version.nupkg"
     $engine = Get-LockPackage $SourceRoot 'echarts'
     $failed = $false
     foreach ($consumer in $consumers) {
         $project = Join-Path $sources $consumer.Project
         $output = Join-Path $publish $consumer.Name
-        Write-Host "Restoring and publishing the $($consumer.Name) consumer"
+        $properties = @("-p:BlazorEChartsVersion=$Version", "-p:ConsumerFramework=$($consumer.Framework)")
+        Write-Host "Restoring and publishing the $($consumer.Name) consumer for $($consumer.Framework)"
         Invoke-Logged -FilePath 'dotnet' -LogPath (Join-Path $logs "restore-$($consumer.Name).log") -Environment $environment -WorkingDirectory $sources `
-            -ArgumentList @('restore', $project, '--configfile', $config, '--force', "-p:BlazorEChartsVersion=$Version")
+            -ArgumentList (@('restore', $project, '--configfile', $config, '--force') + $properties)
         Invoke-Logged -FilePath 'dotnet' -LogPath (Join-Path $logs "publish-$($consumer.Name).log") -Environment $environment -WorkingDirectory $sources `
-            -ArgumentList @('publish', $project, '-c', 'Release', '-o', $output, '--no-restore', '-nologo', "-p:BlazorEChartsVersion=$Version")
+            -ArgumentList (@('publish', $project, '-c', 'Release', '-o', $output, '--no-restore', '-nologo') + $properties)
 
         $expected = @((Get-PackageId Core)) + @(if ($consumer.WordCloud) { Get-PackageId WordCloud })
         $checks = New-Object System.Collections.Generic.List[string]
         foreach ($failure in (Test-ConsumerRestore -AssetsFile (Join-Path $sources $consumer.Assets) -Version $Version -Packages $expected)) { $checks.Add($failure) }
         foreach ($failure in (Test-CachedPackage -CachePath $cache -FeedPath $FeedPath -Version $Version -Packages $expected)) { $checks.Add($failure) }
+        foreach ($failure in (Test-ConsumerFramework -PublishPath $output -Assembly $consumer.Assembly -Framework $consumer.Framework -PackagePath $corePackage)) { $checks.Add($failure) }
         if ($consumer.ContainsKey('ComponentsWeb') -and -not ((Read-Json (Join-Path $sources $consumer.Assets)).libraries.PSObject.Properties.Name -contains "Microsoft.AspNetCore.Components.Web/$($consumer.ComponentsWeb)")) {
             $checks.Add("The $($consumer.Name) consumer did not restore Microsoft.AspNetCore.Components.Web $($consumer.ComponentsWeb).")
         }

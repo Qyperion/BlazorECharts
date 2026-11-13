@@ -3,7 +3,15 @@
   <!-- Package consumers are isolated from the repository build: this file stops the upward search,
        so they get neither the repository settings nor its central package versions. -->
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <!-- The newest framework of the packages by default. tools/Release/test-packages.ps1 names the framework of every
+         consumer, so the Server and Wasm consumers also run on the other one. -->
+    <ConsumerFramework Condition="'$(ConsumerFramework)' == ''">net11.0</ConsumerFramework>
+    <TargetFramework>$(ConsumerFramework)</TargetFramework>
+    <!-- The ASP.NET Core packages an application on that framework references, and their lowest patch. -->
+    <AspNetCoreVersion Condition="'$(ConsumerFramework)' == 'net10.0'">10.0.15</AspNetCoreVersion>
+    <AspNetCoreVersion Condition="'$(ConsumerFramework)' == 'net11.0'">11.0.0</AspNetCoreVersion>
+    <AspNetCoreLowestVersion Condition="'$(ConsumerFramework)' == 'net10.0'">10.0.0</AspNetCoreLowestVersion>
+    <AspNetCoreLowestVersion Condition="'$(ConsumerFramework)' == 'net11.0'">11.0.0</AspNetCoreLowestVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

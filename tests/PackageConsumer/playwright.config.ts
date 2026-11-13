@@ -42,5 +42,8 @@ export default defineConfig({
     app('wasm', 'PackageConsumer.Wasm', ports.wasmSubpath, { PathBase: '/charts-test' }),
     app('core-only', 'PackageConsumer.CoreOnly', ports.coreOnly),
     app('library', 'PackageConsumer.Library', ports.library),
+    // The same applications built for and running on .NET 10, the other framework of the packages.
+    app('server-net10', 'PackageConsumer.Server', ports.serverNet10),
+    app('wasm-net10', 'PackageConsumer.Wasm', ports.wasmNet10),
   ],
 });

@@ -64,7 +64,10 @@ test('ScriptsOfAnotherProtocolKeptByThePage_FailWithRuntimeVersionMismatch_Until
       body = body.replace(current, earlier);
     }
 
-    await route.fulfill({ response, body });
+    // Another deployment has other validators: with those of the current file, the reload below would revalidate the
+    // script the page holds in memory, get 304 and keep it.
+    const { 'last-modified': _, ...headers } = response.headers();
+    await route.fulfill({ response, body, headers: { ...headers, etag: '"earlier-deployment"' } });
   });
   await page.goto('/harness/versioning');
   const loader = await page.getByTestId('loader-url').innerText();

@@ -16,8 +16,9 @@ $script:UnprefixedPackageIds = @('BlazorECharts', 'BlazorECharts.WordCloud')
 $script:ProjectUrl = 'https://github.com/Qyperion/BlazorECharts'
 # SPDX expression of everything a package distributes: the MIT library and the bundled third-party JavaScript.
 $script:PackageLicenses = @{ Core = 'MIT AND Apache-2.0 AND BSD-3-Clause AND 0BSD'; WordCloud = 'MIT AND ISC' }
-# The lowest patch of the target framework: a higher bound forces NU1605/NU1109 on applications pinned to an older patch.
-$script:ComponentsWebMinimum = '10.0.0'
+# The target frameworks of the packages, oldest first, each with the lowest patch of Microsoft.AspNetCore.Components.Web:
+# a higher bound forces NU1605/NU1109 on applications pinned to an older patch.
+$script:Frameworks = [ordered]@{ 'net10.0' = '10.0.0'; 'net11.0' = '11.0.0' }
 
 function Get-PackageId([ValidateSet('Core', 'WordCloud')][string]$Kind) { $script:PackageIds[$Kind] }
 
@@ -27,6 +28,9 @@ function Get-PackageIds { @($script:PackageIds['Core'], $script:PackageIds['Word
 function Get-AssemblyName([ValidateSet('Core', 'WordCloud')][string]$Kind) { $script:AssemblyNames[$Kind] }
 
 function Get-UnprefixedPackageIds { $script:UnprefixedPackageIds }
+
+# The target frameworks of the packages, oldest first; unrolled, so wrap the call in @().
+function Get-PackageFrameworks { @($script:Frameworks.Keys) }
 
 function Resolve-FullPath([Parameter(Mandatory)][string]$Path) {
     [System.IO.Path]::GetFullPath($ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Path)).TrimEnd('\', '/')
@@ -187,27 +191,37 @@ function Test-NuGetPackage {
             foreach ($name in @('authors', 'description', 'copyright')) {
                 if ([string]::IsNullOrWhiteSpace((Get-XmlChild $metadata $name))) { $failures.Add("nuspec $name is empty.") }
             }
+            # One dependency group per target framework, each on the lowest Components.Web patch of that framework.
+            $frameworks = @(Get-PackageFrameworks)
             $groups = @($metadata.SelectNodes("*[local-name()='dependencies']/*[local-name()='group']"))
-            if ($groups.Count -ne 1 -or $groups[0].GetAttribute('targetFramework') -ne 'net10.0') { $failures.Add('Dependencies must have exactly one net10.0 group.') }
-            $dependencies = @{}
-            foreach ($dependency in @($metadata.SelectNodes("*[local-name()='dependencies']//*[local-name()='dependency']"))) { $dependencies[$dependency.GetAttribute('id')] = $dependency.GetAttribute('version') }
-            if ($Kind -eq 'Core') {
-                if ($dependencies['Microsoft.AspNetCore.Components.Web'] -cne $script:ComponentsWebMinimum) {
-                    $failures.Add("Core must depend on Microsoft.AspNetCore.Components.Web $($script:ComponentsWebMinimum), found '$($dependencies['Microsoft.AspNetCore.Components.Web'])'.")
+            $grouped = @($groups | ForEach-Object { $_.GetAttribute('targetFramework') })
+            if ((@($grouped | Sort-Object) -join ', ') -cne ($frameworks -join ', ')) {
+                $failures.Add("Dependencies must have exactly the groups $($frameworks -join ', '), found '$($grouped -join ', ')'.")
+            }
+            foreach ($group in $groups) {
+                $framework = $group.GetAttribute('targetFramework')
+                if ($frameworks -cnotcontains $framework) { continue }
+                $minimum = $script:Frameworks[$framework]
+                $dependencies = @{}
+                foreach ($dependency in @($group.SelectNodes("*[local-name()='dependency']"))) { $dependencies[$dependency.GetAttribute('id')] = $dependency.GetAttribute('version') }
+                if ($Kind -eq 'Core') {
+                    if ($dependencies['Microsoft.AspNetCore.Components.Web'] -cne $minimum) {
+                        $failures.Add("Core must depend on Microsoft.AspNetCore.Components.Web $minimum, found '$($dependencies['Microsoft.AspNetCore.Components.Web'])' ($framework).")
+                    }
+                    if ($dependencies.ContainsKey((Get-PackageId WordCloud))) { $failures.Add('Core must not depend on WordCloud.') }
                 }
-                if ($dependencies.ContainsKey((Get-PackageId WordCloud))) { $failures.Add('Core must not depend on WordCloud.') }
+                elseif ($dependencies[$coreId] -cne "[$Version]") {
+                    # The installer needs the ECharts runtime of the same core release.
+                    $failures.Add("WordCloud must depend on exactly $coreId [$Version], found '$($dependencies[$coreId])' ($framework).")
+                }
+                # The nuspec of a release is immutable: exactly these dependencies and metadata elements, nothing unreviewed.
+                $expected = @(if ($Kind -eq 'Core') { "exclude=Build,Analyzers;id=Microsoft.AspNetCore.Components.Web;version=$minimum" }
+                    else { "exclude=Build,Analyzers;id=$coreId;version=[$Version]" })
+                $actual = @($group.SelectNodes("*[local-name()='dependency']") | ForEach-Object {
+                    @($_.Attributes | ForEach-Object { "$($_.Name)=$($_.Value)" } | Sort-Object) -join ';' })
+                foreach ($item in $actual) { if ($expected -cnotcontains $item) { $failures.Add("Unexpected dependency $item ($framework); expected exactly $($expected -join ', ').") } }
+                foreach ($item in $expected) { if ($actual -cnotcontains $item) { $failures.Add("Missing dependency $item ($framework).") } }
             }
-            elseif ($dependencies[$coreId] -cne "[$Version]") {
-                # The installer needs the ECharts runtime of the same core release.
-                $failures.Add("WordCloud must depend on exactly $coreId [$Version], found '$($dependencies[$coreId])'.")
-            }
-            # The nuspec of a release is immutable: exactly these dependencies and metadata elements, nothing unreviewed.
-            $expected = @(if ($Kind -eq 'Core') { "exclude=Build,Analyzers;id=Microsoft.AspNetCore.Components.Web;version=$($script:ComponentsWebMinimum)" }
-                else { "exclude=Build,Analyzers;id=$coreId;version=[$Version]" })
-            $actual = @($metadata.SelectNodes("*[local-name()='dependencies']//*[local-name()='dependency']") | ForEach-Object {
-                @($_.Attributes | ForEach-Object { "$($_.Name)=$($_.Value)" } | Sort-Object) -join ';' })
-            foreach ($item in $actual) { if ($expected -cnotcontains $item) { $failures.Add("Unexpected dependency $item; expected exactly $($expected -join ', ').") } }
-            foreach ($item in $expected) { if ($actual -cnotcontains $item) { $failures.Add("Missing dependency $item.") } }
             $required = @('id', 'version', 'authors', 'license', 'licenseUrl', 'icon', 'readme', 'projectUrl', 'description', 'copyright', 'tags', 'dependencies') +
                 @(if ($RepositoryUrl) { 'releaseNotes', 'repository' })
             $allowed = $required
@@ -228,22 +242,28 @@ function Test-NuGetPackage {
             }
         }
 
-        # Allowed layout: package plumbing, root documents, net10.0 lib, build props and static web assets.
+        # Allowed layout: package plumbing, root documents, one lib folder per target framework, build props and static web assets.
+        $libraries = @(Get-PackageFrameworks | ForEach-Object { [regex]::Escape($_) }) -join '|'
         $allowed = @('^_rels/\.rels$', '^\[Content_Types\]\.xml$', '^package/services/metadata/core-properties/[0-9a-z]+\.psmdcp$',
             "^$([regex]::Escape($id))\.nuspec$", '^README\.md$', '^LICENSE$', '^THIRD-PARTY-NOTICES\.md$', '^icon\.png$',
-            "^lib/net10\.0/$([regex]::Escape($assembly))\.(dll|xml)$",
+            "^lib/($libraries)/$([regex]::Escape($assembly))\.(dll|xml)$",
             "^(build|buildTransitive|buildMultiTargeting)/($([regex]::Escape($id))|Microsoft\.AspNetCore\.StaticWebAsset(s|Endpoints))\.props$",
             '^staticwebassets/')
         foreach ($name in $entries.Keys) {
             if (-not ($allowed | Where-Object { $name -match $_ })) { $failures.Add("Unexpected package entry: $name") }
             if ($name -match '(?i)node_modules|(^|/)docs/|(^|/)plan/|research|\.ts$|tsconfig|\.pdb$') { $failures.Add("Forbidden package entry: $name") }
         }
-        foreach ($name in @("lib/net10.0/$assembly.dll", "lib/net10.0/$assembly.xml", 'README.md', 'LICENSE', 'THIRD-PARTY-NOTICES.md', 'icon.png')) {
+        $files = @(Get-PackageFrameworks | ForEach-Object { "lib/$_/$assembly.dll"; "lib/$_/$assembly.xml" }) + @('README.md', 'LICENSE', 'THIRD-PARTY-NOTICES.md', 'icon.png')
+        foreach ($name in $files) {
             if (-not $entries.ContainsKey($name)) { $failures.Add("Missing $name.") }
         }
-        if ($entries.ContainsKey("lib/net10.0/$assembly.xml")) {
-            $docs = [System.Text.Encoding]::UTF8.GetString((Read-ZipEntryBytes $entries["lib/net10.0/$assembly.xml"]))
-            if ($docs -notmatch "<name>$([regex]::Escape($assembly))</name>" -or $docs -notmatch '<member name=') { $failures.Add('XML documentation is empty or belongs to another assembly.') }
+        foreach ($framework in @(Get-PackageFrameworks)) {
+            $documentation = "lib/$framework/$assembly.xml"
+            if (-not $entries.ContainsKey($documentation)) { continue }
+            $docs = [System.Text.Encoding]::UTF8.GetString((Read-ZipEntryBytes $entries[$documentation]))
+            if ($docs -notmatch "<name>$([regex]::Escape($assembly))</name>" -or $docs -notmatch '<member name=') {
+                $failures.Add("XML documentation of $framework is empty or belongs to another assembly.")
+            }
         }
         $sources = @{ 'LICENSE' = Join-Path $SourceRoot 'LICENSE'; 'THIRD-PARTY-NOTICES.md' = Join-Path $SourceRoot 'THIRD-PARTY-NOTICES.md'; 'README.md' = Join-Path $project 'README.md'
             'icon.png' = Join-Path $SourceRoot 'src/icon.png' }
@@ -346,30 +366,35 @@ function Test-Symbols {
         [string]$RepositoryCommit
     )
     $failures = New-Object System.Collections.Generic.List[string]
-    $expected = "lib/net10.0/$(Get-AssemblyName $Kind).pdb"
+    $assembly = Get-AssemblyName $Kind
+    $expected = @(Get-PackageFrameworks | ForEach-Object { "lib/$_/$assembly.pdb" })
     $pdbs = @($Symbols.pdbs)
-    if ($pdbs.Count -ne 1 -or $pdbs[0].path -cne $expected) { $failures.Add("The symbol package must hold exactly one PDB, $expected."); return , $failures.ToArray() }
-    $pdb = $pdbs[0]
-    $embedded = @{}
-    foreach ($source in @($pdb.embedded)) { $embedded[$source.document] = $source.text }
-    # PathMap maps the sources to /_/ and the build output to /_build/; SourceLink reaches only /_/, so the
-    # generated sources of the build output must travel inside the PDB.
-    foreach ($document in @($pdb.documents)) {
-        if ($document -notmatch '^/_(build)?/') { $failures.Add("Document $document is not mapped to /_/ or /_build/.") }
-        elseif ($document.StartsWith('/_build/') -and -not $embedded.ContainsKey($document)) { $failures.Add("Generated document $document is not embedded.") }
-        $found = Find-PrivateText $document $Needles
-        if ($found) { $failures.Add("Document $document contains the private path '$found'.") }
+    if ((@($pdbs | ForEach-Object { $_.path }) -join ', ') -cne ($expected -join ', ')) {
+        $failures.Add("The symbol package must hold exactly the PDBs $($expected -join ', ').")
+        return , $failures.ToArray()
     }
-    foreach ($document in $embedded.Keys) {
-        $found = Find-PrivateText $embedded[$document] $Needles
-        if ($found) { $failures.Add("Embedded source $document contains the private path '$found'.") }
-    }
-    if ([string]::IsNullOrEmpty($RepositoryUrl)) {
-        if ($null -ne $pdb.sourceLink) { $failures.Add('SourceLink is present, but no repository was requested; local history must stay private.') }
-    }
-    else {
-        $sourceLink = Get-SourceLinkJson $RepositoryUrl $RepositoryCommit
-        if ($pdb.sourceLink -cne $sourceLink) { $failures.Add("SourceLink must be $sourceLink, found '$($pdb.sourceLink)'.") }
+    foreach ($pdb in $pdbs) {
+        $embedded = @{}
+        foreach ($source in @($pdb.embedded)) { $embedded[$source.document] = $source.text }
+        # PathMap maps the sources to /_/ and the build output to /_build/; SourceLink reaches only /_/, so the
+        # generated sources of the build output must travel inside the PDB.
+        foreach ($document in @($pdb.documents)) {
+            if ($document -notmatch '^/_(build)?/') { $failures.Add("Document $document is not mapped to /_/ or /_build/.") }
+            elseif ($document.StartsWith('/_build/') -and -not $embedded.ContainsKey($document)) { $failures.Add("Generated document $document is not embedded.") }
+            $found = Find-PrivateText $document $Needles
+            if ($found) { $failures.Add("Document $document contains the private path '$found'.") }
+        }
+        foreach ($document in $embedded.Keys) {
+            $found = Find-PrivateText $embedded[$document] $Needles
+            if ($found) { $failures.Add("Embedded source $document contains the private path '$found'.") }
+        }
+        if ([string]::IsNullOrEmpty($RepositoryUrl)) {
+            if ($null -ne $pdb.sourceLink) { $failures.Add('SourceLink is present, but no repository was requested; local history must stay private.') }
+        }
+        else {
+            $sourceLink = Get-SourceLinkJson $RepositoryUrl $RepositoryCommit
+            if ($pdb.sourceLink -cne $sourceLink) { $failures.Add("SourceLink must be $sourceLink, found '$($pdb.sourceLink)'.") }
+        }
     }
     , $failures.ToArray()
 }
@@ -393,8 +418,9 @@ function Test-SymbolPackage {
     try {
         $entries = @{}
         foreach ($entry in $zip.Entries) { $entries[$entry.FullName] = $entry }
+        $libraries = @(Get-PackageFrameworks | ForEach-Object { [regex]::Escape($_) }) -join '|'
         $allowed = @('^_rels/\.rels$', '^\[Content_Types\]\.xml$', '^package/services/metadata/core-properties/[0-9a-z]+\.psmdcp$',
-            "^$([regex]::Escape($id))\.nuspec$", "^lib/net10\.0/$([regex]::Escape((Get-AssemblyName $Kind)))\.pdb$")
+            "^$([regex]::Escape($id))\.nuspec$", "^lib/($libraries)/$([regex]::Escape((Get-AssemblyName $Kind)))\.pdb$")
         foreach ($name in $entries.Keys) { if (-not ($allowed | Where-Object { $name -match $_ })) { $failures.Add("Unexpected symbol package entry: $name") } }
         $nuspecEntry = $entries["$id.nuspec"]
         if ($null -eq $nuspecEntry) { $failures.Add("Missing $id.nuspec in the symbol package.") }
@@ -462,6 +488,30 @@ function Test-ConsumerRestore {
     foreach ($package in $Packages) {
         if (-not ($assets.libraries.PSObject.Properties.Name -contains "$package/$Version")) { $failures.Add("$package/$Version is not in the restored graph.") }
     }
+    , $failures.ToArray()
+}
+
+# A consumer published for a target framework runs on it and carries the core assembly the package holds for it;
+# one that fell back to another framework would prove nothing about this one.
+function Test-ConsumerFramework {
+    param([Parameter(Mandatory)][string]$PublishPath, [Parameter(Mandatory)][string]$Assembly, [Parameter(Mandatory)][string]$Framework,
+        [Parameter(Mandatory)][string]$PackagePath)
+    $failures = New-Object System.Collections.Generic.List[string]
+    $config = Join-Path $PublishPath "$Assembly.runtimeconfig.json"
+    if (-not (Test-Path -LiteralPath $config)) { $failures.Add("Published output lacks $Assembly.runtimeconfig.json.") }
+    elseif ((Get-Content -LiteralPath $config -Raw -Encoding UTF8) -notmatch ('"tfm"\s*:\s*"' + [regex]::Escape($Framework) + '"')) {
+        $failures.Add("$Assembly.runtimeconfig.json does not name the target framework $Framework.")
+    }
+    $name = "$(Get-AssemblyName Core).dll"
+    $published = Join-Path $PublishPath $name
+    $zip = [System.IO.Compression.ZipFile]::OpenRead((Resolve-FullPath $PackagePath))
+    try {
+        $entry = $zip.GetEntry("lib/$Framework/$name")
+        if ($null -eq $entry) { $failures.Add("The package has no lib/$Framework/$name.") }
+        elseif (-not (Test-Path -LiteralPath $published)) { $failures.Add("Published output lacks $name.") }
+        elseif ((Get-BytesSha256 (Read-ZipEntryBytes $entry)) -ne (Get-FileSha256 $published)) { $failures.Add("Published $name is not lib/$Framework/$name of the package.") }
+    }
+    finally { $zip.Dispose() }
     , $failures.ToArray()
 }
 
@@ -661,7 +711,8 @@ function Test-BlobSizes([object[]]$Blobs, [long]$Limit = 52428800) {
         ForEach-Object { "Tracked file $($_.path) has $($_.bytes) bytes, over the $Limit-byte limit of a GitHub push; split or shrink it." })
 }
 
-Export-ModuleMember -Function Get-PackageId, Get-PackageIds, Get-AssemblyName, Get-UnprefixedPackageIds, Get-SourceLinkJson, Read-SymbolPackage, Test-Symbols,
+Export-ModuleMember -Function Get-PackageId, Get-PackageIds, Get-AssemblyName, Get-UnprefixedPackageIds, Get-PackageFrameworks, Test-ConsumerFramework,
+    Get-SourceLinkJson, Read-SymbolPackage, Test-Symbols,
     Test-SymbolPackage, Resolve-FullPath, Test-PathInside, Invoke-Logged, Invoke-LoggedProcess, Get-BytesSha256, Get-FileSha256,
     Read-ZipEntryBytes, Read-Json, Get-LockPackage, Test-NuGetPackage, Test-PackageOnlyConsumer, Test-ConsumerRestore, Write-Failures,
     Write-ConsumerNuGetConfig, Reset-PackageCache, Copy-ConsumerTemplate, Test-CachedPackage, Get-TrimWarnings, Test-TrimWarnings,

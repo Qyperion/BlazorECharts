@@ -1,6 +1,6 @@
 # Getting started
 
-BlazorECharts targets .NET 10 and Apache ECharts 6.1.0. The `EChart` component works in every
+BlazorECharts targets .NET 10 and .NET 11, and Apache ECharts 6.1.0. The `EChart` component works in every
 interactive render mode; the host chooses the mode (see [render modes](render-modes.md)).
 
 ## Register the services

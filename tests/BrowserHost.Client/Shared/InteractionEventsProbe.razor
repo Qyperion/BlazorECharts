@@ -127,7 +127,6 @@
         await On(ChartEvents.Brush, e => string.Join(";", (e.Areas ?? []).Select(a => $"{a.BrushType}:{Numbers(a.CoordRange)}")));
         await On(ChartEvents.TreeRoam, e => $"{e.ComponentType}|{e.SeriesId}|zoomed={e.Zoom > 1}");
         _ready = "ready";
-        StateHasChanged();
     }
 
     private async Task Legend()

@@ -5,6 +5,9 @@
 
     <!-- A Release build keeps the Mono interpreter optimizations, as a published app does; debugLevel -1 disables them. -->
     <WasmDebugLevel Condition="'$(Configuration)' == 'Release'">0</WasmDebugLevel>
+
+    <!-- BL0016 asks for a try/catch around every JS interop call. A probe catches where its scenario starts and shows the failure to the spec. -->
+    <NoWarn>$(NoWarn);BL0016</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

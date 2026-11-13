@@ -9,7 +9,8 @@ and `dotnet test` one at a time: they share output folders.
 | Tool | Version | Notes |
 |---|---|---|
 | .NET SDK | exactly the one in `global.json` (`rollForward: disable`) | Install it side by side with other SDKs. Release evidence comes from one toolchain, so a newer SDK is a separate change that reruns the gate |
-| `wasm-tools` workload | the workload set of `verify.yml`: `dotnet workload install wasm-tools --version 10.0.403` (manifests 10.0.114). Its manifests decide the version of the implicit `Microsoft.NET.Sdk.WebAssembly.Pack` in the lock files; the older manifests that ship with the SDK fail the locked restore with NU1004 | Trimmed and AOT checks; `aot-manifest.json` records the workload version, manifest and packs |
+| .NET 10 runtime | ASP.NET Core 10.0, any patch; `verify.yml` installs SDK 10.0.404 for it | The `net10.0` package consumers of `test-packages.ps1` run on it |
+| `wasm-tools` workload | the workload set of `verify.yml`: `dotnet workload install wasm-tools --version 11.0.100` (manifests 11.0.100). Its manifests decide the version of the implicit `Microsoft.NET.Sdk.WebAssembly.Pack` in the lock files; manifests of another version fail the locked restore with NU1004 | Trimmed and AOT checks; `aot-manifest.json` records the workload version, manifest and packs |
 | Node.js and npm | `engines` in `package.json` (`.node-version` for version managers) | Generator, assets, Vitest and Playwright |
 | Google Chrome and Microsoft Edge | the installed stable channels | Browser tests and the matrix; `npx playwright install chromium firefox webkit` adds the Playwright builds |
 | Git | any recent version | The gate reads the committed tree |
@@ -78,7 +79,7 @@ Every host of the tests has a default port and an environment variable that move
 | Test host | 5187 | `BLAZOR_ECHARTS_TEST_PORT` |
 | Demo | 5189 | `BLAZOR_ECHARTS_DEMO_PORT` |
 | Standalone demo | 5186 | `BLAZOR_ECHARTS_STANDALONE_PORT` |
-| Package consumers (`test-packages.ps1`) | 5201-5208 | `BLAZOR_ECHARTS_CONSUMER_PORT`, the first of eight |
+| Package consumers (`test-packages.ps1`) | 5201-5210 | `BLAZOR_ECHARTS_CONSUMER_PORT`, the first of ten |
 | Trimmed and AOT hosts (`test-aot.ps1`) | 5211-5212 | `BLAZOR_ECHARTS_AOT_PORT`, the first of two |
 
 The release gate passes these variables on to every stage. On Windows, Hyper-V and WinNAT reserve

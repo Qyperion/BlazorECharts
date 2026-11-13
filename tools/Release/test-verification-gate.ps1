@@ -329,7 +329,7 @@ try {
 $results = $args[[array]::IndexOf($args, '--results-directory') + 1]
 $layout = [array]::IndexOf($args, '--results-directory-layout')
 foreach ($file in Get-ChildItem -LiteralPath '{source}' -Filter *.trx) {
-    $directory = if ($layout -ge 0 -and $args[$layout + 1] -eq 'per-module') { Join-Path $results "$($file.BaseName)/net10.0_x64" } else { $results }
+    $directory = if ($layout -ge 0 -and $args[$layout + 1] -eq 'per-module') { Join-Path $results "$($file.BaseName)/net11.0_x64" } else { $results }
     [System.IO.Directory]::CreateDirectory($directory) | Out-Null
     Copy-Item -LiteralPath $file.FullName -Destination (Join-Path $directory 'User_HOST_2026-10-27_15_02_55.995278.trx')
 }

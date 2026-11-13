@@ -20,6 +20,7 @@ const hosts = {
   cdn: host(ports.cdn), custom: host(ports.custom),
   wasm: host(ports.wasm), wasmSubpath: host(ports.wasmSubpath, '/charts-test'), coreOnly: host(ports.coreOnly),
   library: host(ports.library),
+  serverNet10: host(ports.serverNet10), wasmNet10: host(ports.wasmNet10),
 };
 
 // Every request that leaves localhost is aborted and recorded. The CDN cases answer the CDN URL with the pinned engine.
@@ -61,8 +62,14 @@ async function chartsWork(page: Page, base: string, wordCloud: boolean) {
   if (wordCloud) expect(browser.placed).toBe(20);
 }
 
-for (const [mode, base, subpath] of [['server', hosts.server, hosts.serverSubpath], ['wasm', hosts.wasm, hosts.wasmSubpath]] as const) {
-  test(`OfflineDefaultLoading ${mode}`, async ({ page }) => {
+// Every hosting model on every framework of the packages; the other scenarios run on the newest framework.
+const defaultLoading = [
+  ['server', 'server', hosts.server], ['wasm', 'wasm', hosts.wasm],
+  ['server', 'server net10.0', hosts.serverNet10], ['wasm', 'wasm net10.0', hosts.wasmNet10],
+] as const;
+
+for (const [mode, name, base] of defaultLoading) {
+  test(`OfflineDefaultLoading ${name}`, async ({ page }) => {
     const network = await offline(page);
     await chartsWork(page, base, true);
     expect(network.requests).toContain(`${base}/${engine}`);
@@ -75,7 +82,9 @@ for (const [mode, base, subpath] of [['server', hosts.server, hosts.serverSubpat
     expect(network.blocked).toEqual([]);
     expect(network.problems).toEqual([]);
   });
+}
 
+for (const [mode, subpath] of [['server', hosts.serverSubpath], ['wasm', hosts.wasmSubpath]] as const) {
   test(`PackagedAssetsRespectBasePath ${mode}`, async ({ page }) => {
     const network = await offline(page);
     await chartsWork(page, subpath, true);

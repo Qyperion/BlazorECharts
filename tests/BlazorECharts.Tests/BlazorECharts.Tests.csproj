@@ -6,6 +6,8 @@
 
     <!-- The tests call the default-token overloads of the public API on purpose; a test token would change the path under test. -->
     <NoWarn>$(NoWarn);xUnit1051</NoWarn>
+    <!-- The tests call fake JS runtimes and assert on what they return or throw. -->
+    <NoWarn>$(NoWarn);BL0016</NoWarn>
 
     <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
   </PropertyGroup>

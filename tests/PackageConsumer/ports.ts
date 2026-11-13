@@ -9,10 +9,13 @@ function firstPort(environment: Environment, name: string, fallback: number, cou
   return value;
 }
 
-/** The eight published consumer applications of test-packages.ps1: BLAZOR_ECHARTS_CONSUMER_PORT and the next seven ports. */
+/** The ten published consumer applications of test-packages.ps1: BLAZOR_ECHARTS_CONSUMER_PORT and the next nine ports. */
 export function consumerPorts(environment: Environment = process.env) {
-  const first = firstPort(environment, 'BLAZOR_ECHARTS_CONSUMER_PORT', 5201, 8);
-  return { server: first, serverSubpath: first + 1, cdn: first + 2, custom: first + 3, wasm: first + 4, wasmSubpath: first + 5, coreOnly: first + 6, library: first + 7 };
+  const first = firstPort(environment, 'BLAZOR_ECHARTS_CONSUMER_PORT', 5201, 10);
+  return {
+    server: first, serverSubpath: first + 1, cdn: first + 2, custom: first + 3, wasm: first + 4, wasmSubpath: first + 5, coreOnly: first + 6, library: first + 7,
+    serverNet10: first + 8, wasmNet10: first + 9,
+  };
 }
 
 /** The trimmed and AOT static hosts of test-aot.ps1: BLAZOR_ECHARTS_AOT_PORT and the next port. */

@@ -15,7 +15,7 @@ and a release gate of more than 1,600 automated tests.
 [![Live demo](https://img.shields.io/badge/demo-live-0A7EA4?logo=githubpages&logoColor=white)](https://qyperion.github.io/BlazorECharts/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-F7B93E)](LICENSE)
 
-[![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![.NET 10 and 11](https://img.shields.io/badge/.NET-10.0%20%7C%2011.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![Apache ECharts 6.1.0](https://img.shields.io/badge/Apache%20ECharts-6.1.0-AA344D?logo=apacheecharts&logoColor=white)](https://echarts.apache.org/)
 [![Blazor](https://img.shields.io/badge/Blazor-Server%20%C2%B7%20WebAssembly%20%C2%B7%20Auto-512BD4?logo=blazor&logoColor=white)](docs/render-modes.md)
 [![Trimming and AOT](https://img.shields.io/badge/trimming%20%26%20AOT-ready-2EA44F)](docs/compatibility/wasm-aot.md)
@@ -75,7 +75,7 @@ from every release tag.
 | [`Qyperion.BlazorECharts`](https://www.nuget.org/packages/Qyperion.BlazorECharts) | [![NuGet](https://img.shields.io/nuget/v/Qyperion.BlazorECharts?label=&color=004880)](https://www.nuget.org/packages/Qyperion.BlazorECharts) | The `EChart` component, option models, events, actions, chart and runtime API, ECharts 6.1.0 |
 | [`Qyperion.BlazorECharts.WordCloud`](https://www.nuget.org/packages/Qyperion.BlazorECharts.WordCloud) | [![NuGet](https://img.shields.io/nuget/v/Qyperion.BlazorECharts.WordCloud?label=&color=004880)](https://www.nuget.org/packages/Qyperion.BlazorECharts.WordCloud) | The `wordCloud` series: @qyperion/echarts-wordcloud 3.0.0, a fork of echarts-wordcloud for ECharts 6 |
 
-Both target `net10.0` and are released together with the same version. The package ids carry the
+Both target `net10.0` and `net11.0` and are released together with the same version. The package ids carry the
 `Qyperion.` owner prefix; the assemblies, namespaces and `_content/BlazorECharts` asset paths keep
 the name BlazorECharts. The id BlazorEcharts on nuget.org belongs to an unrelated library.
 

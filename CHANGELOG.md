@@ -22,6 +22,10 @@ file at the release tag.
   `MarkArea2DDataItemOption` and `MarkLine2DDataItemOption`, as ECharts names them, instead of
   `MarkAreaOptionDataItemAlternative` and `MarkLineOptionDataItemAlternative`. `Create` takes
   `start` and `end`, and the documentation of the types says what the two points are.
+- The packages target `net11.0` next to `net10.0`. Each has an assembly and a dependency group per
+  framework: an application on .NET 11 gets `Microsoft.AspNetCore.Components.Web` 11.0.0 as the
+  lowest version, one on .NET 10 keeps 10.0.0. Both frameworks are verified with Interactive Server
+  and WebAssembly applications built from the packages.
 - The implicit conversions of union values, of `OneOrMany<T>` and of component variants accept
   `null` for a reference type, so a conditional expression with a null branch, such as
   `Legend = show ? new ScrollableLegendOption() : null` or `BorderColor = dense ? null : "#fff"`,

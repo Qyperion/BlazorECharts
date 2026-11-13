@@ -87,8 +87,10 @@ try {
 
     $known = @((Read-Json (Join-Path $PSScriptRoot 'aot-known-warnings.json')).warnings)
     $engine = Get-LockPackage $SourceRoot 'echarts'
+    # The standalone consumer is published for the newest framework of the packages.
+    $framework = @(Get-PackageFrameworks)[-1]
     $coreZip = [System.IO.Compression.ZipFile]::OpenRead((Join-Path $feed "$(Get-PackageId Core).$version.nupkg"))
-    try { $coreDllBytes = $coreZip.GetEntry("lib/net10.0/$(Get-AssemblyName Core).dll").Length } finally { $coreZip.Dispose() }
+    try { $coreDllBytes = $coreZip.GetEntry("lib/$framework/$(Get-AssemblyName Core).dll").Length } finally { $coreZip.Dispose() }
 
     Reset-PackageCache $cache
     $config = Join-Path $ResultsDirectory 'nuget.config'
@@ -110,7 +112,7 @@ try {
         if ($failures.Count -ne 0) { throw 'The consumer references the library sources.' }
 
         $project = Join-Path $sources 'Standalone/Standalone.csproj'
-        $properties = @("-p:BlazorEChartsVersion=$version") + $variant.Properties
+        $properties = @("-p:BlazorEChartsVersion=$version", "-p:ConsumerFramework=$framework") + $variant.Properties
         Write-Host "Restoring and publishing the $name consumer"
         Invoke-Logged -FilePath 'dotnet' -LogPath (Join-Path $logs "restore-$name.log") -Environment $environment -WorkingDirectory $sources `
             -ArgumentList (@('restore', $project, '--configfile', $config, '--force') + $properties)

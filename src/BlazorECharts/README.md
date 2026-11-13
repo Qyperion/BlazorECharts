@@ -1,7 +1,7 @@
 # BlazorECharts
 
 Typed Blazor components and C# API for [Apache ECharts](https://echarts.apache.org/) 6.1.0.
-The package targets .NET 10 and works with Interactive Server, Interactive WebAssembly,
+The package targets .NET 10 and .NET 11 and works with Interactive Server, Interactive WebAssembly,
 Interactive Auto and standalone WebAssembly hosts.
 
 The pinned ECharts 6.1.0 ES module is included as a static web asset and loads from

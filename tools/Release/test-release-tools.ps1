@@ -92,10 +92,28 @@ try {
 
     $newerPatch = Edit-NuspecCopy 'core-components-web-newer-patch' Core {
         param($metadata)
-        $metadata.SelectSingleNode("*[local-name()='dependencies']//*[local-name()='dependency'][@id='Microsoft.AspNetCore.Components.Web']").SetAttribute('version', '10.0.13')
+        $metadata.SelectSingleNode("*[local-name()='dependencies']/*[local-name()='group'][@targetFramework='net10.0']/*[local-name()='dependency'][@id='Microsoft.AspNetCore.Components.Web']").SetAttribute('version', '10.0.13')
     }
     $results += Assert-Rejected 'CoreComponentsWebAboveMinimumFailsInspection' `
-        (Test-NuGetPackage -Path $newerPatch -Kind Core -SourceRoot $SourceRoot -Version $Version) 'must depend on Microsoft\.AspNetCore\.Components\.Web 10\.0\.0, found ''10\.0\.13'''
+        (Test-NuGetPackage -Path $newerPatch -Kind Core -SourceRoot $SourceRoot -Version $Version) 'must depend on Microsoft\.AspNetCore\.Components\.Web 10\.0\.0, found ''10\.0\.13'' \(net10\.0\)'
+
+    # Every target framework has its own assembly, its own dependency group and its own lowest Components.Web patch.
+    $missingAssembly = Edit-PackageCopy 'core-without-net11-assembly' { param($zip) $zip.GetEntry('lib/net11.0/BlazorECharts.dll').Delete() }
+    $results += Assert-Rejected 'CoreWithoutAFrameworkAssemblyFailsInspection' `
+        (Test-NuGetPackage -Path $missingAssembly -Kind Core -SourceRoot $SourceRoot -Version $Version) '^Missing lib/net11\.0/BlazorECharts\.dll\.'
+    $missingGroup = Edit-NuspecCopy 'core-without-net11-group' Core {
+        param($metadata)
+        $group = $metadata.SelectSingleNode("*[local-name()='dependencies']/*[local-name()='group'][@targetFramework='net11.0']")
+        [void]$group.ParentNode.RemoveChild($group)
+    }
+    $results += Assert-Rejected 'CoreWithoutAFrameworkGroupFailsInspection' `
+        (Test-NuGetPackage -Path $missingGroup -Kind Core -SourceRoot $SourceRoot -Version $Version) '^Dependencies must have exactly the groups net10\.0, net11\.0, found ''net10\.0''\.'
+    $olderPatch = Edit-NuspecCopy 'core-net11-on-net10-components-web' Core {
+        param($metadata)
+        $metadata.SelectSingleNode("*[local-name()='dependencies']/*[local-name()='group'][@targetFramework='net11.0']/*[local-name()='dependency'][@id='Microsoft.AspNetCore.Components.Web']").SetAttribute('version', '10.0.0')
+    }
+    $results += Assert-Rejected 'CoreFrameworkGroupOnAnotherFrameworksPatchFailsInspection' `
+        (Test-NuGetPackage -Path $olderPatch -Kind Core -SourceRoot $SourceRoot -Version $Version) 'must depend on Microsoft\.AspNetCore\.Components\.Web 11\.0\.0, found ''10\.0\.0'' \(net11\.0\)'
 
     # A stray PackageReference, a changed exclude or a new metadata element would enter the immutable nuspec unreviewed.
     foreach ($kind in @('Core', 'WordCloud')) {
@@ -143,7 +161,7 @@ try {
     # The fixtures start from the local form of the symbols: a release feed also carries its SourceLink.
     $readSymbols = {
         $read = Read-Json (Join-Path $symbolsJson "$coreId.$Version.snupkg.json")
-        $read.pdbs[0].sourceLink = $null
+        foreach ($pdb in $read.pdbs) { $pdb.sourceLink = $null }
         $read
     }
     $needles = @($SourceRoot, $SourceRoot.Replace('\', '/'))
@@ -189,6 +207,21 @@ try {
     $results += Assert-Rejected 'PackageConsumerCannotUseProjectReference' @(
         (Test-PackageOnlyConsumer -ConsumerRoot $consumer) + (Test-ConsumerRestore -AssetsFile $assets -Version $Version)) 'ProjectReference'
     $results += Assert-Rejected 'PackageConsumerCannotRestoreProject' (Test-ConsumerRestore -AssetsFile $assets -Version $Version) "resolved as 'project'"
+
+    # A consumer published for another framework proves nothing about the framework under test.
+    $published = Join-Path $WorkPath 'published-framework'
+    if (Test-Path -LiteralPath $published) { Remove-Item -LiteralPath $published -Recurse -Force }
+    New-Item -ItemType Directory -Path $published | Out-Null
+    $corePackage = Join-Path $FeedPath "$coreId.$Version.nupkg"
+    $zip = [System.IO.Compression.ZipFile]::OpenRead($corePackage)
+    try { [System.IO.File]::WriteAllBytes((Join-Path $published 'BlazorECharts.dll'), (Read-ZipEntryBytes $zip.GetEntry('lib/net11.0/BlazorECharts.dll'))) } finally { $zip.Dispose() }
+    Set-Content -LiteralPath (Join-Path $published 'App.runtimeconfig.json') -Encoding UTF8 -Value '{ "runtimeOptions": { "tfm": "net11.0" } }'
+    [string[]]$sameFramework = Test-ConsumerFramework -PublishPath $published -Assembly 'App' -Framework 'net11.0' -PackagePath $corePackage
+    if ($sameFramework.Count -eq 0) { Write-Host 'PASS ConsumerOfTheFrameworkPassesTheFrameworkCheck'; $results += $true }
+    else { Write-Host "FAIL ConsumerOfTheFrameworkPassesTheFrameworkCheck: $($sameFramework -join ' | ')"; $results += $false }
+    [string[]]$otherFramework = Test-ConsumerFramework -PublishPath $published -Assembly 'App' -Framework 'net10.0' -PackagePath $corePackage
+    $results += Assert-Rejected 'ConsumerOnAnotherFrameworkFailsTheFrameworkCheck' $otherFramework 'does not name the target framework net10\.0'
+    $results += Assert-Rejected 'ConsumerWithAnotherFrameworksAssemblyFailsTheFrameworkCheck' $otherFramework 'is not lib/net10\.0/BlazorECharts\.dll of the package'
 
     $foreign = Join-Path $WorkPath 'foreign-package'
     if (Test-Path -LiteralPath $foreign) { Remove-Item -LiteralPath $foreign -Recurse -Force }

@@ -62,7 +62,9 @@ Google Chrome for both outputs and blocks every request that leaves localhost.
 
 Measured on 2026-10-27 with SDK 10.0.403, `wasm-tools` 10.0.114 and packages
 0.1.0-local (Windows x64, Ryzen 9 9900X, Google Chrome). Sizes are uncompressed;
-`_framework` Brotli is the sum of the precompressed `.br` files.
+`_framework` Brotli is the sum of the precompressed `.br` files. The consumer has since moved to
+`net11.0`, the newest framework of the packages; `aot-manifest.json` of a gate run holds the
+current numbers.
 
 | | Trimmed | AOT |
 |---|---|---|
@@ -127,7 +129,7 @@ mixed chart, with a null and an object item, covers both branches of the loop.
 
 ### Third-party
 
-These come from ASP.NET Core 10.0.14 and appear in any trimmed Blazor WebAssembly
+These come from ASP.NET Core 11.0.0 and appear in any trimmed Blazor WebAssembly
 application that renders a `Router`:
 
 | Warning | Origin | Why it is safe here |
