@@ -83,6 +83,46 @@ internal static class OptionsExamples
         return options;
     }
 
+    internal static ChartOptions Spread(IReadOnlyList<string> palette, IReadOnlyList<string> dimensions)
+    {
+        // snippet: Guides.Options.Spread
+        var options = new ChartOptions
+        {
+            // A spread converts every element to the item type, here string to ZRColor.
+            Color = [.. palette],
+            Polar = new PolarOption { Center = ["50%", "54%"], Radius = ["14%", "80%"] },
+            RadiusAxis = new RadiusAxisValueOption { AxisLabel = new() { Padding = [1, 3] } },
+            ParallelAxis = [.. dimensions.Select((name, index) => new ParallelAxisDefaultValueOption { Dim = index, Name = name })],
+        };
+        // endsnippet
+        return options;
+    }
+
+    internal static ChartOptions Conditional(bool legend, bool dense)
+    {
+        // snippet: Guides.Options.Conditional
+        var options = new ChartOptions
+        {
+            Legend = legend ? new ScrollableLegendOption { Top = 0 } : null,
+            Series = new BarSeriesOption { ItemStyle = new() { BorderColor = dense ? null : "#fff" } },
+        };
+        // endsnippet
+        return options;
+    }
+
+    internal static LineDataItemOption DataFields()
+    {
+        // snippet: Guides.Options.DataFields
+        var point = new LineDataItemOption
+        {
+            Value = 120,
+            // A callback reads it as params.data.note.
+            AdditionalProperties = { ["note"] = EChartsValue.From("Black Friday") },
+        };
+        // endsnippet
+        return point;
+    }
+
     internal static string? Read(BarSeriesOption bar)
     {
         // snippet: Guides.Options.Read

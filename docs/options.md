@@ -115,6 +115,34 @@ var options = new ChartOptions
 };
 ```
 
+A spread converts every element to the item type, so a sequence of strings fills the palette and
+a sequence of axes fills `parallelAxis` without a cast:
+
+<!-- snippet: Guides.Options.Spread -->
+```csharp
+var options = new ChartOptions
+{
+    // A spread converts every element to the item type, here string to ZRColor.
+    Color = [.. palette],
+    Polar = new PolarOption { Center = ["50%", "54%"], Radius = ["14%", "80%"] },
+    RadiusAxis = new RadiusAxisValueOption { AxisLabel = new() { Padding = [1, 3] } },
+    ParallelAxis = [.. dimensions.Select((name, index) => new ParallelAxisDefaultValueOption { Dim = index, Name = name })],
+};
+```
+
+A conditional expression with a null branch assigns such a property directly. The null branch is
+an assigned `null` and is written as `null`; to leave the property out, assign it under an `if`
+after the initializer.
+
+<!-- snippet: Guides.Options.Conditional -->
+```csharp
+var options = new ChartOptions
+{
+    Legend = legend ? new ScrollableLegendOption { Top = 0 } : null,
+    Series = new BarSeriesOption { ItemStyle = new() { BorderColor = dense ? null : "#fff" } },
+};
+```
+
 Literal unions validate their value: `AnimationEasing` accepts only the easing names of ECharts,
 and an unknown name throws `ArgumentException`. The message names the union, the rejected value,
 the accepted literals and the other alternatives. A numeric alternative takes a number, not its
@@ -196,11 +224,26 @@ line.AdditionalProperties["futureOption"] = EChartsValue.From(true);
 An additional field with the same name as an assigned typed property is an error
 (`OptionSerializationException`). Names are case-sensitive.
 
+ECharts keeps the fields of a data item that it does not know. A [callback](functions.md) reads
+such a field from `params.data`, and a mouse [event](events.md#payloads) carries it in `Data`:
+
+<!-- snippet: Guides.Options.DataFields -->
+```csharp
+var point = new LineDataItemOption
+{
+    Value = 120,
+    // A callback reads it as params.data.note.
+    AdditionalProperties = { ["note"] = EChartsValue.From("Black Friday") },
+};
+```
+
 Some members exist only in the ECharts TypeScript declarations and are not described in the
 ECharts documentation. Their XML documentation says "Not described by echarts-doc"; their
 contract is the pinned TypeScript declaration. They are versioned like other members, but
 ECharts may change them in a minor release, which makes the library upgrade a major version;
-prefer documented members where one exists.
+prefer documented members where one exists. A few members, such as the `Tooltip` of a bar data
+item, are in neither source: ECharts reads them at runtime, a browser test of the library covers
+them, and their XML documentation says so.
 
 ## Datasets and open values
 

@@ -10,7 +10,7 @@ public static class PolarExample
         Title = new TitleOption { Text = "Messages around the week", Left = "center" },
         Tooltip = new TooltipOption { Trigger = "item" },
         Legend = new LegendOption { Bottom = 0 },
-        Polar = new PolarOption { Center = ["50%", "52%"], Radius = new NumberOrString?[] { "10%", "72%" } },
+        Polar = new PolarOption { Center = ["50%", "52%"], Radius = ["10%", "72%"] },
         AngleAxis = new AngleAxisCategoryOption { Data = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], StartAngle = 90 },
         RadiusAxis = new RadiusAxisValueOption { Name = "Messages" },
         Series =

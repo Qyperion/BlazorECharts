@@ -51,8 +51,8 @@ public static class DatasetExample
             {
                 Name = "Busiest months",
                 DatasetIndex = 1,
-                Center = new NumberOrString?[] { "79%", "52%" },
-                Radius = new NumberOrString?[] { "18%", "40%" },
+                Center = ["79%", "52%"],
+                Radius = ["18%", "40%"],
                 Encode = Encode(("itemName", "month"), ("value", "sent")),
             },
         ],

@@ -36,7 +36,7 @@
                 Option = new ChartOptions
                 {
                     Legend = new LegendOption { Orient = "vertical", Left = "auto", Right = 20, Top = "middle", Bottom = "auto" },
-                    Series = new PieSeriesOption { Center = new NumberOrString?[] { "40%", "55%" }, Radius = new NumberOrString?[] { "35%", "65%" } },
+                    Series = new PieSeriesOption { Center = ["40%", "55%"], Radius = ["35%", "65%"] },
                 },
             },
             new MediaOption
@@ -45,7 +45,7 @@
                 Option = new ChartOptions
                 {
                     Legend = new LegendOption { Orient = "horizontal", Left = "center", Right = "auto", Top = "auto", Bottom = 0 },
-                    Series = new PieSeriesOption { Center = new NumberOrString?[] { "50%", "48%" }, Radius = new NumberOrString?[] { "25%", "50%" } },
+                    Series = new PieSeriesOption { Center = ["50%", "48%"], Radius = ["25%", "50%"] },
                 },
             },
         ],

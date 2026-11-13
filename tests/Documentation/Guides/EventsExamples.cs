@@ -68,6 +68,19 @@ internal static class EventsExamples
         // endsnippet
     }
 
+    internal static async Task DataItem(EChartInstance chart)
+    {
+        // snippet: Guides.Events.DataItem
+        await using var click = await chart.SubscribeAsync(ChartEvents.Click, e =>
+        {
+            if (e.Data is { Json: { ValueKind: JsonValueKind.Object } item } && item.TryGetProperty("id", out var id))
+                Console.WriteLine($"Clicked {id}");
+
+            return Task.CompletedTask;
+        });
+        // endsnippet
+    }
+
     internal static async Task Retain(EChartsRuntime runtime, EChartInstance chart, List<EChartsObjectReference> kept)
     {
         // snippet: Guides.Events.Retain

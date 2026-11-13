@@ -44,7 +44,7 @@
         return new ChartOptions
         {
             Title = new TitleOption { Text = mirrored ? "Who writes more: up versus down" : "Monthly messages, stacked", Left = "center" },
-            Color = [.. people.Select(person => (ZRColor?)person.Color)],
+            Color = [.. people.Select(person => person.Color)],
             Tooltip = new TooltipOption
             {
                 Trigger = "axis",

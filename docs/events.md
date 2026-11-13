@@ -178,6 +178,23 @@ await using var selected = await chart.SubscribeAsync(custom, json => Task.Compl
 `ChartEvent<T>` with your own reader subscribes to any event name, for example events of an
 extension. ECharts emits lowercase event names.
 
+To identify the item of a mouse event, read `Data`: for an item written as an object it holds
+that object, with its `id` and the
+[fields you added](options.md#unset-null-and-unknown-fields). `DataIndex` of a tree, treemap or
+sunburst series is the position of the node in the whole tree, where treemap and sunburst count
+their root first; it is not an index into `Data`.
+
+<!-- snippet: Guides.Events.DataItem -->
+```csharp
+await using var click = await chart.SubscribeAsync(ChartEvents.Click, e =>
+{
+    if (e.Data is { Json: { ValueKind: JsonValueKind.Object } item } && item.TryGetProperty("id", out var id))
+        Console.WriteLine($"Clicked {id}");
+
+    return Task.CompletedTask;
+});
+```
+
 ### Browser objects in payloads
 
 Some events carry browser objects, such as tree nodes or DOM events. They are not JSON: the payload
