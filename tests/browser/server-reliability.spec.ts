@@ -211,6 +211,26 @@ test('ContainerRemovedDuringAnOutage_DisposesTheComponentAfterReconnect', async 
   expect(await rejections(page)).toEqual([]);
 });
 
+// ILogger output stays on the server: without OnError the browser console must name the failure too.
+test('FailedChartWithoutOnError_IsNamedInTheBrowserConsole', async ({ page }) => {
+  // Arrange
+  const reports: string[] = [];
+  page.on('console', message => {
+    if (message.type() === 'error' && message.text().startsWith('[BlazorECharts]'))
+      reports.push(message.text());
+  });
+  await open(page);
+
+  // Act
+  await page.getByRole('button', { name: 'Mount broken', exact: true }).click();
+
+  // Assert
+  await expect(page.locator('.broken-chart')).toHaveAttribute('data-chart-state', 'Failed');
+  await expect.poll(() => reports).toHaveLength(1);
+  expect(reports[0]).toMatch(/^\[BlazorECharts\] ChartInitializationFailed during initialize.*missing-callbacks\.js.*Handle EChart\.OnError/s);
+  await expect(page.getByTestId('error-count')).toHaveText('0');
+});
+
 test('PausedAndResumedCircuit_KeepsOneLiveChart', async ({ page }) => {
   // Act
   await open(page);

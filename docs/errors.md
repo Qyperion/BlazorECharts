@@ -49,6 +49,13 @@ reports on its own, such as `ChartResizeFailed`, log at `Warning`. The component
 code on at most once in 10 seconds, at most five reports in that time, and shortens their messages
 to 1,024 characters.
 
+With Interactive Server that log stays on the server, so a component without `OnError` also writes
+the failure to the browser console, prefixed with `[BlazorECharts]`: `console.error` for an error
+and `console.warn` for a warning. A failure that the browser raised, such as a callback module
+that does not load, is written with its message; for a .NET exception the line names only the code
+and the operation, and the server log has the details. WebAssembly logs to the browser console
+already.
+
 An exception of an [event handler](events.md) is logged by `ILogger<EChartInstance>` at `Error`
 when the runtime comes from `AddECharts`: at most once per subscription in 10 seconds and five
 times per chart in that time. The browser delivery still fails, which raises `EventHandlerFailed`

@@ -15,6 +15,10 @@ file at the release tag.
   and `ChordEdgeItemOption` have a `Tooltip`: the tooltip of one data item or one chord edge, which
   replaces the tooltip of the series for it. ECharts reads it for every series, although its
   documentation lists it only for some.
+- With Interactive Server, an `EChart` without `OnError` also writes a failure to the browser
+  console, as `[BlazorECharts] <code> during <operation> ...`: until now only `ILogger<EChart>` on the
+  server recorded it, and the page showed an empty chart with a clean console. The message of a
+  .NET exception is not sent to the browser.
 
 ## 2.0.0
 

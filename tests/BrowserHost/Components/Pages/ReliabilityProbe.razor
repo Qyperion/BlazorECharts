@@ -8,6 +8,8 @@
 @using BlazorECharts.Events
 @using BlazorECharts.Options
 @using BlazorECharts.Runtime
+@using BlazorECharts.Values
+@using BlazorECharts.Values.Signatures
 @using Microsoft.JSInterop
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
@@ -28,10 +30,16 @@
 <button @onclick="ProbeAsync">Probe</button>
 <button @onclick="MountLimitedAsync">Mount limited</button>
 <button @onclick="ReadLimitedAsync">Read limited</button>
+<button @onclick="() => _broken = true">Mount broken</button>
 <div class="chart-container" style="width:600px;height:300px">
     <EChart @ref="_chart" Class="echart" Style="width:100%;height:100%" Options="_options" OnReady="() => _ready++" OnError="Error" />
 </div>
 <div class="limited-chart" @ref="_limitedElement" style="width:600px;height:300px"></div>
+@if (_broken)
+{
+    @* No OnError: the label formatter names a module that does not exist. *@
+    <EChart Class="broken-chart" Height="200px" Options="Broken" />
+}
 
 @code {
     // Test-only: shortens this circuit's CircuitOptions.JSInteropDefaultCallTimeout, so a lost reply ends within the test.
@@ -44,6 +52,16 @@
     private ChartOptions _options = Titled("initial");
     private readonly List<EChartsError> _errors = [];
     private int _ready;
+    private bool _broken;
+
+    private static readonly ChartOptions Broken = new()
+    {
+        Series = new PieSeriesOption
+        {
+            Data = [1],
+            Label = new() { Formatter = JsFunction.Module<SeriesLabelFormatterAlternativeSignature>("modules/missing-callbacks.js", "label") },
+        },
+    };
     private int _pings;
     private int _highlights;
     private int _brushes;

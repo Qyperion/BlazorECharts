@@ -83,6 +83,26 @@ public sealed partial class EChartsRuntime
         }
     }
 
+    // Interactive Server keeps ILogger output on the server, and a page whose chart stays empty shows nothing in its console.
+    // The text of a failure that the browser raised goes back to it; the message of a .NET exception may hold server details.
+    internal async ValueTask WriteBrowserConsoleAsync(EChartsError error, LogLevel level)
+    {
+        if (!Server)
+            return;
+
+        var chart = error.ChartId is null ? "" : $" (chart {error.ChartId})";
+        var detail = error.Exception is null or JSException ? " " + error.Message : " the server log has the details.";
+        try
+        {
+            await _js.InvokeVoidAsync(
+                level >= LogLevel.Error ? "console.error" : "console.warn",
+                $"[BlazorECharts] {error.Code} during {error.Operation}{chart}:{detail} Handle EChart.OnError to report it in the application.").ConfigureAwait(false);
+        }
+        catch (Exception exception) when (exception is JSException or JSDisconnectedException or InvalidOperationException or OperationCanceledException)
+        {
+        }
+    }
+
     private static TimeoutException ReplyTimeout(string operation, Exception cause) =>
         new(
             $"[ResultTimeout] {operation} received no reply within the JS interop call timeout (Interactive Server: CircuitOptions.JSInteropDefaultCallTimeout, "

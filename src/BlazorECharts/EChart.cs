@@ -360,6 +360,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
                 error.Operation,
                 error.ChartId,
                 error.Message);
+            await Runtime.WriteBrowserConsoleAsync(error, level);
             return;
         }
 
