@@ -1227,12 +1227,12 @@ public sealed class BlazorECharts.Options.AxisTickOption : OptionObject
   ctor()
   double? Length { get; set; }
 public sealed class BlazorECharts.Options.AxisTooltipOption : OptionObject
-  AxisTooltipOptionTextStyle? TextStyle { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
   TooltipAxisPointerOption? AxisPointer { get; set; }
   TooltipFormatter? Formatter { get; set; }
   TooltipPosition? Position { get; set; }
+  TooltipTextStyleOption? TextStyle { get; set; }
   TooltipTrigger? Trigger { get; set; }
   bool? Show { get; set; }
   ctor()
@@ -1240,28 +1240,6 @@ public sealed class BlazorECharts.Options.AxisTooltipOption : OptionObject
   string? BackgroundColor { get; set; }
   string? BorderColor { get; set; }
   string? ExtraCssText { get; set; }
-public sealed class BlazorECharts.Options.AxisTooltipOptionTextStyle : OptionObject
-  NumberOrString? FontSize { get; set; }
-  NumberOrString? Width { get; set; }
-  TextAlign? Align { get; set; }
-  TextOverflow? Overflow { get; set; }
-  ZRFontStyle? FontStyle { get; set; }
-  ZRFontWeight? FontWeight { get; set; }
-  ZRLineType? TextBorderType { get; set; }
-  ctor()
-  double? Height { get; set; }
-  double? LineHeight { get; set; }
-  double? TextBorderDashOffset { get; set; }
-  double? TextBorderWidth { get; set; }
-  double? TextShadowBlur { get; set; }
-  double? TextShadowOffsetX { get; set; }
-  double? TextShadowOffsetY { get; set; }
-  string? Color { get; set; }
-  string? Decoration { get; set; }
-  string? Ellipsis { get; set; }
-  string? FontFamily { get; set; }
-  string? TextBorderColor { get; set; }
-  string? TextShadowColor { get; set; }
 public sealed class BlazorECharts.Options.BackgroundColorAlternative : OptionObject
   Image? Image { get; set; }
   ctor()
@@ -3209,6 +3187,28 @@ public sealed class BlazorECharts.Options.ComponentTooltipPositionAlternative : 
   NumberOrString? Right { get; set; }
   NumberOrString? Top { get; set; }
   ctor()
+public sealed class BlazorECharts.Options.ComponentTooltipTextStyleOption : OptionObject
+  NumberOrString? FontSize { get; set; }
+  NumberOrString? Width { get; set; }
+  TextAlign? Align { get; set; }
+  TextOverflow? Overflow { get; set; }
+  ZRFontStyle? FontStyle { get; set; }
+  ZRFontWeight? FontWeight { get; set; }
+  ZRLineType? TextBorderType { get; set; }
+  ctor()
+  double? Height { get; set; }
+  double? LineHeight { get; set; }
+  double? TextBorderDashOffset { get; set; }
+  double? TextBorderWidth { get; set; }
+  double? TextShadowBlur { get; set; }
+  double? TextShadowOffsetX { get; set; }
+  double? TextShadowOffsetY { get; set; }
+  string? Color { get; set; }
+  string? Decoration { get; set; }
+  string? Ellipsis { get; set; }
+  string? FontFamily { get; set; }
+  string? TextBorderColor { get; set; }
+  string? TextShadowColor { get; set; }
 public sealed class BlazorECharts.Options.ContinuousVisualMapOption : OptionObject
   CanvasLineCap? BorderCap { get; set; }
   CanvasLineJoin? BorderJoin { get; set; }
@@ -4448,8 +4448,8 @@ public sealed class BlazorECharts.Options.GeoToggleSelectAction : ChartAction
   string? Name { get; set; }
 public sealed class BlazorECharts.Options.GeoTooltipOption : OptionObject
   ComponentTooltipPosition? Position { get; set; }
+  ComponentTooltipTextStyleOption? TextStyle { get; set; }
   GeoTooltipOptionFormatter? Formatter { get; set; }
-  GeoTooltipOptionTextStyle? TextStyle { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
   TextAlign? Align { get; set; }
@@ -4473,28 +4473,6 @@ public sealed class BlazorECharts.Options.GeoTooltipOption : OptionObject
   string? BorderColor { get; set; }
   string? ExtraCssText { get; set; }
   string? ShadowColor { get; set; }
-public sealed class BlazorECharts.Options.GeoTooltipOptionTextStyle : OptionObject
-  NumberOrString? FontSize { get; set; }
-  NumberOrString? Width { get; set; }
-  TextAlign? Align { get; set; }
-  TextOverflow? Overflow { get; set; }
-  ZRFontStyle? FontStyle { get; set; }
-  ZRFontWeight? FontWeight { get; set; }
-  ZRLineType? TextBorderType { get; set; }
-  ctor()
-  double? Height { get; set; }
-  double? LineHeight { get; set; }
-  double? TextBorderDashOffset { get; set; }
-  double? TextBorderWidth { get; set; }
-  double? TextShadowBlur { get; set; }
-  double? TextShadowOffsetX { get; set; }
-  double? TextShadowOffsetY { get; set; }
-  string? Color { get; set; }
-  string? Decoration { get; set; }
-  string? Ellipsis { get; set; }
-  string? FontFamily { get; set; }
-  string? TextBorderColor { get; set; }
-  string? TextShadowColor { get; set; }
 public sealed class BlazorECharts.Options.GeoUnselectAction : ChartAction
   ChartPayloadAnimation? Animation { get; set; }
   EventActionValue? GeoId { get; set; }
@@ -6512,7 +6490,7 @@ public sealed class BlazorECharts.Options.GraphicTextOptionKeyframeAnimationItem
   double? Y { get; set; }
 public sealed class BlazorECharts.Options.GraphicTextOptionTooltip : OptionObject
   ComponentTooltipPosition? Position { get; set; }
-  GeoTooltipOptionTextStyle? TextStyle { get; set; }
+  ComponentTooltipTextStyleOption? TextStyle { get; set; }
   GraphicTooltipFormatter? Formatter { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
@@ -7183,7 +7161,7 @@ public sealed class BlazorECharts.Options.LegendToggleSelectAction : ChartAction
   string? Name { get; set; }
 public sealed class BlazorECharts.Options.LegendTooltipOption : OptionObject
   ComponentTooltipPosition? Position { get; set; }
-  GeoTooltipOptionTextStyle? TextStyle { get; set; }
+  ComponentTooltipTextStyleOption? TextStyle { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   LegendTooltipOptionFormatter? Formatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
@@ -8223,7 +8201,6 @@ public sealed class BlazorECharts.Options.MarkPointStateOption : OptionObject
   ctor()
   double? Z2 { get; set; }
 public sealed class BlazorECharts.Options.MarkTooltipOption : OptionObject
-  AxisTooltipOptionTextStyle? TextStyle { get; set; }
   GraphicTooltipFormatter? Formatter { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
@@ -8231,6 +8208,7 @@ public sealed class BlazorECharts.Options.MarkTooltipOption : OptionObject
   TextAlign? Align { get; set; }
   TextVerticalAlign? VerticalAlign { get; set; }
   TooltipPosition? Position { get; set; }
+  TooltipTextStyleOption? TextStyle { get; set; }
   TooltipTriggerOn? TriggerOn { get; set; }
   bool? AlwaysShowContent { get; set; }
   bool? Confine { get; set; }
@@ -8380,7 +8358,7 @@ public sealed class BlazorECharts.Options.MatrixOption : OptionObject
   string? Type { get; set; }
 public sealed class BlazorECharts.Options.MatrixOptionTooltip : OptionObject
   ComponentTooltipPosition? Position { get; set; }
-  GeoTooltipOptionTextStyle? TextStyle { get; set; }
+  ComponentTooltipTextStyleOption? TextStyle { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   MatrixOptionTooltipFormatter? Formatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
@@ -10544,7 +10522,6 @@ public abstract class BlazorECharts.Options.SeriesOption : OptionObject
   protected ctor(string type)
   string Type { get; }
 public sealed class BlazorECharts.Options.SeriesTooltipOption : OptionObject
-  AxisTooltipOptionTextStyle? TextStyle { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
   SeriesTooltipFormatter? Formatter { get; set; }
@@ -10552,6 +10529,7 @@ public sealed class BlazorECharts.Options.SeriesTooltipOption : OptionObject
   TextAlign? Align { get; set; }
   TextVerticalAlign? VerticalAlign { get; set; }
   TooltipPosition? Position { get; set; }
+  TooltipTextStyleOption? TextStyle { get; set; }
   TooltipTriggerOn? TriggerOn { get; set; }
   bool? AlwaysShowContent { get; set; }
   bool? Confine { get; set; }
@@ -12203,7 +12181,6 @@ public sealed class BlazorECharts.Options.TimelineProgressOption : OptionObject
   TimelineLineStyleOption? LineStyle { get; set; }
   ctor()
 public sealed class BlazorECharts.Options.TimelineTooltipOption : OptionObject
-  AxisTooltipOptionTextStyle? TextStyle { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
   SeriesTooltipFormatter? Formatter { get; set; }
@@ -12211,6 +12188,7 @@ public sealed class BlazorECharts.Options.TimelineTooltipOption : OptionObject
   TextVerticalAlign? VerticalAlign { get; set; }
   TimelineTooltipOptionTrigger? Trigger { get; set; }
   TooltipPosition? Position { get; set; }
+  TooltipTextStyleOption? TextStyle { get; set; }
   TooltipTriggerOn? TriggerOn { get; set; }
   bool? AlwaysShowContent { get; set; }
   bool? Confine { get; set; }
@@ -12435,7 +12413,7 @@ public sealed class BlazorECharts.Options.ToolboxComponentOptionFeatureEntryAlte
   ctor()
 public sealed class BlazorECharts.Options.ToolboxComponentOptionTooltip : OptionObject
   ComponentTooltipPosition? Position { get; set; }
-  GeoTooltipOptionTextStyle? TextStyle { get; set; }
+  ComponentTooltipTextStyleOption? TextStyle { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
   OneOrMany<double?>? Padding { get; set; }
   TextAlign? Align { get; set; }
@@ -12672,7 +12650,6 @@ public sealed class BlazorECharts.Options.TooltipHidePayload : OptionObject
   ctor()
   string? From { get; set; }
 public sealed class BlazorECharts.Options.TooltipOption : OptionObject
-  AxisTooltipOptionTextStyle? TextStyle { get; set; }
   CoordinateSystemDataCoord? Coord { get; set; }
   CoordinateSystemUsageOption? CoordinateSystemUsage { get; set; }
   JsFunction<TooltipValueFormatterSignature>? ValueFormatter { get; set; }
@@ -12687,6 +12664,7 @@ public sealed class BlazorECharts.Options.TooltipOption : OptionObject
   TooltipOptionRenderMode? RenderMode { get; set; }
   TooltipOrderMode? Order { get; set; }
   TooltipPosition? Position { get; set; }
+  TooltipTextStyleOption? TextStyle { get; set; }
   TooltipTrigger? Trigger { get; set; }
   TooltipTriggerOn? TriggerOn { get; set; }
   [Obsolete("Deprecated in ECharts 6.1.0: use appendTo: 'body' instead.")] bool? AppendToBody { get; set; }
@@ -12762,6 +12740,28 @@ public sealed class BlazorECharts.Options.TooltipShowPayloadTooltipOption : Opti
   string? BorderColor { get; set; }
   string? ExtraCssText { get; set; }
   string? ShadowColor { get; set; }
+public sealed class BlazorECharts.Options.TooltipTextStyleOption : OptionObject
+  NumberOrString? FontSize { get; set; }
+  NumberOrString? Width { get; set; }
+  TextAlign? Align { get; set; }
+  TextOverflow? Overflow { get; set; }
+  ZRFontStyle? FontStyle { get; set; }
+  ZRFontWeight? FontWeight { get; set; }
+  ZRLineType? TextBorderType { get; set; }
+  ctor()
+  double? Height { get; set; }
+  double? LineHeight { get; set; }
+  double? TextBorderDashOffset { get; set; }
+  double? TextBorderWidth { get; set; }
+  double? TextShadowBlur { get; set; }
+  double? TextShadowOffsetX { get; set; }
+  double? TextShadowOffsetY { get; set; }
+  string? Color { get; set; }
+  string? Decoration { get; set; }
+  string? Ellipsis { get; set; }
+  string? FontFamily { get; set; }
+  string? TextBorderColor { get; set; }
+  string? TextShadowColor { get; set; }
 public sealed class BlazorECharts.Options.TreeExpandAndCollapseAction : ChartAction
   AnimationOption? Animation { get; set; }
   ChartTreeToggleBatchItem[]? Batch { get; set; }

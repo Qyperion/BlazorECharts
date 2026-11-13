@@ -9,9 +9,9 @@ using BlazorECharts.Values.Signatures;
 
 namespace BlazorECharts.Options;
 
-/// <summary>An ECharts option object, for example <c>tooltip.textStyle</c>.</summary>
-/// <seealso href="https://echarts.apache.org/en/option.html#tooltip.textStyle"/>
-public sealed partial class AxisTooltipOptionTextStyle : OptionObject
+/// <summary>An ECharts option object, for example <c>geo.tooltip.textStyle</c>.</summary>
+/// <seealso href="https://echarts.apache.org/en/option.html#geo.tooltip.textStyle"/>
+public sealed partial class ComponentTooltipTextStyleOption : OptionObject
 {
     private TextAlign? _p0;
     /// <summary>Gets or sets <c>align</c>.</summary>

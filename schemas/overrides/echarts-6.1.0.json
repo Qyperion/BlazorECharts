@@ -30786,6 +30786,16 @@
     ],
     "names": [
       {
+        "typeId": "type:8ecdb1dcc14f0928365323c2",
+        "name": "TooltipTextStyleOption",
+        "reason": "The text style of tooltip, of a series, axis, mark and timeline tooltip alike; named by what it is rather than after its first owner AxisTooltipOption."
+      },
+      {
+        "typeId": "type:1ec6134e9e22903e1fb1898f",
+        "name": "ComponentTooltipTextStyleOption",
+        "reason": "The text style of the item tooltip of a component: geo, legend, matrix, a toolbox feature and a graphic element share it; named by what it is rather than after its first owner GeoTooltipOption."
+      },
+      {
         "typeId": "type:c4163f05f66f58aac05c1163",
         "name": "ChartLocaleOption",
         "reason": "registerLocale and ChartInitOptions.Locale share one locale model; the upstream LocaleOption has no context of its own."

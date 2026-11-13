@@ -90,9 +90,9 @@ public sealed partial class GeoTooltipOption : OptionObject
     /// <summary>Gets or sets <c>showDelay</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>
     public double? ShowDelay { get => _p19; set => SetProperty(ref _p19, value, "showDelay"); }
-    private GeoTooltipOptionTextStyle? _p20;
+    private ComponentTooltipTextStyleOption? _p20;
     /// <summary>Gets or sets <c>textStyle</c>.</summary>
-    public GeoTooltipOptionTextStyle? TextStyle { get => _p20; set => SetProperty(ref _p20, value, "textStyle"); }
+    public ComponentTooltipTextStyleOption? TextStyle { get => _p20; set => SetProperty(ref _p20, value, "textStyle"); }
     private double? _p21;
     /// <summary>Gets or sets <c>transitionDuration</c>.</summary>
     /// <remarks>Not described by echarts-doc; the contract follows the pinned TypeScript declarations of the upstream release.</remarks>

@@ -49,7 +49,6 @@ internal static partial class GeneratedOptionMetadata
         context.Register(new OptionTypeRegistration<AxisPointerOption>(WriteAxisPointerOption, ReadAxisPointerOption));
         context.Register(new OptionTypeRegistration<AxisTickOption>(WriteAxisTickOption, ReadAxisTickOption));
         context.Register(new OptionTypeRegistration<AxisTooltipOption>(WriteAxisTooltipOption, ReadAxisTooltipOption));
-        context.Register(new OptionTypeRegistration<AxisTooltipOptionTextStyle>(WriteAxisTooltipOptionTextStyle, ReadAxisTooltipOptionTextStyle));
         context.Register(new OptionTypeRegistration<BackgroundColorAlternative>(WriteBackgroundColorAlternative, ReadBackgroundColorAlternative));
         context.Register(new OptionTypeRegistration<BarDataItemOption>(WriteBarDataItemOption, ReadBarDataItemOption));
         context.Register(new OptionTypeRegistration<BarDataItemOptionBlur>(WriteBarDataItemOptionBlur, ReadBarDataItemOptionBlur));
@@ -142,6 +141,7 @@ internal static partial class GeneratedOptionMetadata
         context.Register(new OptionTypeRegistration<CommonAxisPointerOption>(WriteCommonAxisPointerOption, ReadCommonAxisPointerOption));
         context.Register(new OptionTypeRegistration<CommonAxisPointerOptionSeriesDataIndicesItem>(WriteCommonAxisPointerOptionSeriesDataIndicesItem, ReadCommonAxisPointerOptionSeriesDataIndicesItem));
         context.Register(new OptionTypeRegistration<ComponentTooltipPositionAlternative>(WriteComponentTooltipPositionAlternative, ReadComponentTooltipPositionAlternative));
+        context.Register(new OptionTypeRegistration<ComponentTooltipTextStyleOption>(WriteComponentTooltipTextStyleOption, ReadComponentTooltipTextStyleOption));
         context.Register(new OptionTypeRegistration<ContinuousVisualMapOption>(WriteContinuousVisualMapOption, ReadContinuousVisualMapOption));
         context.Register(new OptionTypeRegistration<ContinuousVisualMapOptionEmphasis>(WriteContinuousVisualMapOptionEmphasis, ReadContinuousVisualMapOptionEmphasis));
         context.Register(new OptionTypeRegistration<ContinuousVisualMapOptionSeriesTargetsItem>(WriteContinuousVisualMapOptionSeriesTargetsItem, ReadContinuousVisualMapOptionSeriesTargetsItem));
@@ -209,7 +209,6 @@ internal static partial class GeneratedOptionMetadata
         context.Register(new OptionTypeRegistration<GeoProjection>(WriteGeoProjection, ReadGeoProjection));
         context.Register(new OptionTypeRegistration<GeoStateOption>(WriteGeoStateOption, ReadGeoStateOption));
         context.Register(new OptionTypeRegistration<GeoTooltipOption>(WriteGeoTooltipOption, ReadGeoTooltipOption));
-        context.Register(new OptionTypeRegistration<GeoTooltipOptionTextStyle>(WriteGeoTooltipOptionTextStyle, ReadGeoTooltipOptionTextStyle));
         context.Register(new OptionTypeRegistration<GradientColorStop>(WriteGradientColorStop, ReadGradientColorStop));
         context.Register(new OptionTypeRegistration<GraphCategoryItemOption>(WriteGraphCategoryItemOption, ReadGraphCategoryItemOption));
         context.Register(new OptionTypeRegistration<GraphEdgeItemOption>(WriteGraphEdgeItemOption, ReadGraphEdgeItemOption));
@@ -600,6 +599,7 @@ internal static partial class GeneratedOptionMetadata
         context.Register(new OptionTypeRegistration<TooltipPositionAlternative>(WriteTooltipPositionAlternative, ReadTooltipPositionAlternative));
         context.Register(new OptionTypeRegistration<TooltipShowPayload>(WriteTooltipShowPayload, ReadTooltipShowPayload));
         context.Register(new OptionTypeRegistration<TooltipShowPayloadTooltipOption>(WriteTooltipShowPayloadTooltipOption, ReadTooltipShowPayloadTooltipOption));
+        context.Register(new OptionTypeRegistration<TooltipTextStyleOption>(WriteTooltipTextStyleOption, ReadTooltipTextStyleOption));
         context.Register(new OptionTypeRegistration<TreemapSeriesEmphasisOption>(WriteTreemapSeriesEmphasisOption, ReadTreemapSeriesEmphasisOption));
         context.Register(new OptionTypeRegistration<TreemapSeriesItemStyleOption>(WriteTreemapSeriesItemStyleOption, ReadTreemapSeriesItemStyleOption));
         context.Register(new OptionTypeRegistration<TreemapSeriesLabelOption>(WriteTreemapSeriesLabelOption, ReadTreemapSeriesLabelOption));

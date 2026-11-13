@@ -42,9 +42,9 @@ public sealed partial class AxisTooltipOption : OptionObject
     private TooltipPosition? _p7;
     /// <summary>Gets or sets <c>position</c>.</summary>
     public TooltipPosition? Position { get => _p7; set => SetProperty(ref _p7, value, "position"); }
-    private AxisTooltipOptionTextStyle? _p8;
+    private TooltipTextStyleOption? _p8;
     /// <summary>Gets or sets <c>textStyle</c>.</summary>
-    public AxisTooltipOptionTextStyle? TextStyle { get => _p8; set => SetProperty(ref _p8, value, "textStyle"); }
+    public TooltipTextStyleOption? TextStyle { get => _p8; set => SetProperty(ref _p8, value, "textStyle"); }
     private TooltipAxisPointerOption? _p9;
     /// <summary>Gets or sets <c>axisPointer</c>.</summary>
     public TooltipAxisPointerOption? AxisPointer { get => _p9; set => SetProperty(ref _p9, value, "axisPointer"); }

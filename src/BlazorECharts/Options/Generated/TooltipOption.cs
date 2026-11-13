@@ -140,9 +140,9 @@ public sealed partial class TooltipOption : OptionObject
     /// <summary>Gets or sets <c>showDelay</c>.</summary>
     /// <remarks>ECharts default: <c>0</c>.</remarks>
     public double? ShowDelay { get => _p32; set => SetProperty(ref _p32, value, "showDelay"); }
-    private AxisTooltipOptionTextStyle? _p33;
+    private TooltipTextStyleOption? _p33;
     /// <summary>Gets or sets <c>textStyle</c>.</summary>
-    public AxisTooltipOptionTextStyle? TextStyle { get => _p33; set => SetProperty(ref _p33, value, "textStyle"); }
+    public TooltipTextStyleOption? TextStyle { get => _p33; set => SetProperty(ref _p33, value, "textStyle"); }
     private double? _p34;
     /// <summary>Gets or sets <c>transitionDuration</c>.</summary>
     /// <remarks>ECharts default: <c>0.4</c>.</remarks>

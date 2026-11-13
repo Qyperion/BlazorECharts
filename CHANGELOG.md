@@ -12,6 +12,12 @@ file at the release tag.
   axis of `ChartOptions.ParallelAxis` and the template `ParallelCoordinateSystemOption.ParallelAxisDefault`,
   and the old name read as the template only. Rename the type in your code; members and JSON are
   unchanged.
+- Breaking change: the text style of a tooltip is `TooltipTextStyleOption` (was
+  `AxisTooltipOptionTextStyle`) for `tooltip` and the tooltip of a series, axis, mark and timeline,
+  and `ComponentTooltipTextStyleOption` (was `GeoTooltipOptionTextStyle`) for the item tooltip of
+  geo, legend, matrix, a toolbox feature and a graphic element. The old names came from the first
+  component that used the type. `TextStyle = new() { ... }` compiles as before; code that names the
+  type renames it.
 - The implicit conversions of union values, of `OneOrMany<T>` and of component variants accept
   `null` for a reference type, so a conditional expression with a null branch, such as
   `Legend = show ? new ScrollableLegendOption() : null` or `BorderColor = dense ? null : "#fff"`,
