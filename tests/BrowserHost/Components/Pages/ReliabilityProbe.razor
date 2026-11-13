@@ -38,7 +38,9 @@
 @if (_broken)
 {
     @* No OnError: the label formatter names a module that does not exist. *@
-    <EChart Class="broken-chart" Height="200px" Options="Broken" />
+    <EChart Class="broken-chart" Height="200px" Options="Broken">
+        <FailedContent Context="failure"><p class="broken-note">Not drawn: @failure.Code</p></FailedContent>
+    </EChart>
 }
 
 @code {

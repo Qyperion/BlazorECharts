@@ -34,6 +34,8 @@ public sealed partial class EChartsRuntime
     // Interactive Server: results and events cross the circuit's SignalR connection. WebAssembly and Hybrid hosts run in-process.
     internal bool Server { get; init; }
 
+    internal ChartOptions? DefaultOptions => _options.DefaultOptions;
+
     // Set by AddECharts; a facade constructed directly logs nothing.
     internal ILoggerFactory? Loggers { get; init; }
 

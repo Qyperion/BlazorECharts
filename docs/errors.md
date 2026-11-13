@@ -56,6 +56,19 @@ that does not load, is written with its message; for a .NET exception the line n
 and the operation, and the server log has the details. WebAssembly logs to the browser console
 already.
 
+`FailedContent` is shown inside the container while the chart is `Failed`, in place of the chart
+that could not be drawn, and receives the `EChartsError`. A retry with `InitializeAsync` removes
+it.
+
+<!-- snippet: Guides.Errors.FailedContent -->
+```razor
+<EChart Options="_options" Height="300px">
+    <FailedContent Context="failure">
+        <p role="alert">This chart could not be drawn (@failure.Code).</p>
+    </FailedContent>
+</EChart>
+```
+
 An exception of an [event handler](events.md) is logged by `ILogger<EChartInstance>` at `Error`
 when the runtime comes from `AddECharts`: at most once per subscription in 10 seconds and five
 times per chart in that time. The browser delivery still fails, which raises `EventHandlerFailed`

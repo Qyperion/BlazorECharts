@@ -41,6 +41,20 @@ public sealed class JsBinding
         OwnerId = reference.OwnerId;
     }
 
+    // The same descriptor at another place of a merged payload; an object reference keeps its registry token.
+    internal JsBinding(JsBinding source, JsBindingPath path, string functionToken)
+    {
+        Path = path;
+        Kind = source.Kind;
+        Token = source.Kind == JsBindingKind.Object ? source.Token : functionToken;
+        Signature = source.Signature;
+        ModuleUrl = source.ModuleUrl;
+        ExportName = source.ExportName;
+        Source = source.Source;
+        RuntimeId = source.RuntimeId;
+        OwnerId = source.OwnerId;
+    }
+
     /// <summary>Gets the exact structured JSON path.</summary>
     [JsonPropertyName("path")] public JsBindingPath Path { get; }
 

@@ -13,6 +13,7 @@
 <button @onclick="Mutate">Mutate only</button>
 <button @onclick="Apply">Apply mutation</button>
 <button @onclick="NewReference">New reference</button>
+<button @onclick="TimelineWithDefaults">Timeline with defaults</button>
 <button @onclick="Add">Add series</button>
 <button @onclick="DefaultRemove">Default remove</button>
 <button @onclick="ReplaceRemove">Replace remove</button>
@@ -25,13 +26,14 @@
 <button @onclick="() => _hidden = true">Hide</button>
 <button @onclick="() => _hidden = false">Show</button>
 <div class="update-host" style="@(_hidden ? "display:none" : null)">
-<EChart @ref="_chart" Class="update-chart" Style="width:600px;height:300px" Options="_options" InitOptions="_init"
+<EChart @ref="_chart" Class="update-chart" Style="width:600px;height:300px" Options="_options" DefaultOptions="_defaults" InitOptions="_init"
     Theme="@_theme" OnReady="Ready" OnError="Error" />
 </div>
 
 @code {
     private EChart? _chart;
     private ChartOptions _options = Create("[4,8,3]");
+    private ChartOptions? _defaults;
     private ChartInitOptions _init = new();
     private string? _theme;
     private string _status = "initial";
@@ -86,6 +88,27 @@
     {
         await _chart!.UpdateAsync();
         _status = "applied";
+    }
+
+    // ECharts reads components only from baseOption once the options have one: the defaults must land there.
+    private void TimelineWithDefaults()
+    {
+        _defaults = new ChartOptions { Toolbox = new ToolboxComponentOption { Show = true }, Title = new TitleOption { Left = "center" } };
+        _options = new ChartOptions
+        {
+            BaseOption = new ChartOptions
+            {
+                Timeline = new SliderTimelineOption { Data = ["2025", "2026"] },
+                Title = new TitleOption { Text = "Timeline" },
+                Series = new BarSeriesOption { Id = "a" },
+            },
+            Options =
+            [
+                new ChartOptions { Series = new BarSeriesOption { Id = "a", Data = [1, 2, 3] } },
+                new ChartOptions { Series = new BarSeriesOption { Id = "a", Data = [3, 2, 1] } },
+            ],
+        };
+        _status = "timeline with defaults";
     }
 
     private void NewReference()

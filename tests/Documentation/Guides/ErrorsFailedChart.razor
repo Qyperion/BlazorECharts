@@ -1,0 +1,11 @@
+@* snippet: Guides.Errors.FailedContent *@
+<EChart Options="_options" Height="300px">
+    <FailedContent Context="failure">
+        <p role="alert">This chart could not be drawn (@failure.Code).</p>
+    </FailedContent>
+</EChart>
+@* endsnippet *@
+
+@code {
+    private readonly ChartOptions _options = new();
+}

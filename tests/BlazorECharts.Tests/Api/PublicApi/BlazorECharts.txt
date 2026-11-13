@@ -12,11 +12,13 @@ public sealed class BlazorECharts.EChart : ComponentBase, IAsyncDisposable
   ValueTask InitializeAsync(CancellationToken cancellationToken = default)
   ValueTask UpdateAsync(CancellationToken cancellationToken = default)
   [Parameter] ChartInitOptions InitOptions { get; set; }
+  [Parameter] ChartOptions? DefaultOptions { get; set; }
   [Parameter] ChartOptions? Options { get; set; }
   [Parameter] EventCallback<EChartInstance> OnReady { get; set; }
   [Parameter] EventCallback<EChartsError> OnError { get; set; }
   [Parameter] IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
   [Parameter] JsonElement? RawOptions { get; set; }
+  [Parameter] RenderFragment<EChartsError>? FailedContent { get; set; }
   [Parameter] SetOptionOptions UpdateOptions { get; set; }
   [Parameter] bool AutoResize { get; set; }
   [Parameter] string? Class { get; set; }
@@ -14254,6 +14256,7 @@ public sealed class BlazorECharts.Runtime.EChartsRuntime : IAsyncDisposable, IDi
   string? RuntimeId { get; }
   void Dispose()
 public sealed class BlazorECharts.Runtime.EChartsRuntimeOptions
+  ChartOptions? DefaultOptions { get; set; }
   EChartsRuntimeProvider Provider { get; set; }
   IReadOnlyList<IChartExtension> Extensions { get; set; }
   bool AllowInlineJavaScript { get; set; }

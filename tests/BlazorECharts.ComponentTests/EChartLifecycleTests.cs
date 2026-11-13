@@ -36,6 +36,93 @@ public sealed class EChartLifecycleTests : BunitContext
     }
 
     [Fact]
+    public void DefaultOptions_LieUnderTheOptions_AndApplyAgainWhenReplaced()
+    {
+        // Arrange
+        var options = new ChartOptions { Series = new BarSeriesOption(), Title = new TitleOption { Text = "Sales" } };
+        var defaults = new ChartOptions { Animation = false, Title = new TitleOption { Left = "center" } };
+
+        // Act
+        var component = Render<EChart>(p => p.Add(x => x.Options, options).Add(x => x.DefaultOptions, defaults));
+        component.WaitForAssertion(() => Assert.Equal(ChartState.Ready, component.Instance.State));
+
+        // Assert
+        Assert.Equal(
+            """{"series":{"type":"bar"},"title":{"text":"Sales","left":"center"},"animation":false}""",
+            _browser.LastOption.GetProperty("json").GetRawText());
+
+        // Act
+        component.Render(p => p.Add(x => x.DefaultOptions, new ChartOptions { Animation = true }));
+
+        // Assert
+        component.WaitForAssertion(() => Assert.Equal(
+            """{"series":{"type":"bar"},"title":{"text":"Sales"},"animation":true}""",
+            _browser.LastOption.GetProperty("json").GetRawText()));
+    }
+
+    [Fact]
+    public async Task RuntimeDefaultOptions_ApplyToAChartWithoutItsOwn_AlsoOnUpdateAsync()
+    {
+        // Arrange
+        Services.AddECharts(runtime => runtime.DefaultOptions = new ChartOptions { Animation = false });
+        var options = new ChartOptions { Series = new BarSeriesOption() };
+
+        // Act
+        var component = Render<EChart>(p => p.Add(x => x.Options, options));
+        component.WaitForAssertion(() => Assert.Equal(ChartState.Ready, component.Instance.State));
+
+        // Assert
+        Assert.Equal("""{"series":{"type":"bar"},"animation":false}""", _browser.LastOption.GetProperty("json").GetRawText());
+
+        // Act
+        options.Series = new LineSeriesOption();
+        await component.InvokeAsync(() => component.Instance.UpdateAsync().AsTask());
+
+        // Assert
+        Assert.Equal("""{"series":{"type":"line"},"animation":false}""", _browser.LastOption.GetProperty("json").GetRawText());
+    }
+
+    [Fact]
+    public void EmptyDefaultOptions_OfAChart_ReplaceTheRuntimeDefaults()
+    {
+        // Arrange
+        Services.AddECharts(runtime => runtime.DefaultOptions = new ChartOptions { Animation = false });
+
+        // Act
+        var component = Render<EChart>(p => p
+            .Add(x => x.Options, new ChartOptions { Series = new BarSeriesOption() })
+            .Add(x => x.DefaultOptions, new ChartOptions()));
+        component.WaitForAssertion(() => Assert.Equal(ChartState.Ready, component.Instance.State));
+
+        // Assert
+        Assert.Equal("""{"series":{"type":"bar"}}""", _browser.LastOption.GetProperty("json").GetRawText());
+    }
+
+    [Fact]
+    public async Task FailedContent_ReplacesTheChartUntilARetrySucceeds()
+    {
+        // Arrange
+        _browser.FailImport = true;
+
+        // Act
+        var component = Render<EChart>(p => p
+            .Add(x => x.Options, new ChartOptions())
+            .Add(x => x.FailedContent, error => $"<p class=\"failed\">{error.Code}</p>"));
+        component.WaitForAssertion(() => Assert.Equal("ChartInitializationFailed", component.Find("p.failed").TextContent));
+
+        // Assert
+        Assert.Equal("Failed", component.Find("div").GetAttribute("data-chart-state"));
+
+        // Act
+        _browser.FailImport = false;
+        await component.InvokeAsync(() => component.Instance.InitializeAsync().AsTask());
+
+        // Assert
+        Assert.Equal(ChartState.Ready, component.Instance.State);
+        Assert.Empty(component.FindAll("p.failed"));
+    }
+
+    [Fact]
     public void UnmatchedAttributes_ReachTheContainer_ParametersAndStateWin()
     {
         // Arrange

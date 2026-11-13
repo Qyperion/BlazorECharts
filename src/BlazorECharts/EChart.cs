@@ -33,6 +33,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
         internal bool AwaitingContainer;
 
         internal ChartOptions? AcceptedTyped;
+        internal ChartOptions? AcceptedDefaults;
         internal JsonElement? AcceptedRaw;
         internal string? AcceptedTheme;
         internal string? AcceptedInit;
@@ -41,6 +42,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
 
     private Resources? _resources;
     private Task? _retirement;
+    private EChartsError? _failure;
     private Task? _initialization;
     private Task? _disposal;
     private Task? _allocation;
@@ -100,6 +102,18 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
     /// and overwrites attributes of those names.</remarks>
     [Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    /// <summary>Options that this chart puts under <see cref="Options"/> or <see cref="RawOptions"/>, such as a toolbox
+    /// shared by the charts of an application. Null uses <see cref="EChartsRuntimeOptions.DefaultOptions"/>; an empty
+    /// object uses none.</summary>
+    /// <remarks>Objects merge by key; every other value of the chart, also an array or <c>null</c>, replaces the
+    /// default. Options with a <c>baseOption</c>, such as a timeline, take the defaults there. A new reference applies
+    /// automatically; mutations require UpdateAsync.</remarks>
+    [Parameter] public ChartOptions? DefaultOptions { get; set; }
+
+    /// <summary>Content shown inside the container while <see cref="State"/> is <see cref="ChartState.Failed"/>, in
+    /// place of the chart that could not be drawn. It receives the failure.</summary>
+    [Parameter] public RenderFragment<EChartsError>? FailedContent { get; set; }
+
     /// <summary>Invoked once for a successfully initialized generation, after initial setOption. Does not imply stable
     /// layout.</summary>
     [Parameter] public EventCallback<EChartInstance> OnReady { get; set; }
@@ -133,6 +147,11 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
         builder.AddAttribute(3, "style", _style);
         builder.AddAttribute(4, "data-chart-state", State);
         builder.AddElementReferenceCapture(5, element => _element = element);
+
+        // The failed chart is disposed by now and a retry renders first: ECharts never shares the container with this content.
+        if (State == ChartState.Failed && FailedContent is not null && _failure is not null)
+            builder.AddContent(6, FailedContent, _failure);
+
         builder.CloseElement();
     }
 
@@ -209,6 +228,8 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
 
     private bool HasInput => Options is not null || RawOptions is not null;
 
+    private ChartOptions? Defaults => DefaultOptions ?? Runtime.DefaultOptions;
+
     /// <summary>Waits for initialization, or explicitly retries a failed generation. Cancellation stops this waiter
     /// only.</summary>
     /// <remarks>May be called from any thread, for example a retry timer: the work runs on the component's dispatcher.</remarks>
@@ -284,9 +305,8 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
             // Initial application bypasses the public readiness wait and uses the same command transport.
             owner.AcceptedTyped = Options;
             owner.AcceptedRaw = RawOptions;
-            var initial = Options is not null
-                ? instance.SetInitialOptionAsync(Options, UpdateOptions, cancellationToken)
-                : instance.SetInitialOptionAsync(RawOptions!.Value, UpdateOptions, cancellationToken);
+            owner.AcceptedDefaults = Defaults;
+            var initial = instance.SetInitialOptionAsync(Options, RawOptions, Defaults, UpdateOptions, cancellationToken);
 
             // Publish only after reserving the first queue slot. Public commands must never block the initial apply on Ready.
             owner.Published = instance;
@@ -350,6 +370,13 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
     private Task NotifyErrorAsync(EChartsError error, LogLevel level) => InvokeAsync(async () =>
     {
         error = error with { ChartId = error.ChartId ?? Instance?.Id, DetailCode = error.DetailCode ?? EChartsError.CodeOf(error.Exception) };
+        if (State == ChartState.Failed)
+        {
+            _failure = error;
+            if (FailedContent is not null)
+                StateHasChanged();
+        }
+
         if (!OnError.HasDelegate)
         {
             Logger.Log(
@@ -401,6 +428,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
 
         var typed = Options;
         var raw = RawOptions;
+        var defaults = Defaults;
         var settings = UpdateOptions;
         var theme = Theme;
         if (AutoResize != owner.AcceptedAutoResize && owner.Observation is { } observation)
@@ -433,12 +461,14 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
             }
         }
 
-        if ((typed is not null || raw is not null) && (!ReferenceEquals(typed, owner.AcceptedTyped) || !Nullable.Equals(raw, owner.AcceptedRaw)))
+        if ((typed is not null || raw is not null)
+            && (!ReferenceEquals(typed, owner.AcceptedTyped) || !Nullable.Equals(raw, owner.AcceptedRaw) || !ReferenceEquals(defaults, owner.AcceptedDefaults)))
         {
-            if (TryAcceptUpdate(owner, instance, () => instance.SetDeclarativeOptionAsync(typed, raw, settings), "setOption"))
+            if (TryAcceptUpdate(owner, instance, () => instance.SetDeclarativeOptionAsync(typed, raw, defaults, settings), "setOption"))
             {
                 owner.AcceptedTyped = typed;
                 owner.AcceptedRaw = raw;
+                owner.AcceptedDefaults = defaults;
             }
         }
     }
@@ -724,10 +754,7 @@ public sealed class EChart : ComponentBase, IAsyncDisposable
         // Capture before the first asynchronous queue wait. All mutating paths use the same instance queue.
         try
         {
-            if (Options is not null)
-                await Instance!.SetOptionAsync(Options, UpdateOptions, cancellationToken);
-            else
-                await Instance!.SetOptionAsync(RawOptions!.Value, UpdateOptions, cancellationToken);
+            await Instance!.SetInputOptionAsync(Options, RawOptions, Defaults, UpdateOptions, cancellationToken);
         }
         catch (OperationCanceledException)
         {

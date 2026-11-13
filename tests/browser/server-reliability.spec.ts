@@ -226,6 +226,7 @@ test('FailedChartWithoutOnError_IsNamedInTheBrowserConsole', async ({ page }) =>
 
   // Assert
   await expect(page.locator('.broken-chart')).toHaveAttribute('data-chart-state', 'Failed');
+  await expect(page.locator('.broken-chart .broken-note')).toHaveText('Not drawn: ChartInitializationFailed');
   await expect.poll(() => reports).toHaveLength(1);
   expect(reports[0]).toMatch(/^\[BlazorECharts\] ChartInitializationFailed during initialize.*missing-callbacks\.js.*Handle EChart\.OnError/s);
   await expect(page.getByTestId('error-count')).toHaveText('0');

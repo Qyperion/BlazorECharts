@@ -26,11 +26,31 @@ public sealed partial class EChartInstance : IAsyncDisposable
         _commands.SetGeneration(generation);
     }
 
-    internal ValueTask SetInitialOptionAsync(ChartOptions options, SetOptionOptions update, CancellationToken cancellationToken) =>
-        ApplyAsync(OptionSerializer.Serialize(options, _serialization), update, cancellationToken, initial: true);
+    // The input of an EChart component: its typed or raw options over the defaults of the component or of its runtime.
+    private PreparedOption PrepareInput(ChartOptions? typed, JsonElement? raw, ChartOptions? defaults)
+    {
+        var options = typed is not null ? OptionSerializer.Serialize(typed, _serialization) : OptionSerializer.Serialize(raw!.Value, _serialization);
+        return defaults is null ? options : OptionDefaults.Apply(options, OptionSerializer.Serialize(defaults, _serialization));
+    }
 
-    internal ValueTask SetInitialOptionAsync(JsonElement options, SetOptionOptions update, CancellationToken cancellationToken) =>
-        ApplyAsync(OptionSerializer.Serialize(options, _serialization), update, cancellationToken, initial: true);
+    internal ValueTask SetInitialOptionAsync(
+        ChartOptions? typed,
+        JsonElement? raw,
+        ChartOptions? defaults,
+        SetOptionOptions update,
+        CancellationToken cancellationToken) =>
+        ApplyAsync(PrepareInput(typed, raw, defaults), update, cancellationToken, initial: true);
+
+    internal ValueTask SetInputOptionAsync(
+        ChartOptions? typed,
+        JsonElement? raw,
+        ChartOptions? defaults,
+        SetOptionOptions update,
+        CancellationToken cancellationToken)
+    {
+        EnsureActive();
+        return ApplyAsync(PrepareInput(typed, raw, defaults), update, cancellationToken);
+    }
 
     /// <summary>Creates a handle using the lifecycle owner's command transport and serializer registrations.</summary>
     internal EChartInstance(string id, IChartCommandTransport transport, EChartsSerializationContext serialization)
@@ -99,12 +119,8 @@ public sealed partial class EChartInstance : IAsyncDisposable
         }
     }
 
-    internal ValueTask SetDeclarativeOptionAsync(ChartOptions? typed, JsonElement? raw, SetOptionOptions update) =>
-        ApplyAsync(
-            typed is not null ? OptionSerializer.Serialize(typed, _serialization) : OptionSerializer.Serialize(raw!.Value, _serialization),
-            update,
-            default,
-            declarative: true);
+    internal ValueTask SetDeclarativeOptionAsync(ChartOptions? typed, JsonElement? raw, ChartOptions? defaults, SetOptionOptions update) =>
+        ApplyAsync(PrepareInput(typed, raw, defaults), update, default, declarative: true);
 
     private ValueTask ApplyAsync(
         PreparedOption option,

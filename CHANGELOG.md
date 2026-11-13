@@ -24,6 +24,12 @@ file at the release tag.
 - The mouse events (`ClickEvent`, `DoubleClickEvent`, `MouseMoveEvent` and the others) have `DataId`:
   the `id` of the data item under the pointer, a number as its text. It identifies the item where
   `DataIndex` and `Name` do not, for example in a treemap, whose indices count the root.
+- `EChartsRuntimeOptions.DefaultOptions` and the `DefaultOptions` parameter of `EChart` put options
+  under the options of every chart or of one chart, such as a shared toolbox. Objects merge by key,
+  every other value of the chart replaces the default, and options with a `BaseOption`, such as a
+  timeline, take the defaults there. An application no longer writes shared options into the
+  `ChartOptions` of each chart.
+- `EChart.FailedContent` shows content inside the container while the chart is `Failed`.
 
 ## 2.0.0
 

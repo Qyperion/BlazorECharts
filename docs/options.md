@@ -245,6 +245,34 @@ prefer documented members where one exists. A few members, such as the `Tooltip`
 item, are in neither source: ECharts reads them at runtime, a browser test of the library covers
 them, and their XML documentation says so.
 
+## Default options
+
+`EChartsRuntimeOptions.DefaultOptions` puts options under the options of every `EChart`, for
+example one toolbox and one font for the whole application:
+
+<!-- snippet: Guides.Options.Defaults -->
+```csharp
+builder.Services.AddECharts(options => options.DefaultOptions = new ChartOptions
+{
+    Toolbox = new ToolboxComponentOption { Right = 16, Feature = new() { SaveAsImage = new() { PixelRatio = 2 } } },
+    TextStyle = new() { FontFamily = "Inter, sans-serif" },
+});
+```
+
+The `DefaultOptions` parameter of `EChart` does the same for one chart and replaces the
+application defaults there; an empty `ChartOptions` uses none.
+
+Objects merge by key, as ECharts merges an option into a component: a chart with
+`Toolbox = new ToolboxComponentOption { Right = 24 }` keeps the default features. Every other
+value of the chart replaces the default, also an array and an assigned `null`. Options with a
+`BaseOption`, such as a timeline, take the defaults in the base option, the only place where
+ECharts then reads components. A function or an object reference in the defaults stays where the
+chart has no value of its own.
+
+Defaults apply to `Options` and `RawOptions` of the component, at every application, also by
+`UpdateAsync`; calls on `EChartInstance` do not use them. A new `DefaultOptions` reference applies
+like new `Options`; do not mutate the application defaults after the first chart used them.
+
 ## Datasets and open values
 
 Values that ECharts leaves open, such as data items, use `OptionDataValue` (number, string or

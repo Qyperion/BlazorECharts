@@ -110,6 +110,17 @@ internal static class OptionsExamples
         return options;
     }
 
+    internal static void Defaults(WebApplicationBuilder builder)
+    {
+        // snippet: Guides.Options.Defaults
+        builder.Services.AddECharts(options => options.DefaultOptions = new ChartOptions
+        {
+            Toolbox = new ToolboxComponentOption { Right = 16, Feature = new() { SaveAsImage = new() { PixelRatio = 2 } } },
+            TextStyle = new() { FontFamily = "Inter, sans-serif" },
+        });
+        // endsnippet
+    }
+
     internal static LineDataItemOption DataFields()
     {
         // snippet: Guides.Options.DataFields

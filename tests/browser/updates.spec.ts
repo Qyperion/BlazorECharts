@@ -105,4 +105,23 @@ for (const mode of ['server', 'wasm']) {
     // Assert
     await expect.poll(async () => (await state(page)).option.series.length).toBe(1);
   });
+
+  test(`DefaultOptions_ReachTheBaseOptionOfATimeline_${mode}`, async ({ page }) => {
+    // Arrange
+    const errors: string[] = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.goto(`/harness/updates/${mode}`);
+    await expect(page.getByTestId('ready')).toHaveText('1');
+
+    // Act
+    await page.getByRole('button', { name: 'Timeline with defaults', exact: true }).click();
+
+    // Assert
+    await expect(page.getByTestId('status')).toHaveText('timeline with defaults');
+    await expect.poll(async () => {
+      const option = (await state(page)).option;
+      return { timeline: option.timeline?.length, toolbox: option.toolbox?.[0]?.show, title: `${option.title?.[0]?.text}|${option.title?.[0]?.left}` };
+    }).toEqual({ timeline: 1, toolbox: true, title: 'Timeline|center' });
+    expect(errors).toEqual([]);
+  });
 }

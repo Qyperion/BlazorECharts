@@ -1,3 +1,5 @@
+using BlazorECharts.Options;
+
 namespace BlazorECharts.Runtime;
 
 /// <summary>Selects where the page runtime loads ECharts from.</summary>
@@ -28,6 +30,26 @@ public sealed class EChartsRuntimeOptions
     private IReadOnlyList<IChartExtension> _extensions = [];
     private bool _allowInlineJavaScript;
     private long? _maximumServerResultSize = 32 * 1024;
+    private ChartOptions? _defaultOptions;
+
+    /// <summary>Gets or sets options that every <see cref="EChart"/> of this runtime puts under its own, such as a
+    /// toolbox or a text style; default none.</summary>
+    /// <remarks>Objects merge by key; every other value of the chart, also an array or <c>null</c>, replaces the
+    /// default. Options with a <c>baseOption</c>, such as a timeline, take the defaults there.
+    /// <see cref="EChart.DefaultOptions"/> replaces them for one chart. Calls on an <see cref="EChartInstance"/> do not
+    /// use them. Do not mutate the object after the first chart used it.</remarks>
+    public ChartOptions? DefaultOptions
+    {
+        get => _defaultOptions;
+        set
+        {
+            lock (_gate)
+            {
+                EnsureWritable();
+                _defaultOptions = value;
+            }
+        }
+    }
 
     /// <summary>Gets or sets the largest browser result, in bytes, that an Interactive Server circuit may send to .NET;
     /// default 32 KiB, the SignalR default.</summary>
