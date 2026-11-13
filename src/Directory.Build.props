@@ -45,6 +45,15 @@
     <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="" Visible="false" />
   </ItemGroup>
 
+  <!-- SDK 11 adds the artifacts path to SourceRoot, and a deterministic build (CI) maps the roots ahead of PathMap: the
+       generated sources would land in /_/, among the repository files that SourceLink serves. tools/Release maps the
+       build output to /_build/ with PathMap, so that root stays out. -->
+  <Target Name="KeepArtifactsPathOutOfSourceRoots" BeforeTargets="InitializeSourceRootMappedPaths" Condition="'$(ArtifactsPath)' != ''">
+    <ItemGroup>
+      <SourceRoot Remove="$([MSBuild]::EnsureTrailingSlash($([System.IO.Path]::GetFullPath('$(ArtifactsPath)'))))" />
+    </ItemGroup>
+  </Target>
+
   <!-- SourceLink reaches only the repository files; the generated sources of the build output travel inside the PDB. -->
   <Target Name="EmbedIntermediateSources" BeforeTargets="CoreCompile">
     <PropertyGroup>

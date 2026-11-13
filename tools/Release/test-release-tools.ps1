@@ -177,6 +177,10 @@ try {
     $symbols = & $readSymbols
     $symbols.pdbs[0].documents += '/_build/obj/BlazorECharts/release/Generated.g.cs'
     $results += Assert-Rejected 'SymbolsUnembeddedGeneratedSourceFailsInspection' (Test-Symbols -Symbols $symbols -Kind Core -Needles $needles) '^Generated document /_build/obj/BlazorECharts/release/Generated\.g\.cs is not embedded\.'
+    # A deterministic build maps its SourceRoot items ahead of PathMap; a build output among them puts the generated sources into /_/.
+    $symbols = & $readSymbols
+    $symbols.pdbs[0].embedded[0].document = $symbols.pdbs[0].embedded[0].document -replace '^/_build/', '/_/'
+    $results += Assert-Rejected 'SymbolsGeneratedSourceAmongRepositoryFilesFailsInspection' (Test-Symbols -Symbols $symbols -Kind Core -Needles $needles) '^Embedded source /_/.* is not mapped to /_build/\.'
     $repository = 'https://github.com/Qyperion/BlazorECharts'
     $symbols = & $readSymbols
     $symbols.pdbs[0].sourceLink = Get-SourceLinkJson $repository 'fedcba9876543210fedcba9876543210fedcba98'

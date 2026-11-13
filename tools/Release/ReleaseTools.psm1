@@ -385,6 +385,8 @@ function Test-Symbols {
             if ($found) { $failures.Add("Document $document contains the private path '$found'.") }
         }
         foreach ($document in $embedded.Keys) {
+            # Only generated sources are embedded; under /_/ SourceLink would name them as repository files.
+            if (-not $document.StartsWith('/_build/')) { $failures.Add("Embedded source $document is not mapped to /_build/.") }
             $found = Find-PrivateText $embedded[$document] $Needles
             if ($found) { $failures.Add("Embedded source $document contains the private path '$found'.") }
         }

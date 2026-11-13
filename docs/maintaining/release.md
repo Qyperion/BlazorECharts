@@ -326,12 +326,15 @@ Published metadata cannot be changed, so these rules are checked on every packag
   queries stay off, because they would read the private history of a development clone; for a
   release `package.ps1` writes the SourceLink map itself (`/_/*` to
   `https://raw.githubusercontent.com/<owner>/<repository>/<commit>/*`, `Get-SourceLinkJson`), and
-  `PathMap` maps the sources to `/_/` and the build output to `/_build/`. Generated sources of the
+  `PathMap` maps the sources to `/_/` and the build output to `/_build/`. A deterministic build
+  (`ContinuousIntegrationBuild`) maps its `SourceRoot` items ahead of `PathMap`, and SDK 11 adds
+  the artifacts path to them, which would put the build output into `/_/`; the target
+  `KeepArtifactsPathOutOfSourceRoots` removes that item. Generated sources of the
   build output are embedded in the PDB (target `EmbedIntermediateSources`). The inspection reads
   the PDB with `tools/Release/read-symbols.cs`, a .NET file-based app, because Windows PowerShell
-  has no PDB reader: every document must be mapped, every `/_build/` document embedded, no document
-  name or embedded source may contain a local path, and the SourceLink map must be the release's
-  or, for a local build, absent. Razor-generated code names the absolute path of the `.razor` file,
+  has no PDB reader: every document must be mapped, every `/_build/` document embedded and no
+  other one, no document name or embedded source may contain a local path, and the SourceLink map
+  must be the release's or, for a local build, absent. Razor-generated code names the absolute path of the `.razor` file,
   so the libraries have no `.razor` files: `EChart` renders its container in C#.
 - In GitHub Actions `ContinuousIntegrationBuild` is on.
 
