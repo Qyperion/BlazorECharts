@@ -4,7 +4,7 @@ Changes of the `Qyperion.BlazorECharts` and `Qyperion.BlazorECharts.WordCloud` p
 are released together with the same version; the release notes of each package link to this
 file at the release tag.
 
-## Unreleased
+## 3.0.0
 
 - Breaking change: the axes of `parallelAxis` are `ParallelAxisValueOption`,
   `ParallelAxisCategoryOption`, `ParallelAxisTimeOption` and `ParallelAxisLogOption`, without
