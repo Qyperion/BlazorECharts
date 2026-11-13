@@ -200,6 +200,9 @@ a breaking change: edit the lock deliberately and record it in the public API ba
 Generated union and tuple values are readable as well as writable: `Value` returns the stored
 alternative (or the `EChartsValue` JSON of a value read from a `getOption` snapshot),
 `TryGet(out T)` decodes one alternative also from JSON, and tuples expose `Item0`, `Item1`, ….
+A `csharp.tupleDocs` entry (`typeId`, `parameters`, `summary`, `reason`) names the parameters of a
+tuple's `Create` and replaces its generic summary, where the elements have a meaning such as the
+start and end of a `markArea` band; the reason cites the runtime source that gives them it.
 Model properties that no echarts-doc option path reaches stay public and carry the remark
 "Not described by echarts-doc".
 

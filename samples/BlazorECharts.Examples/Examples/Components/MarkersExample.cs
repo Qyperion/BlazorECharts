@@ -29,7 +29,7 @@ public static class MarkersExample
                 MarkArea = new MarkAreaOption
                 {
                     ItemStyle = new() { Color = "rgba(250, 200, 88, 0.2)" },
-                    Data = [MarkAreaOptionDataItemAlternative.Create(
+                    Data = [MarkArea2DDataItemOption.Create(
                         new MarkArea2DDataItemDimOption { Name = "Summer break", XAxis = "Jul" }, new MarkArea2DDataItemDimOption { XAxis = "Aug" })],
                 },
             },

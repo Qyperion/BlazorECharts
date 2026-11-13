@@ -174,6 +174,21 @@ see [dates and time zones](#dates-and-time-zones).
 
 Union structs do not define value equality; compare the alternative that `TryGet` returns.
 Fixed-length tuples, such as gauge color stops, expose their elements as `Item0`, `Item1`, ...
+`Create` builds one; where the elements have a meaning, its parameters are named after it. A band
+of `markArea` and a two-point line of `markLine` are such pairs of a start and an end:
+
+<!-- snippet: Guides.Options.Tuple -->
+```csharp
+var bands = new MarkAreaOption
+{
+    Data =
+    [
+        MarkArea2DDataItemOption.Create(
+            start: new MarkArea2DDataItemDimOption { Name = "Summer break", XAxis = "Jul" },
+            end: new MarkArea2DDataItemDimOption { XAxis = "Aug" }),
+    ],
+};
+```
 
 ## Collections
 

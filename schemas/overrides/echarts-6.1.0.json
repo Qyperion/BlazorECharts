@@ -30784,7 +30784,37 @@
         "family": "dto:payload"
       }
     ],
+    "tupleDocs": [
+      {
+        "typeId": "type:169213d4f71dfeadbd4349a7",
+        "parameters": [
+          "start",
+          "end"
+        ],
+        "summary": "A band of `markArea`: its two opposite corners, as `[start, end]`. Name, label and style of the band may be set on either corner; the first wins where both set one.",
+        "reason": "ECharts 6.1.0 lib/component/marker/MarkAreaView.js:63-87 (markAreaTransform) reads a 2D item as two corners and builds the item with mergeAll([{}, lt, rb]), which does not overwrite: the first corner wins."
+      },
+      {
+        "typeId": "type:9d290a2973cfb6682d0322c7",
+        "parameters": [
+          "start",
+          "end"
+        ],
+        "summary": "A line of `markLine` between two points, as `[start, end]`. Name, label and style of the line may be set on either point; the first wins where both set one.",
+        "reason": "ECharts 6.1.0 lib/component/marker/MarkLineView.js:117-118 (markLineTransform) merges both points of a 2D item into the item without overwriting: the first point wins."
+      }
+    ],
     "names": [
+      {
+        "typeId": "type:169213d4f71dfeadbd4349a7",
+        "name": "MarkArea2DDataItemOption",
+        "reason": "The pair of corners of a markArea band, by its upstream name MarkArea2DDataItemOption next to MarkArea1DDataItemOption; the derived name MarkAreaOptionDataItemAlternative says nothing about it."
+      },
+      {
+        "typeId": "type:9d290a2973cfb6682d0322c7",
+        "name": "MarkLine2DDataItemOption",
+        "reason": "The pair of end points of a markLine, by its upstream name MarkLine2DDataItemOption next to MarkLine1DDataItemOption; the derived name MarkLineOptionDataItemAlternative says nothing about it."
+      },
       {
         "typeId": "type:8ecdb1dcc14f0928365323c2",
         "name": "TooltipTextStyleOption",

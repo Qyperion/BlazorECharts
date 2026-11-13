@@ -42,6 +42,9 @@ export interface CSharpConfiguration {
   /** A remark that the XML doc of a declared member adds after its default, such as a pitfall of ECharts; `code` spans become <c>. */
   memberRemarks?: { typeId: string; property: string; remarks: string; reason: string }[];
 
+  /** What the elements of a tuple mean: the parameter names of its Create, and a summary that replaces "A fixed-length array of N values". */
+  tupleDocs?: { typeId: string; parameters: string[]; summary: string; reason: string }[];
+
   optionRouteAliases?: { path: string; target: string; reason: string }[];
   graphicVariants?: import('./graphic-options.ts').GraphicVariantMapping[];
 
@@ -95,6 +98,9 @@ export interface Shape {
   elements?: Shape[];
   discriminator?: string;
   index?: Shape;
+
+  /** The parameter names and summary of a tuple from csharp.tupleDocs. */
+  tupleDoc?: { parameters: string[]; summary: string };
 
   /** The struct of `X | X[]` whose union element X has a scalar alternative: it converts each alternative, X and X?[] in one step. */
   struct?: string;

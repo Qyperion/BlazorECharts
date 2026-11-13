@@ -15968,32 +15968,32 @@ public readonly struct BlazorECharts.Values.MapValueCalculationType : IJsonOnSer
   object? Value { get; }
   static MapValueCalculationType From(string value)
   static MapValueCalculationType op_Implicit(string? value)
-public readonly struct BlazorECharts.Values.MarkAreaOptionDataItem : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkAreaOptionDataItem>
-  bool TryGet([NotNullWhen(true)] out MarkArea1DDataItemOption? value)
-  bool TryGet(out MarkAreaOptionDataItemAlternative value)
-  object? Value { get; }
-  static MarkAreaOptionDataItem From(MarkArea1DDataItemOption value)
-  static MarkAreaOptionDataItem From(MarkAreaOptionDataItemAlternative value)
-  static MarkAreaOptionDataItem op_Implicit(MarkArea1DDataItemOption? value)
-  static MarkAreaOptionDataItem op_Implicit(MarkAreaOptionDataItemAlternative value)
-public readonly struct BlazorECharts.Values.MarkAreaOptionDataItemAlternative : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkAreaOptionDataItemAlternative>
+public readonly struct BlazorECharts.Values.MarkArea2DDataItemOption : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkArea2DDataItemOption>
   MarkArea2DDataItemDimOption? Item0 { get; }
   MarkArea2DDataItemDimOption? Item1 { get; }
   object? Value { get; }
-  static MarkAreaOptionDataItemAlternative Create(MarkArea2DDataItemDimOption? item0, MarkArea2DDataItemDimOption? item1)
-public readonly struct BlazorECharts.Values.MarkLineOptionDataItem : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkLineOptionDataItem>
-  bool TryGet([NotNullWhen(true)] out MarkLine1DDataItemOption? value)
-  bool TryGet(out MarkLineOptionDataItemAlternative value)
+  static MarkArea2DDataItemOption Create(MarkArea2DDataItemDimOption? start, MarkArea2DDataItemDimOption? end)
+public readonly struct BlazorECharts.Values.MarkAreaOptionDataItem : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkAreaOptionDataItem>
+  bool TryGet([NotNullWhen(true)] out MarkArea1DDataItemOption? value)
+  bool TryGet(out MarkArea2DDataItemOption value)
   object? Value { get; }
-  static MarkLineOptionDataItem From(MarkLine1DDataItemOption value)
-  static MarkLineOptionDataItem From(MarkLineOptionDataItemAlternative value)
-  static MarkLineOptionDataItem op_Implicit(MarkLine1DDataItemOption? value)
-  static MarkLineOptionDataItem op_Implicit(MarkLineOptionDataItemAlternative value)
-public readonly struct BlazorECharts.Values.MarkLineOptionDataItemAlternative : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkLineOptionDataItemAlternative>
+  static MarkAreaOptionDataItem From(MarkArea1DDataItemOption value)
+  static MarkAreaOptionDataItem From(MarkArea2DDataItemOption value)
+  static MarkAreaOptionDataItem op_Implicit(MarkArea1DDataItemOption? value)
+  static MarkAreaOptionDataItem op_Implicit(MarkArea2DDataItemOption value)
+public readonly struct BlazorECharts.Values.MarkLine2DDataItemOption : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkLine2DDataItemOption>
   MarkLine2DDataItemDimOption? Item0 { get; }
   MarkLine2DDataItemDimOption? Item1 { get; }
   object? Value { get; }
-  static MarkLineOptionDataItemAlternative Create(MarkLine2DDataItemDimOption? item0, MarkLine2DDataItemDimOption? item1)
+  static MarkLine2DDataItemOption Create(MarkLine2DDataItemDimOption? start, MarkLine2DDataItemDimOption? end)
+public readonly struct BlazorECharts.Values.MarkLineOptionDataItem : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkLineOptionDataItem>
+  bool TryGet([NotNullWhen(true)] out MarkLine1DDataItemOption? value)
+  bool TryGet(out MarkLine2DDataItemOption value)
+  object? Value { get; }
+  static MarkLineOptionDataItem From(MarkLine1DDataItemOption value)
+  static MarkLineOptionDataItem From(MarkLine2DDataItemOption value)
+  static MarkLineOptionDataItem op_Implicit(MarkLine1DDataItemOption? value)
+  static MarkLineOptionDataItem op_Implicit(MarkLine2DDataItemOption value)
 public readonly struct BlazorECharts.Values.MarkLineOptionSymbolOffset : IJsonOnSerializing, IOptionValue, IReadableOptionValue<MarkLineOptionSymbolOffset>
   bool TryGet([NotNullWhen(true)] out NumberOrString?[]? value)
   bool TryGet([NotNullWhen(true)] out NumberOrString?[]?[]? value)

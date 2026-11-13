@@ -351,9 +351,9 @@ internal static class PublicContractCases
         yield return ("type:755eca26ab06b7f32672485f/type:5dfb0e8e11661daa2349c6d0", EChartsValue.From(LabelLayoutOptionMoveOverlap.From("shiftY")), "\"shiftY\"", 0);
         yield return ("type:755eca26ab06b7f32672485f/type:b9b09e28dd1ce748ea8a472d", EChartsValue.From(LabelLayoutOptionMoveOverlap.From("shuffleY")), "\"shuffleY\"", 0);
         yield return ("type:755eca26ab06b7f32672485f/type:cf963a09be2fc275b7cfca5b", EChartsValue.From(LabelLayoutOptionMoveOverlap.From("shuffleX")), "\"shuffleX\"", 0);
-        yield return ("type:1c2919dbaf8349fb809b57e5/type:169213d4f71dfeadbd4349a7", EChartsValue.From(MarkAreaOptionDataItem.From(MarkAreaOptionDataItemAlternative.Create(new MarkArea2DDataItemDimOption(), new MarkArea2DDataItemDimOption()))), "[{},{}]", 0);
+        yield return ("type:1c2919dbaf8349fb809b57e5/type:169213d4f71dfeadbd4349a7", EChartsValue.From(MarkAreaOptionDataItem.From(MarkArea2DDataItemOption.Create(new MarkArea2DDataItemDimOption(), new MarkArea2DDataItemDimOption()))), "[{},{}]", 0);
         yield return ("type:1c2919dbaf8349fb809b57e5/type:91802847671f01f47deab8f6", EChartsValue.From(MarkAreaOptionDataItem.From(new MarkArea1DDataItemOption())), "{}", 0);
-        yield return ("type:169213d4f71dfeadbd4349a7", EChartsValue.From(MarkAreaOptionDataItemAlternative.Create(new MarkArea2DDataItemDimOption(), new MarkArea2DDataItemDimOption())), "[{},{}]", 0);
+        yield return ("type:169213d4f71dfeadbd4349a7", EChartsValue.From(MarkArea2DDataItemOption.Create(new MarkArea2DDataItemDimOption(), new MarkArea2DDataItemDimOption())), "[{},{}]", 0);
         yield return ("type:ba6d3d27c7711b1994258fa4/type:c447087b214d515b1402f0ed", EChartsValue.From(RelativeTo.From("coordinate")), "\"coordinate\"", 0);
         yield return ("type:ba6d3d27c7711b1994258fa4/type:f69a615a8555bf5132c430e6", EChartsValue.From(RelativeTo.From("container")), "\"container\"", 0);
         yield return ("type:021688a06ca689346dfefe8f/type:4338b2e1dcf2cbeaf07a6eb0", EChartsValue.From(MarkerStatisticType.From("max")), "\"max\"", 0);
@@ -379,9 +379,9 @@ internal static class PublicContractCases
         yield return ("type:15e6b38620043decff599aba/type:b2e2bcc1c1f47f36e46ec186", EChartsValue.From(SeriesLineLabelOptionPosition.From("insideMiddle")), "\"insideMiddle\"", 0);
         yield return ("type:15e6b38620043decff599aba/type:dba2af40f04f18e0985fbe18", EChartsValue.From(SeriesLineLabelOptionPosition.From("insideMiddleBottom")), "\"insideMiddleBottom\"", 0);
         yield return ("type:15e6b38620043decff599aba/type:ef9df14760dd207dee43dd97", EChartsValue.From(SeriesLineLabelOptionPosition.From("middle")), "\"middle\"", 0);
-        yield return ("type:92c9e1b0aa0eb0023a1f42f7/type:9d290a2973cfb6682d0322c7", EChartsValue.From(MarkLineOptionDataItem.From(MarkLineOptionDataItemAlternative.Create(new MarkLine2DDataItemDimOption(), new MarkLine2DDataItemDimOption()))), "[{},{}]", 0);
+        yield return ("type:92c9e1b0aa0eb0023a1f42f7/type:9d290a2973cfb6682d0322c7", EChartsValue.From(MarkLineOptionDataItem.From(MarkLine2DDataItemOption.Create(new MarkLine2DDataItemDimOption(), new MarkLine2DDataItemDimOption()))), "[{},{}]", 0);
         yield return ("type:92c9e1b0aa0eb0023a1f42f7/type:ab792d1311f7bb2c5619bc92", EChartsValue.From(MarkLineOptionDataItem.From(new MarkLine1DDataItemOption())), "{}", 0);
-        yield return ("type:9d290a2973cfb6682d0322c7", EChartsValue.From(MarkLineOptionDataItemAlternative.Create(new MarkLine2DDataItemDimOption(), new MarkLine2DDataItemDimOption())), "[{},{}]", 0);
+        yield return ("type:9d290a2973cfb6682d0322c7", EChartsValue.From(MarkLine2DDataItemOption.Create(new MarkLine2DDataItemDimOption(), new MarkLine2DDataItemDimOption())), "[{},{}]", 0);
         yield return ("type:4ee67bec625958b49228b5dd/type:6aa0dbf237a420195c29828a", EChartsValue.From(MarkLineOptionSymbolOffset.From(2d)), "2", 0);
         yield return ("type:4ee67bec625958b49228b5dd/type:9d02ffb53f936112c4a8c482", EChartsValue.From(MarkLineOptionSymbolOffset.From("sample")), "\"sample\"", 0);
         yield return ("type:4ee67bec625958b49228b5dd/type:b858905519d25c2c6f2140f9", EChartsValue.From(MarkLineOptionSymbolOffset.From(new NumberOrString?[]?[0])), "[]", 0);

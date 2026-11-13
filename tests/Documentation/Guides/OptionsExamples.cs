@@ -121,6 +121,22 @@ internal static class OptionsExamples
         // endsnippet
     }
 
+    internal static MarkAreaOption Band()
+    {
+        // snippet: Guides.Options.Tuple
+        var bands = new MarkAreaOption
+        {
+            Data =
+            [
+                MarkArea2DDataItemOption.Create(
+                    start: new MarkArea2DDataItemDimOption { Name = "Summer break", XAxis = "Jul" },
+                    end: new MarkArea2DDataItemDimOption { XAxis = "Aug" }),
+            ],
+        };
+        // endsnippet
+        return bands;
+    }
+
     internal static LineDataItemOption DataFields()
     {
         // snippet: Guides.Options.DataFields

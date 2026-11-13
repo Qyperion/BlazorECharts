@@ -230,7 +230,7 @@ public static class ComponentOptionFixtures
             MarkLine = new MarkLineOption
             {
                 Data = [new MarkLine1DDataItemOption { Type = "average", Name = "Average" },
-                    MarkLineOptionDataItemAlternative.Create(
+                    MarkLine2DDataItemOption.Create(
                         new MarkLine2DDataItemDimOption { XAxis = "A", YAxis = 5d },
                         new MarkLine2DDataItemDimOption { XAxis = "D", YAxis = 10d })],
             },
@@ -238,7 +238,7 @@ public static class ComponentOptionFixtures
             {
                 Data =
                 [
-                    MarkAreaOptionDataItemAlternative.Create(
+                    MarkArea2DDataItemOption.Create(
                         new MarkArea2DDataItemDimOption { XAxis = "B", Name = "Peak" },
                         new MarkArea2DDataItemDimOption { XAxis = "C" }),
                 ],

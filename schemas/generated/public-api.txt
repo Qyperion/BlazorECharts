@@ -7947,6 +7947,11 @@ MarkArea2DDataItemDimOptionSelect : OptionObject
   StaticItemStyleOption? ItemStyle [itemStyle]
   SeriesLabelOption? Label [label]
   double? Z2 [z2]
+MarkArea2DDataItemOption : IOptionValue, IJsonOnSerializing
+  static MarkArea2DDataItemOption Create(MarkArea2DDataItemDimOption? start, MarkArea2DDataItemDimOption? end)
+  object? Value
+  MarkArea2DDataItemDimOption? Item0
+  MarkArea2DDataItemDimOption? Item1
 MarkAreaOption : OptionObject
   bool? Animation [animation]
   AnimationDelay? AnimationDelay [animationDelay]
@@ -7975,18 +7980,13 @@ MarkAreaOption : OptionObject
   double? Z2 [z2]
   double? Zlevel [zlevel]
 MarkAreaOptionDataItem : IOptionValue, IJsonOnSerializing
-  static MarkAreaOptionDataItem From(MarkAreaOptionDataItemAlternative)
-  static implicit operator MarkAreaOptionDataItem(MarkAreaOptionDataItemAlternative)
+  static MarkAreaOptionDataItem From(MarkArea2DDataItemOption)
+  static implicit operator MarkAreaOptionDataItem(MarkArea2DDataItemOption)
   static MarkAreaOptionDataItem From(MarkArea1DDataItemOption)
   static implicit operator MarkAreaOptionDataItem(MarkArea1DDataItemOption?)
   object? Value
-  bool TryGet(out MarkAreaOptionDataItemAlternative)
+  bool TryGet(out MarkArea2DDataItemOption)
   bool TryGet(out MarkArea1DDataItemOption?)
-MarkAreaOptionDataItemAlternative : IOptionValue, IJsonOnSerializing
-  static MarkAreaOptionDataItemAlternative Create(MarkArea2DDataItemDimOption?, MarkArea2DDataItemDimOption?)
-  object? Value
-  MarkArea2DDataItemDimOption? Item0
-  MarkArea2DDataItemDimOption? Item1
 MarkAreaStateOption : OptionObject
   StaticItemStyleOption? ItemStyle [itemStyle]
   SeriesLabelOption? Label [label]
@@ -8053,6 +8053,11 @@ MarkLine2DDataItemDimOptionSelect : OptionObject
   SeriesLineLabelOption? Label [label]
   LineStyleOption? LineStyle [lineStyle]
   double? Z2 [z2]
+MarkLine2DDataItemOption : IOptionValue, IJsonOnSerializing
+  static MarkLine2DDataItemOption Create(MarkLine2DDataItemDimOption? start, MarkLine2DDataItemDimOption? end)
+  object? Value
+  MarkLine2DDataItemDimOption? Item0
+  MarkLine2DDataItemDimOption? Item1
 MarkLineOption : OptionObject
   bool? Animation [animation]
   AnimationDelay? AnimationDelay [animationDelay]
@@ -8086,18 +8091,13 @@ MarkLineOption : OptionObject
   double? Z2 [z2]
   double? Zlevel [zlevel]
 MarkLineOptionDataItem : IOptionValue, IJsonOnSerializing
-  static MarkLineOptionDataItem From(MarkLineOptionDataItemAlternative)
-  static implicit operator MarkLineOptionDataItem(MarkLineOptionDataItemAlternative)
+  static MarkLineOptionDataItem From(MarkLine2DDataItemOption)
+  static implicit operator MarkLineOptionDataItem(MarkLine2DDataItemOption)
   static MarkLineOptionDataItem From(MarkLine1DDataItemOption)
   static implicit operator MarkLineOptionDataItem(MarkLine1DDataItemOption?)
   object? Value
-  bool TryGet(out MarkLineOptionDataItemAlternative)
+  bool TryGet(out MarkLine2DDataItemOption)
   bool TryGet(out MarkLine1DDataItemOption?)
-MarkLineOptionDataItemAlternative : IOptionValue, IJsonOnSerializing
-  static MarkLineOptionDataItemAlternative Create(MarkLine2DDataItemDimOption?, MarkLine2DDataItemDimOption?)
-  object? Value
-  MarkLine2DDataItemDimOption? Item0
-  MarkLine2DDataItemDimOption? Item1
 MarkLineOptionSymbolOffset : IOptionValue, IJsonOnSerializing
   static MarkLineOptionSymbolOffset From(double)
   static implicit operator MarkLineOptionSymbolOffset(double)

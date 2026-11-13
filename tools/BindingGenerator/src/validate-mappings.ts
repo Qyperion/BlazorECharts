@@ -214,6 +214,20 @@ export function csharpConfigurationErrors(schema: ApiSchema, config: MappingOver
       errors.push(`Stale member rename: ${r.typeId}/${r.property}`);
   }
 
+  const documented = new Set<string>();
+  for (const d of config.tupleDocs ?? []) {
+    if (documented.has(d.typeId))
+      errors.push(`Duplicate tuple doc: ${d.typeId}`);
+
+    documented.add(d.typeId);
+    const tuple = types.get(d.typeId);
+    if (tuple?.kind !== 'tuple' || tuple.elements?.length !== d.parameters?.length)
+      errors.push(`Stale tuple doc: ${d.typeId}`);
+
+    if (!d.summary?.trim() || !d.reason?.trim() || d.parameters?.some(p => !/^[a-z][A-Za-z0-9]*$/.test(p)) || new Set(d.parameters).size !== d.parameters?.length)
+      errors.push(`Incomplete tuple doc: ${d.typeId}`);
+  }
+
   const remarked = new Set<string>();
   for (const r of config.memberRemarks ?? []) {
     const member = `${r.typeId}/${r.property}`;

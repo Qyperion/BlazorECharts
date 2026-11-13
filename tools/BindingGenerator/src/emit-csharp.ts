@@ -434,7 +434,8 @@ export function generate(
 
           const elements = t.elements!.map((e, i) => project(e.type, child(hint, 'Item' + i)));
           const name = nameFor(id, hint);
-          shape = { id, name, cs: name, kind: 'tuple', elements };
+          const doc = config.tupleDocs?.find(d => d.typeId === id);
+          shape = { id, name, cs: name, kind: 'tuple', elements, ...(doc ? { tupleDoc: { parameters: doc.parameters, summary: doc.summary } } : {}) };
           break;
         }
         case 'object':
@@ -986,7 +987,7 @@ export function generate(
       ? `${s.cs}${s.discriminator ? ' : SeriesOption(' + s.discriminator + ')' : ' : OptionObject'}\n${s.initialValues ? '  .ctor initializes ' + JSON.stringify(s.initialValues) + '\n' : ''}${s.properties!.map(p => `  ${nullable(p.shape)} ${p.csName} [${p.name}]`).join('\n')}`
       : s.kind === 'function' ? `${s.name} : IJsFunctionSignature\n  static string Id [${s.id}]`
         : `${s.name} : IOptionValue, IJsonOnSerializing\n` + (s.kind === 'tuple'
-          ? `  static ${s.name} Create(${s.elements!.map(nullable).join(', ')})\n  object? Value\n`
+          ? `  static ${s.name} Create(${s.elements!.map((e, i) => nullable(e) + (s.tupleDoc ? ' ' + s.tupleDoc.parameters[i] : '')).join(', ')})\n  object? Value\n`
           + s.elements!.map((e, i) => `  ${nullable(e)} Item${i}`).join('\n')
           : [...new Set(s.alternatives!.map(a => a.cs))].map(
             cs => `  static ${s.name} From(${cs})\n  static implicit operator ${s.name}(${cs}${isReferenceAlternative(s, cs) ? '?' : ''})`
@@ -1319,10 +1320,11 @@ function emitValue(shape: Shape): string {
   const item = builderElement(shape);
   let body: string;
   if (shape.kind === 'tuple') {
-    body = `    /// <summary>Creates a fixed-length tuple without collapsing its array shape.</summary>\n    public static ${name} Create(${shape.elements!.map((s, i) => `${nullable(s)} item${i}`).join(', ')}) => new(new object?[] { ${shape.elements!.map((_, i) => 'item' + i).join(', ')} });\n`
+    const parameter = (i: number) => shape.tupleDoc?.parameters[i] ?? `item${i}`;
+    body = `    /// <summary>Creates ${shape.tupleDoc ? `the tuple from its ${shape.tupleDoc.parameters.join(', ')}` : 'a fixed-length tuple'} without collapsing its array shape.</summary>\n    public static ${name} Create(${shape.elements!.map((s, i) => `${nullable(s)} ${parameter(i)}`).join(', ')}) => new(new object?[] { ${shape.elements!.map((_, i) => parameter(i)).join(', ')} });\n`
       + `    internal static bool Matches(JsonElement json) => json.ValueKind == JsonValueKind.Array && json.GetArrayLength() == ${shape.elements!.length}${shape.elements!.map((s, i) => nullOr(`json[${i}]`, matches(s, `json[${i}]`))).filter(c => c !== 'true').map(c => ` && (${c})`).join('')};\n`
       + valueDoc + shape.elements!
-        .map((s, i) => `    /// <summary>Gets element ${i}, also from a value read from JSON.</summary>\n    public ${nullable(s)} Item${i} => _value is object?[] items ? (${nullable(s)})items[${i}] : ReadValue.TryGetJson(_value, out var json) && json.ValueKind == JsonValueKind.Array && json.GetArrayLength() > ${i} ? ${read(s, `json[${i}]`, 'ReadContext')} : default;\n`)
+        .map((s, i) => `    /// <summary>Gets element ${i}${shape.tupleDoc ? `, the ${shape.tupleDoc.parameters[i]}` : ''}, also from a value read from JSON.</summary>\n    public ${nullable(s)} Item${i} => _value is object?[] items ? (${nullable(s)})items[${i}] : ReadValue.TryGetJson(_value, out var json) && json.ValueKind == JsonValueKind.Array && json.GetArrayLength() > ${i} ? ${read(s, `json[${i}]`, 'ReadContext')} : default;\n`)
         .join('');
   } else {
     const groups = new Map<string, Shape[]>();
@@ -1358,7 +1360,7 @@ function emitValue(shape: Shape): string {
   }
 
   return header + usings + 'using System.Diagnostics.CodeAnalysis;\nusing System.Linq;\nusing System.Text.Json.Serialization;\nusing BlazorECharts.Serialization.Generated;\nusing static BlazorECharts.Serialization.Generated.GeneratedOptionMetadata;\n\nnamespace BlazorECharts.Values;\n\n'
-    + `/// <summary>${shape.kind === 'tuple' ? `A fixed-length array of ${shape.elements!.length} values.` : describeAlternatives(shape)}</summary>\n${item ? `[System.Runtime.CompilerServices.CollectionBuilder(typeof(${name}), nameof(Create))]\n` : ''}public readonly struct ${name} : IOptionValue, IJsonOnSerializing, IReadableOptionValue<${name}>, IScalarOptionValue\n{\n    private readonly object? _value;\n    private readonly bool _initialized;\n    private ${name}(object? value) { _value = value; _initialized = true; }\n${body}\n    void IJsonOnSerializing.OnSerializing() => throw new NestedOptionValueException(typeof(${name}));\n`
+    + `/// <summary>${shape.kind === 'tuple' ? shape.tupleDoc ? memberRemark(shape.tupleDoc.summary) : `A fixed-length array of ${shape.elements!.length} values.` : describeAlternatives(shape)}</summary>\n${item ? `[System.Runtime.CompilerServices.CollectionBuilder(typeof(${name}), nameof(Create))]\n` : ''}public readonly struct ${name} : IOptionValue, IJsonOnSerializing, IReadableOptionValue<${name}>, IScalarOptionValue\n{\n    private readonly object? _value;\n    private readonly bool _initialized;\n    private ${name}(object? value) { _value = value; _initialized = true; }\n${body}\n    void IJsonOnSerializing.OnSerializing() => throw new NestedOptionValueException(typeof(${name}));\n`
     + `    internal static ${name} Read(JsonElement json)\n    {\n        if (!Matches(json)) throw new JsonException("Invalid ${name} alternative.");\n        return new(new ReadValue(json));\n    }\n    static bool IReadableOptionValue<${name}>.Matches(JsonElement json) => Matches(json);\n    static ${name} IReadableOptionValue<${name}>.Read(JsonElement json) => Read(json);\n    void IOptionValue.Write(Utf8JsonWriter writer, EChartsSerializationContext context, string path)\n    {\n        if (!_initialized) throw new OptionSerializationException("Uninitialized ${name}.", path, typeof(${name}));\n        context.WriteValue(writer, _value, path);\n    }\n    bool IScalarOptionValue.TryWriteScalar(Utf8JsonWriter writer, EChartsSerializationContext context) => _initialized && context.TryWriteScalar(writer, _value);\n}\n`;
 }
 

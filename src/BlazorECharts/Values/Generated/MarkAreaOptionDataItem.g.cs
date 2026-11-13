@@ -14,19 +14,19 @@ using static BlazorECharts.Serialization.Generated.GeneratedOptionMetadata;
 
 namespace BlazorECharts.Values;
 
-/// <summary><c>MarkAreaOptionDataItemAlternative</c> or <c>MarkArea1DDataItemOption</c>.</summary>
+/// <summary><c>MarkArea2DDataItemOption</c> or <c>MarkArea1DDataItemOption</c>.</summary>
 public readonly struct MarkAreaOptionDataItem : IOptionValue, IJsonOnSerializing, IReadableOptionValue<MarkAreaOptionDataItem>, IScalarOptionValue
 {
     private readonly object? _value;
     private readonly bool _initialized;
     private MarkAreaOptionDataItem(object? value) { _value = value; _initialized = true; }
-    /// <summary>Creates the MarkAreaOptionDataItemAlternative alternative with exact literal validation.</summary>
-    public static MarkAreaOptionDataItem From(MarkAreaOptionDataItemAlternative value)
+    /// <summary>Creates the MarkArea2DDataItemOption alternative with exact literal validation.</summary>
+    public static MarkAreaOptionDataItem From(MarkArea2DDataItemOption value)
     {
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MarkAreaOptionDataItem(MarkAreaOptionDataItemAlternative value) => From(value);
+    public static implicit operator MarkAreaOptionDataItem(MarkArea2DDataItemOption value) => From(value);
 
     /// <summary>Creates the MarkArea1DDataItemOption alternative with exact literal validation.</summary>
     public static MarkAreaOptionDataItem From(MarkArea1DDataItemOption value)
@@ -35,16 +35,16 @@ public readonly struct MarkAreaOptionDataItem : IOptionValue, IJsonOnSerializing
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
     public static implicit operator MarkAreaOptionDataItem(MarkArea1DDataItemOption? value) => value is null ? new(null) : From(value);
-    internal static bool Matches(JsonElement json) => (MarkAreaOptionDataItemAlternative.Matches(json)) || (GeneratedOptionMetadata.MatchesMarkArea1DDataItemOption(json));
+    internal static bool Matches(JsonElement json) => (MarkArea2DDataItemOption.Matches(json)) || (GeneratedOptionMetadata.MatchesMarkArea1DDataItemOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;
-    /// <summary>Gets the MarkAreaOptionDataItemAlternative alternative, also from a value read from JSON.</summary>
-    public bool TryGet(out MarkAreaOptionDataItemAlternative value)
+    /// <summary>Gets the MarkArea2DDataItemOption alternative, also from a value read from JSON.</summary>
+    public bool TryGet(out MarkArea2DDataItemOption value)
     {
-        if (_value is MarkAreaOptionDataItemAlternative typed) { value = typed; return true; }
-        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (MarkAreaOptionDataItemAlternative.Matches(json)))
+        if (_value is MarkArea2DDataItemOption typed) { value = typed; return true; }
+        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (MarkArea2DDataItemOption.Matches(json)))
         {
-            value = (json.ValueKind == JsonValueKind.Null ? (MarkAreaOptionDataItemAlternative?)null : MarkAreaOptionDataItemAlternative.Read(json)).GetValueOrDefault();
+            value = (json.ValueKind == JsonValueKind.Null ? (MarkArea2DDataItemOption?)null : MarkArea2DDataItemOption.Read(json)).GetValueOrDefault();
             return true;
         }
         value = default;

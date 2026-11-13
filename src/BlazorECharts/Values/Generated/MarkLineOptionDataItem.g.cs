@@ -14,19 +14,19 @@ using static BlazorECharts.Serialization.Generated.GeneratedOptionMetadata;
 
 namespace BlazorECharts.Values;
 
-/// <summary><c>MarkLineOptionDataItemAlternative</c> or <c>MarkLine1DDataItemOption</c>.</summary>
+/// <summary><c>MarkLine2DDataItemOption</c> or <c>MarkLine1DDataItemOption</c>.</summary>
 public readonly struct MarkLineOptionDataItem : IOptionValue, IJsonOnSerializing, IReadableOptionValue<MarkLineOptionDataItem>, IScalarOptionValue
 {
     private readonly object? _value;
     private readonly bool _initialized;
     private MarkLineOptionDataItem(object? value) { _value = value; _initialized = true; }
-    /// <summary>Creates the MarkLineOptionDataItemAlternative alternative with exact literal validation.</summary>
-    public static MarkLineOptionDataItem From(MarkLineOptionDataItemAlternative value)
+    /// <summary>Creates the MarkLine2DDataItemOption alternative with exact literal validation.</summary>
+    public static MarkLineOptionDataItem From(MarkLine2DDataItemOption value)
     {
         return new(value);
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape.</summary>
-    public static implicit operator MarkLineOptionDataItem(MarkLineOptionDataItemAlternative value) => From(value);
+    public static implicit operator MarkLineOptionDataItem(MarkLine2DDataItemOption value) => From(value);
 
     /// <summary>Creates the MarkLine1DDataItemOption alternative with exact literal validation.</summary>
     public static MarkLineOptionDataItem From(MarkLine1DDataItemOption value)
@@ -35,16 +35,16 @@ public readonly struct MarkLineOptionDataItem : IOptionValue, IJsonOnSerializing
     }
     /// <summary>Converts a supported alternative, preserving its JSON shape; null converts to a null value.</summary>
     public static implicit operator MarkLineOptionDataItem(MarkLine1DDataItemOption? value) => value is null ? new(null) : From(value);
-    internal static bool Matches(JsonElement json) => (MarkLineOptionDataItemAlternative.Matches(json)) || (GeneratedOptionMetadata.MatchesMarkLine1DDataItemOption(json));
+    internal static bool Matches(JsonElement json) => (MarkLine2DDataItemOption.Matches(json)) || (GeneratedOptionMetadata.MatchesMarkLine1DDataItemOption(json));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;
-    /// <summary>Gets the MarkLineOptionDataItemAlternative alternative, also from a value read from JSON.</summary>
-    public bool TryGet(out MarkLineOptionDataItemAlternative value)
+    /// <summary>Gets the MarkLine2DDataItemOption alternative, also from a value read from JSON.</summary>
+    public bool TryGet(out MarkLine2DDataItemOption value)
     {
-        if (_value is MarkLineOptionDataItemAlternative typed) { value = typed; return true; }
-        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (MarkLineOptionDataItemAlternative.Matches(json)))
+        if (_value is MarkLine2DDataItemOption typed) { value = typed; return true; }
+        if (ReadValue.TryGetJson(_value, out var json) && json.ValueKind != JsonValueKind.Null && (MarkLine2DDataItemOption.Matches(json)))
         {
-            value = (json.ValueKind == JsonValueKind.Null ? (MarkLineOptionDataItemAlternative?)null : MarkLineOptionDataItemAlternative.Read(json)).GetValueOrDefault();
+            value = (json.ValueKind == JsonValueKind.Null ? (MarkLine2DDataItemOption?)null : MarkLine2DDataItemOption.Read(json)).GetValueOrDefault();
             return true;
         }
         value = default;

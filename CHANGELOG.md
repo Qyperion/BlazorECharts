@@ -18,6 +18,10 @@ file at the release tag.
   geo, legend, matrix, a toolbox feature and a graphic element. The old names came from the first
   component that used the type. `TextStyle = new() { ... }` compiles as before; code that names the
   type renames it.
+- Breaking change: the pair of points of a `markArea` band and of a two-point `markLine` is
+  `MarkArea2DDataItemOption` and `MarkLine2DDataItemOption`, as ECharts names them, instead of
+  `MarkAreaOptionDataItemAlternative` and `MarkLineOptionDataItemAlternative`. `Create` takes
+  `start` and `end`, and the documentation of the types says what the two points are.
 - The implicit conversions of union values, of `OneOrMany<T>` and of component variants accept
   `null` for a reference type, so a conditional expression with a null branch, such as
   `Legend = show ? new ScrollableLegendOption() : null` or `BorderColor = dense ? null : "#fff"`,

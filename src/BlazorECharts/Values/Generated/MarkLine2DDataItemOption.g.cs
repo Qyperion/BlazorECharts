@@ -14,33 +14,33 @@ using static BlazorECharts.Serialization.Generated.GeneratedOptionMetadata;
 
 namespace BlazorECharts.Values;
 
-/// <summary>A fixed-length array of 2 values.</summary>
-public readonly struct MarkLineOptionDataItemAlternative : IOptionValue, IJsonOnSerializing, IReadableOptionValue<MarkLineOptionDataItemAlternative>, IScalarOptionValue
+/// <summary>A line of <c>markLine</c> between two points, as <c>[start, end]</c>. Name, label and style of the line may be set on either point; the first wins where both set one.</summary>
+public readonly struct MarkLine2DDataItemOption : IOptionValue, IJsonOnSerializing, IReadableOptionValue<MarkLine2DDataItemOption>, IScalarOptionValue
 {
     private readonly object? _value;
     private readonly bool _initialized;
-    private MarkLineOptionDataItemAlternative(object? value) { _value = value; _initialized = true; }
-    /// <summary>Creates a fixed-length tuple without collapsing its array shape.</summary>
-    public static MarkLineOptionDataItemAlternative Create(MarkLine2DDataItemDimOption? item0, MarkLine2DDataItemDimOption? item1) => new(new object?[] { item0, item1 });
+    private MarkLine2DDataItemOption(object? value) { _value = value; _initialized = true; }
+    /// <summary>Creates the tuple from its start, end without collapsing its array shape.</summary>
+    public static MarkLine2DDataItemOption Create(MarkLine2DDataItemDimOption? start, MarkLine2DDataItemDimOption? end) => new(new object?[] { start, end });
     internal static bool Matches(JsonElement json) => json.ValueKind == JsonValueKind.Array && json.GetArrayLength() == 2 && (json[0].ValueKind == JsonValueKind.Null || (GeneratedOptionMetadata.MatchesMarkLine2DDataItemDimOption(json[0]))) && (json[1].ValueKind == JsonValueKind.Null || (GeneratedOptionMetadata.MatchesMarkLine2DDataItemDimOption(json[1])));
     /// <summary>Gets the stored alternative: the value passed to <c>From</c>; for a value read from JSON, such as a getOption snapshot, the alternative that <c>TryGet</c> decoded, otherwise its <see cref="EChartsValue"/> JSON.</summary>
     public object? Value => _value is ReadValue read ? read.Current : _value;
-    /// <summary>Gets element 0, also from a value read from JSON.</summary>
+    /// <summary>Gets element 0, the start, also from a value read from JSON.</summary>
     public MarkLine2DDataItemDimOption? Item0 => _value is object?[] items ? (MarkLine2DDataItemDimOption?)items[0] : ReadValue.TryGetJson(_value, out var json) && json.ValueKind == JsonValueKind.Array && json.GetArrayLength() > 0 ? json[0].ValueKind == JsonValueKind.Null ? (MarkLine2DDataItemDimOption?)null : ReadMarkLine2DDataItemDimOption(json[0], ReadContext) : default;
-    /// <summary>Gets element 1, also from a value read from JSON.</summary>
+    /// <summary>Gets element 1, the end, also from a value read from JSON.</summary>
     public MarkLine2DDataItemDimOption? Item1 => _value is object?[] items ? (MarkLine2DDataItemDimOption?)items[1] : ReadValue.TryGetJson(_value, out var json) && json.ValueKind == JsonValueKind.Array && json.GetArrayLength() > 1 ? json[1].ValueKind == JsonValueKind.Null ? (MarkLine2DDataItemDimOption?)null : ReadMarkLine2DDataItemDimOption(json[1], ReadContext) : default;
 
-    void IJsonOnSerializing.OnSerializing() => throw new NestedOptionValueException(typeof(MarkLineOptionDataItemAlternative));
-    internal static MarkLineOptionDataItemAlternative Read(JsonElement json)
+    void IJsonOnSerializing.OnSerializing() => throw new NestedOptionValueException(typeof(MarkLine2DDataItemOption));
+    internal static MarkLine2DDataItemOption Read(JsonElement json)
     {
-        if (!Matches(json)) throw new JsonException("Invalid MarkLineOptionDataItemAlternative alternative.");
+        if (!Matches(json)) throw new JsonException("Invalid MarkLine2DDataItemOption alternative.");
         return new(new ReadValue(json));
     }
-    static bool IReadableOptionValue<MarkLineOptionDataItemAlternative>.Matches(JsonElement json) => Matches(json);
-    static MarkLineOptionDataItemAlternative IReadableOptionValue<MarkLineOptionDataItemAlternative>.Read(JsonElement json) => Read(json);
+    static bool IReadableOptionValue<MarkLine2DDataItemOption>.Matches(JsonElement json) => Matches(json);
+    static MarkLine2DDataItemOption IReadableOptionValue<MarkLine2DDataItemOption>.Read(JsonElement json) => Read(json);
     void IOptionValue.Write(Utf8JsonWriter writer, EChartsSerializationContext context, string path)
     {
-        if (!_initialized) throw new OptionSerializationException("Uninitialized MarkLineOptionDataItemAlternative.", path, typeof(MarkLineOptionDataItemAlternative));
+        if (!_initialized) throw new OptionSerializationException("Uninitialized MarkLine2DDataItemOption.", path, typeof(MarkLine2DDataItemOption));
         context.WriteValue(writer, _value, path);
     }
     bool IScalarOptionValue.TryWriteScalar(Utf8JsonWriter writer, EChartsSerializationContext context) => _initialized && context.TryWriteScalar(writer, _value);

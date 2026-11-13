@@ -73,6 +73,28 @@ it('MemberRemarks_NameADeclaredMemberOnceWithTextAndAReason', () => {
   ]);
 });
 
+it('TupleDocs_NameEveryElementOfATupleOnceWithASummaryAndAReason', () => {
+  // Arrange
+  const config = overrides().csharp;
+  const valid = config.tupleDocs[0];
+
+  // Act
+  config.tupleDocs.push(
+    { ...valid, parameters: ['start'] },
+    { ...valid, typeId: 'type:000000000000000000000000', parameters: ['Start', 'end'] }
+  );
+
+  // Assert
+  expect(csharpConfigurationErrors(schema, config)).toEqual([
+    `Duplicate tuple doc: ${valid.typeId}`,
+    `Stale tuple doc: ${valid.typeId}`,
+    'Stale tuple doc: type:000000000000000000000000',
+    'Incomplete tuple doc: type:000000000000000000000000',
+  ]);
+  expect(baselineGeneration().files.get('src/BlazorECharts/Values/Generated/MarkArea2DDataItemOption.g.cs'))
+    .toContain('public static MarkArea2DDataItemOption Create(MarkArea2DDataItemDimOption? start, MarkArea2DDataItemDimOption? end)');
+});
+
 it('DynamicActionRegistrations_NeedADecision', () => {
   // Act
   const config = overrides();
